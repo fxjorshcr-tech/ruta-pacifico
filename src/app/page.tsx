@@ -119,8 +119,28 @@ export default function Home() {
               </a>
             </div>
           </div>
-          <div className="hidden lg:flex items-center justify-center">
+          <div className="hidden lg:flex flex-col items-center justify-center gap-8">
             <Image src={LOGO_URL} alt="Ruta Pacifico" width={500} height={300} className="w-full max-w-md drop-shadow-2xl" unoptimized />
+            <a
+              href="#book"
+              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-sunset-orange px-10 py-4 text-base font-semibold text-white transition hover:bg-sunset-gold"
+            >
+              {/* Wave decoration */}
+              <svg
+                className="absolute bottom-0 left-0 w-full opacity-20"
+                viewBox="0 0 200 20"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 10 C30 0, 50 20, 80 10 C110 0, 130 20, 160 10 C190 0, 200 15, 200 15 L200 20 L0 20 Z"
+                  fill="white"
+                />
+              </svg>
+              <span className="relative">Book Your Transfers</span>
+              <svg className="relative h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            </a>
           </div>
         </div>
       </section>

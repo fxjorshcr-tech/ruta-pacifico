@@ -7,26 +7,26 @@ export default function MobileNav() {
 
   return (
     <nav className="absolute top-0 z-50 w-full">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-center px-6 py-4">
+        {/* Desktop links — centered */}
+        <div className="hidden md:flex items-center gap-10">
           <a
             href="#services"
             className="text-sm font-medium text-white/80 transition hover:text-sunset-orange"
           >
-            Services
+            Private Transfers
           </a>
           <a
-            href="#guanacaste"
+            href="#about"
             className="text-sm font-medium text-white/80 transition hover:text-sunset-orange"
           >
-            Guanacaste
+            About &amp; Contact Us
           </a>
           <a
-            href="#airport"
+            href="#"
             className="text-sm font-medium text-white/80 transition hover:text-sunset-orange"
           >
-            Airport
+            Blog
           </a>
         </div>
 
@@ -52,13 +52,6 @@ export default function MobileNav() {
             }`}
           />
         </button>
-
-        <a
-          href="#book"
-          className="rounded-full bg-sunset-orange px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-sunset-gold"
-        >
-          Book Now
-        </a>
       </div>
 
       {/* Mobile dropdown */}
@@ -73,21 +66,21 @@ export default function MobileNav() {
             onClick={() => setOpen(false)}
             className="py-3 text-sm font-medium text-white/80 transition hover:text-sunset-orange"
           >
-            Services
+            Private Transfers
           </a>
           <a
-            href="#guanacaste"
+            href="#about"
             onClick={() => setOpen(false)}
             className="py-3 text-sm font-medium text-white/80 transition hover:text-sunset-orange"
           >
-            Guanacaste
+            About &amp; Contact Us
           </a>
           <a
-            href="#airport"
+            href="#"
             onClick={() => setOpen(false)}
             className="py-3 text-sm font-medium text-white/80 transition hover:text-sunset-orange"
           >
-            Airport
+            Blog
           </a>
         </div>
       </div>
