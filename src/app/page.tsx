@@ -120,8 +120,8 @@ export default function Home() {
           priority
           unoptimized
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-black/20" />
 
         <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-6 lg:grid-cols-2">
           {/* Left — text */}
@@ -273,8 +273,8 @@ export default function Home() {
               className="object-cover"
               unoptimized
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-light-surface/95 hidden lg:block" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-light-surface lg:hidden" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-light-surface hidden lg:block" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-light-surface lg:hidden" />
           </div>
 
           {/* Text half */}
@@ -412,8 +412,8 @@ export default function Home() {
               className="object-cover"
               unoptimized
             />
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent to-white/90 hidden lg:block" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white lg:hidden" />
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-white hidden lg:block" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white lg:hidden" />
           </div>
         </div>
       </section>
