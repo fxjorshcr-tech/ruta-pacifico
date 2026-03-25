@@ -7,6 +7,12 @@ const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 const BEACH_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/guanacaste-beach.webp";
+const TAMARINDO_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/playa_tamarindo_kristen_brown.jpg";
+const WATERFALL_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/llanos-de-cortes-waterfall-drone-.jpg";
+const CULTURE_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/costa_rica_guanacaste_annexation_day_celebration_01-1024x574.png";
 const AIRPORT_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Panorama-Frente-ultimo-111.jpg";
 const STARIA_URL =
@@ -325,27 +331,52 @@ export default function Home() {
       </section>
 
       {/* ─── GUANACASTE ─── */}
-      <section id="guanacaste" className="relative overflow-hidden">
-        <div className="grid lg:grid-cols-2">
-          <div className="relative min-h-[400px] lg:min-h-[700px]">
-            <Image src={BEACH_URL} alt="Guanacaste beach" fill className="object-cover" unoptimized />
+      <section id="guanacaste" className="bg-white py-24 border-t border-black/5">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="text-center">
+            <StarDivider />
+            <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
+              Discover{" "}
+              <span className="bg-gradient-to-r from-sunset-gold to-sunset-orange bg-clip-text text-transparent">Guanacaste</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
+              Costa Rica&apos;s sunniest province — over 300 days of sunshine, world-class beaches, volcanoes, and a culture unlike anywhere else.
+            </p>
           </div>
-          <div className="relative flex items-center bg-light-surface px-8 py-16 lg:px-16 lg:py-24">
-            <div className="max-w-lg">
-              <StarDivider />
-              <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
-                Discover{" "}
-                <span className="bg-gradient-to-r from-sunset-gold to-sunset-orange bg-clip-text text-transparent">Guanacaste</span>
-              </h2>
-              <p className="mt-6 leading-relaxed text-foreground/70">
-                Guanacaste is Costa Rica&apos;s driest and sunniest province, with over 300 days of sunshine per year. The dry season runs from November to April, making it the perfect winter escape.
+
+          {/* Photo grid + text */}
+          <div className="mt-16 grid gap-10 lg:grid-cols-2 items-start">
+            {/* Photo mosaic */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="relative col-span-2 h-72 overflow-hidden rounded-2xl">
+                <Image src={BEACH_URL} alt="White sand beach in Guanacaste" fill className="object-cover" unoptimized />
+              </div>
+              <div className="relative h-56 overflow-hidden rounded-2xl">
+                <Image src={TAMARINDO_URL} alt="Playa Tamarindo sunset" fill className="object-cover" unoptimized />
+              </div>
+              <div className="relative h-56 overflow-hidden rounded-2xl">
+                <Image src={WATERFALL_URL} alt="Llanos de Cortés waterfall" fill className="object-cover" unoptimized />
+              </div>
+              <div className="relative col-span-2 h-56 overflow-hidden rounded-2xl">
+                <Image src={CULTURE_URL} alt="Guanacaste Annexation Day celebration" fill className="object-cover" unoptimized />
+              </div>
+            </div>
+
+            {/* Text content */}
+            <div>
+              <p className="leading-relaxed text-foreground/70">
+                Guanacaste is Costa Rica&apos;s driest and sunniest province, with a dry season from November to April that makes it the perfect winter escape for travelers from North America and Europe.
               </p>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                The region stretches along the Pacific coast with world-class beaches like Tamarindo, Flamingo, Conchal, and the exclusive Papagayo Peninsula. Inland, you&apos;ll find the Rinc&oacute;n de la Vieja volcano, tropical dry forests, and hot springs fed by geothermal activity.
+                The Pacific coastline stretches for over 600 km with beaches like Tamarindo, Flamingo, Conchal, and the exclusive Papagayo Peninsula. Inland, the Rinc&oacute;n de la Vieja volcano feeds hot springs and waterfalls like Llanos de Cort&eacute;s, surrounded by tropical dry forests.
               </p>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                Beyond the beaches, Guanacaste is known for its ranching culture, traditional sabanero cowboys, and some of the best sunsets in Central America. It&apos;s also a major hub for surfing, sport fishing, and diving at the Catalinas Islands.
+                Guanacaste has deep cultural roots — it&apos;s the only province in Costa Rica that celebrates its own annexation day on July 25th with parades, traditional music, and horseback shows. The sabanero cowboy tradition is still alive in towns across the region.
               </p>
+              <p className="mt-4 leading-relaxed text-foreground/70">
+                It&apos;s also one of the best places in the world for surfing, sport fishing, and diving at sites like the Catalinas and Bat Islands.
+              </p>
+
               <div className="mt-8 grid grid-cols-2 gap-6">
                 <div>
                   <div className="text-2xl font-bold text-sunset-orange">300+</div>
