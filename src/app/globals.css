@@ -1,19 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0c0f14;
+  --background: #0a0a0a;
   --foreground: #f5f5f5;
-  --gold: #c8a455;
-  --gold-light: #dbbe6e;
-  --dark-surface: #161a22;
-  --dark-card: #1c2029;
+  --sunset-orange: #e8742a;
+  --sunset-red: #c4391c;
+  --sunset-gold: #f0a830;
+  --sunset-amber: #d4882a;
+  --dark-surface: #111111;
+  --dark-card: #1a1a1a;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-gold: var(--gold);
-  --color-gold-light: var(--gold-light);
+  --color-sunset-orange: var(--sunset-orange);
+  --color-sunset-red: var(--sunset-red);
+  --color-sunset-gold: var(--sunset-gold);
+  --color-sunset-amber: var(--sunset-amber);
   --color-dark-surface: var(--dark-surface);
   --color-dark-card: var(--dark-card);
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;

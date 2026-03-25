@@ -7,7 +7,7 @@ const HERO_URL =
 
 function GoogleReviewBadge() {
   return (
-    <div className="inline-flex items-center gap-2.5 rounded-full bg-dark-card/80 backdrop-blur-sm border border-white/10 px-5 py-2.5">
+    <div className="inline-flex items-center gap-2.5 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 px-5 py-2.5">
       <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" aria-hidden="true">
         <path
           d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
@@ -48,12 +48,12 @@ function GoogleReviewBadge() {
 
 function StarDivider() {
   return (
-    <div className="flex items-center justify-center gap-3 text-gold/40">
-      <div className="h-px w-12 bg-gold/30" />
+    <div className="flex items-center justify-center gap-3 text-sunset-orange/40">
+      <div className="h-px w-12 bg-sunset-orange/30" />
       <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
       </svg>
-      <div className="h-px w-12 bg-gold/30" />
+      <div className="h-px w-12 bg-sunset-orange/30" />
     </div>
   );
 }
@@ -62,19 +62,31 @@ export default function Home() {
   return (
     <main>
       {/* ─── NAV ─── */}
-      <nav className="fixed top-0 z-50 w-full bg-background/70 backdrop-blur-md border-b border-white/5">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3">
-          <Image
-            src={LOGO_URL}
-            alt="Ruta Pacifico"
-            width={160}
-            height={50}
-            className="h-10 w-auto"
-            unoptimized
-          />
+      <nav className="fixed top-0 z-50 w-full bg-transparent backdrop-blur-none">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+          <div className="flex items-center gap-8">
+            <a
+              href="#"
+              className="text-sm font-medium text-white/80 transition hover:text-sunset-orange"
+            >
+              Private Transfers
+            </a>
+            <a
+              href="#"
+              className="text-sm font-medium text-white/80 transition hover:text-sunset-orange"
+            >
+              Blog
+            </a>
+            <a
+              href="#"
+              className="text-sm font-medium text-white/80 transition hover:text-sunset-orange"
+            >
+              About Us
+            </a>
+          </div>
           <a
             href="#book"
-            className="rounded-full bg-gold px-6 py-2.5 text-sm font-semibold text-background transition hover:bg-gold-light"
+            className="rounded-full bg-sunset-orange px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-sunset-gold"
           >
             Book Now
           </a>
@@ -82,59 +94,75 @@ export default function Home() {
       </nav>
 
       {/* ─── HERO ─── */}
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
+      <section className="relative flex min-h-screen items-center overflow-hidden">
         <Image
           src={HERO_URL}
-          alt="Guanacaste landscape"
+          alt="Guanacaste coast"
           fill
           className="object-cover"
           priority
           unoptimized
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-black/30" />
 
-        <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
-          <div className="mb-8">
-            <GoogleReviewBadge />
+        <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-6 lg:grid-cols-2">
+          {/* Left — text */}
+          <div>
+            <div className="mb-6">
+              <GoogleReviewBadge />
+            </div>
+
+            <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+              Private Transfers in{" "}
+              <span className="bg-gradient-to-r from-sunset-gold via-sunset-orange to-sunset-red bg-clip-text text-transparent">
+                Guanacaste
+              </span>
+            </h1>
+
+            <p className="mt-5 max-w-lg text-lg text-white/70">
+              Airport pickups, resort shuttles, and custom routes across Costa Rica&apos;s golden coast.
+            </p>
+
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <a
+                href="#book"
+                className="inline-flex items-center gap-2 rounded-full bg-sunset-orange px-8 py-3.5 text-base font-semibold text-white transition hover:bg-sunset-gold"
+              >
+                Reserve Your Transfer
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </a>
+              <a
+                href="#services"
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-8 py-3.5 text-base font-medium text-white/90 transition hover:border-white/40 hover:text-white"
+              >
+                View Services
+              </a>
+            </div>
           </div>
 
-          <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            Premium Private Transfers{" "}
-            <span className="block text-gold">Across Guanacaste</span>
-          </h1>
-
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-white/70 sm:text-xl">
-            Trusted local drivers navigating the golden coast of Costa Rica
-            &mdash; seamless airport pickups, resort shuttles, and custom routes
-            tailored to your journey.
-          </p>
-
-          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <a
-              href="#book"
-              className="inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3.5 text-base font-semibold text-background transition hover:bg-gold-light"
-            >
-              Reserve Your Transfer
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                />
-              </svg>
-            </a>
-            <a
-              href="#services"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-8 py-3.5 text-base font-medium text-white/90 transition hover:border-white/40 hover:text-white"
-            >
-              View Services
-            </a>
+          {/* Right — big logo */}
+          <div className="hidden lg:flex items-center justify-center">
+            <Image
+              src={LOGO_URL}
+              alt="Ruta Pacifico"
+              width={500}
+              height={300}
+              className="w-full max-w-md drop-shadow-2xl"
+              unoptimized
+            />
           </div>
         </div>
       </section>
@@ -148,8 +176,7 @@ export default function Home() {
               Our Transfer Services
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-white/60">
-              From Liberia Airport to every corner of Guanacaste &mdash;
-              reliable, comfortable, and always on time.
+              From Liberia Airport to every corner of Guanacaste.
             </p>
           </div>
 
@@ -157,7 +184,7 @@ export default function Home() {
             {[
               {
                 title: "Airport Transfers",
-                desc: "Door-to-door service from Daniel Oduber Quirós International Airport (LIR) to your hotel, resort, or vacation rental.",
+                desc: "Door-to-door from LIR Airport to your hotel, resort, or vacation rental.",
                 icon: (
                   <path
                     strokeLinecap="round"
@@ -168,7 +195,7 @@ export default function Home() {
               },
               {
                 title: "Resort Shuttles",
-                desc: "Comfortable rides between Tamarindo, Flamingo, Papagayo, Nosara, and all major beach destinations.",
+                desc: "Rides between Tamarindo, Flamingo, Papagayo, Nosara, and all beach destinations.",
                 icon: (
                   <path
                     strokeLinecap="round"
@@ -179,7 +206,7 @@ export default function Home() {
               },
               {
                 title: "Custom Day Trips",
-                desc: "Explore volcanoes, waterfalls, and hidden gems with a personal driver who knows every backroad.",
+                desc: "Explore volcanoes, waterfalls, and hidden gems with a driver who knows every road.",
                 icon: (
                   <path
                     strokeLinecap="round"
@@ -191,9 +218,9 @@ export default function Home() {
             ].map((service) => (
               <div
                 key={service.title}
-                className="group rounded-2xl border border-white/5 bg-dark-card p-8 transition hover:border-gold/20 hover:bg-dark-card/80"
+                className="group rounded-2xl border border-white/5 bg-dark-card p-8 transition hover:border-sunset-orange/20 hover:bg-dark-card/80"
               >
-                <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gold/10 text-gold">
+                <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-sunset-orange/10 text-sunset-orange">
                   <svg
                     className="h-6 w-6"
                     fill="none"
@@ -232,7 +259,9 @@ export default function Home() {
               { stat: "100%", label: "On-time guarantee" },
             ].map((item) => (
               <div key={item.label} className="text-center">
-                <div className="text-4xl font-bold text-gold">{item.stat}</div>
+                <div className="text-4xl font-bold text-sunset-orange">
+                  {item.stat}
+                </div>
                 <div className="mt-2 text-sm text-white/60">{item.label}</div>
               </div>
             ))}
@@ -242,34 +271,34 @@ export default function Home() {
             {[
               {
                 title: "Local Expertise",
-                desc: "Born and raised in Guanacaste — we know every route, shortcut, and scenic detour.",
+                desc: "Born and raised in Guanacaste — we know every route and shortcut.",
               },
               {
                 title: "Modern Fleet",
-                desc: "Clean, air-conditioned SUVs and vans equipped with Wi-Fi and cold water.",
+                desc: "Air-conditioned SUVs and vans with Wi-Fi and cold water.",
               },
               {
                 title: "Transparent Pricing",
-                desc: "Fixed rates with no hidden fees. Know exactly what you'll pay before you book.",
+                desc: "Fixed rates, no hidden fees. Know your price before you book.",
               },
               {
                 title: "Flight Monitoring",
-                desc: "We track your flight in real time so we're always there when you land — even if delayed.",
+                desc: "We track your flight in real time — always there when you land.",
               },
               {
                 title: "Bilingual Drivers",
-                desc: "English and Spanish-speaking drivers ready to help you navigate your trip.",
+                desc: "English and Spanish-speaking drivers at your service.",
               },
               {
                 title: "Door-to-Door",
-                desc: "From the airport terminal to your accommodation's front door — no stops, no waiting.",
+                desc: "Airport terminal to your front door — no stops, no waiting.",
               },
             ].map((feature) => (
               <div
                 key={feature.title}
                 className="flex gap-4 rounded-xl border border-white/5 bg-dark-card p-6"
               >
-                <div className="mt-0.5 shrink-0 text-gold">
+                <div className="mt-0.5 shrink-0 text-sunset-orange">
                   <svg
                     className="h-5 w-5"
                     fill="currentColor"
@@ -300,8 +329,7 @@ export default function Home() {
             Ready to Ride?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-white/60">
-            Get in touch to book your private transfer. We respond within
-            minutes.
+            Book your transfer now. We respond within minutes.
           </p>
 
           <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
