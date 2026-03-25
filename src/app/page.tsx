@@ -105,7 +105,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="mt-5 max-w-lg text-lg text-white/70">
-              Land. Relax. We&apos;ll get you to the beach.
+              Airport pickups, resort shuttles, and custom routes across Costa Rica&apos;s golden coast.
             </p>
           </div>
           <div className="hidden lg:flex flex-col items-center justify-center gap-8">
@@ -129,6 +129,13 @@ export default function Home() {
               </span>
             </a>
           </div>
+        </div>
+
+        {/* Bottom tagline */}
+        <div className="absolute bottom-12 left-0 right-0 z-10 text-center">
+          <p className="text-2xl font-extrabold tracking-wide text-white drop-shadow-lg sm:text-3xl md:text-4xl">
+            Land. Relax. We&apos;ll get you to the beach.
+          </p>
         </div>
       </section>
 
