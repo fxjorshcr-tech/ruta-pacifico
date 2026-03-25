@@ -1,5 +1,6 @@
 import Image from "next/image";
 import MobileNav from "@/components/MobileNav";
+import GuanacasteGallery from "@/components/GuanacasteGallery";
 
 const LOGO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Logo%20Transparente.png";
@@ -344,23 +345,10 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Photo grid + text */}
-          <div className="mt-16 grid gap-10 lg:grid-cols-2 items-start">
-            {/* Photo mosaic */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="relative col-span-2 h-72 overflow-hidden rounded-2xl">
-                <Image src={BEACH_URL} alt="White sand beach in Guanacaste" fill className="object-cover" unoptimized />
-              </div>
-              <div className="relative h-56 overflow-hidden rounded-2xl">
-                <Image src={TAMARINDO_URL} alt="Playa Tamarindo sunset" fill className="object-cover" unoptimized />
-              </div>
-              <div className="relative h-56 overflow-hidden rounded-2xl">
-                <Image src={WATERFALL_URL} alt="Llanos de Cortés waterfall" fill className="object-cover" unoptimized />
-              </div>
-              <div className="relative col-span-2 h-56 overflow-hidden rounded-2xl">
-                <Image src={CULTURE_URL} alt="Guanacaste Annexation Day celebration" fill className="object-cover" unoptimized />
-              </div>
-            </div>
+          {/* Gallery + text */}
+          <div className="mt-16 grid gap-10 lg:grid-cols-2 items-center">
+            {/* Gallery — carousel on mobile, 2x2 on desktop */}
+            <GuanacasteGallery />
 
             {/* Text content */}
             <div>
@@ -422,7 +410,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-6 py-16">
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
             <div className="lg:col-span-1">
-              <Image src={LOGO_URL} alt="Ruta Pacifico" width={160} height={50} className="h-12 w-auto" unoptimized />
+              <Image src={LOGO_URL} alt="Ruta Pacifico" width={400} height={130} className="h-32 w-auto" unoptimized />
               <p className="mt-4 text-sm leading-relaxed text-white/50">Private transportation across Guanacaste and Costa Rica.</p>
             </div>
             <div>
