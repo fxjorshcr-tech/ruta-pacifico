@@ -194,69 +194,157 @@ export default function Home() {
               Our Transfer Services
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-foreground/60">
-              From Liberia Airport to every corner of Guanacaste.
+              From Liberia Airport to every corner of Guanacaste and beyond.
             </p>
           </div>
 
-          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                title: "Airport Transfers",
-                desc: "Door-to-door from LIR Airport to your hotel, resort, or vacation rental.",
-                icon: (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
-                  />
-                ),
-              },
-              {
-                title: "Inter-Beach Private Transfers",
-                desc: "Direct rides between Tamarindo, Flamingo, Papagayo, Nosara, Conchal, and all coastal towns in Guanacaste.",
-                icon: (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-                  />
-                ),
-              },
-              {
-                title: "Inter-Destination Transfers",
-                desc: "Connect Guanacaste with La Fortuna, San Jos&eacute;, Monteverde, Manuel Antonio, and other key destinations across Costa Rica.",
-                icon: (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"
-                  />
-                ),
-              },
-            ].map((service) => (
-              <div
-                key={service.title}
-                className="group rounded-2xl border border-black/5 bg-light-surface p-8 transition hover:border-sunset-orange/20 hover:shadow-lg"
-              >
-                <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-sunset-orange/10 text-sunset-orange">
-                  <svg
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                  >
-                    {service.icon}
-                  </svg>
+          <div className="mt-16 space-y-8">
+            {/* Airport Transfers */}
+            <div className="rounded-3xl border border-black/5 bg-light-surface p-8 sm:p-10 transition hover:shadow-lg">
+              <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
+                <div className="flex-1">
+                  <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-sunset-orange/10 text-sunset-orange">
+                    <svg
+                      className="h-7 w-7"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground">
+                    Airport Transfers
+                  </h3>
+                  <p className="mt-3 max-w-xl leading-relaxed text-foreground/60">
+                    Door-to-door private transfers from Daniel Oduber
+                    Quir&oacute;s International Airport (LIR) to any destination
+                    in Guanacaste and northwestern Costa Rica. We also cover
+                    routes to La Fortuna, Monteverde, and San Jos&eacute;.
+                  </p>
                 </div>
-                <h3 className="text-lg font-semibold text-foreground">
-                  {service.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-foreground/60">
-                  {service.desc}
-                </p>
+                <div className="grid grid-cols-2 gap-3 lg:w-80 shrink-0">
+                  {[
+                    "LIR → Tamarindo",
+                    "LIR → Papagayo",
+                    "LIR → Flamingo",
+                    "LIR → Nosara",
+                    "LIR → La Fortuna",
+                    "LIR → Monteverde",
+                  ].map((route) => (
+                    <div
+                      key={route}
+                      className="rounded-xl bg-white border border-black/5 px-4 py-3 text-sm font-medium text-foreground shadow-sm"
+                    >
+                      {route}
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
+            </div>
+
+            {/* Inter-Beach Transfers */}
+            <div className="rounded-3xl border border-black/5 bg-light-surface p-8 sm:p-10 transition hover:shadow-lg">
+              <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
+                <div className="flex-1">
+                  <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-sunset-orange/10 text-sunset-orange">
+                    <svg
+                      className="h-7 w-7"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground">
+                    Inter-Beach Private Transfers
+                  </h3>
+                  <p className="mt-3 max-w-xl leading-relaxed text-foreground/60">
+                    Moving between beaches? We connect every coastal town in
+                    Guanacaste. Whether you&apos;re heading from Tamarindo to
+                    Playa Las Catalinas for lunch, or from Papagayo to Nosara
+                    for a surf trip, we get you there directly.
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 gap-3 lg:w-80 shrink-0">
+                  {[
+                    "Tamarindo → Las Catalinas",
+                    "Papagayo → Nosara",
+                    "Flamingo → Tamarindo",
+                    "Conchal → Sámara",
+                    "Playas del Coco → Flamingo",
+                    "Nosara → Papagayo",
+                  ].map((route) => (
+                    <div
+                      key={route}
+                      className="rounded-xl bg-white border border-black/5 px-4 py-3 text-sm font-medium text-foreground shadow-sm"
+                    >
+                      {route}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Inter-Destination Transfers */}
+            <div className="rounded-3xl border border-black/5 bg-light-surface p-8 sm:p-10 transition hover:shadow-lg">
+              <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
+                <div className="flex-1">
+                  <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-sunset-orange/10 text-sunset-orange">
+                    <svg
+                      className="h-7 w-7"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground">
+                    Inter-Destination Transfers
+                  </h3>
+                  <p className="mt-3 max-w-xl leading-relaxed text-foreground/60">
+                    Heading to another region of Costa Rica? We handle long-distance
+                    private transfers from any Guanacaste beach to destinations
+                    like La Fortuna, Manuel Antonio, Monteverde, and San
+                    Jos&eacute;. One vehicle, one driver, direct to your next stop.
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 gap-3 lg:w-80 shrink-0">
+                  {[
+                    "Conchal → La Fortuna",
+                    "Nosara → Manuel Antonio",
+                    "Tamarindo → Monteverde",
+                    "Papagayo → San José",
+                    "Flamingo → Arenal",
+                    "Sámara → La Fortuna",
+                  ].map((route) => (
+                    <div
+                      key={route}
+                      className="rounded-xl bg-white border border-black/5 px-4 py-3 text-sm font-medium text-foreground shadow-sm"
+                    >
+                      {route}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -273,8 +361,8 @@ export default function Home() {
               className="object-cover"
               unoptimized
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-light-surface hidden lg:block" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-light-surface lg:hidden" />
+            <div className="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-r from-transparent to-light-surface hidden lg:block" />
+            <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-b from-transparent to-light-surface lg:hidden" />
           </div>
 
           {/* Text half */}
@@ -412,8 +500,8 @@ export default function Home() {
               className="object-cover"
               unoptimized
             />
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-white hidden lg:block" />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white lg:hidden" />
+            <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-l from-transparent to-white hidden lg:block" />
+            <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-b from-transparent to-white lg:hidden" />
           </div>
         </div>
       </section>
@@ -424,7 +512,7 @@ export default function Home() {
           <div className="text-center">
             <StarDivider />
             <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
-              What&apos;s Included in Every Transfer
+              What&apos;s Included in Every Private Transfer
             </h2>
           </div>
 
