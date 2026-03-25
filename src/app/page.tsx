@@ -105,41 +105,28 @@ export default function Home() {
               </span>
             </h1>
             <p className="mt-5 max-w-lg text-lg text-white/70">
-              Airport pickups, resort shuttles, and custom routes across Costa Rica&apos;s golden coast.
+              Land. Relax. We&apos;ll get you to the beach.
             </p>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <a href="#book" className="inline-flex items-center gap-2 rounded-full bg-sunset-orange px-8 py-3.5 text-base font-semibold text-white transition hover:bg-sunset-gold">
-                Reserve Your Transfer
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                </svg>
-              </a>
-              <a href="#services" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-8 py-3.5 text-base font-medium text-white/90 transition hover:border-white/40 hover:text-white">
-                View Services
-              </a>
-            </div>
           </div>
           <div className="hidden lg:flex flex-col items-center justify-center gap-8">
             <Image src={LOGO_URL} alt="Ruta Pacifico" width={500} height={300} className="w-full max-w-md drop-shadow-2xl" unoptimized />
             <a
               href="#book"
-              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-sunset-orange px-10 py-4 text-base font-semibold text-white transition hover:bg-sunset-gold"
+              className="group relative overflow-hidden rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-14 py-5 text-lg font-bold text-white shadow-lg shadow-sunset-orange/25 transition-all duration-300 hover:shadow-2xl hover:shadow-sunset-orange/40 hover:scale-105"
             >
-              {/* Wave decoration */}
-              <svg
-                className="absolute bottom-0 left-0 w-full opacity-20"
-                viewBox="0 0 200 20"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M0 10 C30 0, 50 20, 80 10 C110 0, 130 20, 160 10 C190 0, 200 15, 200 15 L200 20 L0 20 Z"
-                  fill="white"
-                />
+              {/* Layered wave decoration */}
+              <svg className="absolute inset-0 h-full w-full" viewBox="0 0 300 60" preserveAspectRatio="none">
+                <path d="M0 45 C40 55, 80 35, 120 45 C160 55, 200 35, 240 45 C260 50, 280 40, 300 45 L300 60 L0 60 Z" fill="white" opacity="0.08" />
+                <path d="M0 50 C50 40, 100 55, 150 48 C200 40, 250 55, 300 50 L300 60 L0 60 Z" fill="white" opacity="0.06" />
               </svg>
-              <span className="relative">Book Your Transfers</span>
-              <svg className="relative h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-              </svg>
+              {/* Sun circle accent */}
+              <div className="absolute -right-3 -top-3 h-16 w-16 rounded-full bg-sunset-gold/20 blur-xl transition-all duration-300 group-hover:bg-sunset-gold/30 group-hover:scale-150" />
+              <span className="relative flex items-center gap-3">
+                Book Your Transfers
+                <svg className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1.5" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+              </span>
             </a>
           </div>
         </div>
