@@ -205,8 +205,8 @@ export default function Home() {
                 ),
               },
               {
-                title: "Custom Day Trips",
-                desc: "Explore volcanoes, waterfalls, and hidden gems with a driver who knows every road.",
+                title: "Inter-Destination Transfers",
+                desc: "Connect Guanacaste with La Fortuna, San José, Monteverde, Manuel Antonio, and all major tourist hubs in Costa Rica.",
                 icon: (
                   <path
                     strokeLinecap="round"
@@ -247,51 +247,38 @@ export default function Home() {
           <div className="text-center">
             <StarDivider />
             <h2 className="mt-6 text-3xl font-bold sm:text-4xl">
-              Why Travelers Choose Us
+              What You Get With Us
             </h2>
-          </div>
-
-          <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { stat: "2,500+", label: "Transfers completed" },
-              { stat: "5.0", label: "Google Reviews rating" },
-              { stat: "24/7", label: "Availability" },
-              { stat: "100%", label: "On-time guarantee" },
-            ].map((item) => (
-              <div key={item.label} className="text-center">
-                <div className="text-4xl font-bold text-sunset-orange">
-                  {item.stat}
-                </div>
-                <div className="mt-2 text-sm text-white/60">{item.label}</div>
-              </div>
-            ))}
+            <p className="mx-auto mt-4 max-w-xl text-white/60">
+              We&apos;re a local team that knows Guanacaste like the back of our hand.
+            </p>
           </div>
 
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
-                title: "Local Expertise",
-                desc: "Born and raised in Guanacaste — we know every route and shortcut.",
+                title: "We Know the Roads",
+                desc: "Local drivers who grew up here — every shortcut, every scenic route, every backroad.",
               },
               {
-                title: "Modern Fleet",
-                desc: "Air-conditioned SUVs and vans with Wi-Fi and cold water.",
+                title: "Clean, Comfortable Rides",
+                desc: "Air-conditioned SUVs and vans with Wi-Fi and cold water on board.",
               },
               {
-                title: "Transparent Pricing",
-                desc: "Fixed rates, no hidden fees. Know your price before you book.",
+                title: "Upfront Pricing",
+                desc: "You see the price before you book. No surprises, no hidden fees.",
               },
               {
-                title: "Flight Monitoring",
-                desc: "We track your flight in real time — always there when you land.",
+                title: "We Watch Your Flight",
+                desc: "Delayed landing? No worries. We track your flight and adjust pickup time.",
               },
               {
-                title: "Bilingual Drivers",
-                desc: "English and Spanish-speaking drivers at your service.",
+                title: "English & Spanish",
+                desc: "Bilingual drivers who can help you navigate your trip and answer questions.",
               },
               {
                 title: "Door-to-Door",
-                desc: "Airport terminal to your front door — no stops, no waiting.",
+                desc: "We pick you up at the terminal and drop you off at your front door.",
               },
             ].map((feature) => (
               <div
