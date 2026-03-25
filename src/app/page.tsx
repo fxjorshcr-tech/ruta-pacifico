@@ -193,155 +193,100 @@ export default function Home() {
             <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
               Our Transfer Services
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-foreground/60">
-              From Liberia Airport to every corner of Guanacaste and beyond.
+            <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
+              We specialize in private ground transportation for travelers
+              visiting Guanacaste and Costa Rica. Three types of service,
+              one standard: get there safe, comfortable, and on time.
             </p>
           </div>
 
-          <div className="mt-16 space-y-8">
+          <div className="mt-16 space-y-6">
             {/* Airport Transfers */}
-            <div className="rounded-3xl border border-black/5 bg-light-surface p-8 sm:p-10 transition hover:shadow-lg">
-              <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
-                <div className="flex-1">
-                  <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-sunset-orange/10 text-sunset-orange">
-                    <svg
-                      className="h-7 w-7"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
-                      />
-                    </svg>
-                  </div>
+            <div className="group rounded-3xl border border-black/5 bg-light-surface p-8 sm:p-10 transition hover:shadow-lg">
+              <div className="flex items-start gap-6">
+                <div className="shrink-0 flex h-16 w-16 items-center justify-center rounded-2xl bg-sunset-orange text-white">
+                  <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                  </svg>
+                </div>
+                <div>
                   <h3 className="text-2xl font-bold text-foreground">
                     Airport Transfers
                   </h3>
-                  <p className="mt-3 max-w-xl leading-relaxed text-foreground/60">
-                    Door-to-door private transfers from Daniel Oduber
-                    Quir&oacute;s International Airport (LIR) to any destination
-                    in Guanacaste and northwestern Costa Rica. We also cover
-                    routes to La Fortuna, Monteverde, and San Jos&eacute;.
+                  <p className="mt-3 max-w-2xl leading-relaxed text-foreground/60">
+                    We pick you up at Liberia International Airport (LIR) and
+                    take you directly to your destination — whether that&apos;s
+                    a beach resort in Guanacaste, a hotel in La Fortuna, or
+                    anywhere else in Costa Rica. Same thing on the way back:
+                    from your accommodation to the airport, stress-free.
                   </p>
-                </div>
-                <div className="grid grid-cols-2 gap-3 lg:w-80 shrink-0">
-                  {[
-                    "LIR → Tamarindo",
-                    "LIR → Papagayo",
-                    "LIR → Flamingo",
-                    "LIR → Nosara",
-                    "LIR → La Fortuna",
-                    "LIR → Monteverde",
-                  ].map((route) => (
-                    <div
-                      key={route}
-                      className="rounded-xl bg-white border border-black/5 px-4 py-3 text-sm font-medium text-foreground shadow-sm"
-                    >
-                      {route}
-                    </div>
-                  ))}
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {["Beaches & resorts", "La Fortuna & Arenal", "Monteverde", "San José", "Manuel Antonio"].map((tag) => (
+                      <span key={tag} className="rounded-full border border-sunset-orange/20 bg-sunset-orange/5 px-4 py-1.5 text-xs font-medium text-sunset-orange">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Inter-Beach Transfers */}
-            <div className="rounded-3xl border border-black/5 bg-light-surface p-8 sm:p-10 transition hover:shadow-lg">
-              <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
-                <div className="flex-1">
-                  <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-sunset-orange/10 text-sunset-orange">
-                    <svg
-                      className="h-7 w-7"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-                      />
-                    </svg>
-                  </div>
+            <div className="group rounded-3xl border border-black/5 bg-light-surface p-8 sm:p-10 transition hover:shadow-lg">
+              <div className="flex items-start gap-6">
+                <div className="shrink-0 flex h-16 w-16 items-center justify-center rounded-2xl bg-sunset-orange text-white">
+                  <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                  </svg>
+                </div>
+                <div>
                   <h3 className="text-2xl font-bold text-foreground">
                     Inter-Beach Private Transfers
                   </h3>
-                  <p className="mt-3 max-w-xl leading-relaxed text-foreground/60">
-                    Moving between beaches? We connect every coastal town in
-                    Guanacaste. Whether you&apos;re heading from Tamarindo to
-                    Playa Las Catalinas for lunch, or from Papagayo to Nosara
-                    for a surf trip, we get you there directly.
+                  <p className="mt-3 max-w-2xl leading-relaxed text-foreground/60">
+                    Going from one beach to another? We do one-way transfers
+                    and full-day trips between coastal towns. Spend the morning
+                    in Tamarindo and have dinner in Papagayo, or move from your
+                    hotel in Flamingo to a rental in Nosara. We handle the
+                    driving so you can enjoy the scenery.
                   </p>
-                </div>
-                <div className="grid grid-cols-2 gap-3 lg:w-80 shrink-0">
-                  {[
-                    "Tamarindo → Las Catalinas",
-                    "Papagayo → Nosara",
-                    "Flamingo → Tamarindo",
-                    "Conchal → Sámara",
-                    "Playas del Coco → Flamingo",
-                    "Nosara → Papagayo",
-                  ].map((route) => (
-                    <div
-                      key={route}
-                      className="rounded-xl bg-white border border-black/5 px-4 py-3 text-sm font-medium text-foreground shadow-sm"
-                    >
-                      {route}
-                    </div>
-                  ))}
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {["One-way transfers", "Full-day trips", "Tamarindo", "Flamingo", "Papagayo", "Nosara", "Conchal", "Sámara"].map((tag) => (
+                      <span key={tag} className="rounded-full border border-sunset-orange/20 bg-sunset-orange/5 px-4 py-1.5 text-xs font-medium text-sunset-orange">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Inter-Destination Transfers */}
-            <div className="rounded-3xl border border-black/5 bg-light-surface p-8 sm:p-10 transition hover:shadow-lg">
-              <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-12">
-                <div className="flex-1">
-                  <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-sunset-orange/10 text-sunset-orange">
-                    <svg
-                      className="h-7 w-7"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"
-                      />
-                    </svg>
-                  </div>
+            <div className="group rounded-3xl border border-black/5 bg-light-surface p-8 sm:p-10 transition hover:shadow-lg">
+              <div className="flex items-start gap-6">
+                <div className="shrink-0 flex h-16 w-16 items-center justify-center rounded-2xl bg-sunset-orange text-white">
+                  <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                  </svg>
+                </div>
+                <div>
                   <h3 className="text-2xl font-bold text-foreground">
                     Inter-Destination Transfers
                   </h3>
-                  <p className="mt-3 max-w-xl leading-relaxed text-foreground/60">
-                    Heading to another region of Costa Rica? We handle long-distance
-                    private transfers from any Guanacaste beach to destinations
-                    like La Fortuna, Manuel Antonio, Monteverde, and San
-                    Jos&eacute;. One vehicle, one driver, direct to your next stop.
+                  <p className="mt-3 max-w-2xl leading-relaxed text-foreground/60">
+                    Done with the beach and heading to your next destination?
+                    We cover long-distance transfers from any Guanacaste beach
+                    to the rest of Costa Rica. Conchal to La Fortuna, Nosara
+                    to Manuel Antonio, Tamarindo to Monteverde — one vehicle,
+                    one driver, direct.
                   </p>
-                </div>
-                <div className="grid grid-cols-2 gap-3 lg:w-80 shrink-0">
-                  {[
-                    "Conchal → La Fortuna",
-                    "Nosara → Manuel Antonio",
-                    "Tamarindo → Monteverde",
-                    "Papagayo → San José",
-                    "Flamingo → Arenal",
-                    "Sámara → La Fortuna",
-                  ].map((route) => (
-                    <div
-                      key={route}
-                      className="rounded-xl bg-white border border-black/5 px-4 py-3 text-sm font-medium text-foreground shadow-sm"
-                    >
-                      {route}
-                    </div>
-                  ))}
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {["La Fortuna", "Manuel Antonio", "Monteverde", "San José", "Arenal", "Rincón de la Vieja"].map((tag) => (
+                      <span key={tag} className="rounded-full border border-sunset-orange/20 bg-sunset-orange/5 px-4 py-1.5 text-xs font-medium text-sunset-orange">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -361,8 +306,6 @@ export default function Home() {
               className="object-cover"
               unoptimized
             />
-            <div className="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-r from-transparent to-light-surface hidden lg:block" />
-            <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-b from-transparent to-light-surface lg:hidden" />
           </div>
 
           {/* Text half */}
@@ -500,8 +443,6 @@ export default function Home() {
               className="object-cover"
               unoptimized
             />
-            <div className="absolute inset-y-0 left-0 w-1/3 bg-gradient-to-l from-transparent to-white hidden lg:block" />
-            <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-b from-transparent to-white lg:hidden" />
           </div>
         </div>
       </section>
