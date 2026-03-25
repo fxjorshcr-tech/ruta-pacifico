@@ -353,34 +353,31 @@ export default function Home() {
             {/* Text content */}
             <div>
               <p className="leading-relaxed text-foreground/70">
-                Guanacaste is Costa Rica&apos;s driest and sunniest province, with a dry season from November to April that makes it the perfect winter escape for travelers from North America and Europe.
+                Costa Rica&apos;s sunniest province with over 300 days of sunshine per year. The dry season from November to April makes it the perfect winter escape.
               </p>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                The Pacific coastline stretches for over 600 km with beaches like Tamarindo, Flamingo, Conchal, and the exclusive Papagayo Peninsula. Inland, the Rinc&oacute;n de la Vieja volcano feeds hot springs and waterfalls like Llanos de Cort&eacute;s, surrounded by tropical dry forests.
+                Over 600 km of Pacific coastline with beaches like Tamarindo, Flamingo, Conchal, and the Papagayo Peninsula. Inland, the Rinc&oacute;n de la Vieja volcano, tropical dry forests, and waterfalls like Llanos de Cort&eacute;s.
               </p>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                Guanacaste has deep cultural roots — it&apos;s the only province in Costa Rica that celebrates its own annexation day on July 25th with parades, traditional music, and horseback shows. The sabanero cowboy tradition is still alive in towns across the region.
-              </p>
-              <p className="mt-4 leading-relaxed text-foreground/70">
-                It&apos;s also one of the best places in the world for surfing, sport fishing, and diving at sites like the Catalinas and Bat Islands.
+                The only province that celebrates its own annexation day on July 25th — with parades, traditional music, and horseback shows. Also a top destination for surfing, sport fishing, and diving at the Catalinas Islands.
               </p>
 
-              <div className="mt-8 grid grid-cols-2 gap-6">
-                <div>
-                  <div className="text-2xl font-bold text-sunset-orange">300+</div>
-                  <div className="mt-1 text-sm text-foreground/50">Sunny days per year</div>
+              <div className="mt-6 grid grid-cols-2 gap-4">
+                <div className="rounded-xl bg-light-surface p-4">
+                  <div className="text-xl font-bold text-sunset-orange">300+</div>
+                  <div className="text-xs text-foreground/50">Sunny days / year</div>
                 </div>
-                <div>
-                  <div className="text-2xl font-bold text-sunset-orange">25&ndash;35&deg;C</div>
-                  <div className="mt-1 text-sm text-foreground/50">Average temperature</div>
+                <div className="rounded-xl bg-light-surface p-4">
+                  <div className="text-xl font-bold text-sunset-orange">25&ndash;35&deg;C</div>
+                  <div className="text-xs text-foreground/50">Avg. temperature</div>
                 </div>
-                <div>
-                  <div className="text-2xl font-bold text-sunset-orange">600+</div>
-                  <div className="mt-1 text-sm text-foreground/50">km of Pacific coastline</div>
+                <div className="rounded-xl bg-light-surface p-4">
+                  <div className="text-xl font-bold text-sunset-orange">600+</div>
+                  <div className="text-xs text-foreground/50">km of coastline</div>
                 </div>
-                <div>
-                  <div className="text-2xl font-bold text-sunset-orange">4</div>
-                  <div className="mt-1 text-sm text-foreground/50">National parks &amp; reserves</div>
+                <div className="rounded-xl bg-light-surface p-4">
+                  <div className="text-xl font-bold text-sunset-orange">4</div>
+                  <div className="text-xs text-foreground/50">National parks</div>
                 </div>
               </div>
             </div>
