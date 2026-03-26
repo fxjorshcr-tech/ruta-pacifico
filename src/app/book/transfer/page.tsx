@@ -123,9 +123,27 @@ export default async function TransferPage() {
             </span>{" "}
             <span className="text-white/70">&amp;</span> all of Costa Rica
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-white/70">
-            Airport pickups, beach-to-beach rides, and transfers across Guanacaste and all of Costa Rica. Fixed prices, door-to-door.
-          </p>
+          <div className="mx-auto mt-8 flex flex-wrap items-center justify-center gap-3">
+            <div className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 px-5 py-2.5">
+              <svg className="h-5 w-5 text-sunset-gold" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+              </svg>
+              <span className="text-sm font-semibold text-white">Airport Transfers</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 px-5 py-2.5">
+              <svg className="h-5 w-5 text-sunset-gold" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+              </svg>
+              <span className="text-sm font-semibold text-white">Inter-Beach Rides</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 px-5 py-2.5">
+              <svg className="h-5 w-5 text-sunset-gold" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+              </svg>
+              <span className="text-sm font-semibold text-white">Inter-Destination Transport</span>
+            </div>
+          </div>
         </div>
       </section>
 

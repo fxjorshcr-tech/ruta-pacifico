@@ -25,14 +25,29 @@ const HIACE_URL =
 const MAXUS_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/maxus-deviver-9-cwt-removebg-preview.png";
 
-/* Popular origins that appear first in the list */
-const POPULAR_ORIGINS = [
-  "Liberia Airport (LIR)",
-  "SJO Airport (San José)",
-  "La Fortuna (Arenal Volcano Area)",
-  "Tamarindo (Beach Town)",
-  "Manuel Antonio / Quepos",
-  "Monteverde / Santa Elena",
+/* LIR first, then Guanacaste beaches, then everything else */
+const GUANACASTE_PRIORITY = [
+  "LIR - Liberia Int. Airport",
+  "Brasilito (Guanacaste)",
+  "Conchal (Guanacaste)",
+  "Flamingo (Guanacaste)",
+  "Hacienda Pinilla (Guanacaste)",
+  "JW Marriott (Guanacaste)",
+  "Las Catalinas, Guanacaste",
+  "Nosara (Playa Guiones Area)",
+  "Ocotal (Guanacaste)",
+  "Papagayo Peninsula, Guanacaste",
+  "Playa Avellanas (Guanacaste)",
+  "Playa Grande (Guanacaste)",
+  "Playa Hermosa (Guanacaste)",
+  "Playa Potrero (Guanacaste)",
+  "Playas del Coco (Guanacaste)",
+  "Punta Islita (Hotel & Beach)",
+  "RIU Guanacaste Hotel / RIU Palace Hotel (Guanacaste)",
+  "Rincon de la Vieja (National Park)",
+  "Rio Celeste",
+  "Samara / Playa Carrillo (Guanacaste)",
+  "Tamarindo (Guanacaste)",
 ];
 
 export default function RouteSearch({ routes }: RouteSearchProps) {
@@ -41,10 +56,11 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
 
   const origins = useMemo(() => {
     const set = new Set(routes.map((r) => r.origen));
-    const all = Array.from(set).sort();
-    const popular = POPULAR_ORIGINS.filter((o) => set.has(o));
-    const rest = all.filter((o) => !popular.includes(o));
-    return { popular, rest };
+    const guanacaste = GUANACASTE_PRIORITY.filter((o) => set.has(o));
+    const rest = Array.from(set)
+      .filter((o) => !guanacaste.includes(o))
+      .sort();
+    return { guanacaste, rest };
   }, [routes]);
 
   const destinations = useMemo(() => {
@@ -113,16 +129,14 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                 className="w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
               >
                 <option value="">Select origin...</option>
-                {origins.popular.length > 0 && (
-                  <optgroup label="Popular">
-                    {origins.popular.map((o) => (
-                      <option key={o} value={o}>
-                        {o}
-                      </option>
-                    ))}
-                  </optgroup>
-                )}
-                <optgroup label="All origins">
+                <optgroup label="Guanacaste">
+                  {origins.guanacaste.map((o) => (
+                    <option key={o} value={o}>
+                      {o}
+                    </option>
+                  ))}
+                </optgroup>
+                <optgroup label="Other destinations">
                   {origins.rest.map((o) => (
                     <option key={o} value={o}>
                       {o}
@@ -185,8 +199,8 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                     <div className="mt-3 text-2xl font-bold text-sunset-orange">
                       ${matchedRoute.precio1a6}
                     </div>
-                    <div className="mt-2 rounded-lg bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-3 py-2 text-xs font-bold text-white opacity-0 transition group-hover:opacity-100">
-                      Book Now
+                    <div className="mt-3 rounded-xl bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-4 py-2.5 text-xs font-bold text-white transition hover:shadow-lg hover:shadow-sunset-orange/25">
+                      Select &amp; Book
                     </div>
                   </div>
                 </button>
