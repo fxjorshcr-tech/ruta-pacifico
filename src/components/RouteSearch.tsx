@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Image from "next/image";
 
 export interface Route {
   id: number;
@@ -16,6 +17,13 @@ export interface Route {
 interface RouteSearchProps {
   routes: Route[];
 }
+
+const STARIA_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/staria-smallMobile.webp";
+const HIACE_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/hiace-van-cwt.png";
+const MAXUS_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/maxus-deviver-9-cwt-removebg-preview.png";
 
 /* Popular origins that appear first in the list */
 const POPULAR_ORIGINS = [
@@ -61,12 +69,13 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
     setSelectedDestination("");
   }
 
-  function handleBookRoute(route: Route) {
+  function handleBookVan(route: Route, vanType: string, price: number) {
     const msg =
       `Hi! I'd like to book a private transfer:\n\n` +
       `From: ${route.origen}\n` +
       `To: ${route.destino}\n` +
-      `Price: $${route.precio1a6} (1-6 pax)\n\n` +
+      `Vehicle: ${vanType}\n` +
+      `Price: $${price}\n\n` +
       `Could you help me with the booking?`;
     window.open(
       `https://wa.me/50600000000?text=${encodeURIComponent(msg)}`,
@@ -88,8 +97,8 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
             </p>
           </div>
 
-          {/* Steps */}
-          <div className="grid gap-4 sm:grid-cols-3">
+          {/* Steps - now 2 columns */}
+          <div className="grid gap-4 sm:grid-cols-2">
             {/* Step 1: Origin */}
             <div>
               <label className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground/70">
@@ -147,56 +156,105 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                 ))}
               </select>
             </div>
+          </div>
 
-            {/* Step 3: Result */}
-            <div>
-              <label className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground/70">
+          {/* Step 3: Vehicle selection cards */}
+          {matchedRoute ? (
+            <div className="mt-8">
+              <label className="mb-4 flex items-center gap-2 text-sm font-medium text-foreground/70">
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-sunset-orange text-xs font-bold text-white">
                   3
                 </span>
-                Price &amp; Book
+                Choose Your Vehicle
               </label>
-              {matchedRoute ? (
+              <div className="grid gap-4 sm:grid-cols-3">
+                {/* Staria 1-6 */}
                 <button
-                  onClick={() => handleBookRoute(matchedRoute)}
-                  className="w-full rounded-xl bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-4 py-3 text-sm font-bold text-white transition hover:shadow-lg hover:shadow-sunset-orange/25"
+                  onClick={() => handleBookVan(matchedRoute, "Hyundai Staria (1-6 pax)", matchedRoute.precio1a6)}
+                  className="group rounded-2xl border-2 border-black/5 bg-light-surface p-4 text-center transition hover:border-sunset-orange hover:shadow-lg"
                 >
-                  ${matchedRoute.precio1a6} &mdash; Book Now
+                  <div className="relative mx-auto h-24 w-full">
+                    <Image src={STARIA_URL} alt="Hyundai Staria" fill className="object-contain" unoptimized />
+                  </div>
+                  <div className="mt-3">
+                    <span className="inline-block rounded-full bg-sunset-orange/10 px-3 py-0.5 text-xs font-semibold text-sunset-orange">
+                      1 – 6 passengers
+                    </span>
+                    <h3 className="mt-2 text-sm font-bold text-foreground">Hyundai Staria</h3>
+                    <p className="text-xs text-foreground/40">or similar</p>
+                    <div className="mt-3 text-2xl font-bold text-sunset-orange">
+                      ${matchedRoute.precio1a6}
+                    </div>
+                    <div className="mt-2 rounded-lg bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-3 py-2 text-xs font-bold text-white opacity-0 transition group-hover:opacity-100">
+                      Book Now
+                    </div>
+                  </div>
                 </button>
-              ) : (
-                <div className="flex h-[46px] items-center justify-center rounded-xl border border-dashed border-black/10 bg-light-surface text-sm text-foreground/40">
-                  Select route to see price
-                </div>
-              )}
-            </div>
-          </div>
 
-          {/* Price tiers when a route is matched */}
-          {matchedRoute && (
-            <div className="mt-6 grid grid-cols-3 gap-3 rounded-xl bg-light-surface p-4">
-              <div className="text-center">
-                <div className="text-lg font-bold text-sunset-orange">
-                  ${matchedRoute.precio1a6}
-                </div>
-                <div className="text-xs text-foreground/50">1–6 pax</div>
+                {/* Hiace 7-9 */}
+                {matchedRoute.precio7a9 && (
+                  <button
+                    onClick={() => handleBookVan(matchedRoute, "Toyota Hiace (7-9 pax)", matchedRoute.precio7a9!)}
+                    className="group rounded-2xl border-2 border-black/5 bg-light-surface p-4 text-center transition hover:border-sunset-orange hover:shadow-lg"
+                  >
+                    <div className="relative mx-auto h-24 w-full">
+                      <Image src={HIACE_URL} alt="Toyota Hiace" fill className="object-contain" unoptimized />
+                    </div>
+                    <div className="mt-3">
+                      <span className="inline-block rounded-full bg-sunset-orange/10 px-3 py-0.5 text-xs font-semibold text-sunset-orange">
+                        7 – 9 passengers
+                      </span>
+                      <h3 className="mt-2 text-sm font-bold text-foreground">Toyota Hiace</h3>
+                      <p className="text-xs text-foreground/40">or similar</p>
+                      <div className="mt-3 text-2xl font-bold text-sunset-orange">
+                        ${matchedRoute.precio7a9}
+                      </div>
+                      <div className="mt-2 rounded-lg bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-3 py-2 text-xs font-bold text-white opacity-0 transition group-hover:opacity-100">
+                        Book Now
+                      </div>
+                    </div>
+                  </button>
+                )}
+
+                {/* Maxus 10-12 */}
+                {matchedRoute.precio10a12 && (
+                  <button
+                    onClick={() => handleBookVan(matchedRoute, "Maxus V90 (10-12 pax)", matchedRoute.precio10a12!)}
+                    className="group rounded-2xl border-2 border-black/5 bg-light-surface p-4 text-center transition hover:border-sunset-orange hover:shadow-lg"
+                  >
+                    <div className="relative mx-auto h-24 w-full">
+                      <Image src={MAXUS_URL} alt="Maxus V90" fill className="object-contain" unoptimized />
+                    </div>
+                    <div className="mt-3">
+                      <span className="inline-block rounded-full bg-sunset-orange/10 px-3 py-0.5 text-xs font-semibold text-sunset-orange">
+                        10 – 12 passengers
+                      </span>
+                      <h3 className="mt-2 text-sm font-bold text-foreground">Maxus V90</h3>
+                      <p className="text-xs text-foreground/40">or similar</p>
+                      <div className="mt-3 text-2xl font-bold text-sunset-orange">
+                        ${matchedRoute.precio10a12}
+                      </div>
+                      <div className="mt-2 rounded-lg bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-3 py-2 text-xs font-bold text-white opacity-0 transition group-hover:opacity-100">
+                        Book Now
+                      </div>
+                    </div>
+                  </button>
+                )}
               </div>
-              {matchedRoute.precio7a9 && (
-                <div className="text-center">
-                  <div className="text-lg font-bold text-sunset-orange">
-                    ${matchedRoute.precio7a9}
-                  </div>
-                  <div className="text-xs text-foreground/50">7–9 pax</div>
-                </div>
-              )}
-              {matchedRoute.precio10a12 && (
-                <div className="text-center">
-                  <div className="text-lg font-bold text-sunset-orange">
-                    ${matchedRoute.precio10a12}
-                  </div>
-                  <div className="text-xs text-foreground/50">10–12 pax</div>
-                </div>
+
+              {/* Duration info */}
+              {matchedRoute.duracion && (
+                <p className="mt-4 text-center text-sm text-foreground/40">
+                  Estimated travel time: {matchedRoute.duracion}
+                </p>
               )}
             </div>
+          ) : (
+            selectedOrigin && selectedDestination === "" && (
+              <div className="mt-8 flex items-center justify-center rounded-xl border border-dashed border-black/10 bg-light-surface py-8 text-sm text-foreground/40">
+                Select a destination to see available vehicles
+              </div>
+            )
           )}
 
           {/* WhatsApp alternative */}

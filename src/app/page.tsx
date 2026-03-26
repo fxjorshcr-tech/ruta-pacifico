@@ -111,7 +111,7 @@ export default function Home() {
           <div className="hidden lg:flex flex-col items-center justify-center gap-8">
             <Image src={LOGO_URL} alt="Ruta Pacifico" width={500} height={300} className="w-full max-w-md drop-shadow-2xl" unoptimized />
             <a
-              href="#book"
+              href="/book/transfer"
               className="group relative overflow-hidden rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-14 py-5 text-lg font-bold text-white shadow-lg shadow-sunset-orange/25 transition-all duration-300 hover:shadow-2xl hover:shadow-sunset-orange/40 hover:scale-105"
             >
               {/* Layered wave decoration */}
