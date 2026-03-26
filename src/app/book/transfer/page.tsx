@@ -91,25 +91,23 @@ export default async function TransferPage() {
           </Link>
           <div className="flex items-center gap-6">
             <Link
-              href="/"
+              href="/#services"
               className="text-sm font-medium text-white/80 transition hover:text-sunset-orange"
             >
-              Home
+              Private Transfers
             </Link>
             <Link
-              href="/#services"
+              href="/blog"
               className="hidden text-sm font-medium text-white/80 transition hover:text-sunset-orange sm:block"
             >
-              Services
+              Blog
             </Link>
-            <a
-              href="https://wa.me/50600000000"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-sunset-orange px-5 py-2 text-sm font-semibold text-white transition hover:bg-sunset-gold"
+            <Link
+              href="/about"
+              className="text-sm font-medium text-white/80 transition hover:text-sunset-orange"
             >
-              Contact Us
-            </a>
+              About &amp; Contact Us
+            </Link>
           </div>
         </div>
       </nav>
