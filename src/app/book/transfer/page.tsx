@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 import RouteSearch from "@/components/RouteSearch";
 import type { Route } from "@/components/RouteSearch";
 import type { Metadata } from "next";
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 async function getRoutes(): Promise<Route[]> {
-  const { data, error } = await supabase
+  const { data, error } = await getSupabase()
     .from("routes")
     .select("id, origen, destino, precio1a6, precio7a9, precio10a12, duracion, alias")
     .order("origen", { ascending: true });
