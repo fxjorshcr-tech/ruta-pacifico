@@ -19,17 +19,32 @@ export const metadata: Metadata = {
 };
 
 async function getRoutes(): Promise<Route[]> {
-  const { data, error } = await getSupabase()
-    .from("routes")
-    .select("id, origen, destino, precio1a6, precio7a9, precio10a12, duracion, alias")
-    .order("origen", { ascending: true });
+  const allRoutes: Route[] = [];
+  const pageSize = 1000;
+  let from = 0;
+  let hasMore = true;
 
-  if (error) {
-    console.error("Failed to fetch routes:", error.message);
-    return [];
+  while (hasMore) {
+    const { data, error } = await getSupabase()
+      .from("routes")
+      .select("id, origen, destino, precio1a6, precio7a9, precio10a12, duracion, alias")
+      .order("origen", { ascending: true })
+      .range(from, from + pageSize - 1);
+
+    if (error) {
+      console.error("Failed to fetch routes:", error.message);
+      break;
+    }
+
+    if (data) {
+      allRoutes.push(...data);
+    }
+
+    hasMore = (data?.length ?? 0) === pageSize;
+    from += pageSize;
   }
 
-  return data ?? [];
+  return allRoutes;
 }
 
 function GoogleReviewBadge() {
