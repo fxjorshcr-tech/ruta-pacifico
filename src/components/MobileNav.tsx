@@ -17,16 +17,16 @@ export default function MobileNav() {
             Private Transfers
           </a>
           <a
+            href="/book/transfer"
+            className="text-sm font-medium text-white/80 transition hover:text-sunset-orange"
+          >
+            Routes &amp; Prices
+          </a>
+          <a
             href="#about"
             className="text-sm font-medium text-white/80 transition hover:text-sunset-orange"
           >
             About &amp; Contact Us
-          </a>
-          <a
-            href="#"
-            className="text-sm font-medium text-white/80 transition hover:text-sunset-orange"
-          >
-            Blog
           </a>
         </div>
 
@@ -69,18 +69,18 @@ export default function MobileNav() {
             Private Transfers
           </a>
           <a
+            href="/book/transfer"
+            onClick={() => setOpen(false)}
+            className="py-3 text-sm font-medium text-white/80 transition hover:text-sunset-orange"
+          >
+            Routes &amp; Prices
+          </a>
+          <a
             href="#about"
             onClick={() => setOpen(false)}
             className="py-3 text-sm font-medium text-white/80 transition hover:text-sunset-orange"
           >
             About &amp; Contact Us
-          </a>
-          <a
-            href="#"
-            onClick={() => setOpen(false)}
-            className="py-3 text-sm font-medium text-white/80 transition hover:text-sunset-orange"
-          >
-            Blog
           </a>
         </div>
       </div>
