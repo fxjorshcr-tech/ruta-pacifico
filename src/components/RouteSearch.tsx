@@ -30,14 +30,13 @@ const POPULAR_ORIGINS = [
 export default function RouteSearch({ routes }: RouteSearchProps) {
   const [selectedOrigin, setSelectedOrigin] = useState("");
   const [selectedDestination, setSelectedDestination] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
 
   const origins = useMemo(() => {
     const set = new Set(routes.map((r) => r.origen));
     const all = Array.from(set).sort();
     const popular = POPULAR_ORIGINS.filter((o) => set.has(o));
     const rest = all.filter((o) => !popular.includes(o));
-    return { popular, rest, all };
+    return { popular, rest };
   }, [routes]);
 
   const destinations = useMemo(() => {
@@ -56,32 +55,6 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
       ) ?? null
     );
   }, [routes, selectedOrigin, selectedDestination]);
-
-  const groupedRoutes = useMemo(() => {
-    const q = searchQuery.toLowerCase().trim();
-    const filtered = q
-      ? routes.filter(
-          (r) =>
-            r.origen.toLowerCase().includes(q) ||
-            r.destino.toLowerCase().includes(q)
-        )
-      : routes;
-
-    const groups: Record<string, Route[]> = {};
-    for (const route of filtered) {
-      if (!groups[route.origen]) groups[route.origen] = [];
-      groups[route.origen].push(route);
-    }
-
-    return Object.entries(groups).sort((a, b) => {
-      const aIdx = POPULAR_ORIGINS.indexOf(a[0]);
-      const bIdx = POPULAR_ORIGINS.indexOf(b[0]);
-      if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
-      if (aIdx !== -1) return -1;
-      if (bIdx !== -1) return 1;
-      return b[1].length - a[1].length;
-    });
-  }, [routes, searchQuery]);
 
   function handleOriginChange(value: string) {
     setSelectedOrigin(value);
@@ -294,107 +267,6 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
             </div>
           ))}
         </div>
-      </section>
-
-      {/* ─── SEARCH BAR ─── */}
-      <section className="mx-auto max-w-6xl px-6 pb-8">
-        <div className="relative">
-          <svg
-            className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground/30"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-            />
-          </svg>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search routes by origin or destination..."
-            className="w-full rounded-2xl border border-black/10 bg-white py-4 pl-12 pr-4 text-sm text-foreground shadow-sm outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-          />
-        </div>
-      </section>
-
-      {/* ─── ROUTE CARDS GROUPED BY ORIGIN ─── */}
-      <section className="mx-auto max-w-6xl px-6 pb-24">
-        {groupedRoutes.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-black/10 bg-light-surface py-16 text-center">
-            <p className="text-lg font-medium text-foreground/40">
-              No routes found for &ldquo;{searchQuery}&rdquo;
-            </p>
-          </div>
-        ) : (
-          <div className="space-y-12">
-            {groupedRoutes.map(([origin, originRoutes]) => (
-              <div key={origin}>
-                <div className="mb-4 flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sunset-orange text-white">
-                    <svg
-                      className="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-foreground">
-                      From {origin}
-                    </h3>
-                    <p className="text-sm text-foreground/50">
-                      {originRoutes.length} route
-                      {originRoutes.length !== 1 ? "s" : ""} available
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {originRoutes.map((route) => (
-                    <button
-                      key={route.id}
-                      onClick={() => handleBookRoute(route)}
-                      className="group flex items-center justify-between rounded-2xl border border-black/5 bg-white p-5 text-left shadow-sm transition hover:border-sunset-orange/30 hover:shadow-md"
-                    >
-                      <div className="min-w-0 flex-1">
-                        <span className="truncate font-semibold text-foreground transition group-hover:text-sunset-orange">
-                          {route.destino}
-                        </span>
-                        {route.duracion && (
-                          <p className="mt-1 text-xs text-foreground/40">
-                            {route.duracion}
-                          </p>
-                        )}
-                      </div>
-                      <div className="ml-4 shrink-0 text-right">
-                        <span className="text-lg font-bold text-sunset-orange">
-                          ${route.precio1a6}
-                        </span>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
       </section>
     </>
   );

@@ -13,9 +13,9 @@ const HERO_URL =
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Book a Transfer | Ruta Pacifico — Private Shuttles in Costa Rica",
+  title: "Book a Transfer | Ruta Pacifico — Private Transfers in Guanacaste",
   description:
-    "Browse 1,000+ private shuttle routes across Costa Rica. Airport transfers, beach-to-beach rides, and inter-destination transport. See prices and book instantly.",
+    "Private transfers across Guanacaste and all of Costa Rica. Airport pickups from LIR, beach-to-beach rides, and inter-destination transport. Fixed prices, book instantly.",
 };
 
 async function getRoutes(): Promise<Route[]> {
@@ -68,9 +68,9 @@ export default async function TransferPage() {
             <Image
               src={LOGO_URL}
               alt="Ruta Pacifico"
-              width={120}
-              height={40}
-              className="h-10 w-auto"
+              width={480}
+              height={160}
+              className="h-40 w-auto"
               unoptimized
             />
           </Link>
@@ -117,14 +117,14 @@ export default async function TransferPage() {
             <GoogleReviewBadge />
           </div>
           <h1 className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Private Shuttles in{" "}
+            Private Transfers in{" "}
             <span className="bg-gradient-to-r from-sunset-gold via-sunset-orange to-sunset-red bg-clip-text text-transparent">
-              Costa Rica
-            </span>
+              Guanacaste
+            </span>{" "}
+            <span className="text-white/70">&amp;</span> all of Costa Rica
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-white/70">
-            Over {Math.floor(routes.length / 100) * 100}+ routes. Fixed prices.
-            Door-to-door private service with modern vehicles.
+            Airport pickups, beach-to-beach rides, and transfers across Guanacaste and all of Costa Rica. Fixed prices, door-to-door.
           </p>
         </div>
       </section>
