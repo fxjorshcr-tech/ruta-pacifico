@@ -13,23 +13,38 @@ const HERO_URL =
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Book a Transfer | Ruta Pacifico — Private Shuttles in Costa Rica",
+  title: "Book a Transfer | Ruta Pacifico — Private Transfers in Guanacaste",
   description:
-    "Browse 1,000+ private shuttle routes across Costa Rica. Airport transfers, beach-to-beach rides, and inter-destination transport. See prices and book instantly.",
+    "Private transfers across Guanacaste and all of Costa Rica. Airport pickups from LIR, beach-to-beach rides, and inter-destination transport. Fixed prices, book instantly.",
 };
 
 async function getRoutes(): Promise<Route[]> {
-  const { data, error } = await getSupabase()
-    .from("routes")
-    .select("id, origen, destino, precio1a6, precio7a9, precio10a12, duracion, alias")
-    .order("origen", { ascending: true });
+  const allRoutes: Route[] = [];
+  const pageSize = 1000;
+  let from = 0;
+  let hasMore = true;
 
-  if (error) {
-    console.error("Failed to fetch routes:", error.message);
-    return [];
+  while (hasMore) {
+    const { data, error } = await getSupabase()
+      .from("routes")
+      .select("id, origen, destino, precio1a6, precio7a9, precio10a12, duracion, alias")
+      .order("origen", { ascending: true })
+      .range(from, from + pageSize - 1);
+
+    if (error) {
+      console.error("Failed to fetch routes:", error.message);
+      break;
+    }
+
+    if (data) {
+      allRoutes.push(...data);
+    }
+
+    hasMore = (data?.length ?? 0) === pageSize;
+    from += pageSize;
   }
 
-  return data ?? [];
+  return allRoutes;
 }
 
 function GoogleReviewBadge() {
@@ -68,9 +83,9 @@ export default async function TransferPage() {
             <Image
               src={LOGO_URL}
               alt="Ruta Pacifico"
-              width={120}
-              height={40}
-              className="h-10 w-auto"
+              width={480}
+              height={160}
+              className="h-40 w-auto"
               unoptimized
             />
           </Link>
@@ -117,15 +132,33 @@ export default async function TransferPage() {
             <GoogleReviewBadge />
           </div>
           <h1 className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Private Shuttles in{" "}
+            Private Transfers in{" "}
             <span className="bg-gradient-to-r from-sunset-gold via-sunset-orange to-sunset-red bg-clip-text text-transparent">
-              Costa Rica
-            </span>
+              Guanacaste
+            </span>{" "}
+            <span className="text-white/70">&amp;</span> all of Costa Rica
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-white/70">
-            Over {Math.floor(routes.length / 100) * 100}+ routes. Fixed prices.
-            Door-to-door private service with modern vehicles.
-          </p>
+          <div className="mx-auto mt-8 flex flex-wrap items-center justify-center gap-3">
+            <div className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 px-5 py-2.5">
+              <svg className="h-5 w-5 text-sunset-gold" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+              </svg>
+              <span className="text-sm font-semibold text-white">Airport Transfers</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 px-5 py-2.5">
+              <svg className="h-5 w-5 text-sunset-gold" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+              </svg>
+              <span className="text-sm font-semibold text-white">Inter-Beach Rides</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 px-5 py-2.5">
+              <svg className="h-5 w-5 text-sunset-gold" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+              </svg>
+              <span className="text-sm font-semibold text-white">Inter-Destination Transport</span>
+            </div>
+          </div>
         </div>
       </section>
 

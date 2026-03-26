@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Image from "next/image";
 
 export interface Route {
   id: number;
@@ -17,27 +18,49 @@ interface RouteSearchProps {
   routes: Route[];
 }
 
-/* Popular origins that appear first in the list */
-const POPULAR_ORIGINS = [
-  "Liberia Airport (LIR)",
-  "SJO Airport (San José)",
-  "La Fortuna (Arenal Volcano Area)",
-  "Tamarindo (Beach Town)",
-  "Manuel Antonio / Quepos",
-  "Monteverde / Santa Elena",
+const STARIA_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/staria-smallMobile.webp";
+const HIACE_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/hiace-van-cwt.png";
+const MAXUS_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/maxus-deviver-9-cwt-removebg-preview.png";
+
+/* LIR first, then Guanacaste beaches, then everything else */
+const GUANACASTE_PRIORITY = [
+  "LIR - Liberia Int. Airport",
+  "Brasilito (Guanacaste)",
+  "Conchal (Guanacaste)",
+  "Flamingo (Guanacaste)",
+  "Hacienda Pinilla (Guanacaste)",
+  "JW Marriott (Guanacaste)",
+  "Las Catalinas, Guanacaste",
+  "Nosara (Playa Guiones Area)",
+  "Ocotal (Guanacaste)",
+  "Papagayo Peninsula, Guanacaste",
+  "Playa Avellanas (Guanacaste)",
+  "Playa Grande (Guanacaste)",
+  "Playa Hermosa (Guanacaste)",
+  "Playa Potrero (Guanacaste)",
+  "Playas del Coco (Guanacaste)",
+  "Punta Islita (Hotel & Beach)",
+  "RIU Guanacaste Hotel / RIU Palace Hotel (Guanacaste)",
+  "Rincon de la Vieja (National Park)",
+  "Rio Celeste",
+  "Samara / Playa Carrillo (Guanacaste)",
+  "Tamarindo (Guanacaste)",
 ];
 
 export default function RouteSearch({ routes }: RouteSearchProps) {
   const [selectedOrigin, setSelectedOrigin] = useState("");
   const [selectedDestination, setSelectedDestination] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
 
   const origins = useMemo(() => {
     const set = new Set(routes.map((r) => r.origen));
-    const all = Array.from(set).sort();
-    const popular = POPULAR_ORIGINS.filter((o) => set.has(o));
-    const rest = all.filter((o) => !popular.includes(o));
-    return { popular, rest, all };
+    const guanacaste = GUANACASTE_PRIORITY.filter((o) => set.has(o));
+    const rest = Array.from(set)
+      .filter((o) => !guanacaste.includes(o))
+      .sort();
+    return { guanacaste, rest };
   }, [routes]);
 
   const destinations = useMemo(() => {
@@ -57,43 +80,18 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
     );
   }, [routes, selectedOrigin, selectedDestination]);
 
-  const groupedRoutes = useMemo(() => {
-    const q = searchQuery.toLowerCase().trim();
-    const filtered = q
-      ? routes.filter(
-          (r) =>
-            r.origen.toLowerCase().includes(q) ||
-            r.destino.toLowerCase().includes(q)
-        )
-      : routes;
-
-    const groups: Record<string, Route[]> = {};
-    for (const route of filtered) {
-      if (!groups[route.origen]) groups[route.origen] = [];
-      groups[route.origen].push(route);
-    }
-
-    return Object.entries(groups).sort((a, b) => {
-      const aIdx = POPULAR_ORIGINS.indexOf(a[0]);
-      const bIdx = POPULAR_ORIGINS.indexOf(b[0]);
-      if (aIdx !== -1 && bIdx !== -1) return aIdx - bIdx;
-      if (aIdx !== -1) return -1;
-      if (bIdx !== -1) return 1;
-      return b[1].length - a[1].length;
-    });
-  }, [routes, searchQuery]);
-
   function handleOriginChange(value: string) {
     setSelectedOrigin(value);
     setSelectedDestination("");
   }
 
-  function handleBookRoute(route: Route) {
+  function handleBookVan(route: Route, vanType: string, price: number) {
     const msg =
       `Hi! I'd like to book a private transfer:\n\n` +
       `From: ${route.origen}\n` +
       `To: ${route.destino}\n` +
-      `Price: $${route.precio1a6} (1-6 pax)\n\n` +
+      `Vehicle: ${vanType}\n` +
+      `Price: $${price}\n\n` +
       `Could you help me with the booking?`;
     window.open(
       `https://wa.me/50600000000?text=${encodeURIComponent(msg)}`,
@@ -115,8 +113,8 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
             </p>
           </div>
 
-          {/* Steps */}
-          <div className="grid gap-4 sm:grid-cols-3">
+          {/* Steps - now 2 columns */}
+          <div className="grid gap-4 sm:grid-cols-2">
             {/* Step 1: Origin */}
             <div>
               <label className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground/70">
@@ -131,16 +129,14 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                 className="w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
               >
                 <option value="">Select origin...</option>
-                {origins.popular.length > 0 && (
-                  <optgroup label="Popular">
-                    {origins.popular.map((o) => (
-                      <option key={o} value={o}>
-                        {o}
-                      </option>
-                    ))}
-                  </optgroup>
-                )}
-                <optgroup label="All origins">
+                <optgroup label="Guanacaste">
+                  {origins.guanacaste.map((o) => (
+                    <option key={o} value={o}>
+                      {o}
+                    </option>
+                  ))}
+                </optgroup>
+                <optgroup label="Other destinations">
                   {origins.rest.map((o) => (
                     <option key={o} value={o}>
                       {o}
@@ -174,56 +170,105 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                 ))}
               </select>
             </div>
+          </div>
 
-            {/* Step 3: Result */}
-            <div>
-              <label className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground/70">
+          {/* Step 3: Vehicle selection cards */}
+          {matchedRoute ? (
+            <div className="mt-8">
+              <label className="mb-4 flex items-center gap-2 text-sm font-medium text-foreground/70">
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-sunset-orange text-xs font-bold text-white">
                   3
                 </span>
-                Price &amp; Book
+                Choose Your Vehicle
               </label>
-              {matchedRoute ? (
+              <div className="grid gap-4 sm:grid-cols-3">
+                {/* Staria 1-6 */}
                 <button
-                  onClick={() => handleBookRoute(matchedRoute)}
-                  className="w-full rounded-xl bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-4 py-3 text-sm font-bold text-white transition hover:shadow-lg hover:shadow-sunset-orange/25"
+                  onClick={() => handleBookVan(matchedRoute, "Hyundai Staria (1-6 pax)", matchedRoute.precio1a6)}
+                  className="group rounded-2xl border-2 border-black/5 bg-light-surface p-4 text-center transition hover:border-sunset-orange hover:shadow-lg"
                 >
-                  ${matchedRoute.precio1a6} &mdash; Book Now
+                  <div className="relative mx-auto h-24 w-full">
+                    <Image src={STARIA_URL} alt="Hyundai Staria" fill className="object-contain" unoptimized />
+                  </div>
+                  <div className="mt-3">
+                    <span className="inline-block rounded-full bg-sunset-orange/10 px-3 py-0.5 text-xs font-semibold text-sunset-orange">
+                      1 – 6 passengers
+                    </span>
+                    <h3 className="mt-2 text-sm font-bold text-foreground">Hyundai Staria</h3>
+                    <p className="text-xs text-foreground/40">or similar</p>
+                    <div className="mt-3 text-2xl font-bold text-sunset-orange">
+                      ${matchedRoute.precio1a6}
+                    </div>
+                    <div className="mt-3 rounded-xl bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-4 py-2.5 text-xs font-bold text-white transition hover:shadow-lg hover:shadow-sunset-orange/25">
+                      Select &amp; Book
+                    </div>
+                  </div>
                 </button>
-              ) : (
-                <div className="flex h-[46px] items-center justify-center rounded-xl border border-dashed border-black/10 bg-light-surface text-sm text-foreground/40">
-                  Select route to see price
-                </div>
-              )}
-            </div>
-          </div>
 
-          {/* Price tiers when a route is matched */}
-          {matchedRoute && (
-            <div className="mt-6 grid grid-cols-3 gap-3 rounded-xl bg-light-surface p-4">
-              <div className="text-center">
-                <div className="text-lg font-bold text-sunset-orange">
-                  ${matchedRoute.precio1a6}
-                </div>
-                <div className="text-xs text-foreground/50">1–6 pax</div>
+                {/* Hiace 7-9 */}
+                {matchedRoute.precio7a9 && (
+                  <button
+                    onClick={() => handleBookVan(matchedRoute, "Toyota Hiace (7-9 pax)", matchedRoute.precio7a9!)}
+                    className="group rounded-2xl border-2 border-black/5 bg-light-surface p-4 text-center transition hover:border-sunset-orange hover:shadow-lg"
+                  >
+                    <div className="relative mx-auto h-24 w-full">
+                      <Image src={HIACE_URL} alt="Toyota Hiace" fill className="object-contain" unoptimized />
+                    </div>
+                    <div className="mt-3">
+                      <span className="inline-block rounded-full bg-sunset-orange/10 px-3 py-0.5 text-xs font-semibold text-sunset-orange">
+                        7 – 9 passengers
+                      </span>
+                      <h3 className="mt-2 text-sm font-bold text-foreground">Toyota Hiace</h3>
+                      <p className="text-xs text-foreground/40">or similar</p>
+                      <div className="mt-3 text-2xl font-bold text-sunset-orange">
+                        ${matchedRoute.precio7a9}
+                      </div>
+                      <div className="mt-2 rounded-lg bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-3 py-2 text-xs font-bold text-white opacity-0 transition group-hover:opacity-100">
+                        Book Now
+                      </div>
+                    </div>
+                  </button>
+                )}
+
+                {/* Maxus 10-12 */}
+                {matchedRoute.precio10a12 && (
+                  <button
+                    onClick={() => handleBookVan(matchedRoute, "Maxus V90 (10-12 pax)", matchedRoute.precio10a12!)}
+                    className="group rounded-2xl border-2 border-black/5 bg-light-surface p-4 text-center transition hover:border-sunset-orange hover:shadow-lg"
+                  >
+                    <div className="relative mx-auto h-24 w-full">
+                      <Image src={MAXUS_URL} alt="Maxus V90" fill className="object-contain" unoptimized />
+                    </div>
+                    <div className="mt-3">
+                      <span className="inline-block rounded-full bg-sunset-orange/10 px-3 py-0.5 text-xs font-semibold text-sunset-orange">
+                        10 – 12 passengers
+                      </span>
+                      <h3 className="mt-2 text-sm font-bold text-foreground">Maxus V90</h3>
+                      <p className="text-xs text-foreground/40">or similar</p>
+                      <div className="mt-3 text-2xl font-bold text-sunset-orange">
+                        ${matchedRoute.precio10a12}
+                      </div>
+                      <div className="mt-2 rounded-lg bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-3 py-2 text-xs font-bold text-white opacity-0 transition group-hover:opacity-100">
+                        Book Now
+                      </div>
+                    </div>
+                  </button>
+                )}
               </div>
-              {matchedRoute.precio7a9 && (
-                <div className="text-center">
-                  <div className="text-lg font-bold text-sunset-orange">
-                    ${matchedRoute.precio7a9}
-                  </div>
-                  <div className="text-xs text-foreground/50">7–9 pax</div>
-                </div>
-              )}
-              {matchedRoute.precio10a12 && (
-                <div className="text-center">
-                  <div className="text-lg font-bold text-sunset-orange">
-                    ${matchedRoute.precio10a12}
-                  </div>
-                  <div className="text-xs text-foreground/50">10–12 pax</div>
-                </div>
+
+              {/* Duration info */}
+              {matchedRoute.duracion && (
+                <p className="mt-4 text-center text-sm text-foreground/40">
+                  Estimated travel time: {matchedRoute.duracion}
+                </p>
               )}
             </div>
+          ) : (
+            selectedOrigin && selectedDestination === "" && (
+              <div className="mt-8 flex items-center justify-center rounded-xl border border-dashed border-black/10 bg-light-surface py-8 text-sm text-foreground/40">
+                Select a destination to see available vehicles
+              </div>
+            )
           )}
 
           {/* WhatsApp alternative */}
@@ -294,107 +339,6 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
             </div>
           ))}
         </div>
-      </section>
-
-      {/* ─── SEARCH BAR ─── */}
-      <section className="mx-auto max-w-6xl px-6 pb-8">
-        <div className="relative">
-          <svg
-            className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground/30"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-            />
-          </svg>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search routes by origin or destination..."
-            className="w-full rounded-2xl border border-black/10 bg-white py-4 pl-12 pr-4 text-sm text-foreground shadow-sm outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-          />
-        </div>
-      </section>
-
-      {/* ─── ROUTE CARDS GROUPED BY ORIGIN ─── */}
-      <section className="mx-auto max-w-6xl px-6 pb-24">
-        {groupedRoutes.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-black/10 bg-light-surface py-16 text-center">
-            <p className="text-lg font-medium text-foreground/40">
-              No routes found for &ldquo;{searchQuery}&rdquo;
-            </p>
-          </div>
-        ) : (
-          <div className="space-y-12">
-            {groupedRoutes.map(([origin, originRoutes]) => (
-              <div key={origin}>
-                <div className="mb-4 flex items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sunset-orange text-white">
-                    <svg
-                      className="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-foreground">
-                      From {origin}
-                    </h3>
-                    <p className="text-sm text-foreground/50">
-                      {originRoutes.length} route
-                      {originRoutes.length !== 1 ? "s" : ""} available
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {originRoutes.map((route) => (
-                    <button
-                      key={route.id}
-                      onClick={() => handleBookRoute(route)}
-                      className="group flex items-center justify-between rounded-2xl border border-black/5 bg-white p-5 text-left shadow-sm transition hover:border-sunset-orange/30 hover:shadow-md"
-                    >
-                      <div className="min-w-0 flex-1">
-                        <span className="truncate font-semibold text-foreground transition group-hover:text-sunset-orange">
-                          {route.destino}
-                        </span>
-                        {route.duracion && (
-                          <p className="mt-1 text-xs text-foreground/40">
-                            {route.duracion}
-                          </p>
-                        )}
-                      </div>
-                      <div className="ml-4 shrink-0 text-right">
-                        <span className="text-lg font-bold text-sunset-orange">
-                          ${route.precio1a6}
-                        </span>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
       </section>
     </>
   );
