@@ -335,11 +335,51 @@ export default function Home() {
                 </p>
               </div>
               <p className="mt-5 text-sm leading-relaxed text-foreground/70">
-                Flying into San Jos&eacute;? We also run private shuttles from SJO to Guanacaste, La Fortuna, Manuel Antonio, and beyond. It&apos;s a longer ride to the Pacific beaches — plan for 4&ndash;5 hours to Tamarindo or Papagayo — but a great option if LIR doesn&apos;t fit your schedule.
+                Private shuttles from SJO are also available and can be booked
+                directly from our booking page. SJO is the gateway to central
+                Costa Rica and popular mountain destinations.
               </p>
-              <p className="mt-4 text-sm font-medium text-sunset-orange">
-                Message us on WhatsApp for an SJO quote.
-              </p>
+              <div className="mt-5 space-y-2">
+                <div className="text-[0.65rem] font-bold uppercase tracking-wider text-foreground/40">
+                  Popular SJO routes
+                </div>
+                {[
+                  { route: "SJO → La Fortuna / Arenal", time: "~3 hrs" },
+                  { route: "SJO → Manuel Antonio", time: "~3 hrs" },
+                  { route: "SJO → Monteverde", time: "~3 hrs" },
+                ].map((item) => (
+                  <div
+                    key={item.route}
+                    className="flex items-center justify-between rounded-lg border border-black/5 bg-white px-4 py-2.5 text-xs"
+                  >
+                    <span className="font-medium text-foreground">
+                      {item.route}
+                    </span>
+                    <span className="font-semibold text-sunset-orange">
+                      {item.time}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <Link
+                href="/book/transfer"
+                className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-orange transition hover:text-sunset-gold"
+              >
+                Book an SJO shuttle
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2.5}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              </Link>
             </div>
           </div>
         </div>

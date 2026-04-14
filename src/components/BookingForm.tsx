@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import type { Route } from "@/components/RouteSearch";
 import DatePicker from "@/components/DatePicker";
 import TimePicker from "@/components/TimePicker";
+import PhoneInput from "@/components/PhoneInput";
 import {
   BOOKING_STORAGE_KEY,
   generateConfirmationCode,
@@ -439,15 +440,14 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
             >
               Phone / WhatsApp
             </label>
-            <input
-              id="booking-phone"
-              type="tel"
-              required
-              placeholder="+1 555 000 0000"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-            />
+            <div className="mt-2">
+              <PhoneInput
+                id="booking-phone"
+                value={phone}
+                onChange={setPhone}
+                required
+              />
+            </div>
           </div>
           <div className="sm:col-span-2">
             <label

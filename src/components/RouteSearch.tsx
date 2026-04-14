@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import ComboBox, { type ComboOption } from "@/components/ComboBox";
 import { routeSlug } from "@/lib/slug";
 
 export interface Route {
@@ -20,6 +21,8 @@ interface RouteSearchProps {
   routes: Route[];
 }
 
+type VehicleKey = "staria" | "hiace" | "maxus";
+
 const STARIA_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/staria-smallMobile.webp";
 const HIACE_URL =
@@ -27,9 +30,11 @@ const HIACE_URL =
 const MAXUS_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/maxus-deviver-9-cwt-removebg-preview.png";
 
-/* LIR first, then Guanacaste beaches, then everything else */
+/* Airport prefixes — LIR first, then SJO. Any origin in the DB whose label
+   starts with one of these prefixes is grouped under "Airports". */
+const AIRPORT_PREFIXES = ["LIR", "SJO"];
+
 const GUANACASTE_PRIORITY = [
-  "LIR - Liberia Int. Airport",
   "Brasilito (Guanacaste)",
   "Conchal (Guanacaste)",
   "Flamingo (Guanacaste)",
@@ -56,22 +61,65 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
   const router = useRouter();
   const [selectedOrigin, setSelectedOrigin] = useState("");
   const [selectedDestination, setSelectedDestination] = useState("");
+  const [selectedVehicle, setSelectedVehicle] = useState<VehicleKey | null>(
+    null
+  );
 
-  const origins = useMemo(() => {
-    const set = new Set(routes.map((r) => r.origen));
-    const guanacaste = GUANACASTE_PRIORITY.filter((o) => set.has(o));
-    const rest = Array.from(set)
-      .filter((o) => !guanacaste.includes(o))
-      .sort();
-    return { guanacaste, rest };
+  // Build grouped origin options: Airports → Guanacaste → Other
+  const originOptions: ComboOption[] = useMemo(() => {
+    const all = Array.from(new Set(routes.map((r) => r.origen)));
+
+    const airports: string[] = [];
+    for (const prefix of AIRPORT_PREFIXES) {
+      const matches = all
+        .filter((o) => o.toUpperCase().startsWith(prefix))
+        .sort();
+      airports.push(...matches);
+    }
+
+    const guanacaste = GUANACASTE_PRIORITY.filter((o) => all.includes(o));
+
+    const used = new Set([...airports, ...guanacaste]);
+    const rest = all.filter((o) => !used.has(o)).sort();
+
+    const opts: ComboOption[] = [];
+    for (const o of airports) opts.push({ value: o, label: o, group: "Airports" });
+    for (const o of guanacaste)
+      opts.push({ value: o, label: o, group: "Guanacaste" });
+    for (const o of rest)
+      opts.push({ value: o, label: o, group: "Other destinations" });
+    return opts;
   }, [routes]);
 
-  const destinations = useMemo(() => {
+  // Destinations for the currently selected origin
+  const destinationOptions: ComboOption[] = useMemo(() => {
     if (!selectedOrigin) return [];
-    const set = new Set(
-      routes.filter((r) => r.origen === selectedOrigin).map((r) => r.destino)
+    const dests = Array.from(
+      new Set(
+        routes
+          .filter((r) => r.origen === selectedOrigin)
+          .map((r) => r.destino)
+      )
     );
-    return Array.from(set).sort();
+
+    // Apply the same group ordering to destinations where possible
+    const airports: string[] = [];
+    for (const prefix of AIRPORT_PREFIXES) {
+      airports.push(
+        ...dests.filter((d) => d.toUpperCase().startsWith(prefix)).sort()
+      );
+    }
+    const guanacaste = GUANACASTE_PRIORITY.filter((d) => dests.includes(d));
+    const used = new Set([...airports, ...guanacaste]);
+    const rest = dests.filter((d) => !used.has(d)).sort();
+
+    const opts: ComboOption[] = [];
+    for (const d of airports) opts.push({ value: d, label: d, group: "Airports" });
+    for (const d of guanacaste)
+      opts.push({ value: d, label: d, group: "Guanacaste" });
+    for (const d of rest)
+      opts.push({ value: d, label: d, group: "Other destinations" });
+    return opts;
   }, [routes, selectedOrigin]);
 
   const matchedRoute = useMemo(() => {
@@ -86,12 +134,51 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
   function handleOriginChange(value: string) {
     setSelectedOrigin(value);
     setSelectedDestination("");
+    setSelectedVehicle(null);
   }
 
-  function goToRoute(route: Route, vehicle: "staria" | "hiace" | "maxus") {
-    const slug = routeSlug(route.origen, route.destino);
-    router.push(`/routes/${slug}?v=${vehicle}`);
+  function handleDestinationChange(value: string) {
+    setSelectedDestination(value);
+    setSelectedVehicle(null);
   }
+
+  function handleContinue() {
+    if (!matchedRoute || !selectedVehicle) return;
+    const slug = routeSlug(matchedRoute.origen, matchedRoute.destino);
+    router.push(`/routes/${slug}?v=${selectedVehicle}`);
+  }
+
+  const vehicleCards: {
+    key: VehicleKey;
+    name: string;
+    pax: string;
+    image: string;
+    price: number | null;
+  }[] = matchedRoute
+    ? [
+        {
+          key: "staria",
+          name: "Hyundai Staria",
+          pax: "1 – 6 passengers",
+          image: STARIA_URL,
+          price: matchedRoute.precio1a6,
+        },
+        {
+          key: "hiace",
+          name: "Toyota Hiace",
+          pax: "7 – 9 passengers",
+          image: HIACE_URL,
+          price: matchedRoute.precio7a9,
+        },
+        {
+          key: "maxus",
+          name: "Maxus V90",
+          pax: "10 – 12 passengers",
+          image: MAXUS_URL,
+          price: matchedRoute.precio10a12,
+        },
+      ]
+    : [];
 
   return (
     <>
@@ -107,7 +194,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
             </p>
           </div>
 
-          {/* Steps - now 2 columns */}
+          {/* Steps - 2 columns */}
           <div className="grid gap-4 sm:grid-cols-2">
             {/* Step 1: Origin */}
             <div>
@@ -117,27 +204,12 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                 </span>
                 Pick Origin
               </label>
-              <select
+              <ComboBox
+                options={originOptions}
                 value={selectedOrigin}
-                onChange={(e) => handleOriginChange(e.target.value)}
-                className="w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-              >
-                <option value="">Select origin...</option>
-                <optgroup label="Guanacaste">
-                  {origins.guanacaste.map((o) => (
-                    <option key={o} value={o}>
-                      {o}
-                    </option>
-                  ))}
-                </optgroup>
-                <optgroup label="Other destinations">
-                  {origins.rest.map((o) => (
-                    <option key={o} value={o}>
-                      {o}
-                    </option>
-                  ))}
-                </optgroup>
-              </select>
+                onChange={handleOriginChange}
+                placeholder="Type an origin (e.g. LIR, SJO, Tamarindo…)"
+              />
             </div>
 
             {/* Step 2: Destination */}
@@ -148,27 +220,21 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                 </span>
                 Pick Destination
               </label>
-              <select
+              <ComboBox
+                options={destinationOptions}
                 value={selectedDestination}
-                onChange={(e) => setSelectedDestination(e.target.value)}
+                onChange={handleDestinationChange}
+                placeholder={
+                  selectedOrigin ? "Type a destination…" : "Pick origin first"
+                }
                 disabled={!selectedOrigin}
-                className="w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                <option value="">
-                  {selectedOrigin ? "Select destination..." : "Pick origin first"}
-                </option>
-                {destinations.map((d) => (
-                  <option key={d} value={d}>
-                    {d}
-                  </option>
-                ))}
-              </select>
+              />
             </div>
           </div>
 
-          {/* Step 3: Vehicle selection cards */}
+          {/* Step 3: Vehicle selection */}
           {matchedRoute ? (
-            <div className="mt-8">
+            <div className="mt-10">
               <label className="mb-4 flex items-center gap-2 text-sm font-medium text-foreground/70">
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-sunset-orange text-xs font-bold text-white">
                   3
@@ -176,86 +242,89 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                 Choose Your Vehicle
               </label>
               <div className="grid gap-4 sm:grid-cols-3">
-                {/* Staria 1-6 */}
-                <button
-                  onClick={() => goToRoute(matchedRoute, "staria")}
-                  className="group rounded-2xl border-2 border-black/5 bg-light-surface p-4 text-center transition hover:border-sunset-orange hover:shadow-lg"
-                >
-                  <div className="relative mx-auto h-24 w-full">
-                    <Image src={STARIA_URL} alt="Hyundai Staria" fill className="object-contain" unoptimized />
-                  </div>
-                  <div className="mt-3">
-                    <span className="inline-block rounded-full bg-sunset-orange/10 px-3 py-0.5 text-xs font-semibold text-sunset-orange">
-                      1 – 6 passengers
-                    </span>
-                    <h3 className="mt-2 text-sm font-bold text-foreground">Hyundai Staria</h3>
-                    <p className="text-xs text-foreground/40">or similar</p>
-                    <div className="mt-3 text-2xl font-bold text-sunset-orange">
-                      ${matchedRoute.precio1a6}
-                    </div>
-                    <div className="mt-3 rounded-xl bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-4 py-2.5 text-xs font-bold text-white transition hover:shadow-lg hover:shadow-sunset-orange/25">
-                      Select &amp; Book
-                    </div>
-                  </div>
-                </button>
-
-                {/* Hiace 7-9 */}
-                {matchedRoute.precio7a9 && (
-                  <button
-                    onClick={() => goToRoute(matchedRoute, "hiace")}
-                    className="group rounded-2xl border-2 border-black/5 bg-light-surface p-4 text-center transition hover:border-sunset-orange hover:shadow-lg"
-                  >
-                    <div className="relative mx-auto h-24 w-full">
-                      <Image src={HIACE_URL} alt="Toyota Hiace" fill className="object-contain" unoptimized />
-                    </div>
-                    <div className="mt-3">
-                      <span className="inline-block rounded-full bg-sunset-orange/10 px-3 py-0.5 text-xs font-semibold text-sunset-orange">
-                        7 – 9 passengers
-                      </span>
-                      <h3 className="mt-2 text-sm font-bold text-foreground">Toyota Hiace</h3>
-                      <p className="text-xs text-foreground/40">or similar</p>
-                      <div className="mt-3 text-2xl font-bold text-sunset-orange">
-                        ${matchedRoute.precio7a9}
+                {vehicleCards.map((v) => {
+                  if (v.price == null) return null;
+                  const active = selectedVehicle === v.key;
+                  return (
+                    <button
+                      type="button"
+                      key={v.key}
+                      onClick={() => setSelectedVehicle(v.key)}
+                      aria-pressed={active}
+                      className={`group relative rounded-2xl border-2 p-4 text-center transition ${
+                        active
+                          ? "border-sunset-orange bg-sunset-orange/5 shadow-lg shadow-sunset-orange/15 ring-4 ring-sunset-orange/15"
+                          : "border-black/5 bg-light-surface hover:border-sunset-orange/40 hover:shadow-md"
+                      }`}
+                    >
+                      {active && (
+                        <div className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-sunset-orange text-white shadow-md">
+                          <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={3.5} stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                          </svg>
+                        </div>
+                      )}
+                      <div className="relative mx-auto h-24 w-full">
+                        <Image
+                          src={v.image}
+                          alt={v.name}
+                          fill
+                          className="object-contain"
+                          unoptimized
+                        />
                       </div>
-                      <div className="mt-2 rounded-lg bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-3 py-2 text-xs font-bold text-white opacity-0 transition group-hover:opacity-100">
-                        Select &amp; Book
+                      <div className="mt-3">
+                        <span className="inline-block rounded-full bg-sunset-orange/10 px-3 py-0.5 text-xs font-semibold text-sunset-orange">
+                          {v.pax}
+                        </span>
+                        <h3 className="mt-2 text-sm font-bold text-foreground">
+                          {v.name}
+                        </h3>
+                        <p className="text-xs text-foreground/40">or similar</p>
+                        <div className="mt-3 text-2xl font-bold text-sunset-orange">
+                          ${v.price}
+                        </div>
                       </div>
-                    </div>
-                  </button>
-                )}
-
-                {/* Maxus 10-12 */}
-                {matchedRoute.precio10a12 && (
-                  <button
-                    onClick={() => goToRoute(matchedRoute, "maxus")}
-                    className="group rounded-2xl border-2 border-black/5 bg-light-surface p-4 text-center transition hover:border-sunset-orange hover:shadow-lg"
-                  >
-                    <div className="relative mx-auto h-24 w-full">
-                      <Image src={MAXUS_URL} alt="Maxus V90" fill className="object-contain" unoptimized />
-                    </div>
-                    <div className="mt-3">
-                      <span className="inline-block rounded-full bg-sunset-orange/10 px-3 py-0.5 text-xs font-semibold text-sunset-orange">
-                        10 – 12 passengers
-                      </span>
-                      <h3 className="mt-2 text-sm font-bold text-foreground">Maxus V90</h3>
-                      <p className="text-xs text-foreground/40">or similar</p>
-                      <div className="mt-3 text-2xl font-bold text-sunset-orange">
-                        ${matchedRoute.precio10a12}
-                      </div>
-                      <div className="mt-2 rounded-lg bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-3 py-2 text-xs font-bold text-white opacity-0 transition group-hover:opacity-100">
-                        Select &amp; Book
-                      </div>
-                    </div>
-                  </button>
-                )}
+                    </button>
+                  );
+                })}
               </div>
 
               {/* Duration info */}
               {matchedRoute.duracion && (
-                <p className="mt-4 text-center text-sm text-foreground/40">
+                <p className="mt-4 text-center text-xs text-foreground/40">
                   Estimated travel time: {matchedRoute.duracion}
                 </p>
               )}
+
+              {/* Continue button */}
+              <div className="mt-6 flex justify-center">
+                <button
+                  type="button"
+                  onClick={handleContinue}
+                  disabled={!selectedVehicle}
+                  className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-10 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 hover:scale-[1.02] disabled:cursor-not-allowed disabled:bg-none disabled:bg-foreground/10 disabled:text-foreground/40 disabled:shadow-none disabled:hover:scale-100"
+                >
+                  {selectedVehicle
+                    ? "Continue to booking"
+                    : "Select a vehicle to continue"}
+                  {selectedVehicle && (
+                    <svg
+                      className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2.5}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                      />
+                    </svg>
+                  )}
+                </button>
+              </div>
             </div>
           ) : (
             selectedOrigin && selectedDestination === "" && (
@@ -270,7 +339,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
             <p className="text-sm text-foreground/50">
               Need help?{" "}
               <a
-                href="https://wa.me/50600000000"
+                href="https://wa.me/50685962438"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 font-medium text-sunset-orange transition hover:text-sunset-gold"
