@@ -509,8 +509,7 @@ export default function Home() {
               </span>
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
-              Locally-owned private shuttle service operating out of Liberia,
-              Guanacaste — built by travelers, for travelers.
+              Professional private ground transportation for travelers visiting Costa Rica.
             </p>
           </div>
 
@@ -518,31 +517,25 @@ export default function Home() {
             {/* About copy */}
             <div className="rounded-3xl border border-black/5 bg-white p-8 shadow-sm sm:p-10">
               <span className="inline-block rounded-full border border-sunset-orange/20 bg-sunset-orange/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-sunset-orange">
-                Who we are
+                The Company
               </span>
               <h3 className="mt-4 text-2xl font-bold text-foreground">
-                A trusted ground partner in Costa Rica
+                Private ground transportation across Costa Rica
               </h3>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                Ruta Pacifico is a licensed, insured private-shuttle operator
-                serving Liberia Airport (LIR), San Jos&eacute; Airport (SJO),
-                and every beach and destination in between. We handle the
-                driving so you can focus on vacation.
+                Ruta Pacifico is a licensed and fully insured ground transportation operator based in Guanacaste. We provide private airport transfers and point-to-point shuttle service from Liberia International Airport (LIR) and Juan Santamar&iacute;a International Airport (SJO) to destinations throughout Costa Rica.
               </p>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                Our bilingual drivers know every road, every shortcut, and
-                every hidden beach. Flights get tracked in real time, prices
-                are fixed and transparent, and your group never shares a
-                vehicle with strangers.
+                Every trip is operated by a professional bilingual driver in a modern, air-conditioned vehicle. Incoming flights are monitored in real time, pricing is fixed in advance and inclusive of all taxes and tolls, and each reservation is exclusive to your party.
               </p>
               <ul className="mt-6 grid gap-3 text-sm text-foreground/70 sm:grid-cols-2">
                 {[
-                  "Licensed & fully insured",
-                  "Bilingual local drivers",
-                  "Fixed prices — no hidden fees",
-                  "Real-time flight tracking",
-                  "Free child seats",
-                  "24/7 WhatsApp support",
+                  "Licensed & fully insured operator",
+                  "Professional bilingual drivers",
+                  "Modern, air-conditioned fleet",
+                  "Real-time flight monitoring",
+                  "Fixed, all-inclusive pricing",
+                  "24/7 bilingual support",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-2">
                     <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600">

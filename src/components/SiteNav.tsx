@@ -56,7 +56,7 @@ export default function SiteNav({ transparent = true }: Props) {
         </Link>
 
         {/* Desktop links */}
-        <div className="hidden items-center gap-8 lg:flex xl:gap-10">
+        <div className="hidden items-center gap-8 lg:flex xl:gap-12">
           {!isHome && (
             <Link
               href="/"
@@ -76,15 +76,6 @@ export default function SiteNav({ transparent = true }: Props) {
             className={`text-[0.95rem] font-bold tracking-wide transition ${linkClass}`}
           >
             About &amp; Contact Us
-          </Link>
-          <Link
-            href="/book/transfer"
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-6 py-2.5 text-sm font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 hover:scale-[1.02]"
-          >
-            Book Now
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-            </svg>
           </Link>
         </div>
 
@@ -131,16 +122,6 @@ export default function SiteNav({ transparent = true }: Props) {
             className={`rounded-xl px-4 py-3 text-base font-semibold transition ${mobileLinkClass}`}
           >
             About &amp; Contact Us
-          </Link>
-          <Link
-            href="/book/transfer"
-            onClick={() => setOpen(false)}
-            className="mt-2 flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-6 py-3 text-sm font-bold text-white shadow-lg shadow-sunset-orange/25"
-          >
-            Book Now
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-            </svg>
           </Link>
         </div>
       </div>

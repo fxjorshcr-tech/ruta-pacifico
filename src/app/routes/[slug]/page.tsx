@@ -114,13 +114,9 @@ export default async function RoutePage({
               {route.destino}
             </span>
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-white/80 sm:text-base">
-            Door-to-door private shuttle service. One vehicle, one driver,
-            straight to your destination.
-          </p>
 
           {/* Prominent price badge */}
-          <div className="mt-8 flex justify-center">
+          <div className="mt-10 flex justify-center">
             <div className="inline-flex items-center gap-5 rounded-3xl border border-white/15 bg-white/5 px-7 py-5 shadow-xl shadow-black/20 backdrop-blur-xl sm:gap-6 sm:px-8">
               <div className="flex flex-col items-start leading-none">
                 <span className="text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-white/60">
@@ -252,14 +248,13 @@ export default async function RoutePage({
 
           <div className="mt-6 border-t border-black/5 pt-6">
             <p className="text-sm leading-relaxed text-foreground/70">
-              This private shuttle takes you directly from{" "}
+              Direct, non-stop service from{" "}
               <strong className="text-foreground">{route.origen}</strong> to{" "}
-              <strong className="text-foreground">{route.destino}</strong> —
-              no stops, no other passengers, no connections. Your driver meets
-              you at the pickup point and drops you off at the entrance of your
-              destination.
+              <strong className="text-foreground">{route.destino}</strong>,
+              operated by a professional bilingual driver in a modern
+              air-conditioned private vehicle.
               {airportPickup
-                ? " If you're flying in, we monitor your flight in real time and adjust the pickup if you land early or late."
+                ? " Arrival flights are monitored in real time and pickups are adjusted automatically to match your actual landing."
                 : ""}
             </p>
           </div>
@@ -270,11 +265,10 @@ export default async function RoutePage({
       <section className="mx-auto max-w-5xl px-6 py-16">
         <div className="mb-8 text-center">
           <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
-            Book your shuttle
+            Book your Private Shuttle
           </h2>
           <p className="mt-2 text-sm text-foreground/60">
-            Fill in your trip details and we&apos;ll confirm availability on
-            WhatsApp within minutes.
+            Complete the trip details below to confirm your reservation.
           </p>
         </div>
         <BookingForm
