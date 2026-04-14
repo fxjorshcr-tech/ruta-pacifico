@@ -2,6 +2,8 @@
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { routeSlug } from "@/lib/slug";
 
 export interface Route {
   id: number;
@@ -51,6 +53,7 @@ const GUANACASTE_PRIORITY = [
 ];
 
 export default function RouteSearch({ routes }: RouteSearchProps) {
+  const router = useRouter();
   const [selectedOrigin, setSelectedOrigin] = useState("");
   const [selectedDestination, setSelectedDestination] = useState("");
 
@@ -85,18 +88,9 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
     setSelectedDestination("");
   }
 
-  function handleBookVan(route: Route, vanType: string, price: number) {
-    const msg =
-      `Hi! I'd like to book a private shuttle:\n\n` +
-      `From: ${route.origen}\n` +
-      `To: ${route.destino}\n` +
-      `Vehicle: ${vanType}\n` +
-      `Price: $${price}\n\n` +
-      `Could you help me with the booking?`;
-    window.open(
-      `https://wa.me/50600000000?text=${encodeURIComponent(msg)}`,
-      "_blank"
-    );
+  function goToRoute(route: Route, vehicle: "staria" | "hiace" | "maxus") {
+    const slug = routeSlug(route.origen, route.destino);
+    router.push(`/routes/${slug}?v=${vehicle}`);
   }
 
   return (
@@ -184,7 +178,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
               <div className="grid gap-4 sm:grid-cols-3">
                 {/* Staria 1-6 */}
                 <button
-                  onClick={() => handleBookVan(matchedRoute, "Hyundai Staria (1-6 pax)", matchedRoute.precio1a6)}
+                  onClick={() => goToRoute(matchedRoute, "staria")}
                   className="group rounded-2xl border-2 border-black/5 bg-light-surface p-4 text-center transition hover:border-sunset-orange hover:shadow-lg"
                 >
                   <div className="relative mx-auto h-24 w-full">
@@ -208,7 +202,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                 {/* Hiace 7-9 */}
                 {matchedRoute.precio7a9 && (
                   <button
-                    onClick={() => handleBookVan(matchedRoute, "Toyota Hiace (7-9 pax)", matchedRoute.precio7a9!)}
+                    onClick={() => goToRoute(matchedRoute, "hiace")}
                     className="group rounded-2xl border-2 border-black/5 bg-light-surface p-4 text-center transition hover:border-sunset-orange hover:shadow-lg"
                   >
                     <div className="relative mx-auto h-24 w-full">
@@ -224,7 +218,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                         ${matchedRoute.precio7a9}
                       </div>
                       <div className="mt-2 rounded-lg bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-3 py-2 text-xs font-bold text-white opacity-0 transition group-hover:opacity-100">
-                        Book Now
+                        Select &amp; Book
                       </div>
                     </div>
                   </button>
@@ -233,7 +227,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                 {/* Maxus 10-12 */}
                 {matchedRoute.precio10a12 && (
                   <button
-                    onClick={() => handleBookVan(matchedRoute, "Maxus V90 (10-12 pax)", matchedRoute.precio10a12!)}
+                    onClick={() => goToRoute(matchedRoute, "maxus")}
                     className="group rounded-2xl border-2 border-black/5 bg-light-surface p-4 text-center transition hover:border-sunset-orange hover:shadow-lg"
                   >
                     <div className="relative mx-auto h-24 w-full">
@@ -249,7 +243,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                         ${matchedRoute.precio10a12}
                       </div>
                       <div className="mt-2 rounded-lg bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-3 py-2 text-xs font-bold text-white opacity-0 transition group-hover:opacity-100">
-                        Book Now
+                        Select &amp; Book
                       </div>
                     </div>
                   </button>

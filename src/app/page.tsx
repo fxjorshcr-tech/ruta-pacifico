@@ -104,11 +104,8 @@ export default function Home() {
                 Liberia Airport
               </span>
             </h1>
-            <p className="mt-5 max-w-lg text-lg text-white/80">
-              Door-to-door private shuttles from LIR to every beach, resort, and destination in Costa Rica. We also pick up at San Jos&eacute; Airport (SJO) on request.
-            </p>
-            <p className="mt-3 max-w-lg text-sm text-white/60">
-              Just your group. Fixed prices. Flight tracking included.
+            <p className="mt-5 max-w-lg text-base text-white/80 sm:text-lg">
+              LIR &amp; SJO airport shuttles to Tamarindo, Flamingo, Papagayo, Nosara &amp; every Costa Rica beach.
             </p>
           </div>
           <div className="hidden lg:flex flex-col items-center justify-center gap-8">
@@ -134,12 +131,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Bottom tagline */}
-        <div className="absolute bottom-12 left-0 right-0 z-10 text-center">
-          <p className="text-2xl font-extrabold tracking-wide text-white drop-shadow-lg sm:text-3xl md:text-4xl">
-            Land. Relax. We&apos;ll get you to the beach.
-          </p>
-        </div>
       </section>
 
       {/* ─── SERVICES ─── */}
@@ -272,50 +263,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── BEACHES OF GUANACASTE ─── */}
-      <section id="beaches" className="relative overflow-hidden">
-        <div className="grid lg:grid-cols-2">
-          <div className="relative flex items-center bg-white px-8 py-16 lg:px-16 lg:py-24 order-2 lg:order-1">
-            <div className="max-w-lg ml-auto">
-              <StarDivider />
-              <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
-                The Beaches of{" "}
-                <span className="bg-gradient-to-r from-sunset-gold to-sunset-orange bg-clip-text text-transparent">
-                  Guanacaste
-                </span>
-              </h2>
-              <p className="mt-6 leading-relaxed text-foreground/70">
-                Over 600 km of Pacific coastline where the jungle meets the sea. White-sand coves, surf towns, luxury resorts, and quiet fishing villages — all within a short ride from Liberia Airport.
-              </p>
-              <p className="mt-4 leading-relaxed text-foreground/70">
-                Whether you&apos;re chasing sunsets in Tamarindo, diving at the Catalinas Islands from Flamingo, relaxing in the Papagayo Peninsula, or surfing in Nosara, we take you straight to the sand — no connections, no stops, just your group and a professional driver.
-              </p>
-              <p className="mt-4 leading-relaxed text-foreground/70">
-                Over 300 days of sunshine per year and a dry season from November to April make Guanacaste the perfect winter escape.
-              </p>
-              <div className="mt-8 grid grid-cols-2 gap-4">
-                {[
-                  { name: "Tamarindo", tag: "Surf & nightlife" },
-                  { name: "Flamingo / Conchal", tag: "White sand" },
-                  { name: "Papagayo Peninsula", tag: "Luxury resorts" },
-                  { name: "Nosara / Sámara", tag: "Yoga & surf" },
-                  { name: "Playas del Coco", tag: "Lively town" },
-                  { name: "Las Catalinas", tag: "Beach village" },
-                ].map((item) => (
-                  <div key={item.name} className="rounded-lg border border-black/5 bg-light-surface px-4 py-3">
-                    <div className="text-sm font-semibold text-foreground">{item.name}</div>
-                    <div className="text-xs text-sunset-orange">{item.tag}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="relative min-h-[400px] lg:min-h-[700px] order-1 lg:order-2">
-            <Image src={HERO_URL} alt="Guanacaste Pacific coast" fill className="object-cover" unoptimized />
-          </div>
-        </div>
-      </section>
-
       {/* ─── AIRPORTS (no photo) ─── */}
       <section id="airport" className="bg-white border-t border-black/5 py-24">
         <div className="mx-auto max-w-5xl px-6">
@@ -431,55 +378,119 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── GUANACASTE ─── */}
-      <section id="guanacaste" className="bg-white py-24 border-t border-black/5">
-        <div className="mx-auto max-w-6xl px-6">
+      {/* ─── GUANACASTE + BEACHES (merged mega section) ─── */}
+      <section
+        id="guanacaste"
+        className="relative overflow-hidden border-t border-black/5 bg-gradient-to-b from-white via-light-surface to-white py-24"
+      >
+        {/* Decorative beach backdrop */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[420px] opacity-[0.08]">
+          <Image src={HERO_URL} alt="" fill className="object-cover" unoptimized />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white" />
+        </div>
+        {/* Decorative blobs */}
+        <div className="pointer-events-none absolute -left-24 top-1/3 h-72 w-72 rounded-full bg-sunset-gold/10 blur-3xl" />
+        <div className="pointer-events-none absolute -right-24 bottom-1/4 h-72 w-72 rounded-full bg-sunset-orange/10 blur-3xl" />
+
+        <div className="relative mx-auto max-w-6xl px-6">
+          {/* Header */}
           <div className="text-center">
             <StarDivider />
-            <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
+            <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
               Discover{" "}
-              <span className="bg-gradient-to-r from-sunset-gold to-sunset-orange bg-clip-text text-transparent">Guanacaste</span>
+              <span className="bg-gradient-to-r from-sunset-gold via-sunset-orange to-sunset-red bg-clip-text text-transparent">
+                Guanacaste
+              </span>
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
-              Costa Rica&apos;s sunniest province — over 300 days of sunshine, world-class beaches, volcanoes, and a culture unlike anywhere else.
+              Costa Rica&apos;s sunniest province — 600+ km of Pacific coastline, 300+ days of sunshine, volcanoes, and a culture unlike anywhere else.
             </p>
           </div>
 
-          {/* Gallery + text */}
-          <div className="mt-16 grid gap-10 lg:grid-cols-2 items-center">
-            {/* Gallery — carousel on mobile, 2x2 on desktop */}
+          {/* Stats row */}
+          <div className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+            {[
+              { value: "300+", label: "Sunny days / year" },
+              { value: "25–35°C", label: "Avg. temperature" },
+              { value: "600+", label: "km of coastline" },
+              { value: "4", label: "National parks" },
+            ].map((stat) => (
+              <div
+                key={stat.label}
+                className="rounded-2xl border border-black/5 bg-white/70 p-4 text-center shadow-sm backdrop-blur-sm"
+              >
+                <div className="text-2xl font-bold text-sunset-orange">{stat.value}</div>
+                <div className="mt-1 text-xs text-foreground/50">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Gallery + narrative */}
+          <div className="mt-16 grid items-center gap-10 lg:grid-cols-2">
             <GuanacasteGallery />
 
-            {/* Text content */}
             <div>
-              <p className="leading-relaxed text-foreground/70">
-                Costa Rica&apos;s sunniest province with over 300 days of sunshine per year. The dry season from November to April makes it the perfect winter escape.
+              <span className="inline-block rounded-full border border-sunset-orange/20 bg-sunset-orange/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-sunset-orange">
+                Pacific Paradise
+              </span>
+              <h3 className="mt-4 text-2xl font-bold text-foreground sm:text-3xl">
+                Where the jungle meets the sea
+              </h3>
+              <p className="mt-4 leading-relaxed text-foreground/70">
+                The dry season from November to April makes Guanacaste the perfect winter escape — white-sand coves, surf towns, luxury resorts, and quiet fishing villages, all within a short private-shuttle ride from Liberia Airport (LIR).
               </p>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                Over 600 km of Pacific coastline with beaches like Tamarindo, Flamingo, Conchal, and the Papagayo Peninsula. Inland, the Rinc&oacute;n de la Vieja volcano, tropical dry forests, and waterfalls like Llanos de Cort&eacute;s.
+                Inland, you&apos;ll find the Rinc&oacute;n de la Vieja volcano, tropical dry forests, and waterfalls like Llanos de Cort&eacute;s. The only province that celebrates its own annexation day on July 25th — with parades, traditional music, and horseback shows.
               </p>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                The only province that celebrates its own annexation day on July 25th — with parades, traditional music, and horseback shows. Also a top destination for surfing, sport fishing, and diving at the Catalinas Islands.
+                A top destination for surfing, sport fishing, and diving at the Catalinas Islands.
               </p>
+            </div>
+          </div>
 
-              <div className="mt-6 grid grid-cols-2 gap-4">
-                <div className="rounded-xl bg-light-surface p-4">
-                  <div className="text-xl font-bold text-sunset-orange">300+</div>
-                  <div className="text-xs text-foreground/50">Sunny days / year</div>
+          {/* Beaches we serve */}
+          <div className="mt-24">
+            <div className="text-center">
+              <h3 className="text-2xl font-bold text-foreground sm:text-3xl">
+                Beaches We{" "}
+                <span className="bg-gradient-to-r from-sunset-gold to-sunset-orange bg-clip-text text-transparent">
+                  Shuttle To
+                </span>
+              </h3>
+              <p className="mx-auto mt-3 max-w-xl text-sm text-foreground/60">
+                All within a short private-shuttle ride from Liberia Airport (LIR).
+              </p>
+            </div>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                { name: "Tamarindo", tag: "Surf & nightlife", from: "~50 min from LIR" },
+                { name: "Flamingo / Conchal", tag: "White-sand bays", from: "~1 hr from LIR" },
+                { name: "Papagayo Peninsula", tag: "Luxury resorts", from: "~30 min from LIR" },
+                { name: "Nosara / Sámara", tag: "Yoga & surf", from: "~2 hrs from LIR" },
+                { name: "Playas del Coco", tag: "Lively beach town", from: "~25 min from LIR" },
+                { name: "Las Catalinas", tag: "Walkable village", from: "~1 hr from LIR" },
+              ].map((beach) => (
+                <div
+                  key={beach.name}
+                  className="group relative overflow-hidden rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-sunset-orange/30 hover:shadow-lg"
+                >
+                  <div className="absolute right-4 top-4 text-sunset-orange/20 transition group-hover:text-sunset-orange/40">
+                    <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                    </svg>
+                  </div>
+                  <div className="text-lg font-bold text-foreground">{beach.name}</div>
+                  <div className="mt-1 text-sm font-medium text-sunset-orange">{beach.tag}</div>
+                  <div className="mt-4 flex items-center gap-1.5 text-xs text-foreground/40">
+                    <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    {beach.from}
+                  </div>
                 </div>
-                <div className="rounded-xl bg-light-surface p-4">
-                  <div className="text-xl font-bold text-sunset-orange">25&ndash;35&deg;C</div>
-                  <div className="text-xs text-foreground/50">Avg. temperature</div>
-                </div>
-                <div className="rounded-xl bg-light-surface p-4">
-                  <div className="text-xl font-bold text-sunset-orange">600+</div>
-                  <div className="text-xs text-foreground/50">km of coastline</div>
-                </div>
-                <div className="rounded-xl bg-light-surface p-4">
-                  <div className="text-xl font-bold text-sunset-orange">4</div>
-                  <div className="text-xs text-foreground/50">National parks</div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
