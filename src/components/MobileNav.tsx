@@ -14,7 +14,7 @@ export default function MobileNav() {
             href="#services"
             className="text-sm font-medium text-white/80 transition hover:text-sunset-orange"
           >
-            Private Transfers
+            Private Shuttles
           </a>
           <a
             href="/book/transfer"
@@ -66,7 +66,7 @@ export default function MobileNav() {
             onClick={() => setOpen(false)}
             className="py-3 text-sm font-medium text-white/80 transition hover:text-sunset-orange"
           >
-            Private Transfers
+            Private Shuttles
           </a>
           <a
             href="/book/transfer"

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Ruta Pacifico | Private Transfers in Guanacaste, Costa Rica",
+  title: "Ruta Pacifico | Private Shuttles in Guanacaste, Costa Rica",
   description:
-    "Premium private airport transfers and transportation services across Guanacaste, Costa Rica. Reliable drivers, modern vehicles, and seamless travel experiences.",
+    "Premium private shuttles from Liberia Airport (LIR) — and also from San José (SJO) — to every beach and destination in Costa Rica. Reliable drivers, modern vehicles, and seamless travel experiences.",
 };
 
 export default function RootLayout({

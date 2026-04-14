@@ -87,7 +87,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
 
   function handleBookVan(route: Route, vanType: string, price: number) {
     const msg =
-      `Hi! I'd like to book a private transfer:\n\n` +
+      `Hi! I'd like to book a private shuttle:\n\n` +
       `From: ${route.origen}\n` +
       `To: ${route.destino}\n` +
       `Vehicle: ${vanType}\n` +
@@ -297,8 +297,8 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
       </section>
 
       {/* ─── TRUST BADGES ─── */}
-      <section className="mx-auto max-w-4xl px-6 py-12">
-        <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-foreground/50">
+      <section className="mx-auto max-w-5xl px-6 pt-12 pb-4">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4 text-sm text-foreground/60">
           {[
             {
               icon: "M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z",
@@ -307,6 +307,14 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
             {
               icon: "M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z",
               label: "Private — just your group",
+            },
+            {
+              icon: "M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25V9m-3 0h13.5M6.75 9v10.5A2.25 2.25 0 0 0 9 21.75h6a2.25 2.25 0 0 0 2.25-2.25V9",
+              label: "Luggage included",
+            },
+            {
+              icon: "M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z",
+              label: "Free child seats",
             },
             {
               icon: "M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z",
@@ -320,10 +328,14 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
               icon: "M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z",
               label: "Complimentary water",
             },
+            {
+              icon: "M2.25 8.25h19.5M2.25 9v10.5A1.5 1.5 0 0 0 3.75 21h16.5a1.5 1.5 0 0 0 1.5-1.5V9M3.75 3h16.5A1.5 1.5 0 0 1 21.75 4.5v3.75H2.25V4.5A1.5 1.5 0 0 1 3.75 3Z",
+              label: "No hidden fees",
+            },
           ].map((item) => (
             <div key={item.label} className="flex items-center gap-2">
               <svg
-                className="h-5 w-5 text-sunset-orange"
+                className="h-5 w-5 shrink-0 text-sunset-orange"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
