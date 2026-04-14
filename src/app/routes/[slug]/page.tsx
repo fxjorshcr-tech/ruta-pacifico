@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getSupabase } from "@/lib/supabase";
 import BookingForm from "@/components/BookingForm";
+import SiteNav from "@/components/SiteNav";
 import type { Route } from "@/components/RouteSearch";
 import { isAirportOrigin, routeSlug } from "@/lib/slug";
 
@@ -87,42 +88,7 @@ export default async function RoutePage({
   return (
     <main className="bg-light-surface min-h-screen">
       {/* ─── NAV ─── */}
-      <nav className="absolute top-0 z-50 w-full">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src={LOGO_URL}
-              alt="Ruta Pacifico"
-              width={480}
-              height={160}
-              className="h-28 w-auto sm:h-36"
-              unoptimized
-            />
-          </Link>
-          <div className="flex items-center gap-6">
-            <Link
-              href="/"
-              className="text-sm font-medium text-white/80 transition hover:text-sunset-orange"
-            >
-              Home
-            </Link>
-            <Link
-              href="/book/transfer"
-              className="hidden text-sm font-medium text-white/80 transition hover:text-sunset-orange sm:block"
-            >
-              All Routes
-            </Link>
-            <a
-              href="https://wa.me/50685962438"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-sunset-orange px-5 py-2 text-sm font-semibold text-white transition hover:bg-sunset-gold"
-            >
-              WhatsApp
-            </a>
-          </div>
-        </div>
-      </nav>
+      <SiteNav transparent />
 
       {/* ─── HERO / Route header ─── */}
       <section className="relative flex min-h-[52vh] items-center overflow-hidden">
@@ -155,45 +121,48 @@ export default async function RoutePage({
 
           {/* Prominent price badge */}
           <div className="mt-8 flex justify-center">
-            <div className="group relative inline-flex items-center gap-5 rounded-3xl bg-gradient-to-br from-sunset-red via-sunset-orange to-sunset-gold p-[2px] shadow-2xl shadow-sunset-orange/30">
-              <div className="flex items-center gap-5 rounded-[22px] bg-black/60 px-7 py-4 backdrop-blur-md">
-                <div className="flex flex-col items-start leading-none">
-                  <span className="text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-white/60">
-                    Starting from
+            <div className="inline-flex items-center gap-5 rounded-3xl border border-white/15 bg-white/5 px-7 py-5 shadow-xl shadow-black/20 backdrop-blur-xl sm:gap-6 sm:px-8">
+              <div className="flex flex-col items-start leading-none">
+                <span className="text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-white/60">
+                  Starting from
+                </span>
+                <div className="mt-1 flex items-baseline gap-1.5">
+                  <span className="bg-gradient-to-r from-sunset-gold via-sunset-orange to-sunset-red bg-clip-text text-5xl font-extrabold tracking-tight text-transparent drop-shadow-sm sm:text-6xl">
+                    ${startingPrice}
                   </span>
-                  <div className="mt-1 flex items-baseline gap-1">
-                    <span className="bg-gradient-to-r from-sunset-gold via-sunset-orange to-sunset-red bg-clip-text text-5xl font-extrabold tracking-tight text-transparent sm:text-6xl">
-                      ${startingPrice}
-                    </span>
-                    <span className="text-sm font-medium text-white/70">
-                      USD
-                    </span>
-                  </div>
-                  <span className="mt-1 text-[0.7rem] text-white/60">
-                    per vehicle · all taxes included
+                  <span className="text-sm font-semibold text-white/80">
+                    USD
                   </span>
                 </div>
-                <div className="h-16 w-px bg-white/15" />
-                <div className="flex flex-col items-start gap-1 text-left">
-                  <div className="flex items-center gap-1.5 text-xs text-white/80">
-                    <svg className="h-3.5 w-3.5 text-green-400" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                    </svg>
-                    Private vehicle
-                  </div>
-                  <div className="flex items-center gap-1.5 text-xs text-white/80">
-                    <svg className="h-3.5 w-3.5 text-green-400" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                    </svg>
-                    Fixed price
-                  </div>
-                  <div className="flex items-center gap-1.5 text-xs text-white/80">
-                    <svg className="h-3.5 w-3.5 text-green-400" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                    </svg>
-                    Free cancellation
-                  </div>
-                </div>
+                <span className="mt-1.5 text-[0.7rem] text-white/60">
+                  per vehicle · all taxes included
+                </span>
+              </div>
+              <div className="h-16 w-px bg-white/20" />
+              <div className="flex flex-col items-start gap-1.5 text-left">
+                {["Private vehicle", "Fixed price", "Free cancellation"].map(
+                  (item) => (
+                    <div
+                      key={item}
+                      className="flex items-center gap-1.5 text-xs text-white/90"
+                    >
+                      <svg
+                        className="h-3.5 w-3.5 text-green-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={3}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="m4.5 12.75 6 6 9-13.5"
+                        />
+                      </svg>
+                      {item}
+                    </div>
+                  )
+                )}
               </div>
             </div>
           </div>

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getSupabase } from "@/lib/supabase";
 import RouteSearch from "@/components/RouteSearch";
+import SiteNav from "@/components/SiteNav";
 import type { Route } from "@/components/RouteSearch";
 import type { Metadata } from "next";
 
@@ -77,42 +78,7 @@ export default async function TransferPage() {
   return (
     <main className="bg-light-surface min-h-screen">
       {/* ─── NAV ─── */}
-      <nav className="absolute top-0 z-50 w-full">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src={LOGO_URL}
-              alt="Ruta Pacifico"
-              width={480}
-              height={160}
-              className="h-40 w-auto"
-              unoptimized
-            />
-          </Link>
-          <div className="flex items-center gap-6">
-            <Link
-              href="/"
-              className="text-sm font-medium text-white/80 transition hover:text-sunset-orange"
-            >
-              Home
-            </Link>
-            <Link
-              href="/#services"
-              className="hidden text-sm font-medium text-white/80 transition hover:text-sunset-orange sm:block"
-            >
-              Services
-            </Link>
-            <a
-              href="https://wa.me/50600000000"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-sunset-orange px-5 py-2 text-sm font-semibold text-white transition hover:bg-sunset-gold"
-            >
-              Contact Us
-            </a>
-          </div>
-        </div>
-      </nav>
+      <SiteNav transparent />
 
       {/* ─── HERO ─── */}
       <section className="relative flex min-h-[55vh] items-center overflow-hidden">

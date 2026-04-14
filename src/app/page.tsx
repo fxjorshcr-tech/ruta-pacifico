@@ -1,5 +1,6 @@
 import Image from "next/image";
-import MobileNav from "@/components/MobileNav";
+import Link from "next/link";
+import SiteNav from "@/components/SiteNav";
 import GuanacasteGallery from "@/components/GuanacasteGallery";
 
 const LOGO_URL =
@@ -87,7 +88,7 @@ export default function Home() {
   return (
     <main>
       {/* ─── NAV ─── */}
-      <MobileNav />
+      <SiteNav transparent />
 
       {/* ─── HERO ─── */}
       <section className="relative flex min-h-screen items-center overflow-hidden">
@@ -496,19 +497,156 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── CTA / BOOK ─── */}
-      <section id="book" className="bg-white py-20 border-t border-black/5">
-        <div className="mx-auto max-w-3xl px-6 text-center">
-          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
-            Let&apos;s find your shuttle
-          </h2>
-          <div className="mt-8">
-            <a href="/book/transfer" className="inline-flex items-center gap-3 rounded-full bg-sunset-orange px-10 py-4 text-base font-semibold text-white transition hover:bg-sunset-gold">
-              Book Now
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-              </svg>
-            </a>
+      {/* ─── ABOUT & CONTACT ─── */}
+      <section id="about" className="border-t border-black/5 bg-light-surface py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="text-center">
+            <StarDivider />
+            <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
+              About{" "}
+              <span className="bg-gradient-to-r from-sunset-gold to-sunset-orange bg-clip-text text-transparent">
+                Ruta Pacifico
+              </span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
+              Locally-owned private shuttle service operating out of Liberia,
+              Guanacaste — built by travelers, for travelers.
+            </p>
+          </div>
+
+          <div className="mt-16 grid gap-10 lg:grid-cols-2">
+            {/* About copy */}
+            <div className="rounded-3xl border border-black/5 bg-white p-8 shadow-sm sm:p-10">
+              <span className="inline-block rounded-full border border-sunset-orange/20 bg-sunset-orange/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-sunset-orange">
+                Who we are
+              </span>
+              <h3 className="mt-4 text-2xl font-bold text-foreground">
+                A trusted ground partner in Costa Rica
+              </h3>
+              <p className="mt-4 leading-relaxed text-foreground/70">
+                Ruta Pacifico is a licensed, insured private-shuttle operator
+                serving Liberia Airport (LIR), San Jos&eacute; Airport (SJO),
+                and every beach and destination in between. We handle the
+                driving so you can focus on vacation.
+              </p>
+              <p className="mt-4 leading-relaxed text-foreground/70">
+                Our bilingual drivers know every road, every shortcut, and
+                every hidden beach. Flights get tracked in real time, prices
+                are fixed and transparent, and your group never shares a
+                vehicle with strangers.
+              </p>
+              <ul className="mt-6 grid gap-3 text-sm text-foreground/70 sm:grid-cols-2">
+                {[
+                  "Licensed & fully insured",
+                  "Bilingual local drivers",
+                  "Fixed prices — no hidden fees",
+                  "Real-time flight tracking",
+                  "Free child seats",
+                  "24/7 WhatsApp support",
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-2">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600">
+                      <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                      </svg>
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact methods */}
+            <div className="space-y-4">
+              <div className="rounded-3xl border border-black/5 bg-white p-6 shadow-sm transition hover:shadow-md sm:p-7">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-green-500 text-white">
+                    <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.553 4.116 1.519 5.848L.058 23.306a.5.5 0 00.636.636l5.458-1.461A11.948 11.948 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.94 0-3.753-.563-5.28-1.532l-.368-.224-3.821 1.023 1.023-3.821-.224-.368A9.935 9.935 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z" />
+                    </svg>
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-xs font-semibold uppercase tracking-wider text-foreground/40">
+                      WhatsApp — fastest response
+                    </div>
+                    <a
+                      href="https://wa.me/50685962438"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1 block text-lg font-bold text-foreground transition hover:text-sunset-orange"
+                    >
+                      +506 8596 2438
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-3xl border border-black/5 bg-white p-6 shadow-sm transition hover:shadow-md sm:p-7">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-sunset-orange text-white">
+                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                    </svg>
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-xs font-semibold uppercase tracking-wider text-foreground/40">
+                      Email
+                    </div>
+                    <a
+                      href="mailto:mybooking@cantwaittravelcr.com"
+                      className="mt-1 block break-all text-lg font-bold text-foreground transition hover:text-sunset-orange"
+                    >
+                      mybooking@cantwaittravelcr.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="rounded-3xl border border-black/5 bg-white p-6 shadow-sm">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-sunset-orange/10 text-sunset-orange">
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                  </div>
+                  <div className="mt-3 text-xs font-semibold uppercase tracking-wider text-foreground/40">
+                    Hours
+                  </div>
+                  <div className="mt-1 text-sm font-bold text-foreground">
+                    7 days a week
+                  </div>
+                  <div className="text-xs text-foreground/50">
+                    Pickups any hour
+                  </div>
+                </div>
+                <div className="rounded-3xl border border-black/5 bg-white p-6 shadow-sm">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-sunset-orange/10 text-sunset-orange">
+                    <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                    </svg>
+                  </div>
+                  <div className="mt-3 text-xs font-semibold uppercase tracking-wider text-foreground/40">
+                    Based in
+                  </div>
+                  <div className="mt-1 text-sm font-bold text-foreground">
+                    Liberia, Guanacaste
+                  </div>
+                  <div className="text-xs text-foreground/50">Costa Rica</div>
+                </div>
+              </div>
+
+              <Link
+                href="/book/transfer"
+                className="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-8 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 hover:scale-[1.01]"
+              >
+                Book your private shuttle
+                <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

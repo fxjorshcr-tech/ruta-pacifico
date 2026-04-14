@@ -1,17 +1,14 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import SiteNav from "@/components/SiteNav";
 import {
   BOOKING_STORAGE_KEY,
   formatDate,
   formatTime,
   type Booking,
 } from "@/lib/booking";
-
-const LOGO_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Logo%20Transparente.png";
 
 // Subscribe to sessionStorage changes from other tabs / windows
 function subscribeSessionStorage(callback: () => void): () => void {
@@ -99,28 +96,7 @@ export default function ConfirmationPage() {
   return (
     <main className="min-h-screen bg-light-surface">
       {/* Top bar */}
-      <nav className="bg-white border-b border-black/5">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src={LOGO_URL}
-              alt="Ruta Pacifico"
-              width={240}
-              height={80}
-              className="h-14 w-auto"
-              unoptimized
-            />
-          </Link>
-          <a
-            href="https://wa.me/50685962438"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-sunset-orange px-5 py-2 text-sm font-semibold text-white transition hover:bg-sunset-gold"
-          >
-            WhatsApp
-          </a>
-        </div>
-      </nav>
+      <SiteNav transparent={false} />
 
       <div className="mx-auto max-w-3xl px-6 py-16">
         {/* Success header */}
