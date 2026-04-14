@@ -33,3 +33,47 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* Modern date/time inputs — clickable over the whole control,
+   with a custom picker indicator tinted to brand orange. */
+input[type="date"].modern-picker,
+input[type="time"].modern-picker {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+input[type="date"].modern-picker::-webkit-calendar-picker-indicator,
+input[type="time"].modern-picker::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  cursor: pointer;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+input[type="date"].modern-picker::-webkit-datetime-edit,
+input[type="time"].modern-picker::-webkit-datetime-edit {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+input[type="date"].modern-picker:invalid::-webkit-datetime-edit,
+input[type="time"].modern-picker:invalid::-webkit-datetime-edit {
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+/* Remove default number input spinners on stepper controls */
+input[type="number"].no-spin::-webkit-inner-spin-button,
+input[type="number"].no-spin::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"].no-spin {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}

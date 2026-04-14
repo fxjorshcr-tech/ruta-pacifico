@@ -2,7 +2,13 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import type { Route } from "@/components/RouteSearch";
+import {
+  BOOKING_STORAGE_KEY,
+  generateConfirmationCode,
+  type Booking,
+} from "@/lib/booking";
 
 const STARIA_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/staria-smallMobile.webp";
@@ -10,8 +16,6 @@ const HIACE_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/hiace-van-cwt.png";
 const MAXUS_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/maxus-deviver-9-cwt-removebg-preview.png";
-
-const WHATSAPP_NUMBER = "50685962438";
 
 type VehicleKey = "staria" | "hiace" | "maxus";
 
@@ -30,6 +34,8 @@ interface VehicleOption {
 }
 
 export default function BookingForm({ route, isAirportPickup, initialVehicle }: Props) {
+  const router = useRouter();
+
   const vehicles: VehicleOption[] = useMemo(() => {
     const list: VehicleOption[] = [
       {
@@ -86,50 +92,49 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
   const selectedVehicle =
     vehicles.find((v) => v.key === vehicleKey) ?? vehicles[0];
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setSubmitting(true);
-
-    const lines = [
-      `Hi! I'd like to book a private shuttle:`,
-      ``,
-      `From: ${route.origen}`,
-      `To: ${route.destino}`,
-      `Date: ${date}`,
-      `Pickup time: ${time}`,
-      `Passengers: ${adults} adult${adults === 1 ? "" : "s"}${
-        children > 0 ? `, ${children} child${children === 1 ? "" : "ren"}` : ""
-      }`,
-    ];
-    if (isAirportPickup && flight) {
-      lines.push(`Flight #: ${flight}`);
-    }
-    lines.push(`Pickup location: ${pickupAddr}`);
-    lines.push(`Drop-off location: ${dropoffAddr}`);
-    lines.push(`Vehicle: ${selectedVehicle.name} (${selectedVehicle.pax})`);
-    lines.push(`Price: $${selectedVehicle.price}`);
-    lines.push(``);
-    lines.push(`Name: ${name}`);
-    lines.push(`Email: ${email}`);
-    lines.push(`Phone: ${phone}`);
-    if (notes) {
-      lines.push(`Notes: ${notes}`);
-    }
-    lines.push(``);
-    lines.push(`Please confirm availability. Thank you!`);
-
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-      lines.join("\n")
-    )}`;
-    window.open(url, "_blank");
-    setSubmitting(false);
-  }
-
   const totalPax = adults + children;
   const vehicleTooSmall =
     (vehicleKey === "staria" && totalPax > 6) ||
     (vehicleKey === "hiace" && totalPax > 9) ||
     (vehicleKey === "maxus" && totalPax > 12);
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (vehicleTooSmall) return;
+    setSubmitting(true);
+
+    const booking: Booking = {
+      from: route.origen,
+      to: route.destino,
+      duracion: route.duracion ?? null,
+      date,
+      time,
+      adults,
+      children,
+      flight: isAirportPickup ? flight : undefined,
+      pickup: pickupAddr,
+      dropoff: dropoffAddr,
+      vehicleKey: selectedVehicle.key,
+      vehicleName: selectedVehicle.name,
+      vehiclePax: selectedVehicle.pax,
+      price: selectedVehicle.price,
+      name,
+      email,
+      phone,
+      notes: notes || undefined,
+      isAirportPickup,
+      confirmationCode: generateConfirmationCode(),
+      createdAt: new Date().toISOString(),
+    };
+
+    try {
+      sessionStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify(booking));
+    } catch {
+      // sessionStorage disabled — continue anyway
+    }
+
+    router.push("/book/confirmation");
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-10">
@@ -193,81 +198,194 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
           )}
         </div>
 
-        {/* Date / time */}
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          <div>
+        {/* When — Date + Time */}
+        <div className="mt-8">
+          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground/70">
+            <svg className="h-4 w-4 text-sunset-orange" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+            </svg>
+            When would you like to be picked up?
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {/* Date card */}
             <label
               htmlFor="booking-date"
-              className="text-sm font-medium text-foreground/70"
+              className="group relative block cursor-pointer overflow-hidden rounded-2xl border-2 border-black/5 bg-white p-5 transition hover:border-sunset-orange/40 hover:shadow-md focus-within:border-sunset-orange focus-within:ring-4 focus-within:ring-sunset-orange/15"
             >
-              Pickup date
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sunset-orange/20 to-sunset-gold/20 text-sunset-orange transition group-hover:from-sunset-orange/30 group-hover:to-sunset-gold/30">
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                  </svg>
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-foreground/40">
+                    Pickup Date
+                  </div>
+                  <div className="mt-1 text-base font-bold text-foreground">
+                    {date
+                      ? new Date(date + "T00:00:00").toLocaleDateString("en-US", {
+                          weekday: "short",
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })
+                      : "Select a date"}
+                  </div>
+                </div>
+                <svg className="h-5 w-5 shrink-0 text-foreground/30 transition group-hover:text-sunset-orange" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                </svg>
+              </div>
+              <input
+                id="booking-date"
+                type="date"
+                required
+                value={date}
+                min={new Date().toISOString().split("T")[0]}
+                onChange={(e) => setDate(e.target.value)}
+                className="modern-picker absolute inset-0 h-full w-full opacity-0"
+              />
             </label>
-            <input
-              id="booking-date"
-              type="date"
-              required
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-            />
-          </div>
-          <div>
+
+            {/* Time card */}
             <label
               htmlFor="booking-time"
-              className="text-sm font-medium text-foreground/70"
+              className="group relative block cursor-pointer overflow-hidden rounded-2xl border-2 border-black/5 bg-white p-5 transition hover:border-sunset-orange/40 hover:shadow-md focus-within:border-sunset-orange focus-within:ring-4 focus-within:ring-sunset-orange/15"
             >
-              Pickup time
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sunset-orange/20 to-sunset-gold/20 text-sunset-orange transition group-hover:from-sunset-orange/30 group-hover:to-sunset-gold/30">
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-foreground/40">
+                    Pickup Time
+                  </div>
+                  <div className="mt-1 text-base font-bold text-foreground">
+                    {time
+                      ? (() => {
+                          const [h, m] = time.split(":").map(Number);
+                          const d = new Date();
+                          d.setHours(h, m);
+                          return d.toLocaleTimeString("en-US", {
+                            hour: "numeric",
+                            minute: "2-digit",
+                            hour12: true,
+                          });
+                        })()
+                      : "Select a time"}
+                  </div>
+                </div>
+                <svg className="h-5 w-5 shrink-0 text-foreground/30 transition group-hover:text-sunset-orange" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                </svg>
+              </div>
+              <input
+                id="booking-time"
+                type="time"
+                required
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                className="modern-picker absolute inset-0 h-full w-full opacity-0"
+              />
             </label>
-            <input
-              id="booking-time"
-              type="time"
-              required
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-            />
           </div>
         </div>
 
-        {/* Pax */}
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          <div>
-            <label
-              htmlFor="booking-adults"
-              className="text-sm font-medium text-foreground/70"
-            >
-              Adults
-            </label>
-            <input
-              id="booking-adults"
-              type="number"
-              required
-              min={1}
-              max={12}
-              value={adults}
-              onChange={(e) => setAdults(Number(e.target.value))}
-              className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-            />
+        {/* Travelers — Adults + Children steppers */}
+        <div className="mt-6">
+          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground/70">
+            <svg className="h-4 w-4 text-sunset-orange" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+            </svg>
+            Who&apos;s travelling?
           </div>
-          <div>
-            <label
-              htmlFor="booking-children"
-              className="text-sm font-medium text-foreground/70"
-            >
-              Children
-            </label>
-            <input
-              id="booking-children"
-              type="number"
-              min={0}
-              max={10}
-              value={children}
-              onChange={(e) => setChildren(Number(e.target.value))}
-              className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-            />
-            <p className="mt-1 text-xs text-foreground/40">
-              Child seats included free of charge.
-            </p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {/* Adults stepper */}
+            <div className="flex items-center gap-4 rounded-2xl border-2 border-black/5 bg-white p-5 transition hover:border-sunset-orange/40 hover:shadow-md">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sunset-orange/20 to-sunset-gold/20 text-sunset-orange">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                </svg>
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-foreground/40">
+                  Adults
+                </div>
+                <div className="text-xs text-foreground/50">13+ years</div>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setAdults(Math.max(1, adults - 1))}
+                  disabled={adults <= 1}
+                  aria-label="Remove adult"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-black/10 text-foreground transition hover:border-sunset-orange hover:bg-sunset-orange/5 hover:text-sunset-orange disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-black/10 disabled:hover:bg-transparent disabled:hover:text-foreground"
+                >
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
+                  </svg>
+                </button>
+                <span className="w-7 text-center text-xl font-bold tabular-nums text-foreground">
+                  {adults}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setAdults(Math.min(12, adults + 1))}
+                  disabled={adults >= 12}
+                  aria-label="Add adult"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-sunset-orange/30 bg-sunset-orange/5 text-sunset-orange transition hover:border-sunset-orange hover:bg-sunset-orange hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
+                >
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14m7-7H5" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* Children stepper */}
+            <div className="flex items-center gap-4 rounded-2xl border-2 border-black/5 bg-white p-5 transition hover:border-sunset-orange/40 hover:shadow-md">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sunset-orange/20 to-sunset-gold/20 text-sunset-orange">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 0v2.25m0 0-3 4.5m3-4.5 3 4.5m-6 0v4.5m6-4.5v4.5" />
+                </svg>
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-foreground/40">
+                  Children
+                </div>
+                <div className="text-xs text-foreground/50">Free child seats</div>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setChildren(Math.max(0, children - 1))}
+                  disabled={children <= 0}
+                  aria-label="Remove child"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-black/10 text-foreground transition hover:border-sunset-orange hover:bg-sunset-orange/5 hover:text-sunset-orange disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-black/10 disabled:hover:bg-transparent disabled:hover:text-foreground"
+                >
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
+                  </svg>
+                </button>
+                <span className="w-7 text-center text-xl font-bold tabular-nums text-foreground">
+                  {children}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setChildren(Math.min(10, children + 1))}
+                  disabled={children >= 10}
+                  aria-label="Add child"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-sunset-orange/30 bg-sunset-orange/5 text-sunset-orange transition hover:border-sunset-orange hover:bg-sunset-orange hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
+                >
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v14m7-7H5" />
+                  </svg>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -437,21 +555,15 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
             disabled={submitting || vehicleTooSmall}
             className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-10 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            <svg
-              className="h-5 w-5"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.553 4.116 1.519 5.848L.058 23.306a.5.5 0 00.636.636l5.458-1.461A11.948 11.948 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.94 0-3.753-.563-5.28-1.532l-.368-.224-3.821 1.023 1.023-3.821-.224-.368A9.935 9.935 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z" />
+            {submitting ? "Submitting…" : "Confirm Booking"}
+            <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
             </svg>
-            Confirm &amp; Book on WhatsApp
           </button>
         </div>
         <p className="mt-4 text-center text-xs text-foreground/50 sm:text-right">
-          Pressing the button opens WhatsApp with your booking details
-          pre-filled. We&apos;ll reply to confirm availability.
+          You&apos;ll receive the payment link by email and WhatsApp shortly
+          after confirming.
         </p>
       </div>
     </form>

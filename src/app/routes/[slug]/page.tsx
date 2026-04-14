@@ -152,12 +152,50 @@ export default async function RoutePage({
             Door-to-door private shuttle service. One vehicle, one driver,
             straight to your destination.
           </p>
-          <div className="mt-6 inline-flex items-baseline gap-2 rounded-full bg-white/10 px-5 py-2.5 backdrop-blur-sm">
-            <span className="text-xs text-white/70">From</span>
-            <span className="text-2xl font-bold text-white">
-              ${startingPrice}
-            </span>
-            <span className="text-xs text-white/60">per vehicle</span>
+
+          {/* Prominent price badge */}
+          <div className="mt-8 flex justify-center">
+            <div className="group relative inline-flex items-center gap-5 rounded-3xl bg-gradient-to-br from-sunset-red via-sunset-orange to-sunset-gold p-[2px] shadow-2xl shadow-sunset-orange/30">
+              <div className="flex items-center gap-5 rounded-[22px] bg-black/60 px-7 py-4 backdrop-blur-md">
+                <div className="flex flex-col items-start leading-none">
+                  <span className="text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-white/60">
+                    Starting from
+                  </span>
+                  <div className="mt-1 flex items-baseline gap-1">
+                    <span className="bg-gradient-to-r from-sunset-gold via-sunset-orange to-sunset-red bg-clip-text text-5xl font-extrabold tracking-tight text-transparent sm:text-6xl">
+                      ${startingPrice}
+                    </span>
+                    <span className="text-sm font-medium text-white/70">
+                      USD
+                    </span>
+                  </div>
+                  <span className="mt-1 text-[0.7rem] text-white/60">
+                    per vehicle · all taxes included
+                  </span>
+                </div>
+                <div className="h-16 w-px bg-white/15" />
+                <div className="flex flex-col items-start gap-1 text-left">
+                  <div className="flex items-center gap-1.5 text-xs text-white/80">
+                    <svg className="h-3.5 w-3.5 text-green-400" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                    </svg>
+                    Private vehicle
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs text-white/80">
+                    <svg className="h-3.5 w-3.5 text-green-400" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                    </svg>
+                    Fixed price
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs text-white/80">
+                    <svg className="h-3.5 w-3.5 text-green-400" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                    </svg>
+                    Free cancellation
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
