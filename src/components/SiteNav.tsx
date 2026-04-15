@@ -72,6 +72,12 @@ export default function SiteNav({ transparent = true }: Props) {
             Private Shuttles
           </Link>
           <Link
+            href="/faq"
+            className={`text-[0.95rem] font-bold tracking-wide transition ${linkClass}`}
+          >
+            FAQ
+          </Link>
+          <Link
             href={isHome ? "#about" : "/#about"}
             className={`text-[0.95rem] font-bold tracking-wide transition ${linkClass}`}
           >
@@ -115,6 +121,13 @@ export default function SiteNav({ transparent = true }: Props) {
             className={`rounded-xl px-4 py-3 text-base font-semibold transition ${mobileLinkClass}`}
           >
             Private Shuttles
+          </Link>
+          <Link
+            href="/faq"
+            onClick={() => setOpen(false)}
+            className={`rounded-xl px-4 py-3 text-base font-semibold transition ${mobileLinkClass}`}
+          >
+            FAQ
           </Link>
           <Link
             href={isHome ? "#about" : "/#about"}

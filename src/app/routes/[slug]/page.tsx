@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { getSupabase } from "@/lib/supabase";
 import BookingForm from "@/components/BookingForm";
 import SiteNav from "@/components/SiteNav";
+import FaqAccordion, { type Faq } from "@/components/FaqAccordion";
 import type { Route } from "@/components/RouteSearch";
 import { isAirportOrigin, routeSlug } from "@/lib/slug";
 
@@ -51,6 +52,37 @@ async function findRouteBySlug(slug: string): Promise<Route | null> {
   return all.find((r) => routeSlug(r.origen, r.destino) === slug) ?? null;
 }
 
+async function getFeaturedFaqs(): Promise<Faq[]> {
+  // We show a small sample on the route page: featured ones first, then fill
+  // up to 6 with the lowest-display-order active FAQs so we always have
+  // content even if nothing is flagged as featured.
+  const { data: featured, error: featuredError } = await getSupabase()
+    .from("faqs_ruta_pacifico")
+    .select("id, category, question, answer, display_order, is_featured")
+    .eq("is_active", true)
+    .eq("is_featured", true)
+    .order("display_order", { ascending: true })
+    .limit(6);
+
+  if (featuredError) {
+    console.error("Failed to fetch featured FAQs:", featuredError.message);
+    return [];
+  }
+
+  const result: Faq[] = (featured ?? []) as Faq[];
+  if (result.length >= 6) return result.slice(0, 6);
+
+  const { data: fill } = await getSupabase()
+    .from("faqs_ruta_pacifico")
+    .select("id, category, question, answer, display_order, is_featured")
+    .eq("is_active", true)
+    .eq("is_featured", false)
+    .order("display_order", { ascending: true })
+    .limit(6 - result.length);
+
+  return [...result, ...((fill ?? []) as Faq[])];
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -84,6 +116,7 @@ export default async function RoutePage({
 
   const airportPickup = isAirportOrigin(route.origen);
   const startingPrice = route.precio1a6;
+  const faqs = await getFeaturedFaqs();
 
   return (
     <main className="bg-light-surface min-h-screen">
@@ -278,6 +311,48 @@ export default async function RoutePage({
         />
       </section>
 
+      {/* ─── FAQ SNIPPET ─── */}
+      {faqs.length > 0 && (
+        <section className="mx-auto max-w-4xl px-6 pb-20">
+          <div className="mb-8 text-center">
+            <div className="inline-flex items-center gap-2 rounded-full bg-sunset-orange/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-sunset-orange">
+              Help Center
+            </div>
+            <h2 className="mt-4 text-2xl font-bold text-foreground sm:text-3xl">
+              Frequently Asked Questions
+            </h2>
+            <p className="mx-auto mt-2 max-w-xl text-sm text-foreground/60">
+              The most common questions travelers ask before booking a private
+              shuttle with us.
+            </p>
+          </div>
+
+          <FaqAccordion faqs={faqs} defaultOpenFirst />
+
+          <div className="mt-8 flex justify-center">
+            <Link
+              href="/faq"
+              className="inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-sunset-orange"
+            >
+              See all FAQs
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2.5}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                />
+              </svg>
+            </Link>
+          </div>
+        </section>
+      )}
+
       {/* ─── FOOTER ─── */}
       <footer className="border-t border-black/5 bg-foreground text-white">
         <div className="mx-auto max-w-6xl px-6 py-12">
@@ -301,6 +376,9 @@ export default async function RoutePage({
                 className="transition hover:text-sunset-orange"
               >
                 All routes
+              </Link>
+              <Link href="/faq" className="transition hover:text-sunset-orange">
+                FAQ
               </Link>
               <a
                 href="https://wa.me/50685962438"
