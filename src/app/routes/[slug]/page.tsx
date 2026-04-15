@@ -302,6 +302,9 @@ export default async function RoutePage({
               >
                 All routes
               </Link>
+              <Link href="/faq" className="transition hover:text-sunset-orange">
+                FAQ
+              </Link>
               <a
                 href="https://wa.me/50685962438"
                 className="transition hover:text-sunset-orange"
