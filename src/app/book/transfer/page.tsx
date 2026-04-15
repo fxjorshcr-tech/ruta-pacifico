@@ -213,8 +213,8 @@ export default async function TransferPage() {
                 </span>
                 <span>
                   Email:{" "}
-                  <a href="mailto:mybooking@cantwaittravelcr.com" className="font-medium text-sunset-orange hover:text-sunset-gold">
-                    mybooking@cantwaittravelcr.com
+                  <a href="mailto:mybooking@rutapacificocr.com" className="font-medium text-sunset-orange hover:text-sunset-gold">
+                    mybooking@rutapacificocr.com
                   </a>
                 </span>
               </li>
@@ -409,14 +409,17 @@ export default async function TransferPage() {
               >
                 Services
               </Link>
+              <Link href="/faq" className="transition hover:text-sunset-orange">
+                FAQ
+              </Link>
               <a
-                href="https://wa.me/50600000000"
+                href="https://wa.me/50685962438"
                 className="transition hover:text-sunset-orange"
               >
                 WhatsApp
               </a>
               <a
-                href="mailto:info@rutapacifico.com"
+                href="mailto:mybooking@rutapacificocr.com"
                 className="transition hover:text-sunset-orange"
               >
                 Email
