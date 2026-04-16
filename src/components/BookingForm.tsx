@@ -6,12 +6,7 @@ import { useRouter } from "next/navigation";
 import type { Route } from "@/components/RouteSearch";
 import DatePicker from "@/components/DatePicker";
 import TimePicker from "@/components/TimePicker";
-import PhoneInput from "@/components/PhoneInput";
-import {
-  BOOKING_STORAGE_KEY,
-  generateConfirmationCode,
-  type Booking,
-} from "@/lib/booking";
+import { BOOKING_STORAGE_KEY } from "@/lib/booking";
 
 const STARIA_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/staria-smallMobile.webp";
@@ -85,10 +80,7 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
   const [pickupAddr, setPickupAddr] = useState("");
   const [dropoffAddr, setDropoffAddr] = useState("");
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [notes, setNotes] = useState("");
+  // Personal info is collected on the checkout page
 
   const [submitting, setSubmitting] = useState(false);
   const [showDateTimeError, setShowDateTimeError] = useState(false);
@@ -112,7 +104,8 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
     setShowDateTimeError(false);
     setSubmitting(true);
 
-    const booking: Booking = {
+    // Save trip details to sessionStorage — personal info is collected on checkout
+    const tripData = {
       from: route.origen,
       to: route.destino,
       duracion: route.duracion ?? null,
@@ -127,22 +120,16 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
       vehicleName: selectedVehicle.name,
       vehiclePax: selectedVehicle.pax,
       price: selectedVehicle.price,
-      name,
-      email,
-      phone,
-      notes: notes || undefined,
       isAirportPickup,
-      confirmationCode: generateConfirmationCode(),
-      createdAt: new Date().toISOString(),
     };
 
     try {
-      sessionStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify(booking));
+      sessionStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify(tripData));
     } catch {
       // sessionStorage disabled — continue anyway
     }
 
-    router.push("/private-shuttle/confirmation");
+    router.push("/private-shuttle/checkout");
   }
 
   return (
@@ -353,7 +340,8 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
               htmlFor="booking-pickup"
               className="text-sm font-medium text-foreground/70"
             >
-              Pickup location
+              Pickup location{" "}
+              <span className="text-sunset-orange">({route.origen})</span>
             </label>
             <input
               id="booking-pickup"
@@ -362,7 +350,7 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
               placeholder={
                 isAirportPickup
                   ? "Terminal / airline"
-                  : "Hotel or address"
+                  : "Hotel, villa or address"
               }
               value={pickupAddr}
               onChange={(e) => setPickupAddr(e.target.value)}
@@ -374,7 +362,8 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
               htmlFor="booking-dropoff"
               className="text-sm font-medium text-foreground/70"
             >
-              Drop-off location
+              Drop-off location{" "}
+              <span className="text-sunset-orange">({route.destino})</span>
             </label>
             <input
               id="booking-dropoff"
@@ -384,86 +373,6 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
               value={dropoffAddr}
               onChange={(e) => setDropoffAddr(e.target.value)}
               className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ── Section 2: Personal info ── */}
-      <section className="rounded-3xl border border-black/5 bg-white p-6 shadow-sm sm:p-8">
-        <div className="mb-6 flex items-center gap-3">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sunset-orange text-sm font-bold text-white">
-            2
-          </span>
-          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
-            Your Information
-          </h2>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="sm:col-span-2">
-            <label
-              htmlFor="booking-name"
-              className="text-sm font-medium text-foreground/70"
-            >
-              Full name
-            </label>
-            <input
-              id="booking-name"
-              type="text"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="booking-email"
-              className="text-sm font-medium text-foreground/70"
-            >
-              Email
-            </label>
-            <input
-              id="booking-email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="booking-phone"
-              className="text-sm font-medium text-foreground/70"
-            >
-              Phone / WhatsApp
-            </label>
-            <div className="mt-2">
-              <PhoneInput
-                id="booking-phone"
-                value={phone}
-                onChange={setPhone}
-                required
-              />
-            </div>
-          </div>
-          <div className="sm:col-span-2">
-            <label
-              htmlFor="booking-notes"
-              className="text-sm font-medium text-foreground/70"
-            >
-              Special requests{" "}
-              <span className="text-foreground/40">(optional)</span>
-            </label>
-            <textarea
-              id="booking-notes"
-              rows={3}
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="Child seats, extra stops, luggage notes…"
-              className="mt-2 w-full resize-none rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
             />
           </div>
         </div>
@@ -486,7 +395,7 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
             disabled={submitting || vehicleTooSmall}
             className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-10 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {submitting ? "Submitting…" : "Confirm Booking"}
+            {submitting ? "Loading…" : "Continue to Checkout"}
             <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
             </svg>

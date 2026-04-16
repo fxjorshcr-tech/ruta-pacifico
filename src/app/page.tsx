@@ -611,7 +611,7 @@ export default function Home() {
                 </svg>
               </Link>
               <p className="mt-3 text-xs text-foreground/40">
-                Not on the list? We go there too — search any destination.
+                Search any destination on our booking page.
               </p>
             </div>
           </div>
