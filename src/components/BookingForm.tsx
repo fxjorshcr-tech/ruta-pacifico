@@ -134,9 +134,6 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
     onCartUpdate?.(updatedCart);
     setAdded(true);
     setSubmitting(false);
-
-    // Scroll to top so the user sees the cart / can add another route
-    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   return (
