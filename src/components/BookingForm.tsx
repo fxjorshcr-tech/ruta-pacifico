@@ -6,7 +6,12 @@ import { useRouter } from "next/navigation";
 import type { Route } from "@/components/RouteSearch";
 import DatePicker from "@/components/DatePicker";
 import TimePicker from "@/components/TimePicker";
-import { BOOKING_STORAGE_KEY } from "@/lib/booking";
+import {
+  addToCart,
+  getCart,
+  generateTripId,
+  type TripItem,
+} from "@/lib/booking";
 
 const STARIA_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/staria-smallMobile.webp";
@@ -21,6 +26,7 @@ interface Props {
   route: Route;
   isAirportPickup: boolean;
   initialVehicle?: VehicleKey;
+  onCartUpdate?: (cart: TripItem[]) => void;
 }
 
 interface VehicleOption {
@@ -31,8 +37,9 @@ interface VehicleOption {
   price: number;
 }
 
-export default function BookingForm({ route, isAirportPickup, initialVehicle }: Props) {
+export default function BookingForm({ route, isAirportPickup, initialVehicle, onCartUpdate }: Props) {
   const router = useRouter();
+  const [added, setAdded] = useState(false);
 
   const vehicles: VehicleOption[] = useMemo(() => {
     const list: VehicleOption[] = [
@@ -104,8 +111,8 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
     setShowDateTimeError(false);
     setSubmitting(true);
 
-    // Save trip details to sessionStorage — personal info is collected on checkout
-    const tripData = {
+    const tripItem: TripItem = {
+      id: generateTripId(),
       from: route.origen,
       to: route.destino,
       duracion: route.duracion ?? null,
@@ -123,13 +130,13 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
       isAirportPickup,
     };
 
-    try {
-      sessionStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify(tripData));
-    } catch {
-      // sessionStorage disabled — continue anyway
-    }
+    const updatedCart = addToCart(tripItem);
+    onCartUpdate?.(updatedCart);
+    setAdded(true);
+    setSubmitting(false);
 
-    router.push("/private-shuttle/checkout");
+    // Scroll to top so the user sees the cart / can add another route
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   return (
@@ -379,33 +386,65 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
       </section>
 
       {/* ── Submit ── */}
-      <div className="rounded-3xl border border-sunset-orange/20 bg-sunset-orange/5 p-6 sm:p-8">
-        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-          <div>
-            <div className="text-sm text-foreground/60">Total (per vehicle)</div>
-            <div className="text-3xl font-bold text-sunset-orange">
-              ${selectedVehicle.price}
-            </div>
-            <div className="text-xs text-foreground/40">
-              13% VAT included · no hidden fees
-            </div>
-          </div>
-          <button
-            type="submit"
-            disabled={submitting || vehicleTooSmall}
-            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-10 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {submitting ? "Loading…" : "Continue to Checkout"}
-            <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+      {added ? (
+        <div className="rounded-3xl border border-green-200 bg-green-50 p-6 text-center sm:p-8">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100 text-green-600">
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
             </svg>
-          </button>
+          </div>
+          <h3 className="mt-4 text-lg font-bold text-foreground">Shuttle added</h3>
+          <p className="mt-2 text-sm text-foreground/60">
+            {route.origen} → {route.destino} has been added to your trip.
+          </p>
+          <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <button
+              type="button"
+              onClick={() => router.push("/private-shuttle")}
+              className="inline-flex items-center gap-2 rounded-full border-2 border-sunset-orange px-6 py-3 text-sm font-bold text-sunset-orange transition hover:bg-sunset-orange/5"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+              Add another shuttle
+            </button>
+            <button
+              type="button"
+              onClick={() => router.push("/private-shuttle/checkout")}
+              className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-8 py-3 text-sm font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40"
+            >
+              Continue to Checkout
+              <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            </button>
+          </div>
         </div>
-        <p className="mt-4 text-center text-xs text-foreground/50 sm:text-right">
-          You&apos;ll receive the payment link by email and WhatsApp shortly
-          after confirming.
-        </p>
-      </div>
+      ) : (
+        <div className="rounded-3xl border border-sunset-orange/20 bg-sunset-orange/5 p-6 sm:p-8">
+          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+            <div>
+              <div className="text-sm text-foreground/60">This shuttle</div>
+              <div className="text-3xl font-bold text-sunset-orange">
+                ${selectedVehicle.price}
+              </div>
+              <div className="text-xs text-foreground/40">
+                13% VAT included
+              </div>
+            </div>
+            <button
+              type="submit"
+              disabled={submitting || vehicleTooSmall}
+              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-10 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {submitting ? "Adding…" : "Add to Trip"}
+              <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
     </form>
   );
 }

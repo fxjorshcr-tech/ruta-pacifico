@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getSupabase } from "@/lib/supabase";
-import BookingForm from "@/components/BookingForm";
+import BookingSection from "@/components/BookingSection";
 import SiteNav from "@/components/SiteNav";
 import type { Route } from "@/components/RouteSearch";
 import { isAirportOrigin, routeSlug } from "@/lib/slug";
@@ -271,7 +271,7 @@ export default async function RoutePage({
             Complete the trip details below to confirm your reservation.
           </p>
         </div>
-        <BookingForm
+        <BookingSection
           route={route}
           isAirportPickup={airportPickup}
           initialVehicle={v}

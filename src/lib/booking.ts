@@ -1,3 +1,22 @@
+export interface TripItem {
+  id: string; // unique per cart item
+  from: string;
+  to: string;
+  duracion: string | null;
+  date: string;
+  time: string;
+  adults: number;
+  children: number;
+  flight?: string;
+  pickup: string;
+  dropoff: string;
+  vehicleKey: "staria" | "hiace" | "maxus";
+  vehicleName: string;
+  vehiclePax: string;
+  price: number;
+  isAirportPickup: boolean;
+}
+
 export interface Booking {
   // Route
   from: string;
@@ -32,6 +51,46 @@ export interface Booking {
 }
 
 export const BOOKING_STORAGE_KEY = "rp_booking";
+export const CART_STORAGE_KEY = "rp_cart";
+
+export function generateTripId(): string {
+  return Math.random().toString(36).slice(2, 10);
+}
+
+export function getCart(): TripItem[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = sessionStorage.getItem(CART_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveCart(items: TripItem[]): void {
+  try {
+    sessionStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+  } catch {
+    // sessionStorage disabled
+  }
+}
+
+export function addToCart(item: TripItem): TripItem[] {
+  const cart = getCart();
+  cart.push(item);
+  saveCart(cart);
+  return cart;
+}
+
+export function removeFromCart(id: string): TripItem[] {
+  const cart = getCart().filter((item) => item.id !== id);
+  saveCart(cart);
+  return cart;
+}
+
+export function getCartTotal(items: TripItem[]): number {
+  return items.reduce((sum, item) => sum + item.price, 0);
+}
 
 export function generateConfirmationCode(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";

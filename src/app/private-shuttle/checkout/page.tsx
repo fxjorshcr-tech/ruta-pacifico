@@ -1,46 +1,25 @@
 "use client";
 
-import { useSyncExternalStore, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import SiteNav from "@/components/SiteNav";
 import PhoneInput from "@/components/PhoneInput";
 import {
   BOOKING_STORAGE_KEY,
+  CART_STORAGE_KEY,
+  getCart,
+  getCartTotal,
   generateConfirmationCode,
   formatDate,
   formatTime,
-  type Booking,
+  type TripItem,
 } from "@/lib/booking";
-
-function subscribeSessionStorage(callback: () => void): () => void {
-  if (typeof window === "undefined") return () => {};
-  window.addEventListener("storage", callback);
-  return () => window.removeEventListener("storage", callback);
-}
-
-function getTripSnapshot(): string | null {
-  if (typeof window === "undefined") return null;
-  try {
-    return window.sessionStorage.getItem(BOOKING_STORAGE_KEY);
-  } catch {
-    return null;
-  }
-}
-
-function getServerSnapshot(): string | null {
-  return null;
-}
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const raw = useSyncExternalStore(
-    subscribeSessionStorage,
-    getTripSnapshot,
-    getServerSnapshot,
-  );
-
-  const trip = raw ? JSON.parse(raw) : null;
+  const [cart, setCart] = useState<TripItem[]>([]);
+  const [loaded, setLoaded] = useState(false);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -48,23 +27,32 @@ export default function CheckoutPage() {
   const [notes, setNotes] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
+  useEffect(() => {
+    setCart(getCart());
+    setLoaded(true);
+  }, []);
+
+  const total = getCartTotal(cart);
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!trip) return;
+    if (cart.length === 0) return;
     setSubmitting(true);
 
-    const booking: Booking = {
-      ...trip,
+    const booking = {
+      trips: cart,
       name,
       email,
       phone,
       notes: notes || undefined,
+      total,
       confirmationCode: generateConfirmationCode(),
       createdAt: new Date().toISOString(),
     };
 
     try {
       sessionStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify(booking));
+      sessionStorage.removeItem(CART_STORAGE_KEY);
     } catch {
       // sessionStorage disabled
     }
@@ -72,16 +60,18 @@ export default function CheckoutPage() {
     router.push("/private-shuttle/confirmation");
   }
 
-  if (!trip) {
+  if (!loaded) return null;
+
+  if (cart.length === 0) {
     return (
       <main className="bg-light-surface min-h-screen">
         <SiteNav transparent={false} />
         <div className="mx-auto max-w-2xl px-6 py-32 text-center">
           <h1 className="text-2xl font-bold text-foreground">
-            No trip selected
+            Your trip is empty
           </h1>
           <p className="mt-3 text-sm text-foreground/60">
-            Please select a route and fill in your trip details first.
+            Add at least one shuttle to continue.
           </p>
           <Link
             href="/private-shuttle"
@@ -106,7 +96,7 @@ export default function CheckoutPage() {
           Checkout
         </h1>
         <p className="mt-2 text-foreground/60">
-          Review your trip and complete your booking.
+          Review your {cart.length === 1 ? "shuttle" : `${cart.length} shuttles`} and complete your booking.
         </p>
 
         <form onSubmit={handleSubmit} className="mt-10 space-y-8">
@@ -117,54 +107,70 @@ export default function CheckoutPage() {
                 1
               </span>
               <h2 className="text-xl font-bold text-foreground sm:text-2xl">
-                Trip Summary
+                {cart.length === 1 ? "Trip Summary" : "Your Shuttles"}
               </h2>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="rounded-xl bg-light-surface p-4">
-                <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Route</div>
-                <div className="mt-1 text-sm font-bold text-foreground">{trip.from} → {trip.to}</div>
-                {trip.duracion && (
-                  <div className="mt-0.5 text-xs text-foreground/50">~{trip.duracion}</div>
-                )}
-              </div>
-              <div className="rounded-xl bg-light-surface p-4">
-                <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Vehicle</div>
-                <div className="mt-1 text-sm font-bold text-foreground">{trip.vehicleName}</div>
-                <div className="mt-0.5 text-xs text-foreground/50">{trip.vehiclePax}</div>
-              </div>
-              <div className="rounded-xl bg-light-surface p-4">
-                <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Date &amp; Time</div>
-                <div className="mt-1 text-sm font-bold text-foreground">{formatDate(trip.date)}</div>
-                <div className="mt-0.5 text-xs text-foreground/50">{formatTime(trip.time)}</div>
-              </div>
-              <div className="rounded-xl bg-light-surface p-4">
-                <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Travelers</div>
-                <div className="mt-1 text-sm font-bold text-foreground">
-                  {trip.adults} adult{trip.adults !== 1 ? "s" : ""}
-                  {trip.children > 0 && `, ${trip.children} child${trip.children !== 1 ? "ren" : ""}`}
+            <div className="space-y-6">
+              {cart.map((trip, idx) => (
+                <div key={trip.id}>
+                  {cart.length > 1 && (
+                    <div className="mb-3 flex items-center gap-2">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-sunset-orange/10 text-xs font-bold text-sunset-orange">
+                        {idx + 1}
+                      </span>
+                      <span className="text-sm font-bold text-foreground">{trip.from} → {trip.to}</span>
+                      <span className="text-sm font-bold text-sunset-orange">${trip.price}</span>
+                    </div>
+                  )}
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div className="rounded-xl bg-light-surface p-4">
+                      <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Route</div>
+                      <div className="mt-1 text-sm font-bold text-foreground">{trip.from} → {trip.to}</div>
+                      {trip.duracion && (
+                        <div className="mt-0.5 text-xs text-foreground/50">~{trip.duracion}</div>
+                      )}
+                    </div>
+                    <div className="rounded-xl bg-light-surface p-4">
+                      <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Vehicle</div>
+                      <div className="mt-1 text-sm font-bold text-foreground">{trip.vehicleName}</div>
+                      <div className="mt-0.5 text-xs text-foreground/50">{trip.vehiclePax}</div>
+                    </div>
+                    <div className="rounded-xl bg-light-surface p-4">
+                      <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Date &amp; Time</div>
+                      <div className="mt-1 text-sm font-bold text-foreground">{formatDate(trip.date)}</div>
+                      <div className="mt-0.5 text-xs text-foreground/50">{formatTime(trip.time)}</div>
+                    </div>
+                    <div className="rounded-xl bg-light-surface p-4">
+                      <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Travelers</div>
+                      <div className="mt-1 text-sm font-bold text-foreground">
+                        {trip.adults} adult{trip.adults !== 1 ? "s" : ""}
+                        {trip.children > 0 && `, ${trip.children} child${trip.children !== 1 ? "ren" : ""}`}
+                      </div>
+                    </div>
+                    {trip.flight && (
+                      <div className="rounded-xl bg-light-surface p-4">
+                        <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Flight</div>
+                        <div className="mt-1 text-sm font-bold text-foreground">{trip.flight}</div>
+                      </div>
+                    )}
+                    <div className="rounded-xl bg-light-surface p-4">
+                      <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Pickup</div>
+                      <div className="mt-1 text-sm font-bold text-foreground">{trip.pickup}</div>
+                    </div>
+                    <div className="rounded-xl bg-light-surface p-4">
+                      <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Drop-off</div>
+                      <div className="mt-1 text-sm font-bold text-foreground">{trip.dropoff}</div>
+                    </div>
+                  </div>
+                  {idx < cart.length - 1 && <div className="mt-6 border-t border-black/5" />}
                 </div>
-              </div>
-              {trip.flight && (
-                <div className="rounded-xl bg-light-surface p-4">
-                  <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Flight</div>
-                  <div className="mt-1 text-sm font-bold text-foreground">{trip.flight}</div>
-                </div>
-              )}
-              <div className="rounded-xl bg-light-surface p-4">
-                <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Pickup</div>
-                <div className="mt-1 text-sm font-bold text-foreground">{trip.pickup}</div>
-              </div>
-              <div className="rounded-xl bg-light-surface p-4">
-                <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Drop-off</div>
-                <div className="mt-1 text-sm font-bold text-foreground">{trip.dropoff}</div>
-              </div>
+              ))}
             </div>
 
             <div className="mt-4 text-right">
               <Link href="/private-shuttle" className="text-sm font-semibold text-sunset-orange transition hover:text-sunset-red">
-                Edit trip details
+                Add or edit shuttles
               </Link>
             </div>
           </section>
@@ -235,8 +241,10 @@ export default function CheckoutPage() {
           <div className="rounded-3xl border border-sunset-orange/20 bg-sunset-orange/5 p-6 sm:p-8">
             <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
               <div>
-                <div className="text-sm text-foreground/60">Total (per vehicle)</div>
-                <div className="text-3xl font-bold text-sunset-orange">${trip.price}</div>
+                <div className="text-sm text-foreground/60">
+                  Total ({cart.length} shuttle{cart.length !== 1 ? "s" : ""})
+                </div>
+                <div className="text-3xl font-bold text-sunset-orange">${total}</div>
                 <div className="text-xs text-foreground/40">13% VAT included</div>
               </div>
               <button
