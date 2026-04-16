@@ -559,13 +559,13 @@ export default function Home() {
           <div className="mt-24">
             <div className="text-center">
               <h3 className="text-2xl font-bold text-foreground sm:text-3xl">
-                Beaches We{" "}
+                Every Beach &amp;{" "}
                 <span className="bg-gradient-to-r from-sunset-gold to-sunset-orange bg-clip-text text-transparent">
-                  Shuttle To
+                  Resort in Guanacaste
                 </span>
               </h3>
               <p className="mx-auto mt-3 max-w-xl text-sm text-foreground/60">
-                All within a short private-shuttle ride from Liberia Airport (LIR).
+                Private shuttle service from LIR to every coastal town, resort, and beach in the province.
               </p>
             </div>
 
@@ -598,6 +598,21 @@ export default function Home() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-10 text-center">
+              <Link
+                href="/private-shuttle"
+                className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-8 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 hover:scale-[1.01]"
+              >
+                Find your route &amp; price
+                <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+              </Link>
+              <p className="mt-3 text-xs text-foreground/40">
+                Not on the list? We go there too — search any destination.
+              </p>
             </div>
           </div>
         </div>
