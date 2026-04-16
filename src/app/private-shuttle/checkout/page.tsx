@@ -110,170 +110,144 @@ export default function CheckoutPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-3xl px-6 pb-20 pt-10">
-
-        <form onSubmit={handleSubmit} className="mt-10 space-y-8">
-          {/* ── Trip Summary ── */}
-          <section className="rounded-3xl border border-black/5 bg-white p-6 shadow-sm sm:p-8">
-            <div className="mb-6 flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sunset-orange text-sm font-bold text-white">
-                1
-              </span>
-              <h2 className="text-xl font-bold text-foreground sm:text-2xl">
-                {cart.length === 1 ? "Trip Summary" : "Your Shuttles"}
-              </h2>
-            </div>
-
-            <div className="space-y-6">
-              {cart.map((trip, idx) => (
-                <div key={trip.id}>
-                  {cart.length > 1 && (
-                    <div className="mb-3 flex items-center gap-2">
-                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-sunset-orange/10 text-xs font-bold text-sunset-orange">
-                        {idx + 1}
-                      </span>
-                      <span className="text-sm font-bold text-foreground">{trip.from} → {trip.to}</span>
-                      <span className="text-sm font-bold text-sunset-orange">${trip.price}</span>
-                    </div>
-                  )}
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div className="rounded-xl bg-light-surface p-4">
-                      <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Route</div>
-                      <div className="mt-1 text-sm font-bold text-foreground">{trip.from} → {trip.to}</div>
-                      {trip.duracion && (
-                        <div className="mt-0.5 text-xs text-foreground/50">~{trip.duracion}</div>
-                      )}
-                    </div>
-                    <div className="rounded-xl bg-light-surface p-4">
-                      <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Vehicle</div>
-                      <div className="mt-1 text-sm font-bold text-foreground">{trip.vehicleName}</div>
-                      <div className="mt-0.5 text-xs text-foreground/50">{trip.vehiclePax}</div>
-                    </div>
-                    <div className="rounded-xl bg-light-surface p-4">
-                      <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Date &amp; Time</div>
-                      <div className="mt-1 text-sm font-bold text-foreground">{formatDate(trip.date)}</div>
-                      <div className="mt-0.5 text-xs text-foreground/50">{formatTime(trip.time)}</div>
-                    </div>
-                    <div className="rounded-xl bg-light-surface p-4">
-                      <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Travelers</div>
-                      <div className="mt-1 text-sm font-bold text-foreground">
-                        {trip.adults} adult{trip.adults !== 1 ? "s" : ""}
-                        {trip.children > 0 && `, ${trip.children} child${trip.children !== 1 ? "ren" : ""}`}
+      <div className="mx-auto max-w-6xl px-6 pb-20 pt-10">
+        <form onSubmit={handleSubmit}>
+          <div className="grid gap-8 lg:grid-cols-3">
+            {/* ── LEFT: Shuttles + Info ── */}
+            <div className="space-y-6 lg:col-span-2">
+              {/* Shuttle cards */}
+              <div className="space-y-4">
+                {cart.map((trip, idx) => {
+                  const pax = `${trip.adults} adult${trip.adults !== 1 ? "s" : ""}${trip.children > 0 ? `, ${trip.children} child${trip.children !== 1 ? "ren" : ""}` : ""}`;
+                  return (
+                    <div key={trip.id} className="rounded-2xl border border-black/5 bg-white p-5 shadow-sm sm:p-6">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          {cart.length > 1 && (
+                            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-sunset-orange text-xs font-bold text-white">
+                              {idx + 1}
+                            </span>
+                          )}
+                          <div>
+                            <div className="font-bold text-foreground">{trip.from} → {trip.to}</div>
+                            <div className="mt-0.5 text-xs text-foreground/50">
+                              {formatDate(trip.date)} · {formatTime(trip.time)}
+                              {trip.duracion && <> · ~{trip.duracion}</>}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-xl font-bold text-sunset-orange">${trip.price}</div>
+                      </div>
+                      <div className="mt-4 grid gap-x-6 gap-y-2 text-sm text-foreground/70 sm:grid-cols-2">
+                        <div><span className="text-foreground/40">Vehicle:</span> {trip.vehicleName} ({trip.vehiclePax})</div>
+                        <div><span className="text-foreground/40">Travelers:</span> {pax}</div>
+                        {trip.flight && <div><span className="text-foreground/40">Flight:</span> {trip.flight}</div>}
+                        <div><span className="text-foreground/40">Pickup:</span> {trip.pickup}</div>
+                        <div><span className="text-foreground/40">Drop-off:</span> {trip.dropoff}</div>
                       </div>
                     </div>
-                    {trip.flight && (
-                      <div className="rounded-xl bg-light-surface p-4">
-                        <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Flight</div>
-                        <div className="mt-1 text-sm font-bold text-foreground">{trip.flight}</div>
-                      </div>
-                    )}
-                    <div className="rounded-xl bg-light-surface p-4">
-                      <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Pickup</div>
-                      <div className="mt-1 text-sm font-bold text-foreground">{trip.pickup}</div>
-                    </div>
-                    <div className="rounded-xl bg-light-surface p-4">
-                      <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">Drop-off</div>
-                      <div className="mt-1 text-sm font-bold text-foreground">{trip.dropoff}</div>
-                    </div>
+                  );
+                })}
+                <div className="text-right">
+                  <Link href="/private-shuttle" className="text-sm font-semibold text-sunset-orange transition hover:text-sunset-red">
+                    + Add another shuttle
+                  </Link>
+                </div>
+              </div>
+
+              {/* Your Information */}
+              <div className="rounded-2xl border border-black/5 bg-white p-5 shadow-sm sm:p-6">
+                <h2 className="text-lg font-bold text-foreground">Your Information</h2>
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  <div className="sm:col-span-2">
+                    <label htmlFor="checkout-name" className="text-sm font-medium text-foreground/70">Full name</label>
+                    <input id="checkout-name" type="text" required value={name} onChange={(e) => setName(e.target.value)} className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20" />
                   </div>
-                  {idx < cart.length - 1 && <div className="mt-6 border-t border-black/5" />}
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-4 text-right">
-              <Link href="/private-shuttle" className="text-sm font-semibold text-sunset-orange transition hover:text-sunset-red">
-                Add or edit shuttles
-              </Link>
-            </div>
-          </section>
-
-          {/* ── Your Information ── */}
-          <section className="rounded-3xl border border-black/5 bg-white p-6 shadow-sm sm:p-8">
-            <div className="mb-6 flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sunset-orange text-sm font-bold text-white">
-                2
-              </span>
-              <h2 className="text-xl font-bold text-foreground sm:text-2xl">
-                Your Information
-              </h2>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="sm:col-span-2">
-                <label htmlFor="checkout-name" className="text-sm font-medium text-foreground/70">
-                  Full name
-                </label>
-                <input
-                  id="checkout-name"
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-                />
-              </div>
-              <div>
-                <label htmlFor="checkout-email" className="text-sm font-medium text-foreground/70">
-                  Email
-                </label>
-                <input
-                  id="checkout-email"
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-                />
-              </div>
-              <div>
-                <label htmlFor="checkout-phone" className="text-sm font-medium text-foreground/70">
-                  Phone / WhatsApp
-                </label>
-                <div className="mt-2">
-                  <PhoneInput id="checkout-phone" value={phone} onChange={setPhone} required />
+                  <div>
+                    <label htmlFor="checkout-email" className="text-sm font-medium text-foreground/70">Email</label>
+                    <input id="checkout-email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20" />
+                  </div>
+                  <div>
+                    <label htmlFor="checkout-phone" className="text-sm font-medium text-foreground/70">Phone / WhatsApp</label>
+                    <div className="mt-2"><PhoneInput id="checkout-phone" value={phone} onChange={setPhone} required /></div>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <label htmlFor="checkout-notes" className="text-sm font-medium text-foreground/70">Special requests <span className="text-foreground/40">(optional)</span></label>
+                    <textarea id="checkout-notes" rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Child seats, extra stops, luggage notes…" className="mt-2 w-full resize-none rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20" />
+                  </div>
                 </div>
               </div>
-              <div className="sm:col-span-2">
-                <label htmlFor="checkout-notes" className="text-sm font-medium text-foreground/70">
-                  Special requests <span className="text-foreground/40">(optional)</span>
-                </label>
-                <textarea
-                  id="checkout-notes"
-                  rows={3}
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Child seats, extra stops, luggage notes…"
-                  className="mt-2 w-full resize-none rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-                />
-              </div>
             </div>
-          </section>
 
-          {/* ── Total + Submit ── */}
-          <div className="rounded-3xl border border-sunset-orange/20 bg-sunset-orange/5 p-6 sm:p-8">
-            <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-              <div>
-                <div className="text-sm text-foreground/60">
-                  Total ({cart.length} shuttle{cart.length !== 1 ? "s" : ""})
+            {/* ── RIGHT: Sidebar ── */}
+            <div className="space-y-6">
+              {/* Total + Pay */}
+              <div className="sticky top-24 space-y-6">
+                <div className="rounded-2xl border border-sunset-orange/20 bg-sunset-orange/5 p-6">
+                  <div className="text-sm text-foreground/60">
+                    Total ({cart.length} shuttle{cart.length !== 1 ? "s" : ""})
+                  </div>
+                  <div className="mt-1 text-3xl font-bold text-sunset-orange">${total}</div>
+                  <div className="text-xs text-foreground/40">13% VAT included</div>
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="group mt-5 flex w-full items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-6 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {submitting ? "Processing…" : "Pay This Booking"}
+                    <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                    </svg>
+                  </button>
+                  <p className="mt-3 text-center text-xs text-foreground/40">
+                    Secure payment link sent by email &amp; WhatsApp
+                  </p>
                 </div>
-                <div className="text-3xl font-bold text-sunset-orange">${total}</div>
-                <div className="text-xs text-foreground/40">13% VAT included</div>
+
+                {/* What's Included */}
+                <div className="rounded-2xl border border-black/5 bg-white p-5 shadow-sm">
+                  <h3 className="text-sm font-bold text-foreground">What&apos;s Included</h3>
+                  <ul className="mt-3 space-y-2.5">
+                    {[
+                      "Spacious van with full A/C",
+                      "Personalized meet & greet",
+                      "Door-to-door private service",
+                      "Free Wi-Fi & bottled water",
+                      "Professional bilingual driver",
+                      "All-inclusive pricing",
+                    ].map((item) => (
+                      <li key={item} className="flex items-center gap-2.5 text-sm text-foreground/70">
+                        <svg className="h-4 w-4 shrink-0 text-sunset-orange" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                        </svg>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Important Info */}
+                <div className="rounded-2xl border border-black/5 bg-white p-5 shadow-sm">
+                  <h3 className="text-sm font-bold text-foreground">Important Information</h3>
+                  <ul className="mt-3 space-y-2.5">
+                    {[
+                      "1 large bag + 1 carry-on per person",
+                      "One complimentary 15-min stop",
+                      "Baby car seats & boosters free",
+                      "No refund within 48h of pickup",
+                      "Free changes up to 48h before",
+                    ].map((item) => (
+                      <li key={item} className="flex items-center gap-2.5 text-sm text-foreground/70">
+                        <svg className="h-4 w-4 shrink-0 text-foreground/30" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                        </svg>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-              <button
-                type="submit"
-                disabled={submitting}
-                className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-10 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {submitting ? "Processing…" : "Pay This Booking"}
-                <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                </svg>
-              </button>
             </div>
-            <p className="mt-4 text-center text-xs text-foreground/50 sm:text-right">
-              You&apos;ll receive the payment link by email and WhatsApp shortly after confirming.
-            </p>
           </div>
         </form>
       </div>
