@@ -233,6 +233,130 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── WHAT'S YOUR PLAN? ─── */}
+      <section className="border-t border-black/5 bg-light-surface py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="text-center">
+            <StarDivider />
+            <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
+              What&apos;s Your Plan in{" "}
+              <span className="bg-gradient-to-r from-sunset-gold via-sunset-orange to-sunset-red bg-clip-text text-transparent">
+                Guanacaste
+              </span>
+              ?
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
+              World-class surf, white-sand hideaways, or vibrant beach-town nights — wherever you&apos;re headed, we&apos;ll get you there from the airport.
+            </p>
+          </div>
+
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Tamarindo */}
+            <div className="group relative overflow-hidden rounded-3xl shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
+              <div className="relative aspect-[3/4]">
+                <Image src={TAMARINDO_BEACH_URL} alt="Tamarindo Beach, Guanacaste" fill className="object-cover transition duration-500 group-hover:scale-105" unoptimized />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              </div>
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <span className="inline-block rounded-full bg-sunset-orange/90 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white">
+                  ~50 min from LIR
+                </span>
+                <h3 className="mt-3 text-2xl font-bold text-white">Tamarindo</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/80">
+                  The beating heart of Guanacaste nightlife. Great surf by day, craft cocktails by night, and a beach-town energy that keeps people coming back year after year.
+                </p>
+                <Link href="/private-shuttle" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
+                  Book a shuttle
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* Conchal */}
+            <div className="group relative overflow-hidden rounded-3xl shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
+              <div className="relative aspect-[3/4]">
+                <Image src={CONCHAL_BEACH_URL} alt="Playa Conchal, Guanacaste" fill className="object-cover transition duration-500 group-hover:scale-105" unoptimized />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              </div>
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <span className="inline-block rounded-full bg-sunset-orange/90 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white">
+                  ~1 hr from LIR
+                </span>
+                <h3 className="mt-3 text-2xl font-bold text-white">Conchal</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/80">
+                  Crushed-shell shores and crystal-clear turquoise water. A peaceful paradise surrounded by luxury resorts — perfect for those who want beauty without the crowds.
+                </p>
+                <Link href="/private-shuttle" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
+                  Book a shuttle
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* Nosara */}
+            <div className="group relative overflow-hidden rounded-3xl shadow-lg transition hover:-translate-y-1 hover:shadow-2xl sm:col-span-2 lg:col-span-1">
+              <div className="relative aspect-[3/4]">
+                <Image src={NOSARA_BEACH_URL} alt="Nosara Beach, Guanacaste" fill className="object-cover transition duration-500 group-hover:scale-105" unoptimized />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              </div>
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <span className="inline-block rounded-full bg-sunset-orange/90 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white">
+                  ~2 hrs from LIR
+                </span>
+                <h3 className="mt-3 text-2xl font-bold text-white">Nosara</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/80">
+                  Where the jungle meets world-class surf breaks. A haven for yogis, surfers, and anyone looking to reconnect with nature on Costa Rica&apos;s wildest coast.
+                </p>
+                <Link href="/private-shuttle" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
+                  Book a shuttle
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── WHY US ─── */}
+      <section className="border-t border-black/5 bg-white py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="text-center">
+            <StarDivider />
+            <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
+              What&apos;s Included in Every Private Shuttle
+            </h2>
+          </div>
+          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { title: "Experienced Drivers", desc: "Professional drivers with years of experience on Guanacaste roads and mountain routes." },
+              { title: "Comfortable Vehicles", desc: "Air-conditioned SUVs and vans with Wi-Fi and cold water on board." },
+              { title: "Fixed Rates", desc: "The price you see when you book is the price you pay. Fuel, tolls, and taxes included." },
+              { title: "Real-Time Flight Tracking", desc: "We monitor your flight status and adjust the pickup time if it arrives early or late." },
+              { title: "English & Spanish", desc: "All drivers are bilingual and happy to share tips about the region." },
+              { title: "Door-to-Door", desc: "Pickup at the terminal exit, drop-off at your accommodation entrance." },
+            ].map((feature) => (
+              <div key={feature.title} className="flex gap-4 rounded-xl border border-black/5 bg-white p-6 shadow-sm">
+                <div className="mt-0.5 shrink-0 text-sunset-orange">
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-foreground">{feature.title}</h3>
+                  <p className="mt-1 text-sm text-foreground/60">{feature.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── FLEET ─── */}
       <section className="bg-light-surface py-24 border-t border-black/5">
         <div className="mx-auto max-w-6xl px-6">
@@ -357,130 +481,6 @@ export default function Home() {
                 ))}
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── WHAT'S YOUR PLAN? ─── */}
-      <section className="border-t border-black/5 bg-light-surface py-24">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="text-center">
-            <StarDivider />
-            <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
-              What&apos;s Your Plan in{" "}
-              <span className="bg-gradient-to-r from-sunset-gold via-sunset-orange to-sunset-red bg-clip-text text-transparent">
-                Guanacaste
-              </span>
-              ?
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
-              World-class surf, white-sand hideaways, or vibrant beach-town nights — wherever you&apos;re headed, we&apos;ll get you there from the airport.
-            </p>
-          </div>
-
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Tamarindo */}
-            <div className="group relative overflow-hidden rounded-3xl shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
-              <div className="relative aspect-[3/4]">
-                <Image src={TAMARINDO_BEACH_URL} alt="Tamarindo Beach, Guanacaste" fill className="object-cover transition duration-500 group-hover:scale-105" unoptimized />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-              </div>
-              <div className="absolute inset-x-0 bottom-0 p-6">
-                <span className="inline-block rounded-full bg-sunset-orange/90 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white">
-                  ~50 min from LIR
-                </span>
-                <h3 className="mt-3 text-2xl font-bold text-white">Tamarindo</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/80">
-                  The beating heart of Guanacaste nightlife. Great surf by day, craft cocktails by night, and a beach-town energy that keeps people coming back year after year.
-                </p>
-                <Link href="/private-shuttle" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
-                  Book a shuttle
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-
-            {/* Conchal */}
-            <div className="group relative overflow-hidden rounded-3xl shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
-              <div className="relative aspect-[3/4]">
-                <Image src={CONCHAL_BEACH_URL} alt="Playa Conchal, Guanacaste" fill className="object-cover transition duration-500 group-hover:scale-105" unoptimized />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-              </div>
-              <div className="absolute inset-x-0 bottom-0 p-6">
-                <span className="inline-block rounded-full bg-sunset-orange/90 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white">
-                  ~1 hr from LIR
-                </span>
-                <h3 className="mt-3 text-2xl font-bold text-white">Conchal</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/80">
-                  Crushed-shell shores and crystal-clear turquoise water. A peaceful paradise surrounded by luxury resorts — perfect for those who want beauty without the crowds.
-                </p>
-                <Link href="/private-shuttle" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
-                  Book a shuttle
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-
-            {/* Nosara */}
-            <div className="group relative overflow-hidden rounded-3xl shadow-lg transition hover:-translate-y-1 hover:shadow-2xl sm:col-span-2 lg:col-span-1">
-              <div className="relative aspect-[3/4]">
-                <Image src={NOSARA_BEACH_URL} alt="Nosara Beach, Guanacaste" fill className="object-cover transition duration-500 group-hover:scale-105" unoptimized />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-              </div>
-              <div className="absolute inset-x-0 bottom-0 p-6">
-                <span className="inline-block rounded-full bg-sunset-orange/90 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white">
-                  ~2 hrs from LIR
-                </span>
-                <h3 className="mt-3 text-2xl font-bold text-white">Nosara</h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/80">
-                  Where the jungle meets world-class surf breaks. A haven for yogis, surfers, and anyone looking to reconnect with nature on Costa Rica&apos;s wildest coast.
-                </p>
-                <Link href="/private-shuttle" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
-                  Book a shuttle
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── WHY US ─── */}
-      <section className="border-t border-black/5 bg-light-surface py-24">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="text-center">
-            <StarDivider />
-            <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
-              What&apos;s Included in Every Private Shuttle
-            </h2>
-          </div>
-          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { title: "Experienced Drivers", desc: "Professional drivers with years of experience on Guanacaste roads and mountain routes." },
-              { title: "Comfortable Vehicles", desc: "Air-conditioned SUVs and vans with Wi-Fi and cold water on board." },
-              { title: "Fixed Rates", desc: "The price you see when you book is the price you pay. Fuel, tolls, and taxes included." },
-              { title: "Real-Time Flight Tracking", desc: "We monitor your flight status and adjust the pickup time if it arrives early or late." },
-              { title: "English & Spanish", desc: "All drivers are bilingual and happy to share tips about the region." },
-              { title: "Door-to-Door", desc: "Pickup at the terminal exit, drop-off at your accommodation entrance." },
-            ].map((feature) => (
-              <div key={feature.title} className="flex gap-4 rounded-xl border border-black/5 bg-white p-6 shadow-sm">
-                <div className="mt-0.5 shrink-0 text-sunset-orange">
-                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">{feature.title}</h3>
-                  <p className="mt-1 text-sm text-foreground/60">{feature.desc}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
