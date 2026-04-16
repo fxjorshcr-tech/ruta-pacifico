@@ -156,9 +156,16 @@ export default function CheckoutPage() {
               </div>
 
               {/* Your Information */}
-              <div className="rounded-2xl border border-black/5 bg-white p-5 shadow-sm sm:p-6">
-                <h2 className="text-lg font-bold text-foreground">Your Information</h2>
-                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-2xl border-2 border-sunset-orange/30 bg-white p-5 shadow-sm sm:p-6">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-sunset-orange text-xs font-bold text-white">
+                    <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0" />
+                    </svg>
+                  </span>
+                  <h2 className="text-lg font-bold text-foreground">Complete your details to pay</h2>
+                </div>
+                <div className="mt-5 grid gap-4 sm:grid-cols-2">
                   <div className="sm:col-span-2">
                     <label htmlFor="checkout-name" className="text-sm font-medium text-foreground/70">Full name</label>
                     <input id="checkout-name" type="text" required value={name} onChange={(e) => setName(e.target.value)} className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20" />
@@ -176,6 +183,24 @@ export default function CheckoutPage() {
                     <textarea id="checkout-notes" rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Child seats, extra stops, luggage notes…" className="mt-2 w-full resize-none rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20" />
                   </div>
                 </div>
+
+                {/* Pay button right here, below the form */}
+                <div className="mt-6 flex flex-col items-end gap-3 border-t border-black/5 pt-6 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <div className="text-sm text-foreground/60">Total ({cart.length} shuttle{cart.length !== 1 ? "s" : ""})</div>
+                    <div className="text-2xl font-bold text-sunset-orange">${total}</div>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="group flex items-center gap-3 rounded-xl bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-8 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {submitting ? "Processing…" : "Pay This Booking"}
+                    <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -189,18 +214,8 @@ export default function CheckoutPage() {
                   </div>
                   <div className="mt-1 text-3xl font-bold text-sunset-orange">${total}</div>
                   <div className="text-xs text-foreground/40">13% VAT included</div>
-                  <button
-                    type="submit"
-                    disabled={submitting}
-                    className="group mt-5 flex w-full items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-6 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    {submitting ? "Processing…" : "Pay This Booking"}
-                    <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                    </svg>
-                  </button>
-                  <p className="mt-3 text-center text-xs text-foreground/40">
-                    Secure payment link sent by email &amp; WhatsApp
+                  <p className="mt-3 text-xs text-foreground/40">
+                    Fill in your details below to complete the booking.
                   </p>
                 </div>
 
