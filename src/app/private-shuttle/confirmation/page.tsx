@@ -1,16 +1,30 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import {
   BOOKING_STORAGE_KEY,
   formatDate,
   formatTime,
-  type Booking,
+  type TripItem,
 } from "@/lib/booking";
 
-// Subscribe to sessionStorage changes from other tabs / windows
+const HERO_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
+
+interface BookingData {
+  trips: TripItem[];
+  name: string;
+  email: string;
+  phone: string;
+  notes?: string;
+  total: number;
+  confirmationCode: string;
+  createdAt: string;
+}
+
 function subscribeSessionStorage(callback: () => void): () => void {
   if (typeof window === "undefined") return () => {};
   window.addEventListener("storage", callback);
@@ -26,7 +40,7 @@ function getBookingSnapshot(): string | null {
   }
 }
 
-function getBookingServerSnapshot(): string | null {
+function getServerSnapshot(): string | null {
   return null;
 }
 
@@ -34,42 +48,26 @@ export default function ConfirmationPage() {
   const raw = useSyncExternalStore(
     subscribeSessionStorage,
     getBookingSnapshot,
-    getBookingServerSnapshot
+    getServerSnapshot,
   );
 
-  let booking: Booking | null = null;
+  let booking: BookingData | null = null;
   if (raw) {
     try {
-      booking = JSON.parse(raw) as Booking;
+      booking = JSON.parse(raw) as BookingData;
     } catch {
       booking = null;
     }
   }
 
-  // SSR / pre-hydration render: show loading shell
-  if (raw === null && typeof window === "undefined") {
+  if (!booking || !booking.trips) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-light-surface">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-sunset-orange/20 border-t-sunset-orange" />
-      </main>
-    );
-  }
-
-  if (!booking) {
-    return (
-      <main className="flex min-h-screen flex-col items-center justify-center bg-light-surface px-6">
-        <div className="max-w-md rounded-3xl border border-black/5 bg-white p-10 text-center shadow-xl">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-foreground/5 text-foreground/40">
-            <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
-            </svg>
-          </div>
-          <h1 className="mt-6 text-2xl font-bold text-foreground">
-            No booking found
-          </h1>
+      <main className="min-h-screen bg-light-surface">
+        <SiteNav transparent={false} />
+        <div className="mx-auto max-w-md px-6 py-32 text-center">
+          <h1 className="text-2xl font-bold text-foreground">No booking found</h1>
           <p className="mt-3 text-sm text-foreground/60">
-            We couldn&apos;t find a booking in this session. Please start again
-            from the routes page.
+            Please start a new booking from the routes page.
           </p>
           <Link
             href="/private-shuttle"
@@ -85,204 +83,165 @@ export default function ConfirmationPage() {
     );
   }
 
-  const passengers = `${booking.adults} adult${
-    booking.adults === 1 ? "" : "s"
-  }${
-    booking.children > 0
-      ? ` · ${booking.children} child${booking.children === 1 ? "" : "ren"}`
-      : ""
-  }`;
+  const whatsappText = `Hi! I just submitted booking ${booking.confirmationCode} (${booking.trips.map((t) => `${t.from} → ${t.to}`).join(", ")}). Could you please send me the payment link?`;
 
   return (
     <main className="min-h-screen bg-light-surface">
-      {/* Top bar */}
-      <SiteNav transparent={false} />
+      <SiteNav transparent />
 
-      <div className="mx-auto max-w-3xl px-6 py-16">
-        {/* Success header */}
-        <div className="text-center">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-green-400 to-green-600 text-white shadow-xl shadow-green-500/30">
+      {/* ─── HERO ─── */}
+      <section className="relative flex min-h-[45vh] items-center overflow-hidden">
+        <Image src={HERO_URL} alt="" fill className="object-cover" priority unoptimized />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-light-surface via-transparent to-transparent" />
+        <div className="relative z-10 mx-auto w-full max-w-3xl px-6 pt-24 pb-20 text-center">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-500 text-white shadow-xl shadow-green-500/30">
             <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
             </svg>
           </div>
-          <h1 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
-            Booking received!
+          <h1 className="mt-6 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Booking Received
           </h1>
-          <p className="mt-3 text-foreground/60">
-            Thank you, <strong className="text-foreground">{booking.name}</strong> — we&apos;ve got your request.
+          <p className="mt-3 text-white/70">
+            Thank you, {booking.name}
           </p>
-          <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm shadow-sm">
-            <span className="text-foreground/50">Confirmation code</span>
-            <span className="font-mono text-base font-bold text-sunset-orange">
+          <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2.5 text-sm backdrop-blur-sm border border-white/10">
+            <span className="text-white/60">Confirmation code</span>
+            <span className="font-mono text-lg font-bold text-sunset-gold">
               {booking.confirmationCode}
             </span>
           </div>
         </div>
+      </section>
 
-        {/* Payment link notice */}
-        <div className="mt-10 overflow-hidden rounded-3xl border border-sunset-orange/30 bg-gradient-to-br from-sunset-gold/10 via-sunset-orange/10 to-sunset-red/10 p-[2px]">
-          <div className="rounded-[22px] bg-white p-6 sm:p-8">
-            <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-sunset-orange text-white">
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9v10.5A1.5 1.5 0 0 0 3.75 21h16.5a1.5 1.5 0 0 0 1.5-1.5V9M3.75 3h16.5A1.5 1.5 0 0 1 21.75 4.5v3.75H2.25V4.5A1.5 1.5 0 0 1 3.75 3Z" />
-                </svg>
-              </div>
-              <div className="min-w-0 flex-1">
-                <h2 className="text-lg font-bold text-foreground sm:text-xl">
-                  We&apos;ll send you the payment link shortly
-                </h2>
-                <p className="mt-2 text-sm leading-relaxed text-foreground/70">
-                  Our team is reviewing your booking right now. You&apos;ll
-                  receive the secure payment link by <strong className="text-foreground">email</strong> at{" "}
-                  <a
-                    href={`mailto:${booking.email}`}
-                    className="font-semibold text-sunset-orange hover:text-sunset-gold"
-                  >
-                    {booking.email}
-                  </a>{" "}
-                  and by <strong className="text-foreground">WhatsApp</strong>{" "}
-                  at{" "}
-                  <span className="font-semibold text-sunset-orange">
-                    {booking.phone}
-                  </span>{" "}
-                  within a few minutes. The booking is confirmed once payment
-                  is completed.
-                </p>
-              </div>
+      <div className="mx-auto max-w-3xl px-6 pb-20 pt-10">
+        {/* Payment notice */}
+        <div className="rounded-3xl border border-sunset-orange/20 bg-sunset-orange/5 p-6 sm:p-8">
+          <div className="flex items-start gap-4">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-sunset-orange text-white">
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9v10.5A1.5 1.5 0 0 0 3.75 21h16.5a1.5 1.5 0 0 0 1.5-1.5V9M3.75 3h16.5A1.5 1.5 0 0 1 21.75 4.5v3.75H2.25V4.5A1.5 1.5 0 0 1 3.75 3Z" />
+              </svg>
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-foreground">
+                Payment link on the way
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-foreground/70">
+                We&apos;re reviewing your booking now. You&apos;ll get the secure payment link by{" "}
+                <strong className="text-foreground">email</strong> ({booking.email}) and{" "}
+                <strong className="text-foreground">WhatsApp</strong> ({booking.phone}) within a few minutes.
+                Your booking is confirmed once payment is completed.
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Booking details card */}
+        {/* Shuttles */}
         <div className="mt-8 rounded-3xl border border-black/5 bg-white p-6 shadow-sm sm:p-8">
-          <div className="mb-6">
-            <h2 className="text-lg font-bold text-foreground sm:text-xl">
-              Booking details
-            </h2>
-          </div>
+          <h2 className="text-lg font-bold text-foreground">
+            {booking.trips.length === 1 ? "Your Shuttle" : `Your ${booking.trips.length} Shuttles`}
+          </h2>
 
-          {/* Route */}
-          <div className="rounded-2xl bg-light-surface p-5">
-            <div className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-foreground/40">
-              Your route
-            </div>
-            <div className="mt-2 flex flex-col items-start gap-2 sm:flex-row sm:items-center">
-              <div className="font-semibold text-foreground">
-                {booking.from}
-              </div>
-              <svg className="h-4 w-4 shrink-0 rotate-90 text-sunset-orange sm:rotate-0" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-              </svg>
-              <div className="font-semibold text-foreground">{booking.to}</div>
-            </div>
-            {booking.duracion && (
-              <div className="mt-2 text-xs text-foreground/50">
-                Estimated travel time: {booking.duracion}
-              </div>
-            )}
-          </div>
-
-          {/* Grid of details */}
-          <div className="mt-5 grid gap-3 sm:grid-cols-2">
-            <DetailRow
-              label="Pickup date"
-              value={formatDate(booking.date)}
-              icon="calendar"
-            />
-            <DetailRow
-              label="Pickup time"
-              value={formatTime(booking.time)}
-              icon="clock"
-            />
-            <DetailRow
-              label="Passengers"
-              value={passengers}
-              icon="users"
-            />
-            <DetailRow
-              label="Vehicle"
-              value={`${booking.vehicleName} · ${booking.vehiclePax}`}
-              icon="van"
-            />
-            {booking.isAirportPickup && booking.flight && (
-              <DetailRow
-                label="Flight number"
-                value={booking.flight}
-                icon="plane"
-              />
-            )}
-            <DetailRow
-              label="Pickup location"
-              value={booking.pickup}
-              icon="pin"
-              full={!booking.isAirportPickup || !booking.flight}
-            />
-            <DetailRow
-              label="Drop-off location"
-              value={booking.dropoff}
-              icon="pin"
-              full={!booking.isAirportPickup || !booking.flight}
-            />
+          <div className="mt-5 space-y-4">
+            {booking.trips.map((trip, idx) => {
+              const pax = `${trip.adults} adult${trip.adults !== 1 ? "s" : ""}${trip.children > 0 ? `, ${trip.children} child${trip.children !== 1 ? "ren" : ""}` : ""}`;
+              return (
+                <div key={trip.id} className="rounded-2xl border border-black/5 bg-light-surface p-5">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      {booking.trips.length > 1 && (
+                        <span className="flex h-7 w-7 items-center justify-center rounded-full bg-sunset-orange/10 text-xs font-bold text-sunset-orange">
+                          {idx + 1}
+                        </span>
+                      )}
+                      <div>
+                        <div className="text-sm font-bold text-foreground">
+                          {trip.from} → {trip.to}
+                        </div>
+                        {trip.duracion && (
+                          <div className="text-xs text-foreground/40">~{trip.duracion}</div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="text-lg font-bold text-sunset-orange">${trip.price}</div>
+                  </div>
+                  <div className="mt-3 grid gap-2 text-xs text-foreground/60 sm:grid-cols-2">
+                    <div>
+                      <span className="text-foreground/40">Date: </span>
+                      {formatDate(trip.date)} at {formatTime(trip.time)}
+                    </div>
+                    <div>
+                      <span className="text-foreground/40">Vehicle: </span>
+                      {trip.vehicleName} ({trip.vehiclePax})
+                    </div>
+                    <div>
+                      <span className="text-foreground/40">Travelers: </span>
+                      {pax}
+                    </div>
+                    {trip.flight && (
+                      <div>
+                        <span className="text-foreground/40">Flight: </span>
+                        {trip.flight}
+                      </div>
+                    )}
+                    <div>
+                      <span className="text-foreground/40">Pickup: </span>
+                      {trip.pickup}
+                    </div>
+                    <div>
+                      <span className="text-foreground/40">Drop-off: </span>
+                      {trip.dropoff}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
           {booking.notes && (
-            <div className="mt-5 rounded-2xl border border-black/5 bg-light-surface p-4">
-              <div className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-foreground/40">
-                Special requests
-              </div>
+            <div className="mt-4 rounded-2xl border border-black/5 bg-light-surface p-4">
+              <div className="text-xs font-semibold uppercase tracking-wider text-foreground/40">Special requests</div>
               <p className="mt-1 text-sm text-foreground/70">{booking.notes}</p>
             </div>
           )}
 
-          {/* Customer */}
-          <div className="mt-6 border-t border-black/5 pt-6">
-            <div className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-foreground/40">
-              Contact
-            </div>
-            <div className="mt-2 grid gap-2 text-sm sm:grid-cols-3">
-              <div>
-                <span className="text-foreground/50">Name: </span>
-                <span className="font-medium text-foreground">
-                  {booking.name}
-                </span>
-              </div>
-              <div>
-                <span className="text-foreground/50">Email: </span>
-                <span className="font-medium text-foreground break-all">
-                  {booking.email}
-                </span>
-              </div>
-              <div>
-                <span className="text-foreground/50">Phone: </span>
-                <span className="font-medium text-foreground">
-                  {booking.phone}
-                </span>
-              </div>
-            </div>
-          </div>
-
           {/* Total */}
-          <div className="mt-6 flex items-center justify-between rounded-2xl bg-gradient-to-br from-sunset-gold/10 via-sunset-orange/10 to-sunset-red/10 p-5">
+          <div className="mt-6 flex items-center justify-between rounded-2xl bg-foreground p-5">
             <div>
-              <div className="text-xs text-foreground/60">Total (per vehicle)</div>
-              <div className="text-xs text-foreground/40">
-                13% VAT included · no hidden fees
+              <div className="text-sm text-white/60">
+                Total ({booking.trips.length} shuttle{booking.trips.length !== 1 ? "s" : ""})
               </div>
+              <div className="text-xs text-white/40">13% VAT included</div>
             </div>
-            <div className="text-3xl font-extrabold text-sunset-orange sm:text-4xl">
-              ${booking.price}
+            <div className="text-3xl font-extrabold text-white">${booking.total}</div>
+          </div>
+        </div>
+
+        {/* Contact info */}
+        <div className="mt-6 rounded-3xl border border-black/5 bg-white p-6 shadow-sm sm:p-8">
+          <h2 className="text-sm font-bold uppercase tracking-wider text-foreground/40">Contact Information</h2>
+          <div className="mt-3 grid gap-2 text-sm sm:grid-cols-3">
+            <div>
+              <span className="text-foreground/50">Name: </span>
+              <span className="font-medium text-foreground">{booking.name}</span>
+            </div>
+            <div>
+              <span className="text-foreground/50">Email: </span>
+              <span className="font-medium text-foreground break-all">{booking.email}</span>
+            </div>
+            <div>
+              <span className="text-foreground/50">Phone: </span>
+              <span className="font-medium text-foreground">{booking.phone}</span>
             </div>
           </div>
         </div>
 
-        {/* Secondary actions */}
+        {/* Actions */}
         <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <a
-            href={`https://wa.me/50685962438?text=${encodeURIComponent(
-              `Hi! I just submitted booking ${booking.confirmationCode} (${booking.from} → ${booking.to}). Could you please send me the payment link?`
-            )}`}
+            href={`https://wa.me/50685962438?text=${encodeURIComponent(whatsappText)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-green-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-green-600"
@@ -302,68 +261,9 @@ export default function ConfirmationPage() {
         </div>
 
         <p className="mt-8 text-center text-xs text-foreground/40">
-          Questions about cancellation or changes? You have free changes up to
-          48 hours before pickup.
+          Free changes up to 48 hours before pickup. Contact us via WhatsApp or email.
         </p>
       </div>
     </main>
-  );
-}
-
-function DetailRow({
-  label,
-  value,
-  icon,
-  full = false,
-}: {
-  label: string;
-  value: string;
-  icon: "calendar" | "clock" | "users" | "van" | "plane" | "pin";
-  full?: boolean;
-}) {
-  const icons: Record<typeof icon, string> = {
-    calendar:
-      "M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5",
-    clock: "M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z",
-    users:
-      "M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z",
-    van:
-      "M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9-1.5h.008v.008H5.25v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm1.5 0H9.75m-4.125 0H3.375c-.621 0-1.125-.504-1.125-1.125V9.375c0-.621.504-1.125 1.125-1.125h9A1.125 1.125 0 0 1 13.5 9.375v7.5c0 .621-.504 1.125-1.125 1.125H9.75m0 0h4.5m-4.5 0a1.5 1.5 0 0 0-3 0m3 0a1.5 1.5 0 0 1-3 0m12 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H13.5",
-    plane:
-      "M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5",
-    pin:
-      "M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z",
-  };
-
-  return (
-    <div
-      className={`flex items-start gap-3 rounded-2xl border border-black/5 bg-light-surface/60 p-4 ${
-        full ? "sm:col-span-2" : ""
-      }`}
-    >
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-sunset-orange/10 text-sunset-orange">
-        <svg
-          className="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.8}
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d={icons[icon]}
-          />
-        </svg>
-      </div>
-      <div className="min-w-0 flex-1">
-        <div className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-foreground/40">
-          {label}
-        </div>
-        <div className="mt-0.5 text-sm font-semibold text-foreground break-words">
-          {value}
-        </div>
-      </div>
-    </div>
   );
 }

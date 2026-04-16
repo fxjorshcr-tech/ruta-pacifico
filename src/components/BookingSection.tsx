@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import BookingForm from "@/components/BookingForm";
 import BookingCart from "@/components/BookingCart";
 import { getCart, removeFromCart, type TripItem } from "@/lib/booking";
@@ -16,9 +16,16 @@ interface Props {
 
 export default function BookingSection({ route, isAirportPickup, initialVehicle }: Props) {
   const [cart, setCart] = useState<TripItem[]>([]);
+  const formRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setCart(getCart());
+    // Smooth scroll to the booking form if URL has #booking hash
+    if (window.location.hash === "#booking") {
+      setTimeout(() => {
+        formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 300);
+    }
   }, []);
 
   function handleCartUpdate(updatedCart: TripItem[]) {
@@ -31,7 +38,7 @@ export default function BookingSection({ route, isAirportPickup, initialVehicle 
   }
 
   return (
-    <div className="space-y-8">
+    <div ref={formRef} className="space-y-8 scroll-mt-8">
       {cart.length > 0 && (
         <BookingCart items={cart} onRemove={handleRemove} />
       )}

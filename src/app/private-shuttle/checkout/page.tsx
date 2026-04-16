@@ -1,9 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import SiteNav from "@/components/SiteNav";
+
+const HERO_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 import PhoneInput from "@/components/PhoneInput";
 import {
   BOOKING_STORAGE_KEY,
@@ -89,15 +93,24 @@ export default function CheckoutPage() {
 
   return (
     <main className="bg-light-surface min-h-screen">
-      <SiteNav transparent={false} />
+      <SiteNav transparent />
 
-      <div className="mx-auto max-w-3xl px-6 pb-20 pt-28">
-        <h1 className="text-3xl font-bold text-foreground sm:text-4xl">
-          Checkout
-        </h1>
-        <p className="mt-2 text-foreground/60">
-          Review your {cart.length === 1 ? "shuttle" : `${cart.length} shuttles`} and complete your booking.
-        </p>
+      {/* ─── HERO ─── */}
+      <section className="relative flex min-h-[40vh] items-center overflow-hidden">
+        <Image src={HERO_URL} alt="Private shuttle in Costa Rica" fill className="object-cover" priority unoptimized />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-light-surface via-transparent to-transparent" />
+        <div className="relative z-10 mx-auto w-full max-w-3xl px-6 pt-24 pb-20 text-center">
+          <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Checkout
+          </h1>
+          <p className="mt-3 text-white/70">
+            Review your {cart.length === 1 ? "shuttle" : `${cart.length} shuttles`} and complete your booking.
+          </p>
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-3xl px-6 pb-20 pt-10">
 
         <form onSubmit={handleSubmit} className="mt-10 space-y-8">
           {/* ── Trip Summary ── */}
