@@ -23,6 +23,14 @@ const HIACE_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/hiace-van-cwt.png";
 const MAXUS_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/maxus-deviver-9-cwt-removebg-preview.png";
+const LIR_AIRPORT_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/aeropuerto-LIR-guanacaste.webp";
+const TAMARINDO_BEACH_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/tamarindo-Costa-rica.jpg";
+const CONCHAL_BEACH_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/Conchal-beach-guanacaste.webp";
+const NOSARA_BEACH_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/nosara-beach-surf-guanacaste.jpg";
 
 function GoogleReviewBadge() {
   return (
@@ -106,7 +114,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="mt-5 max-w-lg text-base text-white/80 sm:text-lg">
-              Private airport shuttles from LIR to Tamarindo, Flamingo, Papagayo, Nosara &amp; every Costa Rica beach.
+              Private airport shuttles from LIR to Tamarindo, Flamingo, Papagayo, Nosara &amp; every beach on the Golden Coast of Costa Rica.
             </p>
           </div>
           <div className="hidden lg:flex flex-col items-center justify-center gap-8">
@@ -264,47 +272,56 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── AIRPORTS (no photo) ─── */}
-      <section id="airport" className="bg-white border-t border-black/5 py-24">
-        <div className="mx-auto max-w-5xl px-6">
+      {/* ─── LIBERIA AIRPORT ─── */}
+      <section id="airport" className="relative overflow-hidden bg-white border-t border-black/5 py-24">
+        <div className="mx-auto max-w-6xl px-6">
           <div className="text-center">
             <StarDivider />
             <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
-              Airports We{" "}
+              Your Gateway to{" "}
               <span className="bg-gradient-to-r from-sunset-gold to-sunset-orange bg-clip-text text-transparent">
-                Pick You Up
-              </span>{" "}
-              From
+                Guanacaste
+              </span>
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
-              We specialize in Liberia Airport (LIR), the main gateway to Guanacaste and northwestern Costa Rica.
+              Liberia International Airport (LIR) — the closest airport to Costa Rica&apos;s best Pacific beaches. We&apos;ll be waiting for you right outside the terminal.
             </p>
           </div>
 
-          <div className="mt-12 mx-auto max-w-3xl">
-            {/* LIR primary card */}
-            <div className="rounded-3xl border border-sunset-orange/20 bg-sunset-orange/5 p-8 sm:p-10">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <span className="inline-block rounded-full bg-sunset-orange px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
-                    Primary pickup
-                  </span>
-                  <h3 className="mt-3 text-2xl font-bold text-foreground">
-                    Liberia Airport (LIR)
-                  </h3>
-                  <p className="text-sm text-foreground/50">
-                    Daniel Oduber Quirós International
-                  </p>
-                </div>
-                <svg className="h-10 w-10 shrink-0 text-sunset-orange" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
-                </svg>
+          <div className="mt-12 grid items-center gap-10 lg:grid-cols-2">
+            {/* Airport photo */}
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-lg">
+              <Image
+                src={LIR_AIRPORT_URL}
+                alt="Liberia International Airport (LIR), Guanacaste, Costa Rica"
+                fill
+                className="object-cover"
+                unoptimized
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 flex items-center gap-2">
+                <span className="rounded-full bg-sunset-orange px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+                  LIR
+                </span>
+                <span className="text-sm font-semibold text-white drop-shadow-md">
+                  Daniel Oduber Quir&oacute;s International
+                </span>
               </div>
-              <p className="mt-6 leading-relaxed text-foreground/70">
-                LIR is the gateway to Guanacaste and northwestern Costa Rica — 15 minutes from the city of Liberia. United, Delta, American, JetBlue, Southwest, and Air Canada fly here year-round from major US and Canadian cities.
+            </div>
+
+            {/* Airport info */}
+            <div>
+              <span className="inline-block rounded-full border border-sunset-orange/20 bg-sunset-orange/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-sunset-orange">
+                Liberia Airport (LIR)
+              </span>
+              <h3 className="mt-4 text-2xl font-bold text-foreground sm:text-3xl">
+                Direct flights from the US &amp; Canada
+              </h3>
+              <p className="mt-4 leading-relaxed text-foreground/70">
+                United, Delta, American, JetBlue, Southwest, and Air Canada fly into LIR year-round from major cities. Just 15 minutes from the city of Liberia, the airport puts you within a short ride of every beach in Guanacaste.
               </p>
               <p className="mt-3 leading-relaxed text-foreground/70">
-                We monitor every incoming flight in real time and adjust your pickup if you land early or late. Most Guanacaste destinations are between 30 minutes and 2 hours away.
+                We monitor every incoming flight in real time and adjust your pickup if you land early or late. Your driver will be waiting with a sign right at the arrivals exit.
               </p>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 {[
@@ -313,11 +330,101 @@ export default function Home() {
                   { route: "LIR → Papagayo Peninsula", time: "~30 min" },
                   { route: "LIR → Nosara / Sámara", time: "~2 hrs" },
                 ].map((item) => (
-                  <div key={item.route} className="flex items-center justify-between rounded-lg border border-black/5 bg-white px-4 py-3">
+                  <div key={item.route} className="flex items-center justify-between rounded-lg border border-black/5 bg-light-surface px-4 py-3">
                     <span className="text-sm font-medium text-foreground">{item.route}</span>
                     <span className="text-sm font-semibold text-sunset-orange">{item.time}</span>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── WHAT'S YOUR PLAN? ─── */}
+      <section className="border-t border-black/5 bg-light-surface py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="text-center">
+            <StarDivider />
+            <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
+              What&apos;s Your Plan in{" "}
+              <span className="bg-gradient-to-r from-sunset-gold via-sunset-orange to-sunset-red bg-clip-text text-transparent">
+                Guanacaste
+              </span>
+              ?
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
+              World-class surf, white-sand hideaways, or vibrant beach-town nights — wherever you&apos;re headed, we&apos;ll get you there from the airport.
+            </p>
+          </div>
+
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Tamarindo */}
+            <div className="group relative overflow-hidden rounded-3xl shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
+              <div className="relative aspect-[3/4]">
+                <Image src={TAMARINDO_BEACH_URL} alt="Tamarindo Beach, Guanacaste" fill className="object-cover transition duration-500 group-hover:scale-105" unoptimized />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              </div>
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <span className="inline-block rounded-full bg-sunset-orange/90 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white">
+                  ~50 min from LIR
+                </span>
+                <h3 className="mt-3 text-2xl font-bold text-white">Tamarindo</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/80">
+                  The beating heart of Guanacaste nightlife. Great surf by day, craft cocktails by night, and a beach-town energy that keeps people coming back year after year.
+                </p>
+                <Link href="/book/transfer" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
+                  Book a shuttle
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* Conchal */}
+            <div className="group relative overflow-hidden rounded-3xl shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
+              <div className="relative aspect-[3/4]">
+                <Image src={CONCHAL_BEACH_URL} alt="Playa Conchal, Guanacaste" fill className="object-cover transition duration-500 group-hover:scale-105" unoptimized />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              </div>
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <span className="inline-block rounded-full bg-sunset-orange/90 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white">
+                  ~1 hr from LIR
+                </span>
+                <h3 className="mt-3 text-2xl font-bold text-white">Conchal</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/80">
+                  Crushed-shell shores and crystal-clear turquoise water. A peaceful paradise surrounded by luxury resorts — perfect for those who want beauty without the crowds.
+                </p>
+                <Link href="/book/transfer" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
+                  Book a shuttle
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+
+            {/* Nosara */}
+            <div className="group relative overflow-hidden rounded-3xl shadow-lg transition hover:-translate-y-1 hover:shadow-2xl sm:col-span-2 lg:col-span-1">
+              <div className="relative aspect-[3/4]">
+                <Image src={NOSARA_BEACH_URL} alt="Nosara Beach, Guanacaste" fill className="object-cover transition duration-500 group-hover:scale-105" unoptimized />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              </div>
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <span className="inline-block rounded-full bg-sunset-orange/90 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white">
+                  ~2 hrs from LIR
+                </span>
+                <h3 className="mt-3 text-2xl font-bold text-white">Nosara</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/80">
+                  Where the jungle meets world-class surf breaks. A haven for yogis, surfers, and anyone looking to reconnect with nature on Costa Rica&apos;s wildest coast.
+                </p>
+                <Link href="/book/transfer" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
+                  Book a shuttle
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
               </div>
             </div>
           </div>

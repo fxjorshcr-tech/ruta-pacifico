@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Ruta Pacifico | Private Shuttles from Liberia Airport (LIR)",
   description:
-    "Private airport shuttles from Liberia Airport (LIR) to Tamarindo, Flamingo, Papagayo, Nosara and every Costa Rica beach. Fixed prices, bilingual drivers, flight tracking.",
+    "Private airport shuttles from Liberia Airport (LIR) to Tamarindo, Flamingo, Papagayo, Nosara and every beach on Costa Rica's Golden Coast. Fixed prices, bilingual drivers, flight tracking.",
 };
 
 export default function RootLayout({
