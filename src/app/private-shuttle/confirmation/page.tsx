@@ -72,7 +72,7 @@ export default function ConfirmationPage() {
             from the routes page.
           </p>
           <Link
-            href="/book/transfer"
+            href="/private-shuttle"
             className="mt-6 inline-flex items-center gap-2 rounded-full bg-sunset-orange px-6 py-3 text-sm font-semibold text-white transition hover:bg-sunset-gold"
           >
             Find a route

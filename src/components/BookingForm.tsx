@@ -142,7 +142,7 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
       // sessionStorage disabled — continue anyway
     }
 
-    router.push("/book/confirmation");
+    router.push("/private-shuttle/confirmation");
   }
 
   return (

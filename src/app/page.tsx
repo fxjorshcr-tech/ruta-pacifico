@@ -120,7 +120,7 @@ export default function Home() {
           <div className="hidden lg:flex flex-col items-center justify-center gap-8">
             <Image src={LOGO_URL} alt="Ruta Pacifico" width={500} height={300} className="w-full max-w-md drop-shadow-2xl" unoptimized />
             <a
-              href="/book/transfer"
+              href="/private-shuttle"
               className="group relative overflow-hidden rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-14 py-5 text-lg font-bold text-white shadow-lg shadow-sunset-orange/25 transition-all duration-300 hover:shadow-2xl hover:shadow-sunset-orange/40 hover:scale-105"
             >
               {/* Layered wave decoration */}
@@ -161,100 +161,74 @@ export default function Home() {
           </div>
 
           <div className="mt-16 grid gap-8 lg:grid-cols-3">
-            {/* From LIR Airport */}
-            <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-sunset-orange to-sunset-red p-[1px] transition hover:shadow-xl hover:shadow-sunset-orange/20">
-              <div className="relative h-full rounded-[calc(1.5rem-1px)] bg-white p-8">
-                <div className="absolute right-6 top-6 text-sunset-orange/10 transition group-hover:text-sunset-orange/20">
-                  <svg className="h-20 w-20" fill="none" viewBox="0 0 24 24" strokeWidth={0.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
-                  </svg>
-                </div>
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-sunset-orange to-sunset-red text-white shadow-md shadow-sunset-orange/25">
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-foreground">From LIR Airport</h3>
-                <p className="mt-3 text-sm leading-relaxed text-foreground/60">
-                  We pick you up at Liberia Airport (LIR) and drive you straight to any beach, resort, or town in Guanacaste. Tamarindo, Flamingo, Papagayo, Nosara, Conchal — and also La Fortuna, Monteverde, or anywhere else your trip takes you. We track your flight in real time and your driver is waiting at arrivals.
-                </p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {["Tamarindo", "Flamingo", "Papagayo", "Nosara", "Conchal", "La Fortuna", "Monteverde"].map((tag) => (
-                    <span key={tag} className="rounded-full bg-sunset-orange/8 px-3 py-1 text-xs font-semibold text-sunset-orange">{tag}</span>
-                  ))}
-                </div>
-                <Link href="/book/transfer" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-sunset-orange transition hover:text-sunset-red">
-                  Book this shuttle
-                  <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-
-            {/* Between Beaches */}
-            <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-sunset-gold to-sunset-orange p-[1px] transition hover:shadow-xl hover:shadow-sunset-gold/20">
-              <div className="relative h-full rounded-[calc(1.5rem-1px)] bg-white p-8">
-                <div className="absolute right-6 top-6 text-sunset-gold/10 transition group-hover:text-sunset-gold/20">
-                  <svg className="h-20 w-20" fill="none" viewBox="0 0 24 24" strokeWidth={0.5} stroke="currentColor">
+            {[
+              {
+                title: "From LIR Airport",
+                desc: "We pick you up at Liberia Airport (LIR) and drive you straight to any beach, resort, or town in Guanacaste — and also to La Fortuna, Monteverde, or anywhere else your trip takes you. We track your flight in real time and your driver is waiting at arrivals.",
+                tags: ["Tamarindo", "Flamingo", "Papagayo", "Nosara", "Conchal", "La Fortuna", "Monteverde"],
+                gradient: "from-sunset-orange to-sunset-red",
+                shadowColor: "hover:shadow-sunset-orange/20",
+                tagBg: "bg-sunset-orange/10",
+                icon: (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                ),
+              },
+              {
+                title: "Between Beaches",
+                desc: "Private rides connecting every coastal town in Guanacaste. Tamarindo to Flamingo, Conchal to Nosara, Papagayo to S\u00e1mara — one-way transfers, round trips, or full-day trips along the coast. Same driver, same vehicle, at your own pace.",
+                tags: ["One-way", "Round-trip", "Full-day", "Tamarindo", "Flamingo", "Nosara", "Conchal"],
+                gradient: "from-sunset-gold to-sunset-orange",
+                shadowColor: "hover:shadow-sunset-gold/20",
+                tagBg: "bg-sunset-gold/10",
+                icon: (
+                  <>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                  </svg>
+                  </>
+                ),
+              },
+              {
+                title: "Across Costa Rica",
+                desc: "Long-distance private shuttles from Guanacaste to La Fortuna, Monteverde, Manuel Antonio, San Jos\u00e9, and other regions of Costa Rica. Also available between destinations — La Fortuna to Manuel Antonio, Monteverde to Arenal, and any combination.",
+                tags: ["La Fortuna", "Monteverde", "Manuel Antonio", "San Jos\u00e9", "Arenal"],
+                gradient: "from-foreground to-foreground/80",
+                shadowColor: "hover:shadow-foreground/10",
+                tagBg: "bg-foreground/5",
+                icon: (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                ),
+              },
+            ].map((card) => (
+              <div key={card.title} className={`group relative overflow-hidden rounded-3xl bg-gradient-to-br ${card.gradient} p-[1px] transition hover:shadow-xl ${card.shadowColor}`}>
+                <div className="relative flex h-full flex-col rounded-[calc(1.5rem-1px)] bg-white p-8">
+                  {/* Icon */}
+                  <div className={`mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${card.gradient} text-white shadow-md`}>
+                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                      {card.icon}
+                    </svg>
+                  </div>
+                  {/* Title */}
+                  <h3 className="text-xl font-bold text-foreground">{card.title}</h3>
+                  {/* Description — flex-1 so all cards align tags at the same height */}
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-foreground/60">
+                    {card.desc}
+                  </p>
+                  {/* Tags */}
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {card.tags.map((tag) => (
+                      <span key={tag} className={`rounded-full ${card.tagBg} px-3 py-1 text-xs font-semibold text-sunset-orange`}>{tag}</span>
+                    ))}
+                  </div>
+                  {/* CTA */}
+                  <Link href="/private-shuttle" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-sunset-orange transition hover:text-sunset-red">
+                    Book this shuttle
+                    <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                    </svg>
+                  </Link>
                 </div>
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-sunset-gold to-sunset-orange text-white shadow-md shadow-sunset-gold/25">
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-foreground">Between Beaches</h3>
-                <p className="mt-3 text-sm leading-relaxed text-foreground/60">
-                  Private rides connecting every coastal town in Guanacaste. Tamarindo to Flamingo, Conchal to Nosara, Papagayo to S&aacute;mara — one-way transfers, round trips, or full-day trips along the coast. Same driver, same vehicle, at your own pace.
-                </p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {["One-way", "Round-trip", "Full-day", "Tamarindo", "Flamingo", "Nosara", "Conchal"].map((tag) => (
-                    <span key={tag} className="rounded-full bg-sunset-gold/10 px-3 py-1 text-xs font-semibold text-sunset-orange">{tag}</span>
-                  ))}
-                </div>
-                <Link href="/book/transfer" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-sunset-orange transition hover:text-sunset-red">
-                  Book this shuttle
-                  <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                  </svg>
-                </Link>
               </div>
-            </div>
-
-            {/* Across Costa Rica */}
-            <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-foreground to-foreground/80 p-[1px] transition hover:shadow-xl hover:shadow-foreground/10">
-              <div className="relative h-full rounded-[calc(1.5rem-1px)] bg-white p-8">
-                <div className="absolute right-6 top-6 text-foreground/5 transition group-hover:text-foreground/10">
-                  <svg className="h-20 w-20" fill="none" viewBox="0 0 24 24" strokeWidth={0.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
-                  </svg>
-                </div>
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-foreground text-white shadow-md">
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-foreground">Across Costa Rica</h3>
-                <p className="mt-3 text-sm leading-relaxed text-foreground/60">
-                  Long-distance private shuttles from Guanacaste to La Fortuna, Monteverde, Manuel Antonio, San Jos&eacute;, and other regions of Costa Rica. Also available between destinations — La Fortuna to Manuel Antonio, Monteverde to Arenal, and any other combination. Your driver takes you all the way.
-                </p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {["La Fortuna", "Monteverde", "Manuel Antonio", "San José", "Arenal"].map((tag) => (
-                    <span key={tag} className="rounded-full bg-foreground/5 px-3 py-1 text-xs font-semibold text-foreground/70">{tag}</span>
-                  ))}
-                </div>
-                <Link href="/book/transfer" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-sunset-orange transition hover:text-sunset-red">
-                  Book this shuttle
-                  <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -419,7 +393,7 @@ export default function Home() {
                 <p className="mt-2 text-sm leading-relaxed text-white/80">
                   The beating heart of Guanacaste nightlife. Great surf by day, craft cocktails by night, and a beach-town energy that keeps people coming back year after year.
                 </p>
-                <Link href="/book/transfer" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
+                <Link href="/private-shuttle" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
                   Book a shuttle
                   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -442,7 +416,7 @@ export default function Home() {
                 <p className="mt-2 text-sm leading-relaxed text-white/80">
                   Crushed-shell shores and crystal-clear turquoise water. A peaceful paradise surrounded by luxury resorts — perfect for those who want beauty without the crowds.
                 </p>
-                <Link href="/book/transfer" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
+                <Link href="/private-shuttle" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
                   Book a shuttle
                   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -465,7 +439,7 @@ export default function Home() {
                 <p className="mt-2 text-sm leading-relaxed text-white/80">
                   Where the jungle meets world-class surf breaks. A haven for yogis, surfers, and anyone looking to reconnect with nature on Costa Rica&apos;s wildest coast.
                 </p>
-                <Link href="/book/transfer" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
+                <Link href="/private-shuttle" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
                   Book a shuttle
                   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -763,7 +737,7 @@ export default function Home() {
               </div>
 
               <Link
-                href="/book/transfer"
+                href="/private-shuttle"
                 className="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-8 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 hover:scale-[1.01]"
               >
                 Book your private shuttle
