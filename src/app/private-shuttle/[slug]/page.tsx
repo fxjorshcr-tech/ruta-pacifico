@@ -262,7 +262,7 @@ export default async function RoutePage({
       </section>
 
       {/* ─── Booking form ─── */}
-      <section className="mx-auto max-w-5xl px-6 py-16">
+      <section id="booking" className="mx-auto max-w-5xl px-6 py-16 scroll-mt-8">
         <div className="mb-8 text-center">
           <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
             Book your Private Shuttle

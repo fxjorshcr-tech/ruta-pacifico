@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import FloatingCart from "@/components/FloatingCart";
 import "./globals.css";
 
 const BASE_URL = "https://rutapacificocr.com";
@@ -133,6 +134,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {children}
+        <FloatingCart />
       </body>
     </html>
   );

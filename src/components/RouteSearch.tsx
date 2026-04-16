@@ -145,7 +145,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
   function handleContinue() {
     if (!matchedRoute || !selectedVehicle) return;
     const slug = routeSlug(matchedRoute.origen, matchedRoute.destino);
-    router.push(`/private-shuttle/${slug}?v=${selectedVehicle}`);
+    router.push(`/private-shuttle/${slug}?v=${selectedVehicle}#booking`);
   }
 
   const vehicleCards: {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type { Route } from "@/components/RouteSearch";
@@ -39,6 +39,7 @@ interface VehicleOption {
 
 export default function BookingForm({ route, isAirportPickup, initialVehicle, onCartUpdate }: Props) {
   const router = useRouter();
+  const successRef = useRef<HTMLDivElement>(null);
   const [added, setAdded] = useState(false);
 
   const vehicles: VehicleOption[] = useMemo(() => {
@@ -134,6 +135,11 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
     onCartUpdate?.(updatedCart);
     setAdded(true);
     setSubmitting(false);
+
+    // Scroll the success message into view
+    setTimeout(() => {
+      successRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 100);
   }
 
   return (
@@ -384,7 +390,7 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
 
       {/* ── Submit ── */}
       {added ? (
-        <div className="rounded-3xl border border-green-200 bg-green-50 p-6 text-center sm:p-8">
+        <div ref={successRef} className="rounded-3xl border border-green-200 bg-green-50 p-6 text-center sm:p-8">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100 text-green-600">
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
