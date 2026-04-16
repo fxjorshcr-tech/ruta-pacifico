@@ -17,7 +17,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Book a Private Shuttle | Ruta Pacifico — Private Shuttles in Guanacaste",
   description:
-    "Private shuttles from Liberia Airport (LIR) — and from San José Airport (SJO) on request — to every beach and destination in Costa Rica. Fixed prices, flight tracking, book instantly.",
+    "Private shuttles from Liberia Airport (LIR) to every beach and destination in Costa Rica. Fixed prices, flight tracking, book instantly.",
 };
 
 async function getRoutes(): Promise<Route[]> {
@@ -137,7 +137,7 @@ export default async function TransferPage() {
             <span className="text-white/70">&amp;</span> all of Costa Rica
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-base text-white/80 sm:text-lg">
-            Private door-to-door shuttles from Liberia Airport (LIR). Also available from San Jos&eacute; Airport (SJO) on request.
+            Private door-to-door shuttles from Liberia Airport (LIR) to every beach and destination in Costa Rica.
           </p>
           <div className="mx-auto mt-8 flex flex-wrap items-center justify-center gap-3">
             <div className="flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 px-5 py-2.5">

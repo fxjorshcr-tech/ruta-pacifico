@@ -106,7 +106,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="mt-5 max-w-lg text-base text-white/80 sm:text-lg">
-              LIR &amp; SJO airport shuttles to Tamarindo, Flamingo, Papagayo, Nosara &amp; every Costa Rica beach.
+              Private airport shuttles from LIR to Tamarindo, Flamingo, Papagayo, Nosara &amp; every Costa Rica beach.
             </p>
           </div>
           <div className="hidden lg:flex flex-col items-center justify-center gap-8">
@@ -157,10 +157,10 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-foreground">Airport Private Shuttles</h3>
               <p className="mx-auto mt-3 max-w-2xl leading-relaxed text-foreground/60">
-                Pickup at Liberia International Airport (LIR) with direct, private transport to your destination. Beaches, resorts, mountain towns, or any other location in Costa Rica. We also handle the return trip back to LIR. San Jos&eacute; Airport (SJO) pickups available on request.
+                Pickup at Liberia International Airport (LIR) with direct, private transport to your destination. Beaches, resorts, mountain towns, or any other location in Costa Rica. We also handle the return trip back to LIR.
               </p>
               <div className="mt-5 flex flex-wrap justify-center gap-2">
-                {["LIR pickups", "SJO on request", "Beaches & resorts", "La Fortuna & Arenal", "Monteverde", "Manuel Antonio"].map((tag) => (
+                {["LIR pickups", "Beaches & resorts", "La Fortuna & Arenal", "Monteverde", "Manuel Antonio"].map((tag) => (
                   <span key={tag} className="rounded-full border border-sunset-orange/20 bg-sunset-orange/5 px-4 py-1.5 text-xs font-medium text-sunset-orange">{tag}</span>
                 ))}
               </div>
@@ -277,13 +277,13 @@ export default function Home() {
               From
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
-              We specialize in Liberia Airport (LIR), the main gateway to Guanacaste — but we also offer private shuttle pickups from San Jos&eacute; Airport (SJO) on request.
+              We specialize in Liberia Airport (LIR), the main gateway to Guanacaste and northwestern Costa Rica.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-8 lg:grid-cols-3">
-            {/* LIR primary card spans 2 cols */}
-            <div className="lg:col-span-2 rounded-3xl border border-sunset-orange/20 bg-sunset-orange/5 p-8 sm:p-10">
+          <div className="mt-12 mx-auto max-w-3xl">
+            {/* LIR primary card */}
+            <div className="rounded-3xl border border-sunset-orange/20 bg-sunset-orange/5 p-8 sm:p-10">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <span className="inline-block rounded-full bg-sunset-orange px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
@@ -319,67 +319,6 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-            </div>
-
-            {/* SJO secondary card */}
-            <div className="rounded-3xl border border-black/5 bg-light-surface p-8">
-              <div>
-                <span className="inline-block rounded-full bg-foreground/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-foreground/60">
-                  Also available
-                </span>
-                <h3 className="mt-3 text-xl font-bold text-foreground">
-                  San José Airport (SJO)
-                </h3>
-                <p className="text-sm text-foreground/50">
-                  Juan Santamaría International
-                </p>
-              </div>
-              <p className="mt-5 text-sm leading-relaxed text-foreground/70">
-                Private shuttles from SJO are also available and can be booked
-                directly from our booking page. SJO is the gateway to central
-                Costa Rica and popular mountain destinations.
-              </p>
-              <div className="mt-5 space-y-2">
-                <div className="text-[0.65rem] font-bold uppercase tracking-wider text-foreground/40">
-                  Popular SJO routes
-                </div>
-                {[
-                  { route: "SJO → La Fortuna / Arenal", time: "~3 hrs" },
-                  { route: "SJO → Manuel Antonio", time: "~3 hrs" },
-                  { route: "SJO → Monteverde", time: "~3 hrs" },
-                ].map((item) => (
-                  <div
-                    key={item.route}
-                    className="flex items-center justify-between rounded-lg border border-black/5 bg-white px-4 py-2.5 text-xs"
-                  >
-                    <span className="font-medium text-foreground">
-                      {item.route}
-                    </span>
-                    <span className="font-semibold text-sunset-orange">
-                      {item.time}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <Link
-                href="/book/transfer"
-                className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-orange transition hover:text-sunset-gold"
-              >
-                Book an SJO shuttle
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2.5}
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                  />
-                </svg>
-              </Link>
             </div>
           </div>
         </div>
@@ -563,7 +502,7 @@ export default function Home() {
                 Private ground transportation across Costa Rica
               </h3>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                Ruta Pacifico is a licensed and fully insured ground transportation operator based in Guanacaste. We provide private airport transfers and point-to-point shuttle service from Liberia International Airport (LIR) and Juan Santamar&iacute;a International Airport (SJO) to destinations throughout Costa Rica.
+                Ruta Pacifico is a licensed and fully insured ground transportation operator based in Guanacaste. We provide private airport transfers and point-to-point shuttle service from Liberia International Airport (LIR) to destinations throughout Costa Rica.
               </p>
               <p className="mt-4 leading-relaxed text-foreground/70">
                 Every trip is operated by a professional bilingual driver in a modern, air-conditioned vehicle. Incoming flights are monitored in real time, pricing is fixed in advance and inclusive of all taxes and tolls, and each reservation is exclusive to your party.
