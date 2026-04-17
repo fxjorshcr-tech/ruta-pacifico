@@ -1,16 +1,14 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type { Route } from "@/components/RouteSearch";
 import DatePicker from "@/components/DatePicker";
 import TimePicker from "@/components/TimePicker";
-import PhoneInput from "@/components/PhoneInput";
 import {
-  BOOKING_STORAGE_KEY,
-  generateConfirmationCode,
-  type Booking,
+  BOOKING_DRAFT_KEY,
+  type BookingDraft,
 } from "@/lib/booking";
 
 const STARIA_URL =
@@ -85,13 +83,11 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
   const [pickupAddr, setPickupAddr] = useState("");
   const [dropoffAddr, setDropoffAddr] = useState("");
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [notes, setNotes] = useState("");
-
-  const [submitting, setSubmitting] = useState(false);
+  const [continuing, setContinuing] = useState(false);
   const [showDateTimeError, setShowDateTimeError] = useState(false);
+
+  const vehicleErrorRef = useRef<HTMLParagraphElement>(null);
+  const dateTimeErrorRef = useRef<HTMLParagraphElement>(null);
 
   const selectedVehicle =
     vehicles.find((v) => v.key === vehicleKey) ?? vehicles[0];
@@ -102,6 +98,22 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
     (vehicleKey === "hiace" && totalPax > 9) ||
     (vehicleKey === "maxus" && totalPax > 12);
 
+  useEffect(() => {
+    if (!showDateTimeError) return;
+    dateTimeErrorRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }, [showDateTimeError]);
+
+  useEffect(() => {
+    if (!vehicleTooSmall) return;
+    vehicleErrorRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }, [vehicleTooSmall]);
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (vehicleTooSmall) return;
@@ -110,9 +122,9 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
       return;
     }
     setShowDateTimeError(false);
-    setSubmitting(true);
+    setContinuing(true);
 
-    const booking: Booking = {
+    const draft: BookingDraft = {
       from: route.origen,
       to: route.destino,
       duracion: route.duracion ?? null,
@@ -127,27 +139,21 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
       vehicleName: selectedVehicle.name,
       vehiclePax: selectedVehicle.pax,
       price: selectedVehicle.price,
-      name,
-      email,
-      phone,
-      notes: notes || undefined,
       isAirportPickup,
-      confirmationCode: generateConfirmationCode(),
-      createdAt: new Date().toISOString(),
     };
 
     try {
-      sessionStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify(booking));
+      sessionStorage.setItem(BOOKING_DRAFT_KEY, JSON.stringify(draft));
     } catch {
-      // sessionStorage disabled — continue anyway
+      // sessionStorage disabled — continue anyway; the next page will redirect
     }
 
-    router.push("/book/confirmation");
+    router.push("/book/review");
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-10">
-      {/* ── Section 1: Trip details ── */}
+      {/* ── Trip details ── */}
       <section className="rounded-3xl border border-black/5 bg-white p-6 shadow-sm sm:p-8">
         <div className="mb-6 flex items-center gap-3">
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sunset-orange text-sm font-bold text-white">
@@ -200,7 +206,10 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
             })}
           </div>
           {vehicleTooSmall && (
-            <p className="mt-3 text-xs font-medium text-red-600">
+            <p
+              ref={vehicleErrorRef}
+              className="mt-3 scroll-mt-24 text-xs font-medium text-red-600"
+            >
               The selected vehicle doesn&apos;t fit your group size — please
               choose a larger one.
             </p>
@@ -220,7 +229,10 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
             <TimePicker value={time} onChange={setTime} />
           </div>
           {showDateTimeError && (
-            <p className="mt-3 text-xs font-medium text-red-600">
+            <p
+              ref={dateTimeErrorRef}
+              className="mt-3 scroll-mt-24 text-xs font-medium text-red-600"
+            >
               Please choose a pickup date and time to continue.
             </p>
           )}
@@ -389,87 +401,7 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
         </div>
       </section>
 
-      {/* ── Section 2: Personal info ── */}
-      <section className="rounded-3xl border border-black/5 bg-white p-6 shadow-sm sm:p-8">
-        <div className="mb-6 flex items-center gap-3">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sunset-orange text-sm font-bold text-white">
-            2
-          </span>
-          <h2 className="text-xl font-bold text-foreground sm:text-2xl">
-            Your Information
-          </h2>
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="sm:col-span-2">
-            <label
-              htmlFor="booking-name"
-              className="text-sm font-medium text-foreground/70"
-            >
-              Full name
-            </label>
-            <input
-              id="booking-name"
-              type="text"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="booking-email"
-              className="text-sm font-medium text-foreground/70"
-            >
-              Email
-            </label>
-            <input
-              id="booking-email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="booking-phone"
-              className="text-sm font-medium text-foreground/70"
-            >
-              Phone / WhatsApp
-            </label>
-            <div className="mt-2">
-              <PhoneInput
-                id="booking-phone"
-                value={phone}
-                onChange={setPhone}
-                required
-              />
-            </div>
-          </div>
-          <div className="sm:col-span-2">
-            <label
-              htmlFor="booking-notes"
-              className="text-sm font-medium text-foreground/70"
-            >
-              Special requests{" "}
-              <span className="text-foreground/40">(optional)</span>
-            </label>
-            <textarea
-              id="booking-notes"
-              rows={3}
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="Child seats, extra stops, luggage notes…"
-              className="mt-2 w-full resize-none rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ── Submit ── */}
+      {/* ── Continue ── */}
       <div className="rounded-3xl border border-sunset-orange/20 bg-sunset-orange/5 p-6 sm:p-8">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <div>
@@ -483,18 +415,17 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
           </div>
           <button
             type="submit"
-            disabled={submitting || vehicleTooSmall}
+            disabled={continuing || vehicleTooSmall}
             className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-10 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {submitting ? "Submitting…" : "Confirm Booking"}
+            {continuing ? "Loading…" : "Continue"}
             <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
             </svg>
           </button>
         </div>
         <p className="mt-4 text-center text-xs text-foreground/50 sm:text-right">
-          You&apos;ll receive the payment link by email and WhatsApp shortly
-          after confirming.
+          Next: review your trip and enter contact details.
         </p>
       </div>
     </form>
