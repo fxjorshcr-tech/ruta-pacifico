@@ -66,7 +66,7 @@ export default function SiteNav({ transparent = true }: Props) {
             </Link>
           )}
           <Link
-            href="/book/transfer"
+            href="/private-shuttle"
             className={`text-[0.95rem] font-bold tracking-wide transition ${linkClass}`}
           >
             Private Shuttles
@@ -116,7 +116,7 @@ export default function SiteNav({ transparent = true }: Props) {
             </Link>
           )}
           <Link
-            href="/book/transfer"
+            href="/private-shuttle"
             onClick={() => setOpen(false)}
             className={`rounded-xl px-4 py-3 text-base font-semibold transition ${mobileLinkClass}`}
           >

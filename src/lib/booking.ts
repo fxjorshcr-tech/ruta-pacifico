@@ -1,15 +1,23 @@
-/**
- * A booking goes through three persisted stages in sessionStorage:
- *
- *   BookingDraft   → trip details only (after step 1)
- *   BookingPending → draft + customer info (after step 2)
- *   Booking        → pending + confirmation code + paid flag (after step 3)
- *
- * Each stage widens the previous one, so the later pages can read the same
- * record as they make progress.
- */
+export interface TripItem {
+  id: string; // unique per cart item
+  from: string;
+  to: string;
+  duracion: string | null;
+  date: string;
+  time: string;
+  adults: number;
+  children: number;
+  flight?: string;
+  pickup: string;
+  dropoff: string;
+  vehicleKey: "staria" | "hiace" | "maxus";
+  vehicleName: string;
+  vehiclePax: string;
+  price: number;
+  isAirportPickup: boolean;
+}
 
-export interface BookingDraft {
+export interface Booking {
   // Route
   from: string;
   to: string;
@@ -30,26 +38,59 @@ export interface BookingDraft {
   vehiclePax: string;
   price: number;
 
-  // Meta
-  isAirportPickup: boolean;
-}
-
-export interface BookingPending extends BookingDraft {
+  // Customer
   name: string;
   email: string;
   phone: string;
   notes?: string;
-}
 
-export interface Booking extends BookingPending {
+  // Meta
+  isAirportPickup: boolean;
   confirmationCode: string;
   createdAt: string;
-  paid: boolean;
 }
 
-export const BOOKING_DRAFT_KEY = "rp_booking_draft";
-export const BOOKING_PENDING_KEY = "rp_booking_pending";
 export const BOOKING_STORAGE_KEY = "rp_booking";
+export const CART_STORAGE_KEY = "rp_cart";
+
+export function generateTripId(): string {
+  return Math.random().toString(36).slice(2, 10);
+}
+
+export function getCart(): TripItem[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = sessionStorage.getItem(CART_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveCart(items: TripItem[]): void {
+  try {
+    sessionStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+  } catch {
+    // sessionStorage disabled
+  }
+}
+
+export function addToCart(item: TripItem): TripItem[] {
+  const cart = getCart();
+  cart.push(item);
+  saveCart(cart);
+  return cart;
+}
+
+export function removeFromCart(id: string): TripItem[] {
+  const cart = getCart().filter((item) => item.id !== id);
+  saveCart(cart);
+  return cart;
+}
+
+export function getCartTotal(items: TripItem[]): number {
+  return items.reduce((sum, item) => sum + item.price, 0);
+}
 
 export function generateConfirmationCode(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -81,15 +122,4 @@ export function formatTime(isoTime: string): string {
     minute: "2-digit",
     hour12: true,
   });
-}
-
-export function formatPassengers(
-  adults: number,
-  children: number
-): string {
-  return `${adults} adult${adults === 1 ? "" : "s"}${
-    children > 0
-      ? ` · ${children} child${children === 1 ? "" : "ren"}`
-      : ""
-  }`;
 }

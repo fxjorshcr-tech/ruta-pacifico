@@ -23,6 +23,14 @@ const HIACE_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/hiace-van-cwt.png";
 const MAXUS_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/maxus-deviver-9-cwt-removebg-preview.png";
+const LIR_AIRPORT_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/aeropuerto-LIR-guanacaste.webp";
+const TAMARINDO_BEACH_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/tamarindo-Costa-rica.jpg";
+const CONCHAL_BEACH_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/Conchal-beach-guanacaste.webp";
+const NOSARA_BEACH_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/nosara-beach-surf-guanacaste.jpg";
 
 function GoogleReviewBadge() {
   return (
@@ -106,13 +114,13 @@ export default function Home() {
               </span>
             </h1>
             <p className="mt-5 max-w-lg text-base text-white/80 sm:text-lg">
-              LIR &amp; SJO airport shuttles to Tamarindo, Flamingo, Papagayo, Nosara &amp; every Costa Rica beach.
+              Private airport shuttles from LIR to Tamarindo, Flamingo, Papagayo, Nosara &amp; every beach on the Golden Coast of Costa Rica.
             </p>
           </div>
           <div className="hidden lg:flex flex-col items-center justify-center gap-8">
             <Image src={LOGO_URL} alt="Ruta Pacifico" width={500} height={300} className="w-full max-w-md drop-shadow-2xl" unoptimized />
-            <a
-              href="/book/transfer"
+            <Link
+              href="/private-shuttle"
               className="group relative overflow-hidden rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-14 py-5 text-lg font-bold text-white shadow-lg shadow-sunset-orange/25 transition-all duration-300 hover:shadow-2xl hover:shadow-sunset-orange/40 hover:scale-105"
             >
               {/* Layered wave decoration */}
@@ -128,79 +136,223 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                 </svg>
               </span>
-            </a>
+            </Link>
           </div>
         </div>
 
       </section>
 
       {/* ─── SERVICES ─── */}
-      <section id="services" className="bg-white py-24">
-        <div className="mx-auto max-w-5xl px-6">
+      <section id="services" className="relative overflow-hidden bg-white py-24">
+        {/* Decorative background */}
+        <div className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-sunset-orange/5 blur-3xl" />
+        <div className="pointer-events-none absolute -left-32 bottom-0 h-96 w-96 rounded-full bg-sunset-gold/5 blur-3xl" />
+
+        <div className="relative mx-auto max-w-6xl px-6">
           <div className="text-center">
             <StarDivider />
             <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
-              Our Private Shuttle Services
+              Where Are You{" "}
+              <span className="bg-gradient-to-r from-sunset-gold to-sunset-orange bg-clip-text text-transparent">
+                Headed
+              </span>
+              ?
+            </h2>
+          </div>
+
+          <div className="mt-16 grid gap-8 lg:grid-cols-3">
+            {[
+              {
+                title: "From LIR Airport",
+                desc: "We pick you up at Liberia Airport (LIR) and drive you straight to any beach, resort, or town in Guanacaste — and also to La Fortuna, Monteverde, or anywhere else your trip takes you. We track your flight in real time and your driver is waiting at arrivals.",
+                tags: ["Tamarindo", "Flamingo", "Papagayo", "Nosara", "Conchal", "La Fortuna", "Monteverde"],
+                gradient: "from-sunset-orange to-sunset-red",
+                shadowColor: "hover:shadow-sunset-orange/20",
+                tagBg: "bg-sunset-orange/10",
+                icon: (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                ),
+              },
+              {
+                title: "Between Beaches",
+                desc: "Private rides connecting every coastal town in Guanacaste. Tamarindo to Flamingo, Conchal to Nosara, Papagayo to S\u00e1mara — one-way transfers, round trips, or full-day trips along the coast. Same driver, same vehicle, at your own pace.",
+                tags: ["One-way", "Round-trip", "Full-day", "Tamarindo", "Flamingo", "Nosara", "Conchal"],
+                gradient: "from-sunset-gold to-sunset-orange",
+                shadowColor: "hover:shadow-sunset-gold/20",
+                tagBg: "bg-sunset-gold/10",
+                icon: (
+                  <>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                  </>
+                ),
+              },
+              {
+                title: "Across Costa Rica",
+                desc: "Long-distance private shuttles from Guanacaste to La Fortuna, Monteverde, Manuel Antonio, San Jos\u00e9, and other regions of Costa Rica. Also available between destinations — La Fortuna to Manuel Antonio, Monteverde to Arenal, and any combination.",
+                tags: ["La Fortuna", "Monteverde", "Manuel Antonio", "San Jos\u00e9", "Arenal"],
+                gradient: "from-foreground to-foreground/80",
+                shadowColor: "hover:shadow-foreground/10",
+                tagBg: "bg-foreground/5",
+                icon: (
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+                ),
+              },
+            ].map((card) => (
+              <div key={card.title} className={`group relative overflow-hidden rounded-3xl bg-gradient-to-br ${card.gradient} p-[1px] transition hover:shadow-xl ${card.shadowColor}`}>
+                <div className="relative flex h-full flex-col rounded-[calc(1.5rem-1px)] bg-white p-8">
+                  {/* Icon */}
+                  <div className={`mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${card.gradient} text-white shadow-md`}>
+                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                      {card.icon}
+                    </svg>
+                  </div>
+                  {/* Title */}
+                  <h3 className="text-xl font-bold text-foreground">{card.title}</h3>
+                  {/* Description — flex-1 so all cards align tags at the same height */}
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-foreground/60">
+                    {card.desc}
+                  </p>
+                  {/* Tags */}
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {card.tags.map((tag) => (
+                      <span key={tag} className={`rounded-full ${card.tagBg} px-3 py-1 text-xs font-semibold text-sunset-orange`}>{tag}</span>
+                    ))}
+                  </div>
+                  {/* CTA */}
+                  <Link href="/private-shuttle" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-sunset-orange transition hover:text-sunset-red">
+                    Book this shuttle
+                    <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── WHAT'S YOUR PLAN? ─── */}
+      <section className="border-t border-black/5 bg-light-surface py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="text-center">
+            <StarDivider />
+            <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
+              What&apos;s Your Plan in{" "}
+              <span className="bg-gradient-to-r from-sunset-gold via-sunset-orange to-sunset-red bg-clip-text text-transparent">
+                Guanacaste
+              </span>
+              ?
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
-              Private ground transportation for travelers visiting Guanacaste and Costa Rica. Three types of service, one standard: safe, comfortable, and on time.
+              World-class surf, white-sand hideaways, or vibrant beach-town nights — wherever you&apos;re headed, we&apos;ll get you there from the airport.
             </p>
           </div>
 
-          <div className="mt-16 space-y-6">
-            {/* Airport Shuttles */}
-            <div className="rounded-3xl border border-black/5 bg-light-surface p-8 sm:p-10 text-center transition hover:shadow-lg">
-              <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-sunset-orange text-white">
-                <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
-                </svg>
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Tamarindo */}
+            <div className="group relative overflow-hidden rounded-3xl shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
+              <div className="relative aspect-[3/4]">
+                <Image src={TAMARINDO_BEACH_URL} alt="Tamarindo Beach, Guanacaste" fill className="object-cover transition duration-500 group-hover:scale-105" unoptimized />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground">Airport Private Shuttles</h3>
-              <p className="mx-auto mt-3 max-w-2xl leading-relaxed text-foreground/60">
-                Pickup at Liberia International Airport (LIR) with direct, private transport to your destination. Beaches, resorts, mountain towns, or any other location in Costa Rica. We also handle the return trip back to LIR. San Jos&eacute; Airport (SJO) pickups available on request.
-              </p>
-              <div className="mt-5 flex flex-wrap justify-center gap-2">
-                {["LIR pickups", "SJO on request", "Beaches & resorts", "La Fortuna & Arenal", "Monteverde", "Manuel Antonio"].map((tag) => (
-                  <span key={tag} className="rounded-full border border-sunset-orange/20 bg-sunset-orange/5 px-4 py-1.5 text-xs font-medium text-sunset-orange">{tag}</span>
-                ))}
-              </div>
-            </div>
-
-            {/* Inter-Beach Shuttles */}
-            <div className="rounded-3xl border border-black/5 bg-light-surface p-8 sm:p-10 text-center transition hover:shadow-lg">
-              <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-sunset-orange text-white">
-                <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-bold text-foreground">Inter-Beach Private Shuttles</h3>
-              <p className="mx-auto mt-3 max-w-2xl leading-relaxed text-foreground/60">
-                One-way rides and full-day trips between coastal towns in Guanacaste. Ideal for changing hotels, visiting a different beach for the day, or exploring the coast at your own pace. Available for single trips or round-trip with a set schedule.
-              </p>
-              <div className="mt-5 flex flex-wrap justify-center gap-2">
-                {["One-way shuttles", "Full-day trips", "Round-trip", "Tamarindo", "Flamingo", "Papagayo", "Nosara", "Conchal", "Sámara"].map((tag) => (
-                  <span key={tag} className="rounded-full border border-sunset-orange/20 bg-sunset-orange/5 px-4 py-1.5 text-xs font-medium text-sunset-orange">{tag}</span>
-                ))}
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <span className="inline-block rounded-full bg-sunset-orange/90 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white">
+                  ~50 min from LIR
+                </span>
+                <h3 className="mt-3 text-2xl font-bold text-white">Tamarindo</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/80">
+                  The beating heart of Guanacaste nightlife. Great surf by day, craft cocktails by night, and a beach-town energy that keeps people coming back year after year.
+                </p>
+                <Link href="/private-shuttle" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
+                  Book a shuttle
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
               </div>
             </div>
 
-            {/* Inter-Destination Shuttles */}
-            <div className="rounded-3xl border border-black/5 bg-light-surface p-8 sm:p-10 text-center transition hover:shadow-lg">
-              <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-sunset-orange text-white">
-                <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
-                </svg>
+            {/* Conchal */}
+            <div className="group relative overflow-hidden rounded-3xl shadow-lg transition hover:-translate-y-1 hover:shadow-2xl">
+              <div className="relative aspect-[3/4]">
+                <Image src={CONCHAL_BEACH_URL} alt="Playa Conchal, Guanacaste" fill className="object-cover transition duration-500 group-hover:scale-105" unoptimized />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               </div>
-              <h3 className="text-2xl font-bold text-foreground">Inter-Destination Private Shuttles</h3>
-              <p className="mx-auto mt-3 max-w-2xl leading-relaxed text-foreground/60">
-                Long-distance private shuttles from any Guanacaste beach to other regions of Costa Rica. One vehicle, one driver, direct to your next stop — La Fortuna, Manuel Antonio, Monteverde, San Jos&eacute;, or wherever your itinerary takes you.
-              </p>
-              <div className="mt-5 flex flex-wrap justify-center gap-2">
-                {["La Fortuna", "Manuel Antonio", "Monteverde", "San José", "Arenal", "Rincón de la Vieja"].map((tag) => (
-                  <span key={tag} className="rounded-full border border-sunset-orange/20 bg-sunset-orange/5 px-4 py-1.5 text-xs font-medium text-sunset-orange">{tag}</span>
-                ))}
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <span className="inline-block rounded-full bg-sunset-orange/90 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white">
+                  ~1 hr from LIR
+                </span>
+                <h3 className="mt-3 text-2xl font-bold text-white">Conchal</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/80">
+                  Crushed-shell shores and crystal-clear turquoise water. A peaceful paradise surrounded by luxury resorts — perfect for those who want beauty without the crowds.
+                </p>
+                <Link href="/private-shuttle" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
+                  Book a shuttle
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
               </div>
             </div>
+
+            {/* Nosara */}
+            <div className="group relative overflow-hidden rounded-3xl shadow-lg transition hover:-translate-y-1 hover:shadow-2xl sm:col-span-2 lg:col-span-1">
+              <div className="relative aspect-[3/4]">
+                <Image src={NOSARA_BEACH_URL} alt="Nosara Beach, Guanacaste" fill className="object-cover transition duration-500 group-hover:scale-105" unoptimized />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              </div>
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <span className="inline-block rounded-full bg-sunset-orange/90 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white">
+                  ~2 hrs from LIR
+                </span>
+                <h3 className="mt-3 text-2xl font-bold text-white">Nosara</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/80">
+                  Where the jungle meets world-class surf breaks. A haven for yogis, surfers, and anyone looking to reconnect with nature on Costa Rica&apos;s wildest coast.
+                </p>
+                <Link href="/private-shuttle" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
+                  Book a shuttle
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── WHY US ─── */}
+      <section className="border-t border-black/5 bg-white py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="text-center">
+            <StarDivider />
+            <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
+              What&apos;s Included in Every Private Shuttle
+            </h2>
+          </div>
+          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { title: "Experienced Drivers", desc: "Professional drivers with years of experience on Guanacaste roads and mountain routes." },
+              { title: "Comfortable Vehicles", desc: "Air-conditioned SUVs and vans with Wi-Fi and cold water on board." },
+              { title: "Fixed Rates", desc: "The price you see when you book is the price you pay. Fuel, tolls, and taxes included." },
+              { title: "Real-Time Flight Tracking", desc: "We monitor your flight status and adjust the pickup time if it arrives early or late." },
+              { title: "English & Spanish", desc: "All drivers are bilingual and happy to share tips about the region." },
+              { title: "Door-to-Door", desc: "Pickup at the terminal exit, drop-off at your accommodation entrance." },
+            ].map((feature) => (
+              <div key={feature.title} className="flex gap-4 rounded-xl border border-black/5 bg-white p-6 shadow-sm">
+                <div className="mt-0.5 shrink-0 text-sunset-orange">
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-foreground">{feature.title}</h3>
+                  <p className="mt-1 text-sm text-foreground/60">{feature.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -264,47 +416,56 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── AIRPORTS (no photo) ─── */}
-      <section id="airport" className="bg-white border-t border-black/5 py-24">
-        <div className="mx-auto max-w-5xl px-6">
+      {/* ─── LIBERIA AIRPORT ─── */}
+      <section id="airport" className="relative overflow-hidden bg-white border-t border-black/5 py-24">
+        <div className="mx-auto max-w-6xl px-6">
           <div className="text-center">
             <StarDivider />
             <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
-              Airports We{" "}
+              Your Gateway to{" "}
               <span className="bg-gradient-to-r from-sunset-gold to-sunset-orange bg-clip-text text-transparent">
-                Pick You Up
-              </span>{" "}
-              From
+                Guanacaste
+              </span>
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
-              We specialize in Liberia Airport (LIR), the main gateway to Guanacaste — but we also offer private shuttle pickups from San Jos&eacute; Airport (SJO) on request.
+              Liberia International Airport (LIR) — the closest airport to Costa Rica&apos;s best Pacific beaches. We&apos;ll be waiting for you right outside the terminal.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-8 lg:grid-cols-3">
-            {/* LIR primary card spans 2 cols */}
-            <div className="lg:col-span-2 rounded-3xl border border-sunset-orange/20 bg-sunset-orange/5 p-8 sm:p-10">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <span className="inline-block rounded-full bg-sunset-orange px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
-                    Primary pickup
-                  </span>
-                  <h3 className="mt-3 text-2xl font-bold text-foreground">
-                    Liberia Airport (LIR)
-                  </h3>
-                  <p className="text-sm text-foreground/50">
-                    Daniel Oduber Quirós International
-                  </p>
-                </div>
-                <svg className="h-10 w-10 shrink-0 text-sunset-orange" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
-                </svg>
+          <div className="mt-12 grid items-center gap-10 lg:grid-cols-2">
+            {/* Airport photo */}
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-lg">
+              <Image
+                src={LIR_AIRPORT_URL}
+                alt="Liberia International Airport (LIR), Guanacaste, Costa Rica"
+                fill
+                className="object-cover"
+                unoptimized
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 flex items-center gap-2">
+                <span className="rounded-full bg-sunset-orange px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">
+                  LIR
+                </span>
+                <span className="text-sm font-semibold text-white drop-shadow-md">
+                  Daniel Oduber Quir&oacute;s International
+                </span>
               </div>
-              <p className="mt-6 leading-relaxed text-foreground/70">
-                LIR is the gateway to Guanacaste and northwestern Costa Rica — 15 minutes from the city of Liberia. United, Delta, American, JetBlue, Southwest, and Air Canada fly here year-round from major US and Canadian cities.
+            </div>
+
+            {/* Airport info */}
+            <div>
+              <span className="inline-block rounded-full border border-sunset-orange/20 bg-sunset-orange/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-sunset-orange">
+                Liberia Airport (LIR)
+              </span>
+              <h3 className="mt-4 text-2xl font-bold text-foreground sm:text-3xl">
+                Direct flights from the US &amp; Canada
+              </h3>
+              <p className="mt-4 leading-relaxed text-foreground/70">
+                United, Delta, American, JetBlue, Southwest, and Air Canada fly into LIR year-round from major cities. Just 15 minutes from the city of Liberia, the airport puts you within a short ride of every beach in Guanacaste.
               </p>
               <p className="mt-3 leading-relaxed text-foreground/70">
-                We monitor every incoming flight in real time and adjust your pickup if you land early or late. Most Guanacaste destinations are between 30 minutes and 2 hours away.
+                We monitor every incoming flight in real time and adjust your pickup if you land early or late. Your driver will be waiting with a sign right at the arrivals exit.
               </p>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 {[
@@ -313,108 +474,13 @@ export default function Home() {
                   { route: "LIR → Papagayo Peninsula", time: "~30 min" },
                   { route: "LIR → Nosara / Sámara", time: "~2 hrs" },
                 ].map((item) => (
-                  <div key={item.route} className="flex items-center justify-between rounded-lg border border-black/5 bg-white px-4 py-3">
+                  <div key={item.route} className="flex items-center justify-between rounded-lg border border-black/5 bg-light-surface px-4 py-3">
                     <span className="text-sm font-medium text-foreground">{item.route}</span>
                     <span className="text-sm font-semibold text-sunset-orange">{item.time}</span>
                   </div>
                 ))}
               </div>
             </div>
-
-            {/* SJO secondary card */}
-            <div className="rounded-3xl border border-black/5 bg-light-surface p-8">
-              <div>
-                <span className="inline-block rounded-full bg-foreground/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-foreground/60">
-                  Also available
-                </span>
-                <h3 className="mt-3 text-xl font-bold text-foreground">
-                  San José Airport (SJO)
-                </h3>
-                <p className="text-sm text-foreground/50">
-                  Juan Santamaría International
-                </p>
-              </div>
-              <p className="mt-5 text-sm leading-relaxed text-foreground/70">
-                Private shuttles from SJO are also available and can be booked
-                directly from our booking page. SJO is the gateway to central
-                Costa Rica and popular mountain destinations.
-              </p>
-              <div className="mt-5 space-y-2">
-                <div className="text-[0.65rem] font-bold uppercase tracking-wider text-foreground/40">
-                  Popular SJO routes
-                </div>
-                {[
-                  { route: "SJO → La Fortuna / Arenal", time: "~3 hrs" },
-                  { route: "SJO → Manuel Antonio", time: "~3 hrs" },
-                  { route: "SJO → Monteverde", time: "~3 hrs" },
-                ].map((item) => (
-                  <div
-                    key={item.route}
-                    className="flex items-center justify-between rounded-lg border border-black/5 bg-white px-4 py-2.5 text-xs"
-                  >
-                    <span className="font-medium text-foreground">
-                      {item.route}
-                    </span>
-                    <span className="font-semibold text-sunset-orange">
-                      {item.time}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <Link
-                href="/book/transfer"
-                className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-orange transition hover:text-sunset-gold"
-              >
-                Book an SJO shuttle
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={2.5}
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                  />
-                </svg>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── WHY US ─── */}
-      <section className="border-t border-black/5 bg-light-surface py-24">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="text-center">
-            <StarDivider />
-            <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
-              What&apos;s Included in Every Private Shuttle
-            </h2>
-          </div>
-          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { title: "Experienced Drivers", desc: "Professional drivers with years of experience on Guanacaste roads and mountain routes." },
-              { title: "Comfortable Vehicles", desc: "Air-conditioned SUVs and vans with Wi-Fi and cold water on board." },
-              { title: "Fixed Rates", desc: "The price you see when you book is the price you pay. Fuel, tolls, and taxes included." },
-              { title: "Real-Time Flight Tracking", desc: "We monitor your flight status and adjust the pickup time if it arrives early or late." },
-              { title: "English & Spanish", desc: "All drivers are bilingual and happy to share tips about the region." },
-              { title: "Door-to-Door", desc: "Pickup at the terminal exit, drop-off at your accommodation entrance." },
-            ].map((feature) => (
-              <div key={feature.title} className="flex gap-4 rounded-xl border border-black/5 bg-white p-6 shadow-sm">
-                <div className="mt-0.5 shrink-0 text-sunset-orange">
-                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground">{feature.title}</h3>
-                  <p className="mt-1 text-sm text-foreground/60">{feature.desc}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -493,13 +559,13 @@ export default function Home() {
           <div className="mt-24">
             <div className="text-center">
               <h3 className="text-2xl font-bold text-foreground sm:text-3xl">
-                Beaches We{" "}
+                Every Beach &amp;{" "}
                 <span className="bg-gradient-to-r from-sunset-gold to-sunset-orange bg-clip-text text-transparent">
-                  Shuttle To
+                  Resort in Guanacaste
                 </span>
               </h3>
               <p className="mx-auto mt-3 max-w-xl text-sm text-foreground/60">
-                All within a short private-shuttle ride from Liberia Airport (LIR).
+                Private shuttle service from LIR to every coastal town, resort, and beach in the province.
               </p>
             </div>
 
@@ -533,6 +599,21 @@ export default function Home() {
                 </div>
               ))}
             </div>
+
+            <div className="mt-10 text-center">
+              <Link
+                href="/private-shuttle"
+                className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-8 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 hover:scale-[1.01]"
+              >
+                Find your route &amp; price
+                <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+              </Link>
+              <p className="mt-3 text-xs text-foreground/40">
+                Search any destination on our booking page.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -563,7 +644,7 @@ export default function Home() {
                 Private ground transportation across Costa Rica
               </h3>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                Ruta Pacifico is a licensed and fully insured ground transportation operator based in Guanacaste. We provide private airport transfers and point-to-point shuttle service from Liberia International Airport (LIR) and Juan Santamar&iacute;a International Airport (SJO) to destinations throughout Costa Rica.
+                Ruta Pacifico is a licensed and fully insured ground transportation operator based in Guanacaste. We provide private airport transfers and point-to-point shuttle service from Liberia International Airport (LIR) to destinations throughout Costa Rica.
               </p>
               <p className="mt-4 leading-relaxed text-foreground/70">
                 Every trip is operated by a professional bilingual driver in a modern, air-conditioned vehicle. Incoming flights are monitored in real time, pricing is fixed in advance and inclusive of all taxes and tolls, and each reservation is exclusive to your party.
@@ -671,7 +752,7 @@ export default function Home() {
               </div>
 
               <Link
-                href="/book/transfer"
+                href="/private-shuttle"
                 className="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-8 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 hover:scale-[1.01]"
               >
                 Book your private shuttle

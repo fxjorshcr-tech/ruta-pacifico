@@ -269,7 +269,7 @@ export default async function FaqPage() {
                 Home
               </Link>
               <Link
-                href="/book/transfer"
+                href="/private-shuttle"
                 className="transition hover:text-sunset-orange"
               >
                 All routes

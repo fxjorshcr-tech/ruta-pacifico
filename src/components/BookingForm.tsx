@@ -7,8 +7,9 @@ import type { Route } from "@/components/RouteSearch";
 import DatePicker from "@/components/DatePicker";
 import TimePicker from "@/components/TimePicker";
 import {
-  BOOKING_DRAFT_KEY,
-  type BookingDraft,
+  addToCart,
+  generateTripId,
+  type TripItem,
 } from "@/lib/booking";
 
 const STARIA_URL =
@@ -24,6 +25,7 @@ interface Props {
   route: Route;
   isAirportPickup: boolean;
   initialVehicle?: VehicleKey;
+  onCartUpdate?: (cart: TripItem[]) => void;
 }
 
 interface VehicleOption {
@@ -34,8 +36,12 @@ interface VehicleOption {
   price: number;
 }
 
-export default function BookingForm({ route, isAirportPickup, initialVehicle }: Props) {
+export default function BookingForm({ route, isAirportPickup, initialVehicle, onCartUpdate }: Props) {
   const router = useRouter();
+  const successRef = useRef<HTMLDivElement>(null);
+  const vehicleErrorRef = useRef<HTMLParagraphElement>(null);
+  const dateTimeErrorRef = useRef<HTMLParagraphElement>(null);
+  const [added, setAdded] = useState(false);
 
   const vehicles: VehicleOption[] = useMemo(() => {
     const list: VehicleOption[] = [
@@ -83,11 +89,10 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
   const [pickupAddr, setPickupAddr] = useState("");
   const [dropoffAddr, setDropoffAddr] = useState("");
 
-  const [continuing, setContinuing] = useState(false);
-  const [showDateTimeError, setShowDateTimeError] = useState(false);
+  // Personal info is collected on the checkout page
 
-  const vehicleErrorRef = useRef<HTMLParagraphElement>(null);
-  const dateTimeErrorRef = useRef<HTMLParagraphElement>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [showDateTimeError, setShowDateTimeError] = useState(false);
 
   const selectedVehicle =
     vehicles.find((v) => v.key === vehicleKey) ?? vehicles[0];
@@ -122,9 +127,10 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
       return;
     }
     setShowDateTimeError(false);
-    setContinuing(true);
+    setSubmitting(true);
 
-    const draft: BookingDraft = {
+    const tripItem: TripItem = {
+      id: generateTripId(),
       from: route.origen,
       to: route.destino,
       duracion: route.duracion ?? null,
@@ -142,18 +148,20 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
       isAirportPickup,
     };
 
-    try {
-      sessionStorage.setItem(BOOKING_DRAFT_KEY, JSON.stringify(draft));
-    } catch {
-      // sessionStorage disabled — continue anyway; the next page will redirect
-    }
+    const updatedCart = addToCart(tripItem);
+    onCartUpdate?.(updatedCart);
+    setAdded(true);
+    setSubmitting(false);
 
-    router.push("/book/review");
+    // Scroll the success message into view
+    setTimeout(() => {
+      successRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 100);
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-10">
-      {/* ── Trip details ── */}
+      {/* ── Section 1: Trip details ── */}
       <section className="rounded-3xl border border-black/5 bg-white p-6 shadow-sm sm:p-8">
         <div className="mb-6 flex items-center gap-3">
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-sunset-orange text-sm font-bold text-white">
@@ -365,7 +373,8 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
               htmlFor="booking-pickup"
               className="text-sm font-medium text-foreground/70"
             >
-              Pickup location
+              Pickup location{" "}
+              <span className="text-sunset-orange">({route.origen})</span>
             </label>
             <input
               id="booking-pickup"
@@ -374,7 +383,7 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
               placeholder={
                 isAirportPickup
                   ? "Terminal / airline"
-                  : "Hotel or address"
+                  : "Hotel, villa or address"
               }
               value={pickupAddr}
               onChange={(e) => setPickupAddr(e.target.value)}
@@ -386,7 +395,8 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
               htmlFor="booking-dropoff"
               className="text-sm font-medium text-foreground/70"
             >
-              Drop-off location
+              Drop-off location{" "}
+              <span className="text-sunset-orange">({route.destino})</span>
             </label>
             <input
               id="booking-dropoff"
@@ -401,33 +411,66 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle }: 
         </div>
       </section>
 
-      {/* ── Continue ── */}
-      <div className="rounded-3xl border border-sunset-orange/20 bg-sunset-orange/5 p-6 sm:p-8">
-        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-          <div>
-            <div className="text-sm text-foreground/60">Total (per vehicle)</div>
-            <div className="text-3xl font-bold text-sunset-orange">
-              ${selectedVehicle.price}
-            </div>
-            <div className="text-xs text-foreground/40">
-              13% VAT included · no hidden fees
-            </div>
-          </div>
-          <button
-            type="submit"
-            disabled={continuing || vehicleTooSmall}
-            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-10 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {continuing ? "Loading…" : "Continue"}
-            <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+      {/* ── Submit ── */}
+      {added ? (
+        <div ref={successRef} className="rounded-3xl border border-green-200 bg-green-50 p-6 text-center sm:p-8">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100 text-green-600">
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
             </svg>
-          </button>
+          </div>
+          <h3 className="mt-4 text-lg font-bold text-foreground">Shuttle added</h3>
+          <p className="mt-2 text-sm text-foreground/60">
+            {route.origen} → {route.destino} has been added to your trip.
+          </p>
+          <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+            <button
+              type="button"
+              onClick={() => router.push("/private-shuttle")}
+              className="inline-flex items-center gap-2 rounded-full border-2 border-sunset-orange px-6 py-3 text-sm font-bold text-sunset-orange transition hover:bg-sunset-orange/5"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+              Add another shuttle
+            </button>
+            <button
+              type="button"
+              onClick={() => router.push("/private-shuttle/checkout")}
+              className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-8 py-3 text-sm font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40"
+            >
+              Continue to Checkout
+              <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            </button>
+          </div>
         </div>
-        <p className="mt-4 text-center text-xs text-foreground/50 sm:text-right">
-          Next: review your trip and enter contact details.
-        </p>
-      </div>
+      ) : (
+        <div className="rounded-3xl border border-sunset-orange/20 bg-sunset-orange/5 p-6 sm:p-8">
+          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+            <div>
+              <div className="text-sm text-foreground/60">This shuttle</div>
+              <div className="text-3xl font-bold text-sunset-orange">
+                ${selectedVehicle.price}
+              </div>
+              <div className="text-xs text-foreground/40">
+                13% VAT included
+              </div>
+            </div>
+            <button
+              type="submit"
+              disabled={submitting || vehicleTooSmall}
+              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-10 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {submitting ? "Adding…" : "Add to Trip"}
+              <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
     </form>
   );
 }
