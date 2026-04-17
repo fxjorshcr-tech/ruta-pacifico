@@ -32,6 +32,9 @@ body {
 
 html {
   scroll-behavior: smooth;
+  /* Keep focused inputs / anchor targets from landing underneath the sticky
+     top nav (h-20 ≈ 80px on mobile, a bit taller on desktop). */
+  scroll-padding-top: 5rem;
 }
 
 /* Thin scrollbar for picker popovers */

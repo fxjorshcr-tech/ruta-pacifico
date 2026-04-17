@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import ComboBox, { type ComboOption } from "@/components/ComboBox";
@@ -64,6 +64,8 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleKey | null>(
     null
   );
+  const [navigating, setNavigating] = useState(false);
+  const vehicleStepRef = useRef<HTMLDivElement>(null);
 
   // Build grouped origin options: Airports → Guanacaste → Other
   const originOptions: ComboOption[] = useMemo(() => {
@@ -143,10 +145,24 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
   }
 
   function handleContinue() {
-    if (!matchedRoute || !selectedVehicle) return;
+    if (!matchedRoute || !selectedVehicle || navigating) return;
+    setNavigating(true);
     const slug = routeSlug(matchedRoute.origen, matchedRoute.destino);
     router.push(`/routes/${slug}?v=${selectedVehicle}`);
   }
+
+  // Gently reveal Step 3 (vehicle selection) once the user has picked both
+  // origin and destination. Without this, on mobile the new section appears
+  // below the fold and the page feels unresponsive.
+  useEffect(() => {
+    if (!matchedRoute) return;
+    const el = vehicleStepRef.current;
+    if (!el) return;
+    const id = window.requestAnimationFrame(() => {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    return () => window.cancelAnimationFrame(id);
+  }, [matchedRoute]);
 
   const vehicleCards: {
     key: VehicleKey;
@@ -234,7 +250,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
 
           {/* Step 3: Vehicle selection */}
           {matchedRoute ? (
-            <div className="mt-10">
+            <div ref={vehicleStepRef} className="mt-10 scroll-mt-24">
               <label className="mb-4 flex items-center gap-2 text-sm font-medium text-foreground/70">
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-sunset-orange text-xs font-bold text-white">
                   3
@@ -302,26 +318,50 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                 <button
                   type="button"
                   onClick={handleContinue}
-                  disabled={!selectedVehicle}
+                  disabled={!selectedVehicle || navigating}
                   className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-10 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 hover:scale-[1.02] disabled:cursor-not-allowed disabled:bg-none disabled:bg-foreground/10 disabled:text-foreground/40 disabled:shadow-none disabled:hover:scale-100"
                 >
-                  {selectedVehicle
+                  {navigating
+                    ? "Loading…"
+                    : selectedVehicle
                     ? "Continue to booking"
                     : "Select a vehicle to continue"}
-                  {selectedVehicle && (
+                  {navigating ? (
                     <svg
-                      className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                      className="h-5 w-5 animate-spin"
                       fill="none"
                       viewBox="0 0 24 24"
-                      strokeWidth={2.5}
-                      stroke="currentColor"
                     >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                      />
                       <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                        className="opacity-90"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 0 1 8-8v3a5 5 0 0 0-5 5H4z"
                       />
                     </svg>
+                  ) : (
+                    selectedVehicle && (
+                      <svg
+                        className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2.5}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                        />
+                      </svg>
+                    )
                   )}
                 </button>
               </div>

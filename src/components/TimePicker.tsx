@@ -61,17 +61,20 @@ export default function TimePicker({
     };
   }, [open]);
 
-  // When opening, scroll the selected (or 09:00 default) slot into view
+  // When opening, center the selected (or 09:00 default) slot inside the list.
+  // We set scrollTop directly on the inner container so the scroll stays
+  // contained and never bubbles up to the page (which, combined with the
+  // global `scroll-behavior: smooth`, used to yank the whole page).
   useEffect(() => {
-    if (!open || !listRef.current) return;
+    if (!open) return;
+    const list = listRef.current;
+    if (!list) return;
     const target = value || "09:00";
-    const el = listRef.current.querySelector<HTMLButtonElement>(
-      `[data-slot="${target}"]`
-    );
-    if (el) {
-      // Scroll without smooth behavior to avoid visible jump
-      el.scrollIntoView({ block: "center" });
-    }
+    const el = list.querySelector<HTMLButtonElement>(`[data-slot="${target}"]`);
+    if (!el) return;
+    const nextTop =
+      el.offsetTop - list.clientHeight / 2 + el.clientHeight / 2;
+    list.scrollTop = Math.max(0, nextTop);
   }, [open, value]);
 
   const displayValue = value ? formatSlot(value) : "Select a time";
