@@ -65,7 +65,7 @@ function JsonLd() {
       "Private airport shuttle service from Liberia Airport (LIR) to beaches, resorts, and destinations across Guanacaste and Costa Rica.",
     url: BASE_URL,
     telephone: "+50685962438",
-    email: "mybooking@rutapacificocr.com",
+    email: "reservations@rutapacifico.com",
     image:
       "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Logo%20Transparente.png",
     address: {
