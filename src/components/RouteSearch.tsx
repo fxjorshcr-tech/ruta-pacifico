@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import ComboBox, { type ComboOption } from "@/components/ComboBox";
@@ -64,6 +64,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleKey | null>(
     null
   );
+  const vehicleStepRef = useRef<HTMLDivElement>(null);
 
   // Build grouped origin options: Airports → Guanacaste → Other
   const originOptions: ComboOption[] = useMemo(() => {
@@ -147,6 +148,19 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
     const slug = routeSlug(matchedRoute.origen, matchedRoute.destino);
     router.push(`/private-shuttle/${slug}?v=${selectedVehicle}#booking`);
   }
+
+  // Gently reveal Step 3 (vehicle selection) once the user has picked both
+  // origin and destination. Without this, on mobile the new section appears
+  // below the fold and the page feels unresponsive.
+  useEffect(() => {
+    if (!matchedRoute) return;
+    const el = vehicleStepRef.current;
+    if (!el) return;
+    const id = window.requestAnimationFrame(() => {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    return () => window.cancelAnimationFrame(id);
+  }, [matchedRoute]);
 
   const vehicleCards: {
     key: VehicleKey;
@@ -234,7 +248,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
 
           {/* Step 3: Vehicle selection */}
           {matchedRoute ? (
-            <div className="mt-10">
+            <div ref={vehicleStepRef} className="mt-10 scroll-mt-24">
               <label className="mb-4 flex items-center gap-2 text-sm font-medium text-foreground/70">
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-sunset-orange text-xs font-bold text-white">
                   3

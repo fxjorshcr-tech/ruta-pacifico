@@ -1,18 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import SiteNav from "@/components/SiteNav";
-
-const HERO_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 import PhoneInput from "@/components/PhoneInput";
 import {
   BOOKING_STORAGE_KEY,
   CART_STORAGE_KEY,
-  getCart,
   getCartTotal,
   generateConfirmationCode,
   formatDate,
@@ -20,21 +16,55 @@ import {
   type TripItem,
 } from "@/lib/booking";
 
+const HERO_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
+
+function subscribeCart(callback: () => void): () => void {
+  if (typeof window === "undefined") return () => {};
+  window.addEventListener("storage", callback);
+  window.addEventListener("rp-cart-change", callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener("rp-cart-change", callback);
+  };
+}
+
+function getCartSnapshot(): string {
+  if (typeof window === "undefined") return "[]";
+  try {
+    return window.sessionStorage.getItem(CART_STORAGE_KEY) ?? "[]";
+  } catch {
+    return "[]";
+  }
+}
+
+function getCartServerSnapshot(): string | null {
+  return null;
+}
+
 export default function CheckoutPage() {
   const router = useRouter();
-  const [cart, setCart] = useState<TripItem[]>([]);
-  const [loaded, setLoaded] = useState(false);
+
+  const raw = useSyncExternalStore(
+    subscribeCart,
+    getCartSnapshot,
+    getCartServerSnapshot
+  );
+
+  const cart = useMemo<TripItem[]>(() => {
+    if (!raw) return [];
+    try {
+      return JSON.parse(raw) as TripItem[];
+    } catch {
+      return [];
+    }
+  }, [raw]);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
   const [submitting, setSubmitting] = useState(false);
-
-  useEffect(() => {
-    setCart(getCart());
-    setLoaded(true);
-  }, []);
 
   const total = getCartTotal(cart);
 
@@ -64,7 +94,13 @@ export default function CheckoutPage() {
     router.push("/private-shuttle/confirmation");
   }
 
-  if (!loaded) return null;
+  if (raw === null && typeof window === "undefined") {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-light-surface">
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-sunset-orange/20 border-t-sunset-orange" />
+      </main>
+    );
+  }
 
   if (cart.length === 0) {
     return (

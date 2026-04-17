@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type { Route } from "@/components/RouteSearch";
@@ -8,7 +8,6 @@ import DatePicker from "@/components/DatePicker";
 import TimePicker from "@/components/TimePicker";
 import {
   addToCart,
-  getCart,
   generateTripId,
   type TripItem,
 } from "@/lib/booking";
@@ -40,6 +39,8 @@ interface VehicleOption {
 export default function BookingForm({ route, isAirportPickup, initialVehicle, onCartUpdate }: Props) {
   const router = useRouter();
   const successRef = useRef<HTMLDivElement>(null);
+  const vehicleErrorRef = useRef<HTMLParagraphElement>(null);
+  const dateTimeErrorRef = useRef<HTMLParagraphElement>(null);
   const [added, setAdded] = useState(false);
 
   const vehicles: VehicleOption[] = useMemo(() => {
@@ -101,6 +102,22 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
     (vehicleKey === "staria" && totalPax > 6) ||
     (vehicleKey === "hiace" && totalPax > 9) ||
     (vehicleKey === "maxus" && totalPax > 12);
+
+  useEffect(() => {
+    if (!showDateTimeError) return;
+    dateTimeErrorRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }, [showDateTimeError]);
+
+  useEffect(() => {
+    if (!vehicleTooSmall) return;
+    vehicleErrorRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }, [vehicleTooSmall]);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -197,7 +214,10 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
             })}
           </div>
           {vehicleTooSmall && (
-            <p className="mt-3 text-xs font-medium text-red-600">
+            <p
+              ref={vehicleErrorRef}
+              className="mt-3 scroll-mt-24 text-xs font-medium text-red-600"
+            >
               The selected vehicle doesn&apos;t fit your group size — please
               choose a larger one.
             </p>
@@ -217,7 +237,10 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
             <TimePicker value={time} onChange={setTime} />
           </div>
           {showDateTimeError && (
-            <p className="mt-3 text-xs font-medium text-red-600">
+            <p
+              ref={dateTimeErrorRef}
+              className="mt-3 scroll-mt-24 text-xs font-medium text-red-600"
+            >
               Please choose a pickup date and time to continue.
             </p>
           )}
