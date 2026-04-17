@@ -1,4 +1,15 @@
-export interface Booking {
+/**
+ * A booking goes through three persisted stages in sessionStorage:
+ *
+ *   BookingDraft   → trip details only (after step 1)
+ *   BookingPending → draft + customer info (after step 2)
+ *   Booking        → pending + confirmation code + paid flag (after step 3)
+ *
+ * Each stage widens the previous one, so the later pages can read the same
+ * record as they make progress.
+ */
+
+export interface BookingDraft {
   // Route
   from: string;
   to: string;
@@ -19,18 +30,25 @@ export interface Booking {
   vehiclePax: string;
   price: number;
 
-  // Customer
+  // Meta
+  isAirportPickup: boolean;
+}
+
+export interface BookingPending extends BookingDraft {
   name: string;
   email: string;
   phone: string;
   notes?: string;
-
-  // Meta
-  isAirportPickup: boolean;
-  confirmationCode: string;
-  createdAt: string;
 }
 
+export interface Booking extends BookingPending {
+  confirmationCode: string;
+  createdAt: string;
+  paid: boolean;
+}
+
+export const BOOKING_DRAFT_KEY = "rp_booking_draft";
+export const BOOKING_PENDING_KEY = "rp_booking_pending";
 export const BOOKING_STORAGE_KEY = "rp_booking";
 
 export function generateConfirmationCode(): string {
@@ -63,4 +81,15 @@ export function formatTime(isoTime: string): string {
     minute: "2-digit",
     hour12: true,
   });
+}
+
+export function formatPassengers(
+  adults: number,
+  children: number
+): string {
+  return `${adults} adult${adults === 1 ? "" : "s"}${
+    children > 0
+      ? ` · ${children} child${children === 1 ? "" : "ren"}`
+      : ""
+  }`;
 }

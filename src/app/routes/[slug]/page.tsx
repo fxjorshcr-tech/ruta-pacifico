@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getSupabase } from "@/lib/supabase";
 import BookingForm from "@/components/BookingForm";
+import BookingStepper from "@/components/BookingStepper";
 import SiteNav from "@/components/SiteNav";
 import type { Route } from "@/components/RouteSearch";
 import { isAirportOrigin, routeSlug } from "@/lib/slug";
@@ -262,13 +263,15 @@ export default async function RoutePage({
       </section>
 
       {/* ─── Booking form ─── */}
-      <section className="mx-auto max-w-5xl px-6 py-16">
+      <section className="mx-auto max-w-5xl px-6 pt-10 pb-16">
+        <BookingStepper current={1} />
         <div className="mb-8 text-center">
           <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
             Book your Private Shuttle
           </h2>
           <p className="mt-2 text-sm text-foreground/60">
-            Complete the trip details below to confirm your reservation.
+            Start with the trip details — you&apos;ll add your info and pay on
+            the next steps.
           </p>
         </div>
         <BookingForm

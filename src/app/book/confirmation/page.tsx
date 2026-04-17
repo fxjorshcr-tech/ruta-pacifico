@@ -3,6 +3,7 @@
 import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
+import BookingStepper from "@/components/BookingStepper";
 import {
   BOOKING_STORAGE_KEY,
   formatDate,
@@ -97,8 +98,9 @@ export default function ConfirmationPage() {
     <main className="min-h-screen bg-light-surface">
       {/* Top bar */}
       <SiteNav transparent={false} />
+      <BookingStepper current={4} />
 
-      <div className="mx-auto max-w-3xl px-6 py-16">
+      <div className="mx-auto max-w-3xl px-6 pb-16">
         {/* Success header */}
         <div className="text-center">
           <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-green-400 to-green-600 text-white shadow-xl shadow-green-500/30">
@@ -107,10 +109,10 @@ export default function ConfirmationPage() {
             </svg>
           </div>
           <h1 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
-            Booking received!
+            {booking.paid ? "Payment received!" : "Booking received!"}
           </h1>
           <p className="mt-3 text-foreground/60">
-            Thank you, <strong className="text-foreground">{booking.name}</strong> — we&apos;ve got your request.
+            Thank you, <strong className="text-foreground">{booking.name}</strong> — your private shuttle is confirmed.
           </p>
           <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2 text-sm shadow-sm">
             <span className="text-foreground/50">Confirmation code</span>
@@ -120,35 +122,59 @@ export default function ConfirmationPage() {
           </div>
         </div>
 
-        {/* Payment link notice */}
+        {/* Confirmation notice */}
         <div className="mt-10 overflow-hidden rounded-3xl border border-sunset-orange/30 bg-gradient-to-br from-sunset-gold/10 via-sunset-orange/10 to-sunset-red/10 p-[2px]">
           <div className="rounded-[22px] bg-white p-6 sm:p-8">
             <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-sunset-orange text-white">
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9v10.5A1.5 1.5 0 0 0 3.75 21h16.5a1.5 1.5 0 0 0 1.5-1.5V9M3.75 3h16.5A1.5 1.5 0 0 1 21.75 4.5v3.75H2.25V4.5A1.5 1.5 0 0 1 3.75 3Z" />
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green-500 text-white">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                 </svg>
               </div>
               <div className="min-w-0 flex-1">
                 <h2 className="text-lg font-bold text-foreground sm:text-xl">
-                  We&apos;ll send you the payment link shortly
+                  {booking.paid
+                    ? "You're all set"
+                    : "We'll send you the payment link shortly"}
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-foreground/70">
-                  Our team is reviewing your booking right now. You&apos;ll
-                  receive the secure payment link by <strong className="text-foreground">email</strong> at{" "}
-                  <a
-                    href={`mailto:${booking.email}`}
-                    className="font-semibold text-sunset-orange hover:text-sunset-gold"
-                  >
-                    {booking.email}
-                  </a>{" "}
-                  and by <strong className="text-foreground">WhatsApp</strong>{" "}
-                  at{" "}
-                  <span className="font-semibold text-sunset-orange">
-                    {booking.phone}
-                  </span>{" "}
-                  within a few minutes. The booking is confirmed once payment
-                  is completed.
+                  {booking.paid ? (
+                    <>
+                      A receipt is on its way to{" "}
+                      <a
+                        href={`mailto:${booking.email}`}
+                        className="font-semibold text-sunset-orange hover:text-sunset-gold"
+                      >
+                        {booking.email}
+                      </a>
+                      . Our team will reach out via{" "}
+                      <strong className="text-foreground">WhatsApp</strong> at{" "}
+                      <span className="font-semibold text-sunset-orange">
+                        {booking.phone}
+                      </span>{" "}
+                      the day before your pickup to share the driver&apos;s
+                      contact details.
+                    </>
+                  ) : (
+                    <>
+                      Our team is reviewing your booking right now. You&apos;ll
+                      receive the secure payment link by{" "}
+                      <strong className="text-foreground">email</strong> at{" "}
+                      <a
+                        href={`mailto:${booking.email}`}
+                        className="font-semibold text-sunset-orange hover:text-sunset-gold"
+                      >
+                        {booking.email}
+                      </a>{" "}
+                      and by{" "}
+                      <strong className="text-foreground">WhatsApp</strong> at{" "}
+                      <span className="font-semibold text-sunset-orange">
+                        {booking.phone}
+                      </span>{" "}
+                      within a few minutes. The booking is confirmed once
+                      payment is completed.
+                    </>
+                  )}
                 </p>
               </div>
             </div>
@@ -266,13 +292,35 @@ export default function ConfirmationPage() {
           {/* Total */}
           <div className="mt-6 flex items-center justify-between rounded-2xl bg-gradient-to-br from-sunset-gold/10 via-sunset-orange/10 to-sunset-red/10 p-5">
             <div>
-              <div className="text-xs text-foreground/60">Total (per vehicle)</div>
+              <div className="text-xs text-foreground/60">
+                {booking.paid ? "Paid (per vehicle)" : "Total (per vehicle)"}
+              </div>
               <div className="text-xs text-foreground/40">
                 13% VAT included · no hidden fees
               </div>
             </div>
-            <div className="text-3xl font-extrabold text-sunset-orange sm:text-4xl">
-              ${booking.price}
+            <div className="flex items-center gap-3">
+              {booking.paid && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-green-500 px-2.5 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white">
+                  <svg
+                    className="h-3 w-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={3}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m4.5 12.75 6 6 9-13.5"
+                    />
+                  </svg>
+                  Paid
+                </span>
+              )}
+              <div className="text-3xl font-extrabold text-sunset-orange sm:text-4xl">
+                ${booking.price}
+              </div>
             </div>
           </div>
         </div>
