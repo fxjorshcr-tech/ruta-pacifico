@@ -194,7 +194,7 @@ export default function DatePicker({ value, onChange, minDate }: Props) {
       {open && (
         <div
           role="dialog"
-          className="absolute left-0 right-0 top-full z-30 mt-2 w-full min-w-[320px] origin-top rounded-2xl border border-black/5 bg-white p-4 shadow-2xl sm:left-auto sm:w-[340px]"
+          className="absolute left-0 right-0 top-full z-30 mt-2 w-full origin-top rounded-2xl border border-black/5 bg-white p-4 shadow-2xl sm:left-auto sm:w-[340px]"
         >
           {/* Header */}
           <div className="flex items-center justify-between px-1">

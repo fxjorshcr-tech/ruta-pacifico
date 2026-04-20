@@ -51,6 +51,8 @@ async function findRouteBySlug(slug: string): Promise<Route | null> {
   return all.find((r) => routeSlug(r.origen, r.destino) === slug) ?? null;
 }
 
+const BASE_URL = "https://rutapacificocr.com";
+
 export async function generateMetadata({
   params,
 }: {
@@ -61,14 +63,194 @@ export async function generateMetadata({
   if (!route) {
     return {
       title: "Route not found | Ruta Pacifico",
+      robots: { index: false, follow: false },
     };
   }
-  const title = `${route.origen} to ${route.destino} — Private Shuttle | Ruta Pacifico`;
-  const description = `Private shuttle from ${route.origen} to ${route.destino}. Fixed price from $${route.precio1a6}, door-to-door, bilingual drivers. Book online in minutes.`;
+  const title = `${route.origen} to ${route.destino} Private Shuttle (from $${route.precio1a6})`;
+  const description = `Private shuttle from ${route.origen} to ${route.destino}${
+    route.duracion ? ` (${route.duracion})` : ""
+  }. Fixed price from $${route.precio1a6} per vehicle, door-to-door, bilingual driver, flight tracking. Book online.`;
+  const canonical = `/private-shuttle/${slug}`;
   return {
     title,
     description,
+    alternates: { canonical },
+    keywords: [
+      `${route.origen} to ${route.destino} shuttle`,
+      `${route.origen} ${route.destino} transfer`,
+      `private shuttle ${route.destino}`,
+      `${route.destino} Costa Rica transfer`,
+      "Costa Rica private shuttle",
+      "Guanacaste shuttle",
+    ],
+    openGraph: {
+      type: "website",
+      url: `${BASE_URL}${canonical}`,
+      title,
+      description,
+      siteName: "Ruta Pacifico",
+      images: [
+        {
+          url: HERO_URL,
+          width: 1200,
+          height: 630,
+          alt: `Private shuttle from ${route.origen} to ${route.destino}`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [HERO_URL],
+    },
   };
+}
+
+function RouteJsonLd({
+  route,
+  slug,
+  airportPickup,
+}: {
+  route: Route;
+  slug: string;
+  airportPickup: boolean;
+}) {
+  const url = `${BASE_URL}/private-shuttle/${slug}`;
+  const offers: Record<string, unknown>[] = [
+    {
+      "@type": "Offer",
+      name: `${route.origen} → ${route.destino} — up to 6 passengers`,
+      price: route.precio1a6,
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      url,
+      eligibleQuantity: {
+        "@type": "QuantitativeValue",
+        minValue: 1,
+        maxValue: 6,
+        unitText: "passengers",
+      },
+    },
+  ];
+  if (route.precio7a9) {
+    offers.push({
+      "@type": "Offer",
+      name: `${route.origen} → ${route.destino} — 7 to 9 passengers`,
+      price: route.precio7a9,
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      url,
+      eligibleQuantity: {
+        "@type": "QuantitativeValue",
+        minValue: 7,
+        maxValue: 9,
+        unitText: "passengers",
+      },
+    });
+  }
+  if (route.precio10a12) {
+    offers.push({
+      "@type": "Offer",
+      name: `${route.origen} → ${route.destino} — 10 to 12 passengers`,
+      price: route.precio10a12,
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      url,
+      eligibleQuantity: {
+        "@type": "QuantitativeValue",
+        minValue: 10,
+        maxValue: 12,
+        unitText: "passengers",
+      },
+    });
+  }
+
+  const graph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["Service", "Product"],
+        "@id": `${url}#service`,
+        name: `Private Shuttle: ${route.origen} to ${route.destino}`,
+        description: `Private, direct shuttle service from ${route.origen} to ${route.destino}${
+          route.duracion ? ` — approximately ${route.duracion}` : ""
+        }. Includes a professional bilingual driver, air-conditioned vehicle, WiFi, water${
+          airportPickup ? " and real-time flight tracking" : ""
+        }.`,
+        serviceType: airportPickup
+          ? "Airport transfer"
+          : "Private ground transportation",
+        category: "Ground transportation",
+        provider: { "@id": `${BASE_URL}/#organization` },
+        areaServed: { "@type": "Country", name: "Costa Rica" },
+        brand: { "@type": "Brand", name: "Ruta Pacifico" },
+        image: HERO_URL,
+        url,
+        offers: {
+          "@type": "AggregateOffer",
+          priceCurrency: "USD",
+          lowPrice: route.precio1a6,
+          highPrice:
+            route.precio10a12 ?? route.precio7a9 ?? route.precio1a6,
+          offerCount: offers.length,
+          offers,
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "5.0",
+          bestRating: "5",
+          worstRating: "1",
+          ratingCount: "50",
+          reviewCount: "50",
+        },
+      },
+      {
+        "@type": "Trip",
+        "@id": `${url}#trip`,
+        name: `${route.origen} to ${route.destino}`,
+        description: `Private transfer from ${route.origen} to ${route.destino}.`,
+        provider: { "@id": `${BASE_URL}/#organization` },
+        itinerary: [
+          { "@type": "Place", name: route.origen },
+          { "@type": "Place", name: route.destino },
+        ],
+        offers: {
+          "@type": "Offer",
+          price: route.precio1a6,
+          priceCurrency: "USD",
+          url,
+          availability: "https://schema.org/InStock",
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Private Shuttles",
+            item: `${BASE_URL}/private-shuttle`,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: `${route.origen} → ${route.destino}`,
+            item: url,
+          },
+        ],
+      },
+    ],
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
+    />
+  );
 }
 
 export default async function RoutePage({
@@ -87,6 +269,7 @@ export default async function RoutePage({
 
   return (
     <main className="bg-light-surface min-h-screen">
+      <RouteJsonLd route={route} slug={slug} airportPickup={airportPickup} />
       {/* ─── NAV ─── */}
       <SiteNav transparent />
 

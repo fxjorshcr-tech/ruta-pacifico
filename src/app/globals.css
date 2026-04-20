@@ -12,6 +12,31 @@
   --dark-hero: #0a0a0a;
 }
 
+/* iOS / Android zoom-on-autorotate guard + tidy tap highlight. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent long unbreakable strings (emails, URLs, route slugs) from forcing
+   horizontal scroll on narrow phones. */
+body {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* iOS Safari zooms into text inputs < 16px on focus. Force 16px on actual
+   form controls (not buttons) so the viewport stays put. Buttons keep their
+   design-system sizing. */
+@media (max-width: 640px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]):not([type="reset"]),
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

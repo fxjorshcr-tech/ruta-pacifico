@@ -104,10 +104,10 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/20" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" />
 
-        <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-12 px-6 lg:grid-cols-2">
+        <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-6 pt-28 pb-16 lg:grid-cols-2 lg:gap-12 lg:pt-0 lg:pb-0">
           <div>
             <div className="mb-6"><GoogleReviewBadge /></div>
-            <h1 className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <h1 className="text-[2rem] font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
               Private Shuttles from{" "}
               <span className="bg-gradient-to-r from-sunset-gold via-sunset-orange to-sunset-red bg-clip-text text-transparent">
                 Liberia Airport
@@ -116,6 +116,16 @@ export default function Home() {
             <p className="mt-5 max-w-lg text-base text-white/80 sm:text-lg">
               Private airport shuttles from LIR to Tamarindo, Flamingo, Papagayo, Nosara &amp; every beach on the Golden Coast of Costa Rica.
             </p>
+            {/* Mobile / tablet CTA — the desktop CTA lives next to the logo. */}
+            <Link
+              href="/private-shuttle"
+              className="mt-7 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-8 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 sm:px-10 sm:py-4 lg:hidden"
+            >
+              Book Your Shuttle
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
           </div>
           <div className="hidden lg:flex flex-col items-center justify-center gap-8">
             <Image src={LOGO_URL} alt="Ruta Pacifico" width={500} height={300} className="w-full max-w-md drop-shadow-2xl" unoptimized />
@@ -143,7 +153,7 @@ export default function Home() {
       </section>
 
       {/* ─── SERVICES ─── */}
-      <section id="services" className="relative overflow-hidden bg-white py-24">
+      <section id="services" className="relative overflow-hidden bg-white py-16 sm:py-24">
         {/* Decorative background */}
         <div className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-sunset-orange/5 blur-3xl" />
         <div className="pointer-events-none absolute -left-32 bottom-0 h-96 w-96 rounded-full bg-sunset-gold/5 blur-3xl" />
@@ -234,7 +244,7 @@ export default function Home() {
       </section>
 
       {/* ─── WHAT'S YOUR PLAN? ─── */}
-      <section className="border-t border-black/5 bg-light-surface py-24">
+      <section className="border-t border-black/5 bg-light-surface py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <div className="text-center">
             <StarDivider />
@@ -324,7 +334,7 @@ export default function Home() {
       </section>
 
       {/* ─── WHY US ─── */}
-      <section className="border-t border-black/5 bg-white py-24">
+      <section className="border-t border-black/5 bg-white py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <div className="text-center">
             <StarDivider />
@@ -358,7 +368,7 @@ export default function Home() {
       </section>
 
       {/* ─── FLEET ─── */}
-      <section className="bg-light-surface py-24 border-t border-black/5">
+      <section className="bg-light-surface py-16 sm:py-24 border-t border-black/5">
         <div className="mx-auto max-w-6xl px-6">
           <div className="text-center">
             <StarDivider />
@@ -417,7 +427,7 @@ export default function Home() {
       </section>
 
       {/* ─── LIBERIA AIRPORT ─── */}
-      <section id="airport" className="relative overflow-hidden bg-white border-t border-black/5 py-24">
+      <section id="airport" className="relative overflow-hidden bg-white border-t border-black/5 py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <div className="text-center">
             <StarDivider />
@@ -488,7 +498,7 @@ export default function Home() {
       {/* ─── GUANACASTE + BEACHES (merged mega section) ─── */}
       <section
         id="guanacaste"
-        className="relative overflow-hidden border-t border-black/5 bg-gradient-to-b from-white via-light-surface to-white py-24"
+        className="relative overflow-hidden border-t border-black/5 bg-gradient-to-b from-white via-light-surface to-white py-16 sm:py-24"
       >
         {/* Decorative beach backdrop */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[420px] opacity-[0.08]">
@@ -619,7 +629,7 @@ export default function Home() {
       </section>
 
       {/* ─── ABOUT & CONTACT ─── */}
-      <section id="about" className="border-t border-black/5 bg-light-surface py-24">
+      <section id="about" className="border-t border-black/5 bg-light-surface py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <div className="text-center">
             <StarDivider />
