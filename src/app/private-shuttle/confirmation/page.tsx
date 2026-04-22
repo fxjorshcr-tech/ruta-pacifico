@@ -101,10 +101,10 @@ export default function ConfirmationPage() {
             </svg>
           </div>
           <h1 className="mt-6 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Booking Received
+            Reservation Confirmed
           </h1>
           <p className="mt-3 text-white/70">
-            Thank you, {booking.name}
+            Thank you, {booking.name} — your seat is held.
           </p>
           <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2.5 text-sm backdrop-blur-sm border border-white/10">
             <span className="text-white/60">Confirmation code</span>
@@ -126,13 +126,15 @@ export default function ConfirmationPage() {
             </div>
             <div>
               <h2 className="text-lg font-bold text-foreground">
-                Payment link on the way
+                Secure payment link on the way
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-foreground/70">
-                We&apos;re reviewing your booking now. You&apos;ll get the secure payment link by{" "}
-                <strong className="text-foreground">email</strong> ({booking.email}) and{" "}
-                <strong className="text-foreground">WhatsApp</strong> ({booking.phone}) within a few minutes.
-                Your booking is confirmed once payment is completed.
+                Your reservation is <strong className="text-foreground">confirmed and held</strong>,
+                pending payment. We&apos;ll send a{" "}
+                <strong className="text-foreground">secure payment link</strong> to{" "}
+                <strong className="text-foreground">{booking.email}</strong> (and WhatsApp{" "}
+                <strong className="text-foreground">{booking.phone}</strong>) within a
+                few minutes. The booking becomes final once payment is completed.
               </p>
             </div>
           </div>

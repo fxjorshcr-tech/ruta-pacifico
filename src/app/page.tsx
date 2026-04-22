@@ -718,10 +718,10 @@ export default function Home() {
                       Email
                     </div>
                     <a
-                      href="mailto:mybooking@cantwaittravelcr.com"
+                      href="mailto:reservations@rutapacifico.com"
                       className="mt-1 block break-all text-lg font-bold text-foreground transition hover:text-sunset-orange"
                     >
-                      mybooking@cantwaittravelcr.com
+                      reservations@rutapacifico.com
                     </a>
                   </div>
                 </div>
@@ -803,8 +803,9 @@ export default function Home() {
             <div>
               <h4 className="text-sm font-semibold uppercase tracking-wider text-white/80">Contact</h4>
               <ul className="mt-4 space-y-3 text-sm text-white/50">
-                <li><a href="https://wa.me/50600000000" className="transition hover:text-sunset-orange">WhatsApp</a></li>
-                <li><a href="mailto:info@rutapacifico.com" className="transition hover:text-sunset-orange">info@rutapacifico.com</a></li>
+                <li><a href="https://wa.me/50685962438" className="transition hover:text-sunset-orange">WhatsApp +506 8596-2438</a></li>
+                <li><a href="mailto:reservations@rutapacifico.com" className="transition hover:text-sunset-orange">reservations@rutapacifico.com</a></li>
+                <li><Link href="/about-contact" className="transition hover:text-sunset-orange">About &amp; Contact Us</Link></li>
                 <li>Guanacaste, Costa Rica</li>
               </ul>
             </div>

@@ -65,13 +65,15 @@ export default function CheckoutPage() {
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const total = getCartTotal(cart);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (cart.length === 0) return;
     setSubmitting(true);
+    setSubmitError(null);
 
     const booking = {
       trips: cart,
@@ -83,6 +85,28 @@ export default function CheckoutPage() {
       confirmationCode: generateConfirmationCode(),
       createdAt: new Date().toISOString(),
     };
+
+    try {
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(booking),
+      });
+      if (!res.ok) {
+        const data = (await res.json().catch(() => null)) as
+          | { error?: string }
+          | null;
+        throw new Error(data?.error ?? "Could not confirm your booking.");
+      }
+    } catch (err) {
+      setSubmitting(false);
+      setSubmitError(
+        err instanceof Error
+          ? err.message
+          : "Could not confirm your booking. Please try again.",
+      );
+      return;
+    }
 
     try {
       sessionStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify(booking));
@@ -199,7 +223,7 @@ export default function CheckoutPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0" />
                     </svg>
                   </span>
-                  <h2 className="text-lg font-bold text-foreground">Complete your details to pay</h2>
+                  <h2 className="text-lg font-bold text-foreground">Complete your details</h2>
                 </div>
                 <div className="mt-5 grid gap-4 sm:grid-cols-2">
                   <div className="sm:col-span-2">
@@ -219,23 +243,171 @@ export default function CheckoutPage() {
                     <textarea id="checkout-notes" rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Child seats, extra stops, luggage notes…" className="mt-2 w-full resize-none rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20" />
                   </div>
                 </div>
+              </div>
 
-                {/* Pay button right here, below the form */}
-                <div className="mt-6 flex flex-col items-end gap-3 border-t border-black/5 pt-6 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <div className="text-sm text-foreground/60">Total ({cart.length} shuttle{cart.length !== 1 ? "s" : ""})</div>
-                    <div className="text-2xl font-bold text-sunset-orange">${total}</div>
+              {/* ── CONFIRM BOOKING BLOCK ── */}
+              <div className="rounded-2xl border border-black/5 bg-white p-5 shadow-sm sm:p-6">
+                {submitError && (
+                  <div className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                    {submitError}
                   </div>
-                  <button
-                    type="submit"
-                    disabled={submitting}
-                    className="group flex items-center gap-3 rounded-xl bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-8 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    {submitting ? "Processing…" : "Pay This Booking"}
-                    <svg className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                )}
+
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="group flex w-full items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-green-500 to-green-600 px-8 py-5 text-base font-bold text-white shadow-lg shadow-green-500/25 transition hover:shadow-xl hover:shadow-green-500/40 disabled:cursor-not-allowed disabled:opacity-60 sm:text-lg"
+                >
+                  {submitting ? (
+                    "Confirming…"
+                  ) : (
+                    <>
+                      <svg
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+                        />
+                      </svg>
+                      Confirm Booking — ${total}
+                    </>
+                  )}
+                </button>
+
+                {/* Yellow "How does payment work?" notice */}
+                <div className="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 sm:p-5">
+                  <div className="flex items-start gap-3">
+                    <div className="mt-0.5 shrink-0 text-amber-500">
+                      <svg
+                        className="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.8}
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M2.25 8.25h19.5M2.25 9v10.5A1.5 1.5 0 0 0 3.75 21h16.5a1.5 1.5 0 0 0 1.5-1.5V9M3.75 3h16.5A1.5 1.5 0 0 1 21.75 4.5v3.75H2.25V4.5A1.5 1.5 0 0 1 3.75 3Z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold text-amber-900">
+                        How does payment work?
+                      </div>
+                      <p className="mt-1 text-sm leading-relaxed text-amber-900/80">
+                        After confirming your booking, we will send you a{" "}
+                        <strong>secure payment link</strong> to your email so
+                        you can complete the payment safely. Your reservation
+                        will be held in the meantime.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Trust badges row */}
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-black/5 pt-5 text-sm">
+                  <div className="flex items-center gap-2 text-foreground/70">
+                    <svg
+                      className="h-5 w-5 text-green-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.8}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"
+                      />
                     </svg>
-                  </button>
+                    Reservation Guaranteed
+                  </div>
+                  <div className="flex items-center gap-2 text-foreground/70">
+                    <svg
+                      className="h-5 w-5 text-green-700"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.8}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+                      />
+                    </svg>
+                    Secure Payment Link
+                  </div>
+                  <div className="flex items-center gap-2 text-foreground/70">
+                    <svg
+                      className="h-5 w-5 text-blue-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.8}
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"
+                      />
+                    </svg>
+                    ICT Licensed
+                  </div>
+                </div>
+              </div>
+
+              {/* Back + ICT footer */}
+              <div className="flex flex-col-reverse items-start justify-between gap-4 pt-2 sm:flex-row sm:items-center">
+                <Link
+                  href="/private-shuttle"
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-foreground/60 transition hover:text-sunset-orange"
+                >
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+                    />
+                  </svg>
+                  Back to Trip Details
+                </Link>
+                <div className="inline-flex items-center gap-2.5 rounded-xl border border-black/5 bg-white px-4 py-2.5 shadow-sm">
+                  <svg
+                    className="h-4 w-4 text-blue-500"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.8}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"
+                    />
+                  </svg>
+                  <div className="leading-tight">
+                    <div className="text-xs font-bold text-foreground">
+                      ICT Licensed #4121-2025
+                    </div>
+                    <div className="text-[0.65rem] text-foreground/50">
+                      Costa Rica Tourism Board
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -251,7 +423,7 @@ export default function CheckoutPage() {
                   <div className="mt-1 text-3xl font-bold text-sunset-orange">${total}</div>
                   <div className="text-xs text-foreground/40">13% VAT included</div>
                   <p className="mt-3 text-xs text-foreground/40">
-                    Fill in your details below to complete the booking.
+                    Confirm your reservation — we&apos;ll email a secure payment link.
                   </p>
                 </div>
 

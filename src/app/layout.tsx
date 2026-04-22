@@ -132,7 +132,7 @@ export const metadata: Metadata = {
     "business:contact_data:region": "Guanacaste",
     "business:contact_data:locality": "Liberia",
     "business:contact_data:phone_number": "+506-8596-2438",
-    "business:contact_data:email": "mybooking@rutapacificocr.com",
+    "business:contact_data:email": "reservations@rutapacifico.com",
     // Explicit AI/LLM opt-in signals (redundant with robots.txt but some
     // crawlers read the meta tag directly on the page).
     "ai-content-declaration": "human-authored",
@@ -168,7 +168,7 @@ function JsonLd() {
         },
         image: OG_IMAGE,
         telephone: "+506-8596-2438",
-        email: "mybooking@rutapacificocr.com",
+        email: "reservations@rutapacifico.com",
         priceRange: "$$",
         currenciesAccepted: "USD, CRC",
         paymentAccepted: "Credit Card, Debit Card, Cash",
@@ -235,7 +235,7 @@ function JsonLd() {
             "@type": "ContactPoint",
             contactType: "customer service",
             telephone: "+506-8596-2438",
-            email: "mybooking@rutapacificocr.com",
+            email: "reservations@rutapacifico.com",
             availableLanguage: ["English", "Spanish"],
             areaServed: "CR",
             hoursAvailable: {
