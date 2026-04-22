@@ -314,7 +314,7 @@ export default async function RoutePage({
                   </span>
                 </div>
                 <span className="mt-1.5 text-[0.7rem] text-white/60">
-                  per vehicle · all taxes included
+                  per vehicle (1–6 pax) · all taxes included
                 </span>
               </div>
               <div className="h-16 w-px bg-white/20" />
@@ -344,6 +344,32 @@ export default async function RoutePage({
                 )}
               </div>
             </div>
+          </div>
+
+          {/* Continue CTA — smooth-scrolls to booking form */}
+          <div className="mt-8 flex flex-col items-center gap-2">
+            <a
+              href="#booking"
+              className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-10 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 hover:scale-[1.02]"
+            >
+              Continue to book
+              <svg
+                className="h-5 w-5 transition-transform group-hover:translate-y-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2.5}
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"
+                />
+              </svg>
+            </a>
+            <p className="text-xs text-white/60">
+              Next: pick vehicle, date, passengers &amp; pickup details
+            </p>
           </div>
         </div>
       </section>
@@ -445,13 +471,17 @@ export default async function RoutePage({
       </section>
 
       {/* ─── Booking form ─── */}
-      <section id="booking" className="mx-auto max-w-5xl px-6 py-16 scroll-mt-8">
+      <section id="booking" className="mx-auto max-w-5xl px-6 py-16 scroll-mt-24">
         <div className="mb-8 text-center">
-          <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
-            Book your Private Shuttle
+          <div className="inline-flex items-center gap-2 rounded-full bg-sunset-orange/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-sunset-orange">
+            Step 2 of 3 · Trip details
+          </div>
+          <h2 className="mt-4 text-2xl font-bold text-foreground sm:text-3xl">
+            Choose vehicle &amp; trip details
           </h2>
-          <p className="mt-2 text-sm text-foreground/60">
-            Complete the trip details below to confirm your reservation.
+          <p className="mx-auto mt-2 max-w-xl text-sm text-foreground/60">
+            Pick the vehicle that fits your group, the date and time, and tell
+            us where to meet you — we&apos;ll take it from there.
           </p>
         </div>
         <BookingSection

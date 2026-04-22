@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import ComboBox, { type ComboOption } from "@/components/ComboBox";
 import { routeSlug } from "@/lib/slug";
@@ -21,17 +20,6 @@ interface RouteSearchProps {
   routes: Route[];
 }
 
-type VehicleKey = "staria" | "hiace" | "maxus";
-
-const STARIA_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/staria-smallMobile.webp";
-const HIACE_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/hiace-van-cwt.png";
-const MAXUS_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/maxus-deviver-9-cwt-removebg-preview.png";
-
-/* Airport prefixes — LIR first, then SJO. Any origin in the DB whose label
-   starts with one of these prefixes is grouped under "Airports". */
 const AIRPORT_PREFIXES = ["LIR", "SJO"];
 
 const GUANACASTE_PRIORITY = [
@@ -61,12 +49,8 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
   const router = useRouter();
   const [selectedOrigin, setSelectedOrigin] = useState("");
   const [selectedDestination, setSelectedDestination] = useState("");
-  const [selectedVehicle, setSelectedVehicle] = useState<VehicleKey | null>(
-    null
-  );
-  const vehicleStepRef = useRef<HTMLDivElement>(null);
+  const [navigating, setNavigating] = useState(false);
 
-  // Build grouped origin options: Airports → Guanacaste → Other
   const originOptions: ComboOption[] = useMemo(() => {
     const all = Array.from(new Set(routes.map((r) => r.origen)));
 
@@ -92,7 +76,6 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
     return opts;
   }, [routes]);
 
-  // Destinations for the currently selected origin
   const destinationOptions: ComboOption[] = useMemo(() => {
     if (!selectedOrigin) return [];
     const dests = Array.from(
@@ -103,7 +86,6 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
       )
     );
 
-    // Apply the same group ordering to destinations where possible
     const airports: string[] = [];
     for (const prefix of AIRPORT_PREFIXES) {
       airports.push(
@@ -135,64 +117,18 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
   function handleOriginChange(value: string) {
     setSelectedOrigin(value);
     setSelectedDestination("");
-    setSelectedVehicle(null);
   }
 
   function handleDestinationChange(value: string) {
     setSelectedDestination(value);
-    setSelectedVehicle(null);
   }
 
   function handleContinue() {
-    if (!matchedRoute || !selectedVehicle) return;
-    const slug = routeSlug(matchedRoute.origen, matchedRoute.destino);
-    router.push(`/private-shuttle/${slug}?v=${selectedVehicle}#booking`);
-  }
-
-  // Gently reveal Step 3 (vehicle selection) once the user has picked both
-  // origin and destination. Without this, on mobile the new section appears
-  // below the fold and the page feels unresponsive.
-  useEffect(() => {
     if (!matchedRoute) return;
-    const el = vehicleStepRef.current;
-    if (!el) return;
-    const id = window.requestAnimationFrame(() => {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-    return () => window.cancelAnimationFrame(id);
-  }, [matchedRoute]);
-
-  const vehicleCards: {
-    key: VehicleKey;
-    name: string;
-    pax: string;
-    image: string;
-    price: number | null;
-  }[] = matchedRoute
-    ? [
-        {
-          key: "staria",
-          name: "Hyundai Staria",
-          pax: "1 – 6 passengers",
-          image: STARIA_URL,
-          price: matchedRoute.precio1a6,
-        },
-        {
-          key: "hiace",
-          name: "Toyota Hiace",
-          pax: "7 – 9 passengers",
-          image: HIACE_URL,
-          price: matchedRoute.precio7a9,
-        },
-        {
-          key: "maxus",
-          name: "Maxus V90",
-          pax: "10 – 12 passengers",
-          image: MAXUS_URL,
-          price: matchedRoute.precio10a12,
-        },
-      ]
-    : [];
+    setNavigating(true);
+    const slug = routeSlug(matchedRoute.origen, matchedRoute.destino);
+    router.push(`/private-shuttle/${slug}`);
+  }
 
   return (
     <>
@@ -204,13 +140,13 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
               Find Your Route
             </h2>
             <p className="mt-2 text-foreground/60">
-              Select origin and destination to see pricing
+              Select origin and destination — we&apos;ll show you the price on
+              the next step.
             </p>
           </div>
 
-          {/* Steps - 2 columns */}
           <div className="grid gap-4 sm:grid-cols-2">
-            {/* Step 1: Origin */}
+            {/* Origin */}
             <div>
               <label className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground/70">
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-sunset-orange text-xs font-bold text-white">
@@ -226,7 +162,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
               />
             </div>
 
-            {/* Step 2: Destination */}
+            {/* Destination */}
             <div>
               <label className="mb-2 flex items-center gap-2 text-sm font-medium text-foreground/70">
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-sunset-orange text-xs font-bold text-white">
@@ -246,107 +182,36 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
             </div>
           </div>
 
-          {/* Step 3: Vehicle selection */}
-          {matchedRoute ? (
-            <div ref={vehicleStepRef} className="mt-10 scroll-mt-24">
-              <label className="mb-4 flex items-center gap-2 text-sm font-medium text-foreground/70">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-sunset-orange text-xs font-bold text-white">
-                  3
-                </span>
-                Choose Your Vehicle
-              </label>
-              <div className="grid gap-4 sm:grid-cols-3">
-                {vehicleCards.map((v) => {
-                  if (v.price == null) return null;
-                  const active = selectedVehicle === v.key;
-                  return (
-                    <button
-                      type="button"
-                      key={v.key}
-                      onClick={() => setSelectedVehicle(v.key)}
-                      aria-pressed={active}
-                      className={`group relative rounded-2xl border-2 p-4 text-center transition ${
-                        active
-                          ? "border-sunset-orange bg-sunset-orange/5 shadow-lg shadow-sunset-orange/15 ring-4 ring-sunset-orange/15"
-                          : "border-black/5 bg-light-surface hover:border-sunset-orange/40 hover:shadow-md"
-                      }`}
-                    >
-                      {active && (
-                        <div className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-sunset-orange text-white shadow-md">
-                          <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={3.5} stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-                          </svg>
-                        </div>
-                      )}
-                      <div className="relative mx-auto h-24 w-full">
-                        <Image
-                          src={v.image}
-                          alt={v.name}
-                          fill
-                          className="object-contain"
-                          unoptimized
-                        />
-                      </div>
-                      <div className="mt-3">
-                        <span className="inline-block rounded-full bg-sunset-orange/10 px-3 py-0.5 text-xs font-semibold text-sunset-orange">
-                          {v.pax}
-                        </span>
-                        <h3 className="mt-2 text-sm font-bold text-foreground">
-                          {v.name}
-                        </h3>
-                        <p className="text-xs text-foreground/40">or similar</p>
-                        <div className="mt-3 text-2xl font-bold text-sunset-orange">
-                          ${v.price}
-                        </div>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Duration info */}
-              {matchedRoute.duracion && (
-                <p className="mt-4 text-center text-xs text-foreground/40">
-                  Estimated travel time: {matchedRoute.duracion}
-                </p>
-              )}
-
-              {/* Continue button */}
-              <div className="mt-6 flex justify-center">
-                <button
-                  type="button"
-                  onClick={handleContinue}
-                  disabled={!selectedVehicle}
-                  className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-10 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 hover:scale-[1.02] disabled:cursor-not-allowed disabled:bg-none disabled:bg-foreground/10 disabled:text-foreground/40 disabled:shadow-none disabled:hover:scale-100"
+          {/* Continue */}
+          <div className="mt-8 flex justify-center">
+            <button
+              type="button"
+              onClick={handleContinue}
+              disabled={!matchedRoute || navigating}
+              className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-10 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 hover:scale-[1.02] disabled:cursor-not-allowed disabled:bg-none disabled:bg-foreground/10 disabled:text-foreground/40 disabled:shadow-none disabled:hover:scale-100"
+            >
+              {navigating
+                ? "Loading route…"
+                : matchedRoute
+                  ? "Continue"
+                  : "Pick origin and destination"}
+              {matchedRoute && !navigating && (
+                <svg
+                  className="h-5 w-5 transition-transform group-hover:translate-x-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2.5}
+                  stroke="currentColor"
                 >
-                  {selectedVehicle
-                    ? "Continue to booking"
-                    : "Select a vehicle to continue"}
-                  {selectedVehicle && (
-                    <svg
-                      className="h-5 w-5 transition-transform group-hover:translate-x-1"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={2.5}
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                      />
-                    </svg>
-                  )}
-                </button>
-              </div>
-            </div>
-          ) : (
-            selectedOrigin && selectedDestination === "" && (
-              <div className="mt-8 flex items-center justify-center rounded-xl border border-dashed border-black/10 bg-light-surface py-8 text-sm text-foreground/40">
-                Select a destination to see available vehicles
-              </div>
-            )
-          )}
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
 
           {/* WhatsApp alternative */}
           <div className="mt-6 text-center">
