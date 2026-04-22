@@ -6,6 +6,7 @@ import SiteNav from "@/components/SiteNav";
 import FaqAccordion, { type Faq } from "@/components/FaqAccordion";
 import type { Route } from "@/components/RouteSearch";
 import type { Metadata } from "next";
+import { routeSlug } from "@/lib/slug";
 
 const LOGO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Logo%20Transparente.png";
@@ -15,10 +16,89 @@ const HERO_URL =
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Book a Private Shuttle | Ruta Pacifico — Private Shuttles in Guanacaste",
+  title:
+    "Book a Private Shuttle | Ruta Pacifico — Private Shuttles in Guanacaste",
   description:
-    "Private shuttles from Liberia Airport (LIR) to every beach and destination in Costa Rica. Fixed prices, flight tracking, book instantly.",
+    "Private shuttles from Liberia Airport (LIR) to every beach and destination in Costa Rica. Fixed prices, flight tracking, bilingual drivers — book in minutes.",
+  alternates: { canonical: "/private-shuttle" },
+  openGraph: {
+    type: "website",
+    url: "https://rutapacificocr.com/private-shuttle",
+    title: "Book a Private Shuttle | Ruta Pacifico",
+    description:
+      "Private shuttles from LIR to every beach and destination in Costa Rica. Fixed prices, flight tracking, bilingual drivers.",
+    images: [
+      {
+        url: HERO_URL,
+        width: 1200,
+        height: 630,
+        alt: "Private shuttle along the Guanacaste coast",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Book a Private Shuttle | Ruta Pacifico",
+    description:
+      "Private shuttles from LIR to every beach in Guanacaste. Fixed prices, flight tracking.",
+    images: [HERO_URL],
+  },
 };
+
+const BASE_URL = "https://rutapacificocr.com";
+
+function TransferPageJsonLd({ routes }: { routes: Route[] }) {
+  // Declare a list of the first 50 routes as ItemList — enough for Google
+  // Rich Results without bloating the HTML.
+  const topRoutes = routes.slice(0, 50);
+  const graph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${BASE_URL}/private-shuttle#page`,
+        url: `${BASE_URL}/private-shuttle`,
+        name: "Book a Private Shuttle",
+        description:
+          "Search every private shuttle route Ruta Pacifico offers in Costa Rica.",
+        isPartOf: { "@id": `${BASE_URL}/#website` },
+        inLanguage: "en-US",
+        primaryImageOfPage: HERO_URL,
+      },
+      {
+        "@type": "ItemList",
+        "@id": `${BASE_URL}/private-shuttle#routes`,
+        name: "Private shuttle routes",
+        numberOfItems: topRoutes.length,
+        itemListElement: topRoutes.map((r, idx) => ({
+          "@type": "ListItem",
+          position: idx + 1,
+          name: `${r.origen} to ${r.destino}`,
+          url: `${BASE_URL}/private-shuttle/${routeSlug(r.origen, r.destino)}`,
+        })),
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${BASE_URL}/private-shuttle#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Private Shuttles",
+            item: `${BASE_URL}/private-shuttle`,
+          },
+        ],
+      },
+    ],
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
+    />
+  );
+}
 
 async function getRoutes(): Promise<Route[]> {
   const allRoutes: Route[] = [];
@@ -109,6 +189,7 @@ export default async function TransferPage() {
 
   return (
     <main className="bg-light-surface min-h-screen">
+      <TransferPageJsonLd routes={routes} />
       {/* ─── NAV ─── */}
       <SiteNav transparent />
 

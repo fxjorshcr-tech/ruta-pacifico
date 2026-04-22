@@ -16,6 +16,14 @@ export const metadata: Metadata = {
   title: "Frequently Asked Questions | Ruta Pacifico",
   description:
     "Everything you need to know about booking a private shuttle with Ruta Pacifico: pickup, pricing, cancellation, car seats, luggage, airport transfers and more.",
+  alternates: { canonical: "/faq" },
+  openGraph: {
+    type: "website",
+    url: "https://rutapacificocr.com/faq",
+    title: "Frequently Asked Questions | Ruta Pacifico",
+    description:
+      "Answers about booking, pricing, cancellation, airport pickup, luggage, child seats and more.",
+  },
 };
 
 // Human-friendly labels for the database category slugs.
@@ -96,6 +104,53 @@ function groupByCategory(faqs: Faq[]): Map<string, Faq[]> {
   return groups;
 }
 
+const BASE = "https://rutapacificocr.com";
+
+function FaqJsonLd({ faqs }: { faqs: Faq[] }) {
+  if (faqs.length === 0) return null;
+  // Google only indexes the first handful of Q&A pairs anyway, but we provide
+  // them all — downstream LLMs (Claude, GPT, Perplexity) parse the whole list.
+  const graph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "FAQPage",
+        "@id": `${BASE}/faq#faq`,
+        url: `${BASE}/faq`,
+        inLanguage: "en-US",
+        isPartOf: { "@id": `${BASE}/#website` },
+        mainEntity: faqs.map((f) => ({
+          "@type": "Question",
+          name: f.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: f.answer,
+          },
+        })),
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${BASE}/faq#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: BASE },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "FAQ",
+            item: `${BASE}/faq`,
+          },
+        ],
+      },
+    ],
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
+    />
+  );
+}
+
 export default async function FaqPage() {
   const faqs = await getFaqs();
   const grouped = groupByCategory(faqs);
@@ -108,6 +163,7 @@ export default async function FaqPage() {
 
   return (
     <main className="bg-light-surface min-h-screen">
+      <FaqJsonLd faqs={faqs} />
       {/* ─── NAV ─── */}
       <SiteNav transparent />
 
