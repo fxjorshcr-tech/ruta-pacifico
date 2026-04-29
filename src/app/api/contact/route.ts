@@ -95,7 +95,7 @@ function customerEmailHtml(b: ContactRequestBody): string {
             <tr>
               <td style="padding:32px 32px 8px;">
                 <p style="margin:0 0 14px;font-size:16px;line-height:1.65;color:#222;">
-                  We&rsquo;re a small bilingual team based in Guanacaste and we read every message ourselves. You&rsquo;ll usually hear back from us <strong>within a few hours</strong> during the day, and first thing in the morning if you wrote at night.
+                  Our team is right here in beautiful Guanacaste and we usually reply in <strong>under 10 minutes</strong> — unless it&rsquo;s late night or early morning in Costa Rica, in which case you&rsquo;ll hear from us first thing.
                 </p>
                 <p style="margin:0 0 22px;font-size:16px;line-height:1.65;color:#222;">
                   In the meantime, save this email — it has all our contact info if you need to reach us faster.

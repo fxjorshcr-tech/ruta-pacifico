@@ -180,8 +180,7 @@ function customerEmailHtml(b: BookingRequestBody): string {
                     <td style="background:linear-gradient(135deg,rgba(230,57,70,.86),rgba(227,100,20,.78),rgba(244,162,97,.7));padding:38px 32px 36px;text-align:center;">
                       <img src="${LOGO_URL}" alt="Ruta Pacifico" width="170" style="display:block;margin:0 auto 18px;height:auto;max-width:170px;" />
                       <div style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#fff;">✓ Reservation confirmed</div>
-                      <h1 style="margin:18px 0 6px;font-size:30px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.2;">¡Pura vida, ${firstName}!</h1>
-                      <p style="margin:0 0 20px;font-size:15px;color:rgba(255,255,255,.92);line-height:1.5;">Your private shuttle is booked. We can&rsquo;t wait to drive you.</p>
+                      <h1 style="margin:18px 0 20px;font-size:30px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.2;">¡Pura vida, ${firstName}!</h1>
                       <div style="display:inline-block;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px 20px;">
                         <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);">Confirmation code</div>
                         <div style="margin-top:4px;font-family:'SF Mono',Menlo,Consolas,monospace;font-size:22px;font-weight:800;letter-spacing:2px;color:#ffd9a8;">${escapeHtml(b.confirmationCode)}</div>
@@ -279,7 +278,7 @@ function customerEmailHtml(b: BookingRequestBody): string {
                     </td>
                     <td style="padding:0 0 12px;vertical-align:top;">
                       <div style="font-size:14px;font-weight:700;color:#1a1a1a;">Pay with the secure link</div>
-                      <div style="margin-top:2px;font-size:13px;line-height:1.55;color:#666;">We send it to your email + WhatsApp within minutes. Card or bank transfer.</div>
+                      <div style="margin-top:2px;font-size:13px;line-height:1.55;color:#666;">We send it to your email + WhatsApp within minutes.</div>
                     </td>
                   </tr>
                   <tr>
@@ -287,8 +286,8 @@ function customerEmailHtml(b: BookingRequestBody): string {
                       <div style="width:30px;height:30px;line-height:30px;background:#e36414;color:#fff;border-radius:50%;text-align:center;font-size:13px;font-weight:800;">2</div>
                     </td>
                     <td style="padding:0 0 12px;vertical-align:top;">
-                      <div style="font-size:14px;font-weight:700;color:#1a1a1a;">Driver details, the day before</div>
-                      <div style="margin-top:2px;font-size:13px;line-height:1.55;color:#666;">Name, photo, plate, and direct phone — sent the day before your pickup.</div>
+                      <div style="font-size:14px;font-weight:700;color:#1a1a1a;">Driver name, the day before</div>
+                      <div style="margin-top:2px;font-size:13px;line-height:1.55;color:#666;">We send your driver&rsquo;s name the day before your pickup.</div>
                     </td>
                   </tr>
                   <tr>
