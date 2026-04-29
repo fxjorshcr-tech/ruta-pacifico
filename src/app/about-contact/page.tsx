@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import SiteNav from "@/components/SiteNav";
+import ContactForm from "@/components/ContactForm";
 
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
@@ -350,6 +351,11 @@ export default function AboutContactPage() {
               </svg>
             </div>
           </a>
+        </section>
+
+        {/* ─── CONTACT FORM ─── */}
+        <section className="mt-10">
+          <ContactForm />
         </section>
 
         {/* ─── CTA ─── */}
