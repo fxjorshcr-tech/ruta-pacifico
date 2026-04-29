@@ -286,8 +286,8 @@ function customerEmailHtml(b: BookingRequestBody): string {
                       <div style="width:30px;height:30px;line-height:30px;background:#e36414;color:#fff;border-radius:50%;text-align:center;font-size:13px;font-weight:800;">2</div>
                     </td>
                     <td style="padding:0 0 12px;vertical-align:top;">
-                      <div style="font-size:14px;font-weight:700;color:#1a1a1a;">Driver name, the day before</div>
-                      <div style="margin-top:2px;font-size:13px;line-height:1.55;color:#666;">We send your driver&rsquo;s name the day before your pickup.</div>
+                      <div style="font-size:14px;font-weight:700;color:#1a1a1a;">Driver assignment</div>
+                      <div style="margin-top:2px;font-size:13px;line-height:1.55;color:#666;">We&rsquo;ll share your driver&rsquo;s name the day before your pickup.</div>
                     </td>
                   </tr>
                   <tr>
