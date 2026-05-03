@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/faq" },
   openGraph: {
     type: "website",
-    url: "https://rutapacificocr.com/faq",
+    url: "https://rutapacifico.com/faq",
     title: "Frequently Asked Questions | Ruta Pacifico",
     description:
       "Answers about booking, pricing, cancellation, airport pickup, luggage, child seats and more.",
@@ -104,7 +104,7 @@ function groupByCategory(faqs: Faq[]): Map<string, Faq[]> {
   return groups;
 }
 
-const BASE = "https://rutapacificocr.com";
+const BASE = "https://rutapacifico.com";
 
 function FaqJsonLd({ faqs }: { faqs: Faq[] }) {
   if (faqs.length === 0) return null;
@@ -284,7 +284,7 @@ export default async function FaqPage() {
               WhatsApp us
             </a>
             <a
-              href="mailto:mybooking@rutapacificocr.com"
+              href="mailto:reservations@rutapacifico.com"
               className="inline-flex items-center gap-2 rounded-full border border-foreground/10 bg-white px-6 py-3 text-sm font-bold text-foreground transition hover:border-sunset-orange/30 hover:text-sunset-orange"
             >
               <svg

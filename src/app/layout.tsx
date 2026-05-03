@@ -1,9 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import FloatingCart from "@/components/FloatingCart";
 import "./globals.css";
 
-const BASE_URL = "https://rutapacificocr.com";
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const GOOGLE_SITE_VERIFICATION =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+
+const BASE_URL = "https://rutapacifico.com";
 const OG_IMAGE =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 const LOGO_IMAGE =
@@ -113,13 +118,16 @@ export const metadata: Metadata = {
     description:
       "Private airport shuttles from LIR to every beach in Guanacaste. Fixed prices, flight tracking, bilingual drivers.",
     images: [OG_IMAGE],
-    creator: "@rutapacificocr",
+    creator: "@rutapacifico",
   },
   formatDetection: {
     email: true,
     telephone: true,
     address: true,
   },
+  verification: GOOGLE_SITE_VERIFICATION
+    ? { google: GOOGLE_SITE_VERIFICATION }
+    : undefined,
   other: {
     // Geo tagging — still picked up by many tools (Bing Places, some AI
     // summarisers) even though modern schema.org is preferred.
@@ -432,6 +440,7 @@ export default function RootLayout({
         {children}
         <FloatingCart />
       </body>
+      {GA_ID ? <GoogleAnalytics gaId={GA_ID} /> : null}
     </html>
   );
 }

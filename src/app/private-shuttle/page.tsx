@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/private-shuttle" },
   openGraph: {
     type: "website",
-    url: "https://rutapacificocr.com/private-shuttle",
+    url: "https://rutapacifico.com/private-shuttle",
     title: "Book a Private Shuttle | Ruta Pacifico",
     description:
       "Private shuttles from LIR to every beach and destination in Costa Rica. Fixed prices, flight tracking, bilingual drivers.",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
 };
 
-const BASE_URL = "https://rutapacificocr.com";
+const BASE_URL = "https://rutapacifico.com";
 
 function TransferPageJsonLd({ routes }: { routes: Route[] }) {
   // Declare a list of the first 50 routes as ItemList — enough for Google
@@ -294,8 +294,8 @@ export default async function TransferPage() {
                 </span>
                 <span>
                   Email:{" "}
-                  <a href="mailto:mybooking@rutapacificocr.com" className="font-medium text-sunset-orange hover:text-sunset-gold">
-                    mybooking@rutapacificocr.com
+                  <a href="mailto:reservations@rutapacifico.com" className="font-medium text-sunset-orange hover:text-sunset-gold">
+                    reservations@rutapacifico.com
                   </a>
                 </span>
               </li>
@@ -500,7 +500,7 @@ export default async function TransferPage() {
                 WhatsApp
               </a>
               <a
-                href="mailto:mybooking@rutapacificocr.com"
+                href="mailto:reservations@rutapacifico.com"
                 className="transition hover:text-sunset-orange"
               >
                 Email

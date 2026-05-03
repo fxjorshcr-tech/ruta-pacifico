@@ -51,7 +51,7 @@ async function findRouteBySlug(slug: string): Promise<Route | null> {
   return all.find((r) => routeSlug(r.origen, r.destino) === slug) ?? null;
 }
 
-const BASE_URL = "https://rutapacificocr.com";
+const BASE_URL = "https://rutapacifico.com";
 
 export async function generateMetadata({
   params,
