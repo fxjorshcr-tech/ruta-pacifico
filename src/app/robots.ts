@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE = "https://rutapacificocr.com";
+const BASE = "https://rutapacifico.com";
 
 /**
  * AI and LLM crawlers we explicitly welcome. Keeping them listed by name (in

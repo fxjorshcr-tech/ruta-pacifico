@@ -8,7 +8,7 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const GOOGLE_SITE_VERIFICATION =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
-const BASE_URL = "https://rutapacificocr.com";
+const BASE_URL = "https://rutapacifico.com";
 const OG_IMAGE =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 const LOGO_IMAGE =
@@ -118,7 +118,7 @@ export const metadata: Metadata = {
     description:
       "Private airport shuttles from LIR to every beach in Guanacaste. Fixed prices, flight tracking, bilingual drivers.",
     images: [OG_IMAGE],
-    creator: "@rutapacificocr",
+    creator: "@rutapacifico",
   },
   formatDetection: {
     email: true,
