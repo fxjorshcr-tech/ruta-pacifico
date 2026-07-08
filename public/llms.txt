@@ -62,6 +62,7 @@ All vehicles include: air conditioning, free WiFi, cold bottled water, phone cha
 - **Legal name:** Ruta Pacifico
 - **Based in:** Liberia, Guanacaste, Costa Rica (10.5933 N, -85.5444 W)
 - **Status:** Licensed and fully insured ground-transportation operator
+- **License:** ICT (Instituto Costarricense de Turismo / Costa Rica Tourism Board) tourism transport licence #4121-2025
 - **Google rating:** 5.0 stars
 - **Year founded:** 2021
 

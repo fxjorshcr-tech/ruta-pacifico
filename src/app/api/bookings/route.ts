@@ -1,6 +1,11 @@
 import { type NextRequest } from "next/server";
 import type { TripItem } from "@/lib/booking";
-import { sendEmail, escapeHtml, getAdminRecipients } from "@/lib/email";
+import {
+  sendEmail,
+  escapeHtml,
+  getAdminRecipients,
+  getNotificationsFrom,
+} from "@/lib/email";
 
 export const runtime = "nodejs";
 
@@ -431,6 +436,9 @@ export async function POST(request: NextRequest) {
     adminRecipients.length > 0
       ? sendEmail({
           to: adminRecipients,
+          // Send from a distinct address (not the reservations@ inbox) so the
+          // copy addressed to reservations@ is not dropped as a mail-to-self.
+          from: getNotificationsFrom(),
           subject: `New booking · ${subjectSuffix}`,
           html: adminEmailHtml(body),
           replyTo: body.email,

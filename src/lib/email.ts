@@ -32,6 +32,40 @@ export function getAdminRecipients(): string[] {
     .filter(Boolean);
 }
 
+/**
+ * Sender to use for INTERNAL admin notifications (new-booking / contact-form
+ * alerts). This must be a *different* address from the reservations inbox,
+ * otherwise a message sent from reservations@rutapacifico.com to
+ * reservations@rutapacifico.com is treated by Gmail / Google Workspace as a
+ * mail-to-self and silently de-duplicated against the "Sent" folder — so it
+ * never lands in the inbox, even though the exact same send reaches any other
+ * recipient (e.g. a personal Gmail) normally. That is precisely the symptom
+ * we hit: bookings arrive at fxjorshcr@gmail.com but not at
+ * reservations@rutapacifico.com.
+ *
+ * Resolution order:
+ *   1. EMAIL_NOTIFICATIONS_FROM, if explicitly set.
+ *   2. A `bookings@<domain>` address derived from EMAIL_FROM's domain, so it
+ *      stays on the same DKIM/SPF-verified domain but is distinct from the
+ *      reservations@ inbox — this breaks the self-addressed loop with no extra
+ *      configuration.
+ *   3. EMAIL_FROM verbatim (last resort — only when no domain can be parsed).
+ */
+export function getNotificationsFrom(): string | undefined {
+  const explicit = process.env.EMAIL_NOTIFICATIONS_FROM?.trim();
+  if (explicit) return explicit;
+
+  const base = process.env.EMAIL_FROM;
+  if (!base) return undefined;
+
+  // Pull the domain out of either "Name <local@domain>" or a bare "local@domain".
+  const match = base.match(/<[^@<>]+@([^<>\s]+)>/) ?? base.match(/[^@\s]+@(\S+)/);
+  const domain = match?.[1];
+  if (!domain) return base;
+
+  return `Ruta Pacifico Reservations <bookings@${domain}>`;
+}
+
 export async function sendEmail(input: SendEmailInput): Promise<SendEmailResult> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = input.from ?? process.env.EMAIL_FROM;
