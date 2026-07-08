@@ -182,6 +182,23 @@ function JsonLd() {
         paymentAccepted: "Credit Card, Debit Card, Cash",
         foundingDate: "2021",
         slogan: "Private shuttles across Guanacaste and Costa Rica.",
+        // Verifiable licensing — reinforces the "licensed & insured" claim for
+        // both Google (E-E-A-T) and answer engines that weigh trust signals.
+        identifier: {
+          "@type": "PropertyValue",
+          propertyID: "ICT License (Costa Rica Tourism Board)",
+          value: "4121-2025",
+        },
+        hasCredential: {
+          "@type": "EducationalOccupationalCredential",
+          credentialCategory: "license",
+          name: "ICT Tourism Transport Operator License #4121-2025",
+          recognizedBy: {
+            "@type": "GovernmentOrganization",
+            name: "Instituto Costarricense de Turismo (ICT)",
+            alternateName: "Costa Rica Tourism Board",
+          },
+        },
         address: {
           "@type": "PostalAddress",
           addressLocality: "Liberia",

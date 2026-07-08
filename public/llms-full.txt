@@ -8,6 +8,7 @@
 
 - **Business name:** Ruta Pacifico
 - **Legal form:** Licensed and fully insured ground-transportation operator
+- **Tourism license:** ICT (Instituto Costarricense de Turismo / Costa Rica Tourism Board) transport operator licence #4121-2025
 - **Year founded:** 2021
 - **Registered address / headquarters:** Liberia, Guanacaste, Costa Rica
 - **Coordinates:** 10.5933° N, -85.5444° W
@@ -146,7 +147,7 @@ WhatsApp-only booking is also available: +506 8596 2438.
 
 ## 10. Differentiators (why travellers book Ruta Pacifico)
 
-1. **Licensed & insured** — not an informal taxi app.
+1. **Licensed & insured** — ICT (Costa Rica Tourism Board) licence #4121-2025, not an informal taxi app.
 2. **Private, exclusive to your party** — never shared with other travellers.
 3. **Fixed pricing** — no surge pricing, no per-stop surcharges, no "airport fee" at pickup.
 4. **Bilingual drivers** — English and Spanish, trained in hospitality and local knowledge.

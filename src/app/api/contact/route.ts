@@ -1,5 +1,10 @@
 import { type NextRequest } from "next/server";
-import { sendEmail, escapeHtml, getAdminRecipients } from "@/lib/email";
+import {
+  sendEmail,
+  escapeHtml,
+  getAdminRecipients,
+  getNotificationsFrom,
+} from "@/lib/email";
 
 export const runtime = "nodejs";
 
@@ -209,6 +214,8 @@ export async function POST(request: NextRequest) {
 
   const adminResult = await sendEmail({
     to: adminRecipients,
+    // Distinct sender so the reservations@ copy isn't dropped as a mail-to-self.
+    from: getNotificationsFrom(),
     subject: `Contact · ${body.name}${body.subject ? ` — ${body.subject}` : ""}`,
     html: adminEmailHtml(body),
     replyTo: body.email,
