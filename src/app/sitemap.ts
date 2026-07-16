@@ -64,7 +64,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogPages: MetadataRoute.Sitemap = [];
   try {
     const { data } = await getSupabase()
-      .from("blog_posts")
+      .from("blog_posts_ruta_pacifico")
       .select("slug, updated_at")
       .eq("published", true);
 

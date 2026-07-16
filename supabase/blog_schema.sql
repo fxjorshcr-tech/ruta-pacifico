@@ -4,7 +4,7 @@
 -- → New query → paste → Run).
 -- ============================================================
 
-create table if not exists public.blog_posts (
+create table if not exists public.blog_posts_ruta_pacifico (
   id uuid primary key default gen_random_uuid(),
   slug text not null unique,
   title text not null,
@@ -23,7 +23,7 @@ create table if not exists public.blog_posts (
 );
 
 -- Keep updated_at fresh on every edit (used for "Updated <month year>" + sitemap).
-create or replace function public.blog_posts_set_updated_at()
+create or replace function public.blog_posts_ruta_pacifico_set_updated_at()
 returns trigger
 language plpgsql
 as $$
@@ -33,24 +33,24 @@ begin
 end;
 $$;
 
-drop trigger if exists trg_blog_posts_updated_at on public.blog_posts;
-create trigger trg_blog_posts_updated_at
-  before update on public.blog_posts
+drop trigger if exists trg_blog_posts_ruta_pacifico_updated_at on public.blog_posts_ruta_pacifico;
+create trigger trg_blog_posts_ruta_pacifico_updated_at
+  before update on public.blog_posts_ruta_pacifico
   for each row
-  execute function public.blog_posts_set_updated_at();
+  execute function public.blog_posts_ruta_pacifico_set_updated_at();
 
 -- Row Level Security: the website uses the public anon key, so allow
 -- read-only access to PUBLISHED posts only. Writing requires the service
 -- role (Supabase dashboard / SQL editor), never the website.
-alter table public.blog_posts enable row level security;
+alter table public.blog_posts_ruta_pacifico enable row level security;
 
-drop policy if exists "Public can read published posts" on public.blog_posts;
+drop policy if exists "Public can read published posts" on public.blog_posts_ruta_pacifico;
 create policy "Public can read published posts"
-  on public.blog_posts
+  on public.blog_posts_ruta_pacifico
   for select
   to anon, authenticated
   using (published = true);
 
 -- Helpful index for the listing page (newest first).
-create index if not exists blog_posts_published_idx
-  on public.blog_posts (published, published_at desc);
+create index if not exists blog_posts_ruta_pacifico_published_idx
+  on public.blog_posts_ruta_pacifico (published, published_at desc);

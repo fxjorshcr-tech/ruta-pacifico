@@ -29,7 +29,7 @@ export type BlogPostPreview = Omit<BlogPost, "content_md" | "faqs" | "author">;
 
 export async function getPublishedPosts(): Promise<BlogPostPreview[]> {
   const { data, error } = await getSupabase()
-    .from("blog_posts")
+    .from("blog_posts_ruta_pacifico")
     .select(LIST_COLUMNS)
     .eq("published", true)
     .order("published_at", { ascending: false });
@@ -43,7 +43,7 @@ export async function getPublishedPosts(): Promise<BlogPostPreview[]> {
 
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   const { data, error } = await getSupabase()
-    .from("blog_posts")
+    .from("blog_posts_ruta_pacifico")
     .select("*")
     .eq("published", true)
     .eq("slug", slug)

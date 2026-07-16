@@ -2,21 +2,22 @@
 -- Seed: first 3 blog articles (run AFTER blog_schema.sql).
 -- Paste into Supabase SQL Editor and Run.
 --
--- Cover images: cover_image_url is NULL for now. When your photos
--- are uploaded to Supabase Storage, update each row, e.g.:
---   update public.blog_posts
+-- To swap a cover photo later:
+--   update public.blog_posts_ruta_pacifico
 --   set cover_image_url = 'https://<project>.supabase.co/storage/v1/object/public/...',
 --       cover_image_alt = 'Sunset over Tamarindo beach'
 --   where slug = 'liberia-airport-to-tamarindo';
 -- ============================================================
 
-insert into public.blog_posts
-  (slug, title, excerpt, category, tags, published, published_at, faqs, content_md)
+insert into public.blog_posts_ruta_pacifico
+  (slug, title, excerpt, cover_image_url, cover_image_alt, category, tags, published, published_at, faqs, content_md)
 values
 (
   'liberia-airport-to-tamarindo',
   'How to Get from Liberia Airport (LIR) to Tamarindo: All 5 Options Compared',
   'Private shuttle, rental car, shared shuttle, taxi or bus — real prices, real travel times and honest advice for the 50-minute trip from Liberia Airport to Tamarindo.',
+  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/blog-ruta-pacifico-guanacaste5.webp',
+  'Boats anchored in Tamarindo bay at dusk, Guanacaste, Costa Rica',
   'getting-around',
   array['liberia airport to tamarindo','LIR to tamarindo','tamarindo transportation','costa rica airport transfer','guanacaste shuttle'],
   true,
@@ -83,6 +84,8 @@ $md$
   'guanacaste-driving-times-from-liberia-airport',
   'Driving Times in Guanacaste: Real Distances from Liberia Airport to Every Beach Town',
   'The real driving times from Liberia Airport (LIR) to Tamarindo, Nosara, Flamingo, Papagayo, Coco, Sámara and beyond — including which roads are paved, from drivers who do these routes daily.',
+  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/blog-ruta-pacifico-guanacaste3.webp',
+  'Aerial view of the Guanacaste coastline and its beach coves, Costa Rica',
   'getting-around',
   array['guanacaste driving times','liberia airport distances','LIR to nosara','costa rica road conditions','guanacaste beach towns map'],
   true,
@@ -145,6 +148,8 @@ $md$
   'uber-in-guanacaste-costa-rica',
   'Is There Uber in Guanacaste, Costa Rica? What Travelers Should Know',
   'Uber technically exists in Costa Rica but barely functions in Guanacaste. Here is the real transportation picture for Tamarindo, Coco, Flamingo and Liberia Airport — from locals.',
+  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/blog-ruta-pacifico-guanacaste6.webp',
+  'An iguana crossing a gravel road in Guanacaste, Costa Rica',
   'travel-tips',
   array['uber costa rica','uber guanacaste','uber tamarindo','uber liberia airport','taxi guanacaste','getting around guanacaste'],
   true,
