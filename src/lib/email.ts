@@ -34,21 +34,25 @@ export function getAdminRecipients(): string[] {
 
 /**
  * Sender to use for INTERNAL admin notifications (new-booking / contact-form
- * alerts). This must be a *different* address from the reservations inbox,
- * otherwise a message sent from reservations@rutapacifico.com to
- * reservations@rutapacifico.com is treated by Gmail / Google Workspace as a
- * mail-to-self and silently de-duplicated against the "Sent" folder — so it
- * never lands in the inbox, even though the exact same send reaches any other
- * recipient (e.g. a personal Gmail) normally. That is precisely the symptom
- * we hit: bookings arrive at fxjorshcr@gmail.com but not at
- * reservations@rutapacifico.com.
+ * alerts), kept distinct from the reservations@ inbox address.
+ *
+ * DELIVERABILITY NOTE — the reservations@rutapacifico.com mailbox is hosted
+ * on iCloud Mail (custom domain via iCloud+; see the domain's MX records),
+ * NOT Gmail/Google Workspace. iCloud silently discards (no bounce, no Junk
+ * folder) messages whose From: claims the domain's own address but which
+ * arrive from external infrastructure (Resend sends through Amazon SES) —
+ * especially while the domain has no DMARC record. That is why bookings
+ * arrive at the personal Gmail in EMAIL_NOTIFICATIONS_TO but not at
+ * reservations@. Fixes live outside this codebase: publish a DMARC TXT
+ * record for the domain (DNS is on Vercel) and add the sender address to
+ * the iCloud account's contacts. The sender address does NOT need to exist
+ * as a mailbox — Resend can send from any address on the verified domain.
  *
  * Resolution order:
  *   1. EMAIL_NOTIFICATIONS_FROM, if explicitly set.
  *   2. A `bookings@<domain>` address derived from EMAIL_FROM's domain, so it
  *      stays on the same DKIM/SPF-verified domain but is distinct from the
- *      reservations@ inbox — this breaks the self-addressed loop with no extra
- *      configuration.
+ *      reservations@ inbox.
  *   3. EMAIL_FROM verbatim (last resort — only when no domain can be parsed).
  */
 export function getNotificationsFrom(): string | undefined {
