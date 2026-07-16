@@ -76,3 +76,116 @@ html {
 .thin-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgb(0 0 0 / 0.25);
 }
+
+/* ─── Blog article typography (rendered Markdown from Supabase) ─── */
+.article-prose {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgb(26 26 26 / 0.85);
+}
+.article-prose h2 {
+  margin: 2.5rem 0 1rem;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+}
+.article-prose h3 {
+  margin: 2rem 0 0.75rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+.article-prose p {
+  margin: 1rem 0;
+}
+.article-prose a {
+  color: var(--sunset-red);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgb(234 88 12 / 0.35);
+  transition: text-decoration-color 0.15s;
+}
+.article-prose a:hover {
+  text-decoration-color: var(--sunset-red);
+}
+.article-prose strong {
+  font-weight: 700;
+  color: var(--foreground);
+}
+.article-prose ul,
+.article-prose ol {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+.article-prose ul {
+  list-style: disc;
+}
+.article-prose ol {
+  list-style: decimal;
+}
+.article-prose li {
+  margin: 0.4rem 0;
+  padding-left: 0.25rem;
+}
+.article-prose blockquote {
+  margin: 1.5rem 0;
+  border-left: 4px solid var(--sunset-orange);
+  background: rgb(249 115 22 / 0.06);
+  border-radius: 0 1rem 1rem 0;
+  padding: 1rem 1.25rem;
+  font-style: normal;
+  color: rgb(26 26 26 / 0.75);
+}
+.article-prose blockquote p {
+  margin: 0.25rem 0;
+}
+.article-prose hr {
+  margin: 2.5rem 0;
+  border: none;
+  border-top: 1px solid rgb(0 0 0 / 0.08);
+}
+.article-prose img {
+  margin: 1.5rem 0;
+  border-radius: 1.25rem;
+  max-width: 100%;
+  height: auto;
+}
+/* GFM tables — the data AI crawlers quote. Scroll on narrow phones. */
+.article-prose table {
+  display: block;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+@media (min-width: 640px) {
+  .article-prose table {
+    display: table;
+    width: 100%;
+    white-space: normal;
+  }
+}
+.article-prose thead th {
+  background: var(--foreground);
+  color: #fff;
+  font-weight: 700;
+  text-align: left;
+  padding: 0.7rem 1rem;
+}
+.article-prose thead th:first-child {
+  border-radius: 0.75rem 0 0 0;
+}
+.article-prose thead th:last-child {
+  border-radius: 0 0.75rem 0 0;
+}
+.article-prose tbody td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid rgb(0 0 0 / 0.07);
+  background: #fff;
+}
+.article-prose tbody tr:nth-child(even) td {
+  background: rgb(0 0 0 / 0.02);
+}

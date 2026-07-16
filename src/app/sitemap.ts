@@ -25,6 +25,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     },
     {
+      url: `${BASE}/blog`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
       url: `${BASE}/about-contact`,
       lastModified: new Date(),
       changeFrequency: "monthly",
@@ -54,5 +60,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // If DB is unreachable, return static pages only
   }
 
-  return [...staticPages, ...routePages];
+  // Blog posts from Supabase
+  const blogPages: MetadataRoute.Sitemap = [];
+  try {
+    const { data } = await getSupabase()
+      .from("blog_posts")
+      .select("slug, updated_at")
+      .eq("published", true);
+
+    if (data) {
+      for (const post of data) {
+        blogPages.push({
+          url: `${BASE}/blog/${post.slug}`,
+          lastModified: new Date(post.updated_at),
+          changeFrequency: "monthly",
+          priority: 0.7,
+        });
+      }
+    }
+  } catch {
+    // If DB is unreachable, return static pages only
+  }
+
+  return [...staticPages, ...routePages, ...blogPages];
 }
