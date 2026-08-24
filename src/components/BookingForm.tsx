@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import type { Route } from "@/components/RouteSearch";
+import type { Route } from "@/lib/routes";
 import DatePicker from "@/components/DatePicker";
 import TimePicker from "@/components/TimePicker";
 import {
@@ -11,15 +11,12 @@ import {
   generateTripId,
   type TripItem,
 } from "@/lib/booking";
-
-const STARIA_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/staria-smallMobile.webp";
-const HIACE_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/hiace-van-cwt.png";
-const MAXUS_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/maxus-deviver-9-cwt-removebg-preview.png";
-
-type VehicleKey = "staria" | "hiace" | "maxus";
+import {
+  MAX_PAX,
+  VEHICLE_TIERS,
+  type VehicleKey,
+  type VehicleTier,
+} from "@/lib/vehicles";
 
 interface Props {
   route: Route;
@@ -28,11 +25,7 @@ interface Props {
   onCartUpdate?: (cart: TripItem[]) => void;
 }
 
-interface VehicleOption {
-  key: VehicleKey;
-  name: string;
-  pax: string;
-  image: string;
+interface VehicleOption extends VehicleTier {
   price: number;
 }
 
@@ -43,35 +36,17 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
   const dateTimeErrorRef = useRef<HTMLParagraphElement>(null);
   const [added, setAdded] = useState(false);
 
+  // One card per tier the route is actually priced for. The smallest tier is
+  // always offered; the larger vehicles only when the route has a price.
   const vehicles: VehicleOption[] = useMemo(() => {
-    const list: VehicleOption[] = [
-      {
-        key: "staria",
-        name: "Hyundai Staria",
-        pax: "1 – 6 passengers",
-        image: STARIA_URL,
-        price: route.precio1a6,
-      },
-    ];
-    if (route.precio7a9) {
-      list.push({
-        key: "hiace",
-        name: "Toyota Hiace",
-        pax: "7 – 9 passengers",
-        image: HIACE_URL,
-        price: route.precio7a9,
-      });
-    }
-    if (route.precio10a12) {
-      list.push({
-        key: "maxus",
-        name: "Maxus V90",
-        pax: "10 – 12 passengers",
-        image: MAXUS_URL,
-        price: route.precio10a12,
-      });
-    }
-    return list;
+    const list = VEHICLE_TIERS.flatMap((tier) => {
+      const price = route[tier.priceField];
+      return price ? [{ ...tier, price }] : [];
+    });
+    // Keep the form usable even if a route is missing its base-tier price.
+    return list.length > 0
+      ? list
+      : [{ ...VEHICLE_TIERS[0], price: route.precio1a5 }];
   }, [route]);
 
   const [vehicleKey, setVehicleKey] = useState<VehicleKey>(() => {
@@ -98,10 +73,9 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
     vehicles.find((v) => v.key === vehicleKey) ?? vehicles[0];
 
   const totalPax = adults + children;
-  const vehicleTooSmall =
-    (vehicleKey === "staria" && totalPax > 6) ||
-    (vehicleKey === "hiace" && totalPax > 9) ||
-    (vehicleKey === "maxus" && totalPax > 12);
+  const vehicleTooSmall = totalPax > selectedVehicle.maxPax;
+  // The group outgrew every vehicle we operate — a larger one won't help.
+  const groupTooLarge = totalPax > MAX_PAX;
 
   useEffect(() => {
     if (!showDateTimeError) return;
@@ -143,7 +117,7 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
       dropoff: dropoffAddr,
       vehicleKey: selectedVehicle.key,
       vehicleName: selectedVehicle.name,
-      vehiclePax: selectedVehicle.pax,
+      vehiclePax: selectedVehicle.paxLabel,
       price: selectedVehicle.price,
       isAirportPickup,
     };
@@ -201,7 +175,7 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
                     />
                   </div>
                   <div className="mt-2 text-xs font-semibold text-foreground/50">
-                    {v.pax}
+                    {v.paxLabel}
                   </div>
                   <div className="mt-1 text-sm font-bold text-foreground">
                     {v.name}
@@ -218,8 +192,9 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
               ref={vehicleErrorRef}
               className="mt-3 scroll-mt-24 text-xs font-medium text-red-600"
             >
-              The selected vehicle doesn&apos;t fit your group size — please
-              choose a larger one.
+              {groupTooLarge
+                ? `We can't fit ${totalPax} travellers in a single vehicle — book two shuttles, or contact us and we'll arrange it.`
+                : `The ${selectedVehicle.name} seats up to ${selectedVehicle.maxPax} — pick a larger vehicle for ${totalPax} travellers.`}
             </p>
           )}
         </div>
@@ -285,8 +260,8 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
                 </span>
                 <button
                   type="button"
-                  onClick={() => setAdults(Math.min(12, adults + 1))}
-                  disabled={adults >= 12}
+                  onClick={() => setAdults(Math.min(MAX_PAX, adults + 1))}
+                  disabled={adults >= MAX_PAX}
                   aria-label="Add adult"
                   className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-sunset-orange/30 bg-sunset-orange/5 text-sunset-orange transition hover:border-sunset-orange hover:bg-sunset-orange hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
                 >
@@ -327,8 +302,8 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
                 </span>
                 <button
                   type="button"
-                  onClick={() => setChildren(Math.min(10, children + 1))}
-                  disabled={children >= 10}
+                  onClick={() => setChildren(Math.min(MAX_PAX - 1, children + 1))}
+                  disabled={children >= MAX_PAX - 1}
                   aria-label="Add child"
                   className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-sunset-orange/30 bg-sunset-orange/5 text-sunset-orange transition hover:border-sunset-orange hover:bg-sunset-orange hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
                 >

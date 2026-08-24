@@ -4,17 +4,9 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import ComboBox, { type ComboOption } from "@/components/ComboBox";
 import { routeSlug } from "@/lib/slug";
+import type { Route } from "@/lib/routes";
 
-export interface Route {
-  id: number;
-  origen: string;
-  destino: string;
-  precio1a6: number;
-  precio7a9: number | null;
-  precio10a12: number | null;
-  duracion: string;
-  alias: string | null;
-}
+export type { Route };
 
 interface RouteSearchProps {
   routes: Route[];
