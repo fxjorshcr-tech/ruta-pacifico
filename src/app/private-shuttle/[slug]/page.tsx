@@ -2,11 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getSupabase } from "@/lib/supabase";
 import BookingSection from "@/components/BookingSection";
 import SiteNav from "@/components/SiteNav";
-import type { Route } from "@/components/RouteSearch";
-import { isAirportOrigin, routeSlug } from "@/lib/slug";
+import { findRouteBySlug, type Route } from "@/lib/routes";
+import { isAirportOrigin } from "@/lib/slug";
+import {
+  MAX_PAX,
+  VEHICLE_TIERS,
+  isVehicleKey,
+  type VehicleKey,
+} from "@/lib/vehicles";
 
 const LOGO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Logo%20Transparente.png";
@@ -14,42 +19,6 @@ const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 
 export const dynamic = "force-dynamic";
-
-type VehicleParam = "staria" | "hiace" | "maxus";
-
-async function getAllRoutes(): Promise<Route[]> {
-  const allRoutes: Route[] = [];
-  const pageSize = 1000;
-  let from = 0;
-  let hasMore = true;
-
-  while (hasMore) {
-    const { data, error } = await getSupabase()
-      .from("routes")
-      .select("id, origen, destino, precio1a6, precio7a9, precio10a12, duracion, alias")
-      .order("origen", { ascending: true })
-      .range(from, from + pageSize - 1);
-
-    if (error) {
-      console.error("Failed to fetch routes:", error.message);
-      break;
-    }
-
-    if (data) {
-      allRoutes.push(...data);
-    }
-
-    hasMore = (data?.length ?? 0) === pageSize;
-    from += pageSize;
-  }
-
-  return allRoutes;
-}
-
-async function findRouteBySlug(slug: string): Promise<Route | null> {
-  const all = await getAllRoutes();
-  return all.find((r) => routeSlug(r.origen, r.destino) === slug) ?? null;
-}
 
 const BASE_URL = "https://rutapacifico.com";
 
@@ -66,10 +35,10 @@ export async function generateMetadata({
       robots: { index: false, follow: false },
     };
   }
-  const title = `${route.origen} to ${route.destino} Private Shuttle (from $${route.precio1a6})`;
+  const title = `${route.origen} to ${route.destino} Private Shuttle (from $${route.precio1a5})`;
   const description = `Private shuttle from ${route.origen} to ${route.destino}${
     route.duracion ? ` (${route.duracion})` : ""
-  }. Fixed price from $${route.precio1a6} per vehicle, door-to-door, bilingual driver, flight tracking. Book online.`;
+  }. Fixed price from $${route.precio1a5} per vehicle, door-to-door, bilingual driver, flight tracking. Book online.`;
   const canonical = `/private-shuttle/${slug}`;
   return {
     title,
@@ -117,54 +86,30 @@ function RouteJsonLd({
   airportPickup: boolean;
 }) {
   const url = `${BASE_URL}/private-shuttle/${slug}`;
-  const offers: Record<string, unknown>[] = [
-    {
-      "@type": "Offer",
-      name: `${route.origen} → ${route.destino} — up to 6 passengers`,
-      price: route.precio1a6,
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-      url,
-      eligibleQuantity: {
-        "@type": "QuantitativeValue",
-        minValue: 1,
-        maxValue: 6,
-        unitText: "passengers",
-      },
+  const prices = VEHICLE_TIERS.map((tier) => ({
+    tier,
+    price: route[tier.priceField],
+  })).filter((entry): entry is { tier: (typeof VEHICLE_TIERS)[number]; price: number } =>
+    Boolean(entry.price)
+  );
+  const offers: Record<string, unknown>[] = prices.map(({ tier, price }) => ({
+    "@type": "Offer",
+    name: `${route.origen} → ${route.destino} — ${tier.minPax} to ${tier.maxPax} passengers`,
+    price,
+    priceCurrency: "USD",
+    availability: "https://schema.org/InStock",
+    url,
+    eligibleQuantity: {
+      "@type": "QuantitativeValue",
+      minValue: tier.minPax,
+      maxValue: tier.maxPax,
+      unitText: "passengers",
     },
-  ];
-  if (route.precio7a9) {
-    offers.push({
-      "@type": "Offer",
-      name: `${route.origen} → ${route.destino} — 7 to 9 passengers`,
-      price: route.precio7a9,
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-      url,
-      eligibleQuantity: {
-        "@type": "QuantitativeValue",
-        minValue: 7,
-        maxValue: 9,
-        unitText: "passengers",
-      },
-    });
-  }
-  if (route.precio10a12) {
-    offers.push({
-      "@type": "Offer",
-      name: `${route.origen} → ${route.destino} — 10 to 12 passengers`,
-      price: route.precio10a12,
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-      url,
-      eligibleQuantity: {
-        "@type": "QuantitativeValue",
-        minValue: 10,
-        maxValue: 12,
-        unitText: "passengers",
-      },
-    });
-  }
+  }));
+  const lowPrice = prices.length ? prices[0].price : route.precio1a5;
+  const highPrice = prices.length
+    ? prices[prices.length - 1].price
+    : route.precio1a5;
 
   const graph = {
     "@context": "https://schema.org",
@@ -190,9 +135,8 @@ function RouteJsonLd({
         offers: {
           "@type": "AggregateOffer",
           priceCurrency: "USD",
-          lowPrice: route.precio1a6,
-          highPrice:
-            route.precio10a12 ?? route.precio7a9 ?? route.precio1a6,
+          lowPrice,
+          highPrice,
           offerCount: offers.length,
           offers,
         },
@@ -217,7 +161,7 @@ function RouteJsonLd({
         ],
         offers: {
           "@type": "Offer",
-          price: route.precio1a6,
+          price: lowPrice,
           priceCurrency: "USD",
           url,
           availability: "https://schema.org/InStock",
@@ -258,14 +202,16 @@ export default async function RoutePage({
   searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ v?: VehicleParam }>;
+  searchParams: Promise<{ v?: string }>;
 }) {
   const [{ slug }, { v }] = await Promise.all([params, searchParams]);
   const route = await findRouteBySlug(slug);
   if (!route) notFound();
 
   const airportPickup = isAirportOrigin(route.origen);
-  const startingPrice = route.precio1a6;
+  const baseTier = VEHICLE_TIERS[0];
+  const startingPrice = route.precio1a5;
+  const initialVehicle: VehicleKey | undefined = isVehicleKey(v) ? v : undefined;
 
   return (
     <main className="bg-light-surface min-h-screen">
@@ -314,7 +260,7 @@ export default async function RoutePage({
                   </span>
                 </div>
                 <span className="mt-1.5 text-[0.7rem] text-white/60">
-                  per vehicle (1–6 pax) · all taxes included
+                  {`per vehicle (${baseTier.minPax}–${baseTier.maxPax} pax) · all taxes included`}
                 </span>
               </div>
               <div className="h-16 w-px bg-white/20" />
@@ -424,7 +370,7 @@ export default async function RoutePage({
                   Private service
                 </div>
                 <div className="text-sm font-bold text-foreground">
-                  Just your group — up to 12 pax
+                  {`Just your group — up to ${MAX_PAX} pax`}
                 </div>
               </div>
             </div>
@@ -487,7 +433,7 @@ export default async function RoutePage({
         <BookingSection
           route={route}
           isAirportPickup={airportPickup}
-          initialVehicle={v}
+          initialVehicle={initialVehicle}
         />
       </section>
 

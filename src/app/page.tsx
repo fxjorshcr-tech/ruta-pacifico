@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import GuanacasteGallery from "@/components/GuanacasteGallery";
+import { VEHICLE_TIERS } from "@/lib/vehicles";
 
 const LOGO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Logo%20Transparente.png";
@@ -17,12 +18,6 @@ const CULTURE_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/costa_rica_guanacaste_annexation_day_celebration_01-1024x574.png";
 const AIRPORT_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Panorama-Frente-ultimo-111.jpg";
-const STARIA_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/staria-smallMobile.webp";
-const HIACE_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/hiace-van-cwt.png";
-const MAXUS_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/maxus-deviver-9-cwt-removebg-preview.png";
 const LIR_AIRPORT_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/aeropuerto-LIR-guanacaste.webp";
 const TAMARINDO_BEACH_URL =
@@ -381,47 +376,31 @@ export default function Home() {
           </div>
 
           <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Staria */}
-            <div className="group rounded-3xl border border-black/5 bg-white p-6 text-center shadow-sm transition hover:shadow-lg">
-              <div className="relative mx-auto h-48 w-full">
-                <Image src={STARIA_URL} alt="Hyundai Staria or similar" fill className="object-contain" unoptimized />
+            {VEHICLE_TIERS.map((tier) => (
+              <div
+                key={tier.key}
+                className="group rounded-3xl border border-black/5 bg-white p-6 text-center shadow-sm transition hover:shadow-lg"
+              >
+                <div className="relative mx-auto h-48 w-full">
+                  <Image
+                    src={tier.image}
+                    alt={`${tier.name} or similar`}
+                    fill
+                    className="object-contain"
+                    unoptimized
+                  />
+                </div>
+                <div className="mt-4">
+                  <span className="inline-block rounded-full bg-sunset-orange/10 px-4 py-1 text-sm font-semibold text-sunset-orange">
+                    {tier.paxLabel}
+                  </span>
+                  <h3 className="mt-3 text-xl font-bold text-foreground">
+                    {tier.name}
+                  </h3>
+                  <p className="text-sm text-foreground/50">or similar</p>
+                </div>
               </div>
-              <div className="mt-4">
-                <span className="inline-block rounded-full bg-sunset-orange/10 px-4 py-1 text-sm font-semibold text-sunset-orange">
-                  1 – 6 passengers
-                </span>
-                <h3 className="mt-3 text-xl font-bold text-foreground">Hyundai Staria</h3>
-                <p className="text-sm text-foreground/50">or similar</p>
-              </div>
-            </div>
-
-            {/* Hiace */}
-            <div className="group rounded-3xl border border-black/5 bg-white p-6 text-center shadow-sm transition hover:shadow-lg">
-              <div className="relative mx-auto h-48 w-full">
-                <Image src={HIACE_URL} alt="Toyota Hiace or similar" fill className="object-contain" unoptimized />
-              </div>
-              <div className="mt-4">
-                <span className="inline-block rounded-full bg-sunset-orange/10 px-4 py-1 text-sm font-semibold text-sunset-orange">
-                  7 – 9 passengers
-                </span>
-                <h3 className="mt-3 text-xl font-bold text-foreground">Toyota Hiace</h3>
-                <p className="text-sm text-foreground/50">or similar</p>
-              </div>
-            </div>
-
-            {/* Maxus */}
-            <div className="group rounded-3xl border border-black/5 bg-white p-6 text-center shadow-sm transition hover:shadow-lg">
-              <div className="relative mx-auto h-48 w-full">
-                <Image src={MAXUS_URL} alt="Maxus V90 or similar" fill className="object-contain" unoptimized />
-              </div>
-              <div className="mt-4">
-                <span className="inline-block rounded-full bg-sunset-orange/10 px-4 py-1 text-sm font-semibold text-sunset-orange">
-                  10 – 12 passengers
-                </span>
-                <h3 className="mt-3 text-xl font-bold text-foreground">Maxus V90</h3>
-                <p className="text-sm text-foreground/50">or similar</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>

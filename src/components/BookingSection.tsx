@@ -13,9 +13,8 @@ import {
   removeFromCart,
   type TripItem,
 } from "@/lib/booking";
-import type { Route } from "@/components/RouteSearch";
-
-type VehicleKey = "staria" | "hiace" | "maxus";
+import type { Route } from "@/lib/routes";
+import type { VehicleKey } from "@/lib/vehicles";
 
 interface Props {
   route: Route;
