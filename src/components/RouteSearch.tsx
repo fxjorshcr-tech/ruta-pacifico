@@ -210,7 +210,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
             <p className="text-sm text-foreground/50">
               Need help?{" "}
               <a
-                href="https://wa.me/50685962438"
+                href="https://wa.me/50670805578"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 font-medium text-sunset-orange transition hover:text-sunset-gold"

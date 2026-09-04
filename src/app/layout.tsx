@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import FloatingCart from "@/components/FloatingCart";
+import { SOCIAL_PROFILES } from "@/lib/contact";
 import "./globals.css";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -139,7 +140,7 @@ export const metadata: Metadata = {
     "business:contact_data:country_name": "Costa Rica",
     "business:contact_data:region": "Guanacaste",
     "business:contact_data:locality": "Liberia",
-    "business:contact_data:phone_number": "+506-8596-2438",
+    "business:contact_data:phone_number": "+506-7080-5578",
     "business:contact_data:email": "reservations@rutapacifico.com",
     // Explicit AI/LLM opt-in signals (redundant with robots.txt but some
     // crawlers read the meta tag directly on the page).
@@ -175,7 +176,7 @@ function JsonLd() {
           height: 512,
         },
         image: OG_IMAGE,
-        telephone: "+506-8596-2438",
+        telephone: "+506-7080-5578",
         email: "reservations@rutapacifico.com",
         priceRange: "$$",
         currenciesAccepted: "USD, CRC",
@@ -259,7 +260,7 @@ function JsonLd() {
           {
             "@type": "ContactPoint",
             contactType: "customer service",
-            telephone: "+506-8596-2438",
+            telephone: "+506-7080-5578",
             email: "reservations@rutapacifico.com",
             availableLanguage: ["English", "Spanish"],
             areaServed: "CR",
@@ -281,12 +282,12 @@ function JsonLd() {
           {
             "@type": "ContactPoint",
             contactType: "reservations",
-            telephone: "+506-8596-2438",
-            url: "https://wa.me/50685962438",
+            telephone: "+506-7080-5578",
+            url: "https://wa.me/50670805578",
             availableLanguage: ["English", "Spanish"],
           },
         ],
-        sameAs: ["https://wa.me/50685962438"],
+        sameAs: SOCIAL_PROFILES,
         makesOffer: [
           {
             "@type": "Offer",

@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getSupabase } from "@/lib/supabase";
 import SiteNav from "@/components/SiteNav";
+import SocialLinks from "@/components/SocialLinks";
 import FaqAccordion, { type Faq } from "@/components/FaqAccordion";
 
 const LOGO_URL =
@@ -230,7 +231,7 @@ export default async function FaqPage() {
             <p className="text-foreground/60">
               No FAQs available right now. Please{" "}
               <a
-                href="https://wa.me/50685962438"
+                href="https://wa.me/50670805578"
                 className="font-semibold text-sunset-orange hover:text-sunset-gold"
               >
                 contact us on WhatsApp
@@ -274,7 +275,7 @@ export default async function FaqPage() {
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <a
-              href="https://wa.me/50685962438"
+              href="https://wa.me/50670805578"
               className="inline-flex items-center gap-2 rounded-full bg-sunset-orange px-6 py-3 text-sm font-bold text-white shadow-md transition hover:bg-sunset-red"
             >
               <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
@@ -320,25 +321,28 @@ export default async function FaqPage() {
                 unoptimized
               />
             </div>
-            <div className="flex items-center gap-6 text-sm text-white/50">
-              <Link href="/" className="transition hover:text-sunset-orange">
-                Home
-              </Link>
-              <Link
-                href="/private-shuttle"
-                className="transition hover:text-sunset-orange"
-              >
-                All routes
-              </Link>
-              <Link href="/faq" className="transition hover:text-sunset-orange">
-                FAQ
-              </Link>
-              <a
-                href="https://wa.me/50685962438"
-                className="transition hover:text-sunset-orange"
-              >
-                WhatsApp
-              </a>
+            <div className="flex flex-col items-center gap-5 sm:flex-row sm:gap-8">
+              <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/50">
+                <Link href="/" className="transition hover:text-sunset-orange">
+                  Home
+                </Link>
+                <Link
+                  href="/private-shuttle"
+                  className="transition hover:text-sunset-orange"
+                >
+                  All routes
+                </Link>
+                <Link href="/faq" className="transition hover:text-sunset-orange">
+                  FAQ
+                </Link>
+                <a
+                  href="https://wa.me/50670805578"
+                  className="transition hover:text-sunset-orange"
+                >
+                  WhatsApp
+                </a>
+              </div>
+              <SocialLinks />
             </div>
           </div>
           <div className="mt-8 border-t border-white/10 pt-6 text-center text-xs text-white/30">

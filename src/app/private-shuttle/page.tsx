@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getSupabase } from "@/lib/supabase";
 import RouteSearch from "@/components/RouteSearch";
 import SiteNav from "@/components/SiteNav";
+import SocialLinks from "@/components/SocialLinks";
 import FaqAccordion, { type Faq } from "@/components/FaqAccordion";
 import { getRoutes, type Route } from "@/lib/routes";
 import type { Metadata } from "next";
@@ -347,8 +348,8 @@ export default async function TransferPage() {
                 </span>
                 <span>
                   Reach us at{" "}
-                  <a href="https://wa.me/50685962438" className="font-medium text-sunset-orange hover:text-sunset-gold">
-                    +506-8596-2438
+                  <a href="https://wa.me/50670805578" className="font-medium text-sunset-orange hover:text-sunset-gold">
+                    +506-7080-5578
                   </a>
                 </span>
               </li>
@@ -451,31 +452,34 @@ export default async function TransferPage() {
                 unoptimized
               />
             </div>
-            <div className="flex items-center gap-6 text-sm text-white/50">
-              <Link href="/" className="transition hover:text-sunset-orange">
-                Home
-              </Link>
-              <Link
-                href="/#services"
-                className="transition hover:text-sunset-orange"
-              >
-                Services
-              </Link>
-              <Link href="/faq" className="transition hover:text-sunset-orange">
-                FAQ
-              </Link>
-              <a
-                href="https://wa.me/50685962438"
-                className="transition hover:text-sunset-orange"
-              >
-                WhatsApp
-              </a>
-              <a
-                href="mailto:reservations@rutapacifico.com"
-                className="transition hover:text-sunset-orange"
-              >
-                Email
-              </a>
+            <div className="flex flex-col items-center gap-5 sm:flex-row sm:gap-8">
+              <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/50">
+                <Link href="/" className="transition hover:text-sunset-orange">
+                  Home
+                </Link>
+                <Link
+                  href="/#services"
+                  className="transition hover:text-sunset-orange"
+                >
+                  Services
+                </Link>
+                <Link href="/faq" className="transition hover:text-sunset-orange">
+                  FAQ
+                </Link>
+                <a
+                  href="https://wa.me/50670805578"
+                  className="transition hover:text-sunset-orange"
+                >
+                  WhatsApp
+                </a>
+                <a
+                  href="mailto:reservations@rutapacifico.com"
+                  className="transition hover:text-sunset-orange"
+                >
+                  Email
+                </a>
+              </div>
+              <SocialLinks />
             </div>
           </div>
           <div className="mt-8 border-t border-white/10 pt-6 text-center text-xs text-white/30">
