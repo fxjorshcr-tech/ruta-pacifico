@@ -13,8 +13,8 @@ const LOGO_URL =
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 const SITE_URL = "https://rutapacifico.com";
-const WHATSAPP_DISPLAY = "+506 8596-2438";
-const WHATSAPP_RAW = "50685962438";
+const WHATSAPP_DISPLAY = "+506 7080-5578";
+const WHATSAPP_RAW = "50670805578";
 const RESERVATIONS_EMAIL = "reservations@rutapacifico.com";
 const ICT_LICENSE = "#4121-2025";
 

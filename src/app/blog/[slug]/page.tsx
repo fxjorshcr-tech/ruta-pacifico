@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import SiteNav from "@/components/SiteNav";
+import SocialLinks from "@/components/SocialLinks";
 import {
   getPostBySlug,
   renderMarkdown,
@@ -220,7 +221,7 @@ export default async function BlogPostPage({
                 See routes &amp; prices
               </Link>
               <a
-                href="https://wa.me/50685962438"
+                href="https://wa.me/50670805578"
                 className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/10 px-8 py-3.5 text-sm font-bold text-white backdrop-blur-sm transition hover:bg-white/20"
               >
                 💬 WhatsApp us
@@ -242,22 +243,25 @@ export default async function BlogPostPage({
               className="h-16 w-auto"
               unoptimized
             />
-            <div className="flex items-center gap-6 text-sm text-white/50">
-              <Link href="/" className="transition hover:text-sunset-orange">
-                Home
-              </Link>
-              <Link href="/blog" className="transition hover:text-sunset-orange">
-                Blog
-              </Link>
-              <Link href="/private-shuttle" className="transition hover:text-sunset-orange">
-                All routes
-              </Link>
-              <Link href="/faq" className="transition hover:text-sunset-orange">
-                FAQ
-              </Link>
-              <a href="https://wa.me/50685962438" className="transition hover:text-sunset-orange">
-                WhatsApp
-              </a>
+            <div className="flex flex-col items-center gap-5 sm:flex-row sm:gap-8">
+              <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/50">
+                <Link href="/" className="transition hover:text-sunset-orange">
+                  Home
+                </Link>
+                <Link href="/blog" className="transition hover:text-sunset-orange">
+                  Blog
+                </Link>
+                <Link href="/private-shuttle" className="transition hover:text-sunset-orange">
+                  All routes
+                </Link>
+                <Link href="/faq" className="transition hover:text-sunset-orange">
+                  FAQ
+                </Link>
+                <a href="https://wa.me/50670805578" className="transition hover:text-sunset-orange">
+                  WhatsApp
+                </a>
+              </div>
+              <SocialLinks />
             </div>
           </div>
           <div className="mt-8 border-t border-white/10 pt-6 text-center text-xs text-white/30">

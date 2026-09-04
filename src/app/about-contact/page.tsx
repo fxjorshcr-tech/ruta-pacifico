@@ -3,15 +3,22 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import SiteNav from "@/components/SiteNav";
 import ContactForm from "@/components/ContactForm";
+import { FacebookIcon, InstagramIcon } from "@/components/SocialLinks";
+import {
+  FACEBOOK_URL,
+  INSTAGRAM_URL,
+  RESERVATIONS_EMAIL,
+  WHATSAPP_DISPLAY,
+  WHATSAPP_RAW,
+} from "@/lib/contact";
 
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 const LOGO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Logo%20Transparente.png";
 
-const WHATSAPP_NUMBER_DISPLAY = "+506 8596-2438";
-const WHATSAPP_NUMBER_RAW = "50685962438";
-const RESERVATIONS_EMAIL = "reservations@rutapacifico.com";
+const WHATSAPP_NUMBER_DISPLAY = WHATSAPP_DISPLAY;
+const WHATSAPP_NUMBER_RAW = WHATSAPP_RAW;
 const ICT_LICENSE = "#4121-2025";
 
 export const metadata: Metadata = {
@@ -349,6 +356,53 @@ export default function AboutContactPage() {
                   d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
                 />
               </svg>
+            </div>
+          </a>
+        </section>
+
+        {/* ─── SOCIAL ─── */}
+        <section className="mt-5 grid gap-5 lg:grid-cols-2">
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-5 rounded-3xl border border-black/5 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-pink-500/30 hover:shadow-lg"
+          >
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 via-pink-500 to-purple-600 text-white shadow-md shadow-pink-500/20">
+              <InstagramIcon className="h-6 w-6" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <span className="text-xs font-semibold uppercase tracking-wider text-pink-600">
+                Instagram
+              </span>
+              <div className="mt-0.5 text-lg font-bold text-foreground transition group-hover:text-pink-600">
+                @rutapacificocr
+              </div>
+              <p className="mt-1 text-sm text-foreground/60">
+                Photos from the road, beach guides, and travel tips.
+              </p>
+            </div>
+          </a>
+
+          <a
+            href={FACEBOOK_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-5 rounded-3xl border border-black/5 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-blue-600/30 hover:shadow-lg"
+          >
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-md shadow-blue-600/20">
+              <FacebookIcon className="h-6 w-6" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <span className="text-xs font-semibold uppercase tracking-wider text-blue-600">
+                Facebook
+              </span>
+              <div className="mt-0.5 text-lg font-bold text-foreground transition group-hover:text-blue-600">
+                Ruta Pacifico
+              </div>
+              <p className="mt-1 text-sm text-foreground/60">
+                Reviews, updates, and a second way to message us.
+              </p>
             </div>
           </a>
         </section>

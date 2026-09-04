@@ -307,7 +307,7 @@ export default function ConfirmationPage() {
         {/* Actions */}
         <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <a
-            href={`https://wa.me/50685962438?text=${encodeURIComponent(whatsappText)}`}
+            href={`https://wa.me/50670805578?text=${encodeURIComponent(whatsappText)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-full bg-green-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-green-600"
