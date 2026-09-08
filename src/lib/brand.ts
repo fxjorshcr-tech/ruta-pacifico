@@ -13,8 +13,12 @@ export const LOGO_URL = "/brand/logo.png";
 export const LOGO_WIDTH = 1600;
 export const LOGO_HEIGHT = 668;
 
-/** Absolute URL for contexts that cannot resolve site-relative paths (emails). */
+/** All-white version of the wordmark for dark or photographic backgrounds. */
+export const LOGO_WHITE_URL = "/brand/logo-white.png";
+
+/** Absolute URLs for contexts that cannot resolve site-relative paths (emails). */
 export const LOGO_ABSOLUTE_URL = `${SITE_URL}${LOGO_URL}`;
+export const LOGO_WHITE_ABSOLUTE_URL = `${SITE_URL}${LOGO_WHITE_URL}`;
 
 /** Square composition (logo centred on a transparent 1:1 canvas) for structured data. */
 export const LOGO_SQUARE_ABSOLUTE_URL = `${SITE_URL}/brand/logo-square.png`;

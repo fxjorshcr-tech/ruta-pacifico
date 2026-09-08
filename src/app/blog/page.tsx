@@ -8,7 +8,7 @@ import {
   formatPostDate,
   type BlogPostPreview,
 } from "@/lib/blog";
-import { LOGO_URL } from "@/lib/brand";
+import { LOGO_URL, LOGO_WHITE_URL } from "@/lib/brand";
 
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/playa_tamarindo_kristen_brown.jpg";
@@ -237,7 +237,7 @@ export default async function BlogIndexPage() {
         <div className="mx-auto max-w-6xl px-6 py-12">
           <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
             <Image
-              src={LOGO_URL}
+              src={LOGO_WHITE_URL}
               alt="Ruta Pacifico"
               width={240}
               height={100}
