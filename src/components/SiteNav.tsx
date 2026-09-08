@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LOGO_URL, LOGO_WHITE_URL } from "@/lib/brand";
+import { LOGO_URL } from "@/lib/brand";
 
 interface Props {
   /**
@@ -43,7 +43,7 @@ export default function SiteNav({ transparent = true }: Props) {
         {/* Logo */}
         <Link href="/" className="flex shrink-0 items-center" aria-label="Ruta Pacifico — Home">
           <Image
-            src={transparent ? LOGO_WHITE_URL : LOGO_URL}
+            src={LOGO_URL}
             alt="Ruta Pacifico"
             width={360}
             height={150}

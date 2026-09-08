@@ -17,8 +17,9 @@ const WATERFALL_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/llanos-de-cortes-waterfall-drone-.jpg";
 const CULTURE_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/costa_rica_guanacaste_annexation_day_celebration_01-1024x574.png";
-const AIRPORT_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Panorama-Frente-ultimo-111.jpg";
+const HERO_PHOTO_URL =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/playa-conchal.png";
+const HERO_PHOTO_CAPTION = "Playa Conchal, Guanacaste";
 const LIR_AIRPORT_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/aeropuerto-LIR-guanacaste.webp";
 const TAMARINDO_BEACH_URL =
@@ -96,7 +97,7 @@ export default function Home() {
 
       {/* ─── HERO ─── */}
       <section className="relative flex min-h-screen items-center overflow-hidden">
-        <Image src={AIRPORT_URL} alt="Daniel Oduber Quirós International Airport (LIR), Liberia, Costa Rica" fill className="object-cover" priority unoptimized />
+        <Image src={HERO_PHOTO_URL} alt="Playa Conchal, Guanacaste, Costa Rica" fill className="object-cover" priority unoptimized />
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/20" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" />
 
@@ -146,6 +147,15 @@ export default function Home() {
           </div>
         </div>
 
+
+        {/* Photo caption */}
+        <div className="pointer-events-none absolute bottom-5 right-5 z-10 flex items-center gap-2 rounded-full border border-white/20 bg-black/35 px-3.5 py-2 text-xs font-medium tracking-wide text-white/90 backdrop-blur-sm sm:bottom-6 sm:right-6 sm:text-sm">
+          <svg className="h-4 w-4 text-sunset-gold" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+          </svg>
+          {HERO_PHOTO_CAPTION}
+        </div>
       </section>
 
       {/* ─── SERVICES ─── */}
