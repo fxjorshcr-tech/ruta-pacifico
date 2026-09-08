@@ -5,9 +5,8 @@ import SocialLinks from "@/components/SocialLinks";
 import GuanacasteGallery from "@/components/GuanacasteGallery";
 import { VEHICLE_TIERS } from "@/lib/vehicles";
 import { FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/contact";
+import { LOGO_URL } from "@/lib/brand";
 
-const LOGO_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Logo%20Transparente.png";
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 const BEACH_URL =
@@ -125,7 +124,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="hidden lg:flex flex-col items-center justify-center gap-8">
-            <Image src={LOGO_URL} alt="Ruta Pacifico" width={500} height={300} className="w-full max-w-md drop-shadow-2xl" unoptimized />
+            <Image src={LOGO_URL} alt="Ruta Pacifico" width={480} height={200} className="w-full max-w-md drop-shadow-2xl" unoptimized />
             <Link
               href="/private-shuttle"
               className="group relative overflow-hidden rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-14 py-5 text-lg font-bold text-white shadow-lg shadow-sunset-orange/25 transition-all duration-300 hover:shadow-2xl hover:shadow-sunset-orange/40 hover:scale-105"
@@ -784,7 +783,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-6 py-16">
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
             <div className="lg:col-span-1">
-              <Image src={LOGO_URL} alt="Ruta Pacifico" width={400} height={130} className="h-32 w-auto" unoptimized />
+              <Image src={LOGO_URL} alt="Ruta Pacifico" width={480} height={200} className="h-32 w-auto" unoptimized />
               <p className="mt-4 text-sm leading-relaxed text-white/50">Private shuttles across Guanacaste and Costa Rica.</p>
             </div>
             <div>
