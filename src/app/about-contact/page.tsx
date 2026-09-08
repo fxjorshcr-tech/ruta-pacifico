@@ -11,11 +11,10 @@ import {
   WHATSAPP_DISPLAY,
   WHATSAPP_RAW,
 } from "@/lib/contact";
+import { LOGO_URL } from "@/lib/brand";
 
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
-const LOGO_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Logo%20Transparente.png";
 
 const WHATSAPP_NUMBER_DISPLAY = WHATSAPP_DISPLAY;
 const WHATSAPP_NUMBER_RAW = WHATSAPP_RAW;
@@ -145,8 +144,8 @@ export default function AboutContactPage() {
               <Image
                 src={LOGO_URL}
                 alt="Ruta Pacifico"
-                width={280}
-                height={90}
+                width={288}
+                height={120}
                 className="h-14 w-auto"
                 unoptimized
               />

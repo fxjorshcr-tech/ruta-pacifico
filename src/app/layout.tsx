@@ -4,6 +4,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import FloatingCart from "@/components/FloatingCart";
 import { SOCIAL_PROFILES } from "@/lib/contact";
 import "./globals.css";
+import { LOGO_SQUARE_ABSOLUTE_URL, LOGO_SQUARE_SIZE } from "@/lib/brand";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const GOOGLE_SITE_VERIFICATION =
@@ -12,8 +13,6 @@ const GOOGLE_SITE_VERIFICATION =
 const BASE_URL = "https://rutapacifico.com";
 const OG_IMAGE =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
-const LOGO_IMAGE =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Logo%20Transparente.png";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -171,9 +170,9 @@ function JsonLd() {
         url: BASE_URL,
         logo: {
           "@type": "ImageObject",
-          url: LOGO_IMAGE,
-          width: 512,
-          height: 512,
+          url: LOGO_SQUARE_ABSOLUTE_URL,
+          width: LOGO_SQUARE_SIZE,
+          height: LOGO_SQUARE_SIZE,
         },
         image: OG_IMAGE,
         telephone: "+506-7080-5578",

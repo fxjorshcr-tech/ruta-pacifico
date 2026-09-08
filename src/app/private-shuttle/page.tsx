@@ -8,9 +8,8 @@ import FaqAccordion, { type Faq } from "@/components/FaqAccordion";
 import { getRoutes, type Route } from "@/lib/routes";
 import type { Metadata } from "next";
 import { routeSlug } from "@/lib/slug";
+import { LOGO_URL } from "@/lib/brand";
 
-const LOGO_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Logo%20Transparente.png";
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 
@@ -446,8 +445,8 @@ export default async function TransferPage() {
               <Image
                 src={LOGO_URL}
                 alt="Ruta Pacifico"
-                width={200}
-                height={65}
+                width={240}
+                height={100}
                 className="h-16 w-auto"
                 unoptimized
               />

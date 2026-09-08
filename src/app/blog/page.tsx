@@ -8,9 +8,8 @@ import {
   formatPostDate,
   type BlogPostPreview,
 } from "@/lib/blog";
+import { LOGO_URL } from "@/lib/brand";
 
-const LOGO_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Logo%20Transparente.png";
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/playa_tamarindo_kristen_brown.jpg";
 
@@ -169,7 +168,7 @@ export default async function BlogIndexPage() {
                         src={LOGO_URL}
                         alt="Ruta Pacifico"
                         width={160}
-                        height={53}
+                        height={67}
                         className="h-10 w-auto opacity-70"
                         unoptimized
                       />
@@ -240,8 +239,8 @@ export default async function BlogIndexPage() {
             <Image
               src={LOGO_URL}
               alt="Ruta Pacifico"
-              width={200}
-              height={65}
+              width={240}
+              height={100}
               className="h-16 w-auto"
               unoptimized
             />

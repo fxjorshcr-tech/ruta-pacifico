@@ -5,11 +5,10 @@ import {
   getAdminRecipients,
   getNotificationsFrom,
 } from "@/lib/email";
+import { LOGO_ABSOLUTE_URL } from "@/lib/brand";
 
 export const runtime = "nodejs";
 
-const LOGO_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Logo%20Transparente.png";
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 const SITE_URL = "https://rutapacifico.com";
@@ -86,7 +85,7 @@ function customerEmailHtml(b: ContactRequestBody): string {
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="background:linear-gradient(135deg,rgba(230,57,70,.85),rgba(227,100,20,.78),rgba(244,162,97,.7));padding:40px 32px;text-align:center;">
-                      <img src="${LOGO_URL}" alt="Ruta Pacifico" width="180" style="display:block;margin:0 auto 16px;height:auto;max-width:180px;" />
+                      <img src="${LOGO_ABSOLUTE_URL}" alt="Ruta Pacifico" width="180" style="display:block;margin:0 auto 16px;height:auto;max-width:180px;" />
                       <div style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:6px 14px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;backdrop-filter:blur(8px);">Message received</div>
                       <h1 style="margin:18px 0 6px;font-size:30px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.2;">¡Pura vida, ${firstName}!</h1>
                       <p style="margin:0;font-size:15px;color:rgba(255,255,255,.92);line-height:1.5;">Thanks for reaching out — we&rsquo;ve got your message.</p>

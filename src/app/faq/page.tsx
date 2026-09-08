@@ -5,9 +5,8 @@ import { getSupabase } from "@/lib/supabase";
 import SiteNav from "@/components/SiteNav";
 import SocialLinks from "@/components/SocialLinks";
 import FaqAccordion, { type Faq } from "@/components/FaqAccordion";
+import { LOGO_URL } from "@/lib/brand";
 
-const LOGO_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Logo%20Transparente.png";
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 
@@ -315,8 +314,8 @@ export default async function FaqPage() {
               <Image
                 src={LOGO_URL}
                 alt="Ruta Pacifico"
-                width={200}
-                height={65}
+                width={240}
+                height={100}
                 className="h-16 w-auto"
                 unoptimized
               />

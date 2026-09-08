@@ -4,9 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const LOGO_URL =
-  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Logo%20Transparente.png";
+import { LOGO_URL } from "@/lib/brand";
 
 interface Props {
   /**
@@ -48,7 +46,7 @@ export default function SiteNav({ transparent = true }: Props) {
             src={LOGO_URL}
             alt="Ruta Pacifico"
             width={360}
-            height={120}
+            height={150}
             className="h-12 w-auto sm:h-14 lg:h-16"
             priority
             unoptimized
