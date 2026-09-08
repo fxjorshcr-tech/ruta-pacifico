@@ -5,7 +5,7 @@ import SocialLinks from "@/components/SocialLinks";
 import GuanacasteGallery from "@/components/GuanacasteGallery";
 import { VEHICLE_TIERS } from "@/lib/vehicles";
 import { FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/contact";
-import { LOGO_URL } from "@/lib/brand";
+import { LOGO_URL, LOGO_WHITE_URL } from "@/lib/brand";
 
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
@@ -783,7 +783,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-6 py-16">
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
             <div className="lg:col-span-1">
-              <Image src={LOGO_URL} alt="Ruta Pacifico" width={480} height={200} className="h-32 w-auto" unoptimized />
+              <Image src={LOGO_WHITE_URL} alt="Ruta Pacifico" width={480} height={200} className="h-32 w-auto" unoptimized />
               <p className="mt-4 text-sm leading-relaxed text-white/50">Private shuttles across Guanacaste and Costa Rica.</p>
             </div>
             <div>

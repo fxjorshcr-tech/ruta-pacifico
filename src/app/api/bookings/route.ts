@@ -6,7 +6,7 @@ import {
   getAdminRecipients,
   getNotificationsFrom,
 } from "@/lib/email";
-import { LOGO_ABSOLUTE_URL } from "@/lib/brand";
+import { LOGO_WHITE_ABSOLUTE_URL } from "@/lib/brand";
 
 export const runtime = "nodejs";
 
@@ -182,7 +182,7 @@ function customerEmailHtml(b: BookingRequestBody): string {
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="background:linear-gradient(135deg,rgba(230,57,70,.86),rgba(227,100,20,.78),rgba(244,162,97,.7));padding:38px 32px 36px;text-align:center;">
-                      <img src="${LOGO_ABSOLUTE_URL}" alt="Ruta Pacifico" width="170" style="display:block;margin:0 auto 18px;height:auto;max-width:170px;" />
+                      <img src="${LOGO_WHITE_ABSOLUTE_URL}" alt="Ruta Pacifico" width="170" style="display:block;margin:0 auto 18px;height:auto;max-width:170px;" />
                       <div style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#fff;">✓ Reservation confirmed</div>
                       <h1 style="margin:18px 0 20px;font-size:30px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.2;">¡Pura vida, ${firstName}!</h1>
                       <div style="display:inline-block;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px 20px;">

@@ -5,7 +5,7 @@ import { getSupabase } from "@/lib/supabase";
 import SiteNav from "@/components/SiteNav";
 import SocialLinks from "@/components/SocialLinks";
 import FaqAccordion, { type Faq } from "@/components/FaqAccordion";
-import { LOGO_URL } from "@/lib/brand";
+import { LOGO_WHITE_URL } from "@/lib/brand";
 
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
@@ -312,7 +312,7 @@ export default async function FaqPage() {
           <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
             <div className="flex items-center gap-4">
               <Image
-                src={LOGO_URL}
+                src={LOGO_WHITE_URL}
                 alt="Ruta Pacifico"
                 width={240}
                 height={100}
