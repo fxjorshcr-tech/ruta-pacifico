@@ -4,35 +4,44 @@ import { routeSlug } from "@/lib/slug";
 
 const BASE = "https://rutapacifico.com";
 
+/**
+ * Last real content change on the static pages. Google and Bing ignore
+ * <lastmod> entirely when it is stamped with "now" on every crawl, so this
+ * is a fixed date — bump it when the copy on those pages actually changes.
+ * Route pages omit lastmod (their price/duration edits are not tracked);
+ * blog posts use the real updated_at from the database.
+ */
+const STATIC_LAST_MODIFIED = new Date("2026-09-09");
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: BASE,
-      lastModified: new Date(),
+      lastModified: STATIC_LAST_MODIFIED,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
       url: `${BASE}/private-shuttle`,
-      lastModified: new Date(),
+      lastModified: STATIC_LAST_MODIFIED,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${BASE}/faq`,
-      lastModified: new Date(),
+      lastModified: STATIC_LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${BASE}/blog`,
-      lastModified: new Date(),
+      lastModified: STATIC_LAST_MODIFIED,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${BASE}/about-contact`,
-      lastModified: new Date(),
+      lastModified: STATIC_LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.7,
     },
@@ -50,7 +59,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       for (const route of data) {
         routePages.push({
           url: `${BASE}/private-shuttle/${routeSlug(route.origen, route.destino)}`,
-          lastModified: new Date(),
           changeFrequency: "monthly",
           priority: 0.6,
         });
