@@ -6,6 +6,11 @@ import GuanacasteGallery from "@/components/GuanacasteGallery";
 import { VEHICLE_TIERS } from "@/lib/vehicles";
 import { FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/contact";
 import { LOGO_URL, LOGO_WHITE_URL } from "@/lib/brand";
+import FaqAccordion from "@/components/FaqAccordion";
+import { faqPageJsonLd, getFeaturedFaqs } from "@/lib/faqs";
+
+/** FAQs come from Supabase; re-render at most hourly instead of per request. */
+export const revalidate = 3600;
 
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
@@ -87,7 +92,8 @@ function StarDivider() {
   );
 }
 
-export default function Home() {
+export default async function Home() {
+  const faqs = await getFeaturedFaqs(8);
   return (
     <main>
       {/* ─── NAV ─── */}
@@ -615,6 +621,46 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ─── FAQ ─── */}
+      {faqs.length ? (
+        <section className="border-t border-black/5 bg-white py-16 sm:py-24">
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                ...faqPageJsonLd("https://rutapacifico.com/#faq", faqs),
+              }),
+            }}
+          />
+          <div className="mx-auto max-w-3xl px-6">
+            <div className="text-center">
+              <StarDivider />
+              <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
+                Questions before you book
+              </h2>
+              <p className="mx-auto mt-4 max-w-xl text-foreground/60">
+                What travellers ask us most. The full list is on the FAQ page.
+              </p>
+            </div>
+            <div className="mt-10">
+              <FaqAccordion faqs={faqs} />
+            </div>
+            <div className="mt-6 text-center">
+              <Link
+                href="/faq"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-orange transition hover:text-sunset-red"
+              >
+                See all questions
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       {/* ─── ABOUT & CONTACT ─── */}
       <section id="about" className="border-t border-black/5 bg-light-surface py-16 sm:py-24">
