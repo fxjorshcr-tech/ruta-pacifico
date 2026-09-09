@@ -6,6 +6,8 @@ import BookingSection from "@/components/BookingSection";
 import SiteNav from "@/components/SiteNav";
 import SocialLinks from "@/components/SocialLinks";
 import DestinationGuide from "@/components/DestinationGuide";
+import RouteFaqSection from "@/components/RouteFaq";
+import { buildRouteFaqs, type RouteFaq } from "@/lib/routeFaqs";
 import { findRouteBySlug, getRoutes, type Route } from "@/lib/routes";
 import { isAirportOrigin, routeSlug } from "@/lib/slug";
 import {
@@ -111,12 +113,14 @@ function RouteJsonLd({
   airportPickup,
   origin,
   destination,
+  faqs,
 }: {
   route: Route;
   slug: string;
   airportPickup: boolean;
   origin?: Destination;
   destination?: Destination;
+  faqs: RouteFaq[];
 }) {
   const url = `${BASE_URL}/private-shuttle/${slug}`;
   const prices = VEHICLE_TIERS.map((tier) => ({
@@ -208,6 +212,19 @@ function RouteJsonLd({
           availability: "https://schema.org/InStock",
         },
       },
+      ...(faqs.length
+        ? [
+            {
+              "@type": "FAQPage",
+              "@id": `${url}#faq`,
+              mainEntity: faqs.map((f) => ({
+                "@type": "Question",
+                name: f.q,
+                acceptedAnswer: { "@type": "Answer", text: f.a },
+              })),
+            },
+          ]
+        : []),
       {
         "@type": "BreadcrumbList",
         "@id": `${url}#breadcrumb`,
@@ -268,6 +285,9 @@ export default async function RoutePage({
           isRouteIndexable(r, destinations)
       )
     : undefined;
+  const faqs = indexable
+    ? buildRouteFaqs(route, { origin, destination })
+    : [];
   const related = showGuide
     ? selectIndexableRoutes(
         allRoutes.filter(
@@ -291,6 +311,7 @@ export default async function RoutePage({
         airportPickup={airportPickup}
         origin={showGuide ? origin : undefined}
         destination={showGuide ? destination : undefined}
+        faqs={faqs}
       />
       {/* ─── NAV ─── */}
       <SiteNav transparent />
@@ -525,6 +546,12 @@ export default async function RoutePage({
           reverse={reverse}
         />
       ) : null}
+
+      <RouteFaqSection
+        faqs={faqs}
+        originName={origin?.short_name ?? route.origen}
+        destinationName={destination?.short_name ?? route.destino}
+      />
 
       {/* ─── FOOTER ─── */}
       <footer className="border-t border-black/5 bg-foreground text-white">

@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getSupabase } from "@/lib/supabase";
 import RouteSearch from "@/components/RouteSearch";
 import SiteNav from "@/components/SiteNav";
 import SocialLinks from "@/components/SocialLinks";
-import FaqAccordion, { type Faq } from "@/components/FaqAccordion";
+import FaqAccordion from "@/components/FaqAccordion";
+import { getFeaturedFaqs } from "@/lib/faqs";
 import { getRoutes, type Route } from "@/lib/routes";
 import { getDestinations, selectIndexableRoutes } from "@/lib/destinations";
 import type { Metadata } from "next";
@@ -99,37 +99,6 @@ function TransferPageJsonLd({ routes }: { routes: Route[] }) {
       dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
     />
   );
-}
-
-async function getFeaturedFaqs(): Promise<Faq[]> {
-  // Show up to 6 FAQs on the transfer page: featured ones first, then fill
-  // with the lowest-display-order active FAQs so the section always has
-  // content even if nothing is flagged as featured.
-  const { data: featured, error: featuredError } = await getSupabase()
-    .from("faqs_ruta_pacifico")
-    .select("id, category, question, answer, display_order, is_featured")
-    .eq("is_active", true)
-    .eq("is_featured", true)
-    .order("display_order", { ascending: true })
-    .limit(6);
-
-  if (featuredError) {
-    console.error("Failed to fetch featured FAQs:", featuredError.message);
-    return [];
-  }
-
-  const result: Faq[] = (featured ?? []) as Faq[];
-  if (result.length >= 6) return result.slice(0, 6);
-
-  const { data: fill } = await getSupabase()
-    .from("faqs_ruta_pacifico")
-    .select("id, category, question, answer, display_order, is_featured")
-    .eq("is_active", true)
-    .eq("is_featured", false)
-    .order("display_order", { ascending: true })
-    .limit(6 - result.length);
-
-  return [...result, ...((fill ?? []) as Faq[])];
 }
 
 function GoogleReviewBadge() {
