@@ -41,3 +41,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# python helper caches (supabase/destinations_content.py)
+__pycache__/

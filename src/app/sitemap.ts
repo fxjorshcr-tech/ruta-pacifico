@@ -1,6 +1,15 @@
 import type { MetadataRoute } from "next";
 import { getSupabase } from "@/lib/supabase";
 import { routeSlug } from "@/lib/slug";
+import { getRoutes } from "@/lib/routes";
+import {
+  getDestinations,
+  routeSitemapPriority,
+  selectIndexableRoutes,
+} from "@/lib/destinations";
+
+/** Re-generate at most hourly so new destinations/routes appear without a deploy. */
+export const revalidate = 3600;
 
 const BASE = "https://rutapacifico.com";
 
@@ -47,22 +56,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Dynamic route pages from Supabase
+  // Route pages — only the SEO-worthy subset (see src/lib/destinations.ts),
+  // most important first. getRoutes() paginates past the 1,000-row cap that
+  // used to silently truncate this list.
   const routePages: MetadataRoute.Sitemap = [];
   try {
-    const { data } = await getSupabase()
-      .from("routes")
-      .select("origen, destino")
-      .order("origen", { ascending: true });
-
-    if (data) {
-      for (const route of data) {
-        routePages.push({
-          url: `${BASE}/private-shuttle/${routeSlug(route.origen, route.destino)}`,
-          changeFrequency: "monthly",
-          priority: 0.6,
-        });
-      }
+    const [routes, destinations] = await Promise.all([
+      getRoutes(),
+      getDestinations(),
+    ]);
+    for (const route of selectIndexableRoutes(routes, destinations)) {
+      routePages.push({
+        url: `${BASE}/private-shuttle/${routeSlug(route.origen, route.destino)}`,
+        changeFrequency: "monthly",
+        priority: routeSitemapPriority(route, destinations),
+      });
     }
   } catch {
     // If DB is unreachable, return static pages only

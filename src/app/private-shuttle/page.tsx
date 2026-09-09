@@ -6,6 +6,7 @@ import SiteNav from "@/components/SiteNav";
 import SocialLinks from "@/components/SocialLinks";
 import FaqAccordion, { type Faq } from "@/components/FaqAccordion";
 import { getRoutes, type Route } from "@/lib/routes";
+import { getDestinations, selectIndexableRoutes } from "@/lib/destinations";
 import type { Metadata } from "next";
 import { routeSlug } from "@/lib/slug";
 import { LOGO_WHITE_URL } from "@/lib/brand";
@@ -48,8 +49,8 @@ export const metadata: Metadata = {
 const BASE_URL = "https://rutapacifico.com";
 
 function TransferPageJsonLd({ routes }: { routes: Route[] }) {
-  // Declare a list of the first 50 routes as ItemList — enough for Google
-  // Rich Results without bloating the HTML.
+  // Declare the 50 most important index-able routes as ItemList (airport
+  // routes first) — enough for Google Rich Results without bloating the HTML.
   const topRoutes = routes.slice(0, 50);
   const graph = {
     "@context": "https://schema.org",
@@ -156,11 +157,15 @@ function GoogleReviewBadge() {
 }
 
 export default async function TransferPage() {
-  const [routes, faqs] = await Promise.all([getRoutes(), getFeaturedFaqs()]);
+  const [routes, faqs, destinations] = await Promise.all([
+    getRoutes(),
+    getFeaturedFaqs(),
+    getDestinations(),
+  ]);
 
   return (
     <main className="bg-light-surface min-h-screen">
-      <TransferPageJsonLd routes={routes} />
+      <TransferPageJsonLd routes={selectIndexableRoutes(routes, destinations)} />
       {/* ─── NAV ─── */}
       <SiteNav transparent />
 
