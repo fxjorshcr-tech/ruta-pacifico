@@ -7,8 +7,25 @@ import "./globals.css";
 import { LOGO_SQUARE_ABSOLUTE_URL, LOGO_SQUARE_SIZE } from "@/lib/brand";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
-const GOOGLE_SITE_VERIFICATION =
-  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+
+/**
+ * Site-verification tokens. Both variables accept a comma-separated list so
+ * the property can be verified from more than one Search Console / Bing
+ * Webmaster account (each account issues its own token) without touching
+ * the code again.
+ */
+function verificationTokens(value: string | undefined): string[] {
+  return (value ?? "")
+    .split(",")
+    .map((token) => token.trim())
+    .filter(Boolean);
+}
+const GOOGLE_SITE_VERIFICATION = verificationTokens(
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+);
+const BING_SITE_VERIFICATION = verificationTokens(
+  process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+);
 
 const BASE_URL = "https://rutapacifico.com";
 const OG_IMAGE =
@@ -125,9 +142,18 @@ export const metadata: Metadata = {
     telephone: true,
     address: true,
   },
-  verification: GOOGLE_SITE_VERIFICATION
-    ? { google: GOOGLE_SITE_VERIFICATION }
-    : undefined,
+  verification:
+    GOOGLE_SITE_VERIFICATION.length || BING_SITE_VERIFICATION.length
+      ? {
+          google: GOOGLE_SITE_VERIFICATION.length
+            ? GOOGLE_SITE_VERIFICATION
+            : undefined,
+          // Bing Webmaster Tools reads <meta name="msvalidate.01">.
+          other: BING_SITE_VERIFICATION.length
+            ? { "msvalidate.01": BING_SITE_VERIFICATION }
+            : undefined,
+        }
+      : undefined,
   other: {
     // Geo tagging — still picked up by many tools (Bing Places, some AI
     // summarisers) even though modern schema.org is preferred.
@@ -334,8 +360,10 @@ function JsonLd() {
         ],
       },
 
-      // WebSite — enables Sitelinks search box and declares the search action
-      // target that some AI assistants use to navigate into the site.
+      // WebSite — ties every page to the organisation. No SearchAction: the
+      // site has no ?q= search endpoint, and Google retired the Sitelinks
+      // search box, so declaring one would only be a broken promise to
+      // crawlers and answer engines that try to follow it.
       {
         "@type": "WebSite",
         "@id": `${BASE_URL}/#website`,
@@ -345,14 +373,6 @@ function JsonLd() {
           "Private shuttle service from Liberia Airport (LIR) to every beach in Guanacaste and destinations across Costa Rica.",
         inLanguage: "en-US",
         publisher: { "@id": `${BASE_URL}/#organization` },
-        potentialAction: {
-          "@type": "SearchAction",
-          target: {
-            "@type": "EntryPoint",
-            urlTemplate: `${BASE_URL}/private-shuttle?q={search_term_string}`,
-          },
-          "query-input": "required name=search_term_string",
-        },
       },
 
       // Home page WebPage
