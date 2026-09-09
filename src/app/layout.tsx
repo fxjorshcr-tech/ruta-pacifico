@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import FloatingCart from "@/components/FloatingCart";
 import { SOCIAL_PROFILES } from "@/lib/contact";
@@ -422,11 +421,14 @@ function JsonLd() {
     ],
   };
 
+  // A plain <script> so the graph is present in the static HTML. next/script
+  // (even with beforeInteractive) only materialises the tag on the client,
+  // which hides it from crawlers that do not execute JavaScript: Bing,
+  // GPTBot, PerplexityBot, ClaudeBot and most answer engines.
   return (
-    <Script
+    <script
       id="ld-json-organization"
       type="application/ld+json"
-      strategy="beforeInteractive"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
     />
   );
