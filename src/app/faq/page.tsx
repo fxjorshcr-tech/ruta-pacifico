@@ -15,7 +15,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Frequently Asked Questions | Ruta Pacifico",
   description:
-    "Everything you need to know about booking a private shuttle with Ruta Pacifico: pickup, pricing, cancellation, car seats, luggage, airport transfers and more.",
+    "Answers about booking a private shuttle with Ruta Pacifico: pickup, pricing, cancellation, car seats, luggage and airport transfers.",
   alternates: { canonical: "/faq" },
   openGraph: {
     type: "website",
@@ -191,8 +191,7 @@ export default async function FaqPage() {
             </span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-white/80 sm:text-base">
-            Everything you need to know about booking a private shuttle with
-            Ruta Pacifico — from airport pickups to car seats, luggage, and
+            Answers about airport pickups, car seats, luggage, payment and
             cancellations.
           </p>
         </div>
@@ -269,8 +268,8 @@ export default async function FaqPage() {
             Still have questions?
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-sm text-foreground/60">
-            Our bilingual team is ready to help before, during, and after your
-            ride — 7 days a week.
+            Write to us on WhatsApp. We answer in English or Spanish, seven days
+              a week.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <a

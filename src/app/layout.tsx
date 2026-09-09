@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     template: "%s | Ruta Pacifico",
   },
   description:
-    "Private airport shuttles from Liberia Airport (LIR) to Tamarindo, Flamingo, Papagayo, Nosara and every beach on Costa Rica's Golden Coast. Fixed prices, bilingual drivers, real-time flight tracking.",
+    "Private airport shuttles from Liberia Airport (LIR) to Tamarindo, Flamingo, Papagayo, Nosara and every beach in Guanacaste, Costa Rica. Fixed prices, bilingual drivers, flight tracking.",
   applicationName: "Ruta Pacifico",
   generator: "Next.js",
   authors: [{ name: "Ruta Pacifico", url: BASE_URL }],
@@ -118,7 +118,7 @@ export const metadata: Metadata = {
     siteName: "Ruta Pacifico",
     title: "Ruta Pacifico | Private Shuttles from Liberia Airport (LIR)",
     description:
-      "Private airport shuttles from LIR to Tamarindo, Flamingo, Papagayo, Nosara and every beach on Costa Rica's Golden Coast. Fixed prices, flight tracking, bilingual drivers.",
+      "Private airport shuttles from LIR to Tamarindo, Flamingo, Papagayo, Nosara and every beach in Guanacaste. Fixed prices, flight tracking, bilingual drivers.",
     images: [
       {
         url: OG_IMAGE,

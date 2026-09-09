@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About & Contact Us | Ruta Pacifico",
     description:
-      "Get in touch with Ruta Pacifico — licensed ICT operator for private shuttles across Guanacaste and Costa Rica.",
+      "Contact Ruta Pacifico, a licensed ICT operator for private shuttles across Guanacaste and Costa Rica.",
     url: "/about-contact",
   },
 };
@@ -76,7 +76,7 @@ export default function AboutContactPage() {
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-white/75">
             Licensed ICT operator {ICT_LICENSE}, based in Guanacaste. Reach us any day
-            of the week — we reply fast on WhatsApp.
+            of the week. WhatsApp gets the fastest reply.
           </p>
         </div>
       </section>
@@ -89,7 +89,7 @@ export default function AboutContactPage() {
               The Company
             </span>
             <h2 className="mt-4 text-2xl font-bold text-foreground sm:text-3xl">
-              Private ground transportation, done right
+              Who we are
             </h2>
             <p className="mt-4 leading-relaxed text-foreground/70">
               Ruta Pacifico is a fully licensed and insured ground transportation
@@ -102,12 +102,12 @@ export default function AboutContactPage() {
               Every ride is operated by a professional bilingual driver in a modern
               air-conditioned vehicle. Incoming flights are monitored in real time,
               pricing is fixed in advance and inclusive of all taxes and tolls, and
-              each reservation is exclusive to your party — no sharing, no detours.
+              each reservation is exclusive to your party. No sharing, no detours.
             </p>
 
             <ul className="mt-6 grid gap-3 text-sm text-foreground/75 sm:grid-cols-2">
               {[
-                "ICT Licensed — certified by the Costa Rica Tourism Board",
+                "ICT licensed by the Costa Rica Tourism Board",
                 "Fully insured operator",
                 "Professional bilingual drivers",
                 "Modern, air-conditioned fleet",
@@ -254,7 +254,7 @@ export default function AboutContactPage() {
             </span>
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-foreground/60">
-            For reservations, changes, or questions — WhatsApp is the fastest.
+            For reservations, changes or questions, WhatsApp is the fastest.
             You&apos;ll hear back within minutes during daytime hours.
           </p>
         </div>
@@ -289,7 +289,7 @@ export default function AboutContactPage() {
                   {WHATSAPP_NUMBER_DISPLAY}
                 </div>
                 <p className="mt-2 text-sm text-foreground/60">
-                  Tap to open a chat — reservations, changes, and real-time driver
+                  Tap to open a chat for reservations, changes and real-time driver
                   updates.
                 </p>
               </div>
@@ -420,8 +420,8 @@ export default function AboutContactPage() {
               Ready to book your private shuttle?
             </h2>
             <p className="relative mx-auto mt-3 max-w-xl text-sm text-white/70">
-              Instant pricing, flight monitoring included, no hidden fees. Pay via
-              secure link once your reservation is confirmed.
+              See the price on the route page, reserve, and pay by secure link once
+            we confirm.
             </p>
             <div className="relative mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link

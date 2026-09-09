@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     url: `${BASE}/blog`,
     title: "Guanacaste Travel Guide & Blog | Ruta Pacifico",
     description:
-      "Local travel guides for Guanacaste, Costa Rica — airport transfers, beach towns, driving times and trip planning.",
+      "Local travel guides for Guanacaste, Costa Rica: airport transfers, beach towns, driving times and trip planning.",
     siteName: "Ruta Pacifico",
     images: [{ url: HERO_URL, width: 1200, height: 630, alt: "Guanacaste, Costa Rica" }],
   },
@@ -117,8 +117,8 @@ export default async function BlogIndexPage() {
             </span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base">
-            Honest, up-to-date answers about getting around Costa Rica&rsquo;s
-            Gold Coast — from the team that drives these roads every single day.
+            Practical notes on getting around Guanacaste, written by the people
+              who drive these roads.
           </p>
         </div>
       </section>
@@ -217,11 +217,11 @@ export default async function BlogIndexPage() {
       <section className="mx-auto max-w-5xl px-6 pb-20">
         <div className="rounded-3xl bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold p-8 text-center text-white shadow-xl sm:p-10">
           <h2 className="text-2xl font-bold sm:text-3xl">
-            Ready to skip the rental-car hassle?
+            Need a ride?
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-sm text-white/90 sm:text-base">
-            Fixed-price private shuttles anywhere in Costa Rica — bilingual
-            drivers, flight tracking, free child seats.
+            Private shuttles anywhere in Costa Rica at a fixed price, with
+              flight tracking and free child seats.
           </p>
           <Link
             href="/private-shuttle"

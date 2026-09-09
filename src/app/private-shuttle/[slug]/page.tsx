@@ -502,8 +502,8 @@ export default async function RoutePage({
             Choose vehicle &amp; trip details
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-sm text-foreground/60">
-            Pick the vehicle that fits your group, the date and time, and tell
-            us where to meet you — we&apos;ll take it from there.
+            Pick the vehicle for your group, the date and time, and tell us
+            where to meet you.
           </p>
         </div>
         <BookingSection
