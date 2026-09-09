@@ -14,6 +14,7 @@ import {
   hasGuide,
   isRouteIndexable,
   selectIndexableRoutes,
+  type Destination,
 } from "@/lib/destinations";
 import {
   MAX_PAX,
@@ -92,14 +93,30 @@ export async function generateMetadata({
   };
 }
 
+/** First paragraph of a Markdown block as plain text, for JSON-LD descriptions. */
+function plainSummary(md: string | undefined): string | undefined {
+  if (!md) return undefined;
+  const first = md.trim().split(/\n\s*\n/)[0] ?? "";
+  const text = first
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/[*_`#>]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return text || undefined;
+}
+
 function RouteJsonLd({
   route,
   slug,
   airportPickup,
+  origin,
+  destination,
 }: {
   route: Route;
   slug: string;
   airportPickup: boolean;
+  origin?: Destination;
+  destination?: Destination;
 }) {
   const url = `${BASE_URL}/private-shuttle/${slug}`;
   const prices = VEHICLE_TIERS.map((tier) => ({
@@ -172,8 +189,16 @@ function RouteJsonLd({
         description: `Private transfer from ${route.origen} to ${route.destino}.`,
         provider: { "@id": `${BASE_URL}/#organization` },
         itinerary: [
-          { "@type": "Place", name: route.origen },
-          { "@type": "Place", name: route.destino },
+          {
+            "@type": "Place",
+            name: route.origen,
+            description: plainSummary(origin?.intro_md),
+          },
+          {
+            "@type": "Place",
+            name: route.destino,
+            description: plainSummary(destination?.intro_md),
+          },
         ],
         offers: {
           "@type": "Offer",
@@ -260,7 +285,13 @@ export default async function RoutePage({
 
   return (
     <main className="bg-light-surface min-h-screen">
-      <RouteJsonLd route={route} slug={slug} airportPickup={airportPickup} />
+      <RouteJsonLd
+        route={route}
+        slug={slug}
+        airportPickup={airportPickup}
+        origin={showGuide ? origin : undefined}
+        destination={showGuide ? destination : undefined}
+      />
       {/* ─── NAV ─── */}
       <SiteNav transparent />
 
@@ -461,16 +492,6 @@ export default async function RoutePage({
         </div>
       </section>
 
-      {showGuide && destination ? (
-        <DestinationGuide
-          route={route}
-          origin={origin}
-          destination={destination}
-          related={related}
-          reverse={reverse}
-        />
-      ) : null}
-
       {/* ─── Booking form ─── */}
       <section id="booking" className="mx-auto max-w-5xl px-6 py-16 scroll-mt-24">
         <div className="mb-8 text-center">
@@ -481,8 +502,8 @@ export default async function RoutePage({
             Choose vehicle &amp; trip details
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-sm text-foreground/60">
-            Pick the vehicle that fits your group, the date and time, and tell
-            us where to meet you — we&apos;ll take it from there.
+            Pick the vehicle for your group, the date and time, and tell us
+            where to meet you.
           </p>
         </div>
         <BookingSection
@@ -491,6 +512,19 @@ export default async function RoutePage({
           initialVehicle={initialVehicle}
         />
       </section>
+
+      {/* ─── Destination guide — after the booking form, collapsed by default
+          so it never interrupts the booking flow; the copy stays in the HTML
+          for search engines and AI assistants. ─── */}
+      {showGuide && destination ? (
+        <DestinationGuide
+          route={route}
+          origin={origin}
+          destination={destination}
+          related={related}
+          reverse={reverse}
+        />
+      ) : null}
 
       {/* ─── FOOTER ─── */}
       <footer className="border-t border-black/5 bg-foreground text-white">

@@ -209,8 +209,8 @@ export default async function BlogPostPage({
               Book your private shuttle
             </h2>
             <p className="mx-auto mt-2 max-w-xl text-sm text-white/90 sm:text-base">
-              Fixed prices, bilingual drivers, flight tracking and free child
-              seats — anywhere in Costa Rica, door to door.
+              Door to door anywhere in Costa Rica at a fixed price, with flight
+            tracking and free child seats.
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
               <Link

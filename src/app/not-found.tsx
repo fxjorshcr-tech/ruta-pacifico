@@ -32,11 +32,11 @@ export default function NotFound() {
           Error 404
         </p>
         <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          This page took a wrong turn
+          Page not found
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-base text-foreground/70">
-          The link you followed no longer exists or was mistyped. Every private
-          shuttle route we operate is one search away.
+          The link you followed no longer exists or has a typo. These are the
+          pages people usually want.
         </p>
         <ul className="mx-auto mt-10 grid max-w-md gap-3 text-left">
           {POPULAR.map((item) => (

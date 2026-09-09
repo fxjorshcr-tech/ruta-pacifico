@@ -109,7 +109,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="mt-5 max-w-lg text-base text-white/80 sm:text-lg">
-              Private airport shuttles from LIR to Tamarindo, Flamingo, Papagayo, Nosara &amp; every beach on the Golden Coast of Costa Rica.
+              A private driver from Liberia Airport (LIR) to Tamarindo, Flamingo, Papagayo, Nosara or any other beach in Guanacaste. Fixed price, flight tracked, name sign at arrivals.
             </p>
             {/* Mobile / tablet CTA — the desktop CTA lives next to the logo. */}
             <Link
@@ -178,7 +178,7 @@ export default function Home() {
             {[
               {
                 title: "From LIR Airport",
-                desc: "We pick you up at Liberia Airport (LIR) and drive you straight to any beach, resort, or town in Guanacaste — and also to La Fortuna, Monteverde, or anywhere else your trip takes you. We track your flight in real time and your driver is waiting at arrivals.",
+                desc: "Pickup at Liberia Airport (LIR) and a direct drive to your hotel, villa or resort anywhere in Guanacaste, or on to La Fortuna and Monteverde. We track the flight, so the driver is at arrivals when you walk out.",
                 tags: ["Tamarindo", "Flamingo", "Papagayo", "Nosara", "Conchal", "La Fortuna", "Monteverde"],
                 gradient: "from-sunset-orange to-sunset-red",
                 shadowColor: "hover:shadow-sunset-orange/20",
@@ -189,7 +189,7 @@ export default function Home() {
               },
               {
                 title: "Between Beaches",
-                desc: "Private rides connecting every coastal town in Guanacaste. Tamarindo to Flamingo, Conchal to Nosara, Papagayo to S\u00e1mara — one-way transfers, round trips, or full-day trips along the coast. Same driver, same vehicle, at your own pace.",
+                desc: "Rides between the coastal towns of Guanacaste: Tamarindo to Flamingo, Conchal to Nosara, Papagayo to S\u00e1mara. One way, round trip, or a full day with the same driver and vehicle.",
                 tags: ["One-way", "Round-trip", "Full-day", "Tamarindo", "Flamingo", "Nosara", "Conchal"],
                 gradient: "from-sunset-gold to-sunset-orange",
                 shadowColor: "hover:shadow-sunset-gold/20",
@@ -203,7 +203,7 @@ export default function Home() {
               },
               {
                 title: "Across Costa Rica",
-                desc: "Long-distance private shuttles from Guanacaste to La Fortuna, Monteverde, Manuel Antonio, San Jos\u00e9, and other regions of Costa Rica. Also available between destinations — La Fortuna to Manuel Antonio, Monteverde to Arenal, and any combination.",
+                desc: "Long-distance transfers from Guanacaste to La Fortuna, Monteverde, Manuel Antonio, San Jos\u00e9 and the rest of the country, plus legs between those places, such as La Fortuna to Manuel Antonio.",
                 tags: ["La Fortuna", "Monteverde", "Manuel Antonio", "San Jos\u00e9", "Arenal"],
                 gradient: "from-foreground to-foreground/80",
                 shadowColor: "hover:shadow-foreground/10",
@@ -260,7 +260,7 @@ export default function Home() {
               ?
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
-              World-class surf, white-sand hideaways, or vibrant beach-town nights — wherever you&apos;re headed, we&apos;ll get you there from the airport.
+              Three of the places we drive to most often. Every other beach, hotel and town in the province is on the booking page.
             </p>
           </div>
 
@@ -277,7 +277,7 @@ export default function Home() {
                 </span>
                 <h3 className="mt-3 text-2xl font-bold text-white">Tamarindo</h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/80">
-                  The beating heart of Guanacaste nightlife. Great surf by day, craft cocktails by night, and a beach-town energy that keeps people coming back year after year.
+                  The busiest beach town in Guanacaste: surf lessons every morning, a walkable centre full of restaurants, and sunset watched from the sand. About 50 minutes from the airport on paved road.
                 </p>
                 <Link href="/private-shuttle" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
                   Book a shuttle
@@ -300,7 +300,7 @@ export default function Home() {
                 </span>
                 <h3 className="mt-3 text-2xl font-bold text-white">Conchal</h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/80">
-                  Crushed-shell shores and crystal-clear turquoise water. A peaceful paradise surrounded by luxury resorts — perfect for those who want beauty without the crowds.
+                  A beach of crushed shells with the clearest water on this coast, next to the Reserva Conchal resorts. Quiet, good for snorkelling, and an hour from the airport.
                 </p>
                 <Link href="/private-shuttle" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
                   Book a shuttle
@@ -323,7 +323,7 @@ export default function Home() {
                 </span>
                 <h3 className="mt-3 text-2xl font-bold text-white">Nosara</h3>
                 <p className="mt-2 text-sm leading-relaxed text-white/80">
-                  Where the jungle meets world-class surf breaks. A haven for yogis, surfers, and anyone looking to reconnect with nature on Costa Rica&apos;s wildest coast.
+                  A long surf beach with yoga studios and lodges set back in the trees, and no buildings on the sand. The last stretch of road is gravel, which is why most visitors arrive with a driver.
                 </p>
                 <Link href="/private-shuttle" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
                   Book a shuttle
@@ -348,12 +348,12 @@ export default function Home() {
           </div>
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { title: "Experienced Drivers", desc: "Professional drivers with years of experience on Guanacaste roads and mountain routes." },
-              { title: "Comfortable Vehicles", desc: "Air-conditioned SUVs and vans with Wi-Fi and cold water on board." },
-              { title: "Fixed Rates", desc: "The price you see when you book is the price you pay. Fuel, tolls, and taxes included." },
-              { title: "Real-Time Flight Tracking", desc: "We monitor your flight status and adjust the pickup time if it arrives early or late." },
-              { title: "English & Spanish", desc: "All drivers are bilingual and happy to share tips about the region." },
-              { title: "Door-to-Door", desc: "Pickup at the terminal exit, drop-off at your accommodation entrance." },
+              { title: "Drivers who know the roads", desc: "Local drivers who do these routes every week, including the mountain road to Monteverde and the gravel into Nosara." },
+              { title: "Comfortable vehicles", desc: "Air-conditioned vans with Wi-Fi and cold water on board." },
+              { title: "Fixed rates", desc: "The price you see when you book is the price you pay. Fuel, tolls and taxes included." },
+              { title: "Flight tracking", desc: "We follow your flight and move the pickup if it lands early or late. No extra charge for delays." },
+              { title: "English and Spanish", desc: "All drivers speak both languages. Ask them where to eat." },
+              { title: "Door to door", desc: "Pickup at the terminal exit, drop-off at the door of your hotel or villa." },
             ].map((feature) => (
               <div key={feature.title} className="flex gap-4 rounded-xl border border-black/5 bg-white p-6 shadow-sm">
                 <div className="mt-0.5 shrink-0 text-sunset-orange">
@@ -380,7 +380,7 @@ export default function Home() {
               Our Fleet
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
-              Modern, air-conditioned vehicles for every group size. All units equipped with Wi-Fi, cold water, and plenty of luggage space.
+              Air-conditioned vans sized for 1 to 12 passengers, with Wi-Fi, cold water and room for everyone&apos;s luggage.
             </p>
           </div>
 
@@ -420,13 +420,13 @@ export default function Home() {
           <div className="text-center">
             <StarDivider />
             <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl">
-              Your Gateway to{" "}
+              Flying into{" "}
               <span className="bg-gradient-to-r from-sunset-gold to-sunset-orange bg-clip-text text-transparent">
-                Guanacaste
+                Liberia (LIR)
               </span>
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
-              Liberia International Airport (LIR) — the closest airport to Costa Rica&apos;s best Pacific beaches. We&apos;ll be waiting for you right outside the terminal.
+              Liberia is the closest international airport to the Guanacaste beaches. Your driver waits right outside the terminal.
             </p>
           </div>
 
@@ -460,10 +460,10 @@ export default function Home() {
                 Direct flights from the US &amp; Canada
               </h3>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                United, Delta, American, JetBlue, Southwest, and Air Canada fly into LIR year-round from major cities. Just 15 minutes from the city of Liberia, the airport puts you within a short ride of every beach in Guanacaste.
+                United, Delta, American, JetBlue, Southwest and Air Canada fly into LIR year-round. The airport is 15 minutes from Liberia town and between 25 minutes and 2 hours from the beaches.
               </p>
               <p className="mt-3 leading-relaxed text-foreground/70">
-                We monitor every incoming flight in real time and adjust your pickup if you land early or late. Your driver will be waiting with a sign right at the arrivals exit.
+                We follow every incoming flight and adjust the pickup if you land early or late. The driver waits at the arrivals exit with a sign with your name.
               </p>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 {[
@@ -502,13 +502,13 @@ export default function Home() {
           <div className="text-center">
             <StarDivider />
             <h2 className="mt-6 text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
-              Discover{" "}
+              About{" "}
               <span className="bg-gradient-to-r from-sunset-gold via-sunset-orange to-sunset-red bg-clip-text text-transparent">
                 Guanacaste
               </span>
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
-              Costa Rica&apos;s sunniest province — 600+ km of Pacific coastline, 300+ days of sunshine, volcanoes, and a culture unlike anywhere else.
+              The driest, sunniest province in Costa Rica: 600 km of Pacific coast, volcanoes inland, and its own traditions.
             </p>
           </div>
 
@@ -536,19 +536,19 @@ export default function Home() {
 
             <div>
               <span className="inline-block rounded-full border border-sunset-orange/20 bg-sunset-orange/5 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-sunset-orange">
-                Pacific Paradise
+                The region
               </span>
               <h3 className="mt-4 text-2xl font-bold text-foreground sm:text-3xl">
-                Where the jungle meets the sea
+                What to expect
               </h3>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                The dry season from November to April makes Guanacaste the perfect winter escape — white-sand coves, surf towns, luxury resorts, and quiet fishing villages, all within a short private-shuttle ride from Liberia Airport (LIR).
+                From November to April it barely rains, which is why the province fills with winter visitors. The coast mixes surf towns, resort bays and small fishing villages, all between 25 minutes and 2 hours from the airport.
               </p>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                Inland, you&apos;ll find the Rinc&oacute;n de la Vieja volcano, tropical dry forests, and waterfalls like Llanos de Cort&eacute;s. The only province that celebrates its own annexation day on July 25th — with parades, traditional music, and horseback shows.
+                Inland there is the Rinc&oacute;n de la Vieja volcano, dry tropical forest and waterfalls like Llanos de Cort&eacute;s. On 25 July the province celebrates its annexation with parades, marimba music and horse shows.
               </p>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                A top destination for surfing, sport fishing, and diving at the Catalinas Islands.
+                Surfing, sport fishing out of Flamingo and Papagayo, and diving at the Catalina Islands are the main draws.
               </p>
             </div>
           </div>
@@ -628,7 +628,7 @@ export default function Home() {
               </span>
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-foreground/60">
-              Professional private ground transportation for travelers visiting Costa Rica.
+              A licensed transport operator based in Liberia, Guanacaste.
             </p>
           </div>
 
@@ -639,13 +639,13 @@ export default function Home() {
                 The Company
               </span>
               <h3 className="mt-4 text-2xl font-bold text-foreground">
-                Private ground transportation across Costa Rica
+                Who we are
               </h3>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                Ruta Pacifico is a licensed and fully insured ground transportation operator based in Guanacaste. We provide private airport transfers and point-to-point shuttle service from Liberia International Airport (LIR) to destinations throughout Costa Rica.
+                Ruta Pacifico is a licensed and insured ground transportation company based in Guanacaste. We do private airport transfers from Liberia International Airport (LIR) and point-to-point shuttles anywhere in Costa Rica.
               </p>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                Every trip is operated by a professional bilingual driver in a modern, air-conditioned vehicle. Incoming flights are monitored in real time, pricing is fixed in advance and inclusive of all taxes and tolls, and each reservation is exclusive to your party.
+                Each trip has a bilingual driver and an air-conditioned vehicle reserved only for your group. We track incoming flights, and the price you are quoted includes taxes and tolls.
               </p>
               <ul className="mt-6 grid gap-3 text-sm text-foreground/70 sm:grid-cols-2">
                 {[
@@ -680,7 +680,7 @@ export default function Home() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="text-xs font-semibold uppercase tracking-wider text-foreground/40">
-                      WhatsApp — fastest response
+                      WhatsApp (fastest)
                     </div>
                     <a
                       href="https://wa.me/50670805578"

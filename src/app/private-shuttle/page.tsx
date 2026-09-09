@@ -18,9 +18,9 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title:
-    "Book a Private Shuttle | Ruta Pacifico — Private Shuttles in Guanacaste",
+    "Book a Private Shuttle | Ruta Pacifico",
   description:
-    "Private shuttles from Liberia Airport (LIR) to every beach and destination in Costa Rica. Fixed prices, flight tracking, bilingual drivers — book in minutes.",
+    "Private shuttles from Liberia Airport (LIR) to every beach and destination in Costa Rica. Fixed prices, flight tracking, bilingual drivers. Book in minutes.",
   alternates: { canonical: "/private-shuttle" },
   openGraph: {
     type: "website",
@@ -230,7 +230,7 @@ export default async function TransferPage() {
             Good to Know
           </h2>
           <p className="mt-2 text-sm text-foreground/60">
-            Everything you need to know before booking your private shuttle.
+            Before you book: prices, changes and cancellations.
           </p>
         </div>
 
@@ -385,7 +385,7 @@ export default async function TransferPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
                 </span>
-                <span>No hidden fees — the price you see is final</span>
+                <span>No hidden fees, the price you see is final</span>
               </li>
               <li className="flex gap-3">
                 <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600">
@@ -411,8 +411,7 @@ export default async function TransferPage() {
               Frequently Asked Questions
             </h2>
             <p className="mx-auto mt-2 max-w-xl text-sm text-foreground/60">
-              The most common questions travelers ask before booking a private
-              shuttle with us.
+              The questions we get asked most before a booking.
             </p>
           </div>
 
