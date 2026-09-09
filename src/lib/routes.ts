@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { getSupabase } from "@/lib/supabase";
 import { routeSlug } from "@/lib/slug";
 
@@ -57,8 +58,11 @@ function normalizeRoute(row: RouteRow): Route {
   };
 }
 
-/** Every route, paginated past Supabase's 1000-row response cap. */
-export async function getRoutes(): Promise<Route[]> {
+/**
+ * Every route, paginated past Supabase's 1000-row response cap. Wrapped in
+ * React `cache` so generateMetadata + page + related-routes share one fetch.
+ */
+export const getRoutes = cache(async (): Promise<Route[]> => {
   const allRoutes: Route[] = [];
   const pageSize = 1000;
   let from = 0;
@@ -85,7 +89,7 @@ export async function getRoutes(): Promise<Route[]> {
   }
 
   return allRoutes;
-}
+});
 
 export async function findRouteBySlug(slug: string): Promise<Route | null> {
   const all = await getRoutes();

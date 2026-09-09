@@ -5,8 +5,16 @@ import type { Metadata } from "next";
 import BookingSection from "@/components/BookingSection";
 import SiteNav from "@/components/SiteNav";
 import SocialLinks from "@/components/SocialLinks";
-import { findRouteBySlug, type Route } from "@/lib/routes";
-import { isAirportOrigin } from "@/lib/slug";
+import DestinationGuide from "@/components/DestinationGuide";
+import { findRouteBySlug, getRoutes, type Route } from "@/lib/routes";
+import { isAirportOrigin, routeSlug } from "@/lib/slug";
+import {
+  destinationFor,
+  getDestinations,
+  hasGuide,
+  isRouteIndexable,
+  selectIndexableRoutes,
+} from "@/lib/destinations";
 import {
   MAX_PAX,
   VEHICLE_TIERS,
@@ -28,13 +36,17 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const route = await findRouteBySlug(slug);
+  const [route, destinations] = await Promise.all([
+    findRouteBySlug(slug),
+    getDestinations(),
+  ]);
   if (!route) {
     return {
       title: "Route not found | Ruta Pacifico",
       robots: { index: false, follow: false },
     };
   }
+  const indexable = isRouteIndexable(route, destinations);
   const title = `${route.origen} to ${route.destino} Private Shuttle (from $${route.precio1a5})`;
   const description = `Private shuttle from ${route.origen} to ${route.destino}${
     route.duracion ? ` (${route.duracion})` : ""
@@ -44,6 +56,10 @@ export async function generateMetadata({
     title,
     description,
     alternates: { canonical },
+    // Long-tail pairs stay bookable but out of the index (see
+    // src/lib/destinations.ts for the tier rule). `follow` keeps link equity
+    // flowing to the routes that matter.
+    robots: indexable ? undefined : { index: false, follow: true },
     keywords: [
       `${route.origen} to ${route.destino} shuttle`,
       `${route.origen} ${route.destino} transfer`,
@@ -205,10 +221,39 @@ export default async function RoutePage({
   searchParams: Promise<{ v?: string }>;
 }) {
   const [{ slug }, { v }] = await Promise.all([params, searchParams]);
-  const route = await findRouteBySlug(slug);
+  const [route, destinations, allRoutes] = await Promise.all([
+    findRouteBySlug(slug),
+    getDestinations(),
+    getRoutes(),
+  ]);
   if (!route) notFound();
 
   const airportPickup = isAirportOrigin(route.origen);
+
+  // Destination guide + internal links, only on index-able pages.
+  const indexable = isRouteIndexable(route, destinations);
+  const destination = destinationFor(route.destino, destinations);
+  const origin = destinationFor(route.origen, destinations);
+  const showGuide = indexable && hasGuide(destination);
+  const reverseSlug = routeSlug(route.destino, route.origen);
+  const reverse = showGuide
+    ? allRoutes.find(
+        (r) =>
+          routeSlug(r.origen, r.destino) === reverseSlug &&
+          isRouteIndexable(r, destinations)
+      )
+    : undefined;
+  const related = showGuide
+    ? selectIndexableRoutes(
+        allRoutes.filter(
+          (r) =>
+            r.id !== route.id &&
+            r.id !== reverse?.id &&
+            (r.origen === route.origen || r.destino === route.destino)
+        ),
+        destinations
+      ).slice(0, 8)
+    : [];
   const baseTier = VEHICLE_TIERS[0];
   const startingPrice = route.precio1a5;
   const initialVehicle: VehicleKey | undefined = isVehicleKey(v) ? v : undefined;
@@ -415,6 +460,16 @@ export default async function RoutePage({
           </div>
         </div>
       </section>
+
+      {showGuide && destination ? (
+        <DestinationGuide
+          route={route}
+          origin={origin}
+          destination={destination}
+          related={related}
+          reverse={reverse}
+        />
+      ) : null}
 
       {/* ─── Booking form ─── */}
       <section id="booking" className="mx-auto max-w-5xl px-6 py-16 scroll-mt-24">
