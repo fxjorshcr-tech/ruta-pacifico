@@ -8,6 +8,27 @@ import { FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/contact";
 import { LOGO_URL, LOGO_WHITE_URL } from "@/lib/brand";
 import FaqAccordion from "@/components/FaqAccordion";
 import { faqPageJsonLd, getFeaturedFaqs } from "@/lib/faqs";
+import { getRoutes, type Route } from "@/lib/routes";
+import { PRICE_LIST_PATH, lowestPrice } from "@/lib/pricing";
+import { routeSlug, toSlug } from "@/lib/slug";
+
+/**
+ * Beaches on the home page, keyed by the slug of their `routes.destino`
+ * value so each card can show the live "from $X" price of the LIR pickup.
+ */
+const FEATURED_BEACHES = [
+  { name: "Tamarindo", tag: "Surf & nightlife", from: "~50 min from LIR", slug: "tamarindo-guanacaste" },
+  { name: "Flamingo / Conchal", tag: "White-sand bays", from: "~1 hr from LIR", slug: "flamingo-guanacaste" },
+  { name: "Papagayo Peninsula", tag: "Luxury resorts", from: "~30 min from LIR", slug: "papagayo-peninsula-guanacaste" },
+  { name: "Nosara / Sámara", tag: "Yoga & surf", from: "~2 hrs from LIR", slug: "nosara-playa-guiones-area" },
+  { name: "Playas del Coco", tag: "Lively beach town", from: "~25 min from LIR", slug: "playas-del-coco-guanacaste" },
+  { name: "Las Catalinas", tag: "Walkable village", from: "~1 hr from LIR", slug: "las-catalinas-guanacaste" },
+];
+
+/** The LIR pickup route for a destination slug, if it is sold. */
+function lirRouteTo(routes: Route[], slug: string): Route | undefined {
+  return routes.find((r) => /\bLIR\b/.test(r.origen) && toSlug(r.destino) === slug);
+}
 
 /** FAQs come from Supabase; re-render at most hourly instead of per request. */
 export const revalidate = 3600;
@@ -93,7 +114,7 @@ function StarDivider() {
 }
 
 export default async function Home() {
-  const faqs = await getFeaturedFaqs(8);
+  const [faqs, routes] = await Promise.all([getFeaturedFaqs(8), getRoutes()]);
   return (
     <main>
       {/* ─── NAV ─── */}
@@ -574,34 +595,53 @@ export default async function Home() {
             </div>
 
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {[
-                { name: "Tamarindo", tag: "Surf & nightlife", from: "~50 min from LIR" },
-                { name: "Flamingo / Conchal", tag: "White-sand bays", from: "~1 hr from LIR" },
-                { name: "Papagayo Peninsula", tag: "Luxury resorts", from: "~30 min from LIR" },
-                { name: "Nosara / Sámara", tag: "Yoga & surf", from: "~2 hrs from LIR" },
-                { name: "Playas del Coco", tag: "Lively beach town", from: "~25 min from LIR" },
-                { name: "Las Catalinas", tag: "Walkable village", from: "~1 hr from LIR" },
-              ].map((beach) => (
-                <div
-                  key={beach.name}
-                  className="group relative overflow-hidden rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-sunset-orange/30 hover:shadow-lg"
-                >
-                  <div className="absolute right-4 top-4 text-sunset-orange/20 transition group-hover:text-sunset-orange/40">
-                    <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                    </svg>
+              {FEATURED_BEACHES.map((beach) => {
+                const route = lirRouteTo(routes, beach.slug);
+                const price = route ? lowestPrice(route) : null;
+                const card = (
+                  <>
+                    <div className="absolute right-4 top-4 text-sunset-orange/20 transition group-hover:text-sunset-orange/40">
+                      <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                      </svg>
+                    </div>
+                    <div className="text-lg font-bold text-foreground">{beach.name}</div>
+                    <div className="mt-1 text-sm font-medium text-sunset-orange">{beach.tag}</div>
+                    <div className="mt-4 flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-1.5 text-xs text-foreground/40">
+                        <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                        {beach.from}
+                      </div>
+                      {price ? (
+                        <div className="text-right leading-none">
+                          <span className="text-[0.6rem] font-semibold uppercase tracking-wider text-foreground/40">from </span>
+                          <span className="text-lg font-extrabold text-foreground">{`$${price}`}</span>
+                          <span className="block text-[0.6rem] text-foreground/40">per vehicle, taxes incl.</span>
+                        </div>
+                      ) : null}
+                    </div>
+                  </>
+                );
+                const className =
+                  "group relative block overflow-hidden rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-sunset-orange/30 hover:shadow-lg";
+                return route ? (
+                  <Link
+                    key={beach.name}
+                    href={`/private-shuttle/${routeSlug(route.origen, route.destino)}`}
+                    className={className}
+                    aria-label={`Private shuttle from Liberia Airport to ${beach.name}${price ? `, from $${price} per vehicle` : ""}`}
+                  >
+                    {card}
+                  </Link>
+                ) : (
+                  <div key={beach.name} className={className}>
+                    {card}
                   </div>
-                  <div className="text-lg font-bold text-foreground">{beach.name}</div>
-                  <div className="mt-1 text-sm font-medium text-sunset-orange">{beach.tag}</div>
-                  <div className="mt-4 flex items-center gap-1.5 text-xs text-foreground/40">
-                    <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
-                    {beach.from}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             <div className="mt-10 text-center">
@@ -615,7 +655,11 @@ export default async function Home() {
                 </svg>
               </Link>
               <p className="mt-3 text-xs text-foreground/40">
-                Search any destination on our booking page.
+                Search any destination on our booking page, or see the{" "}
+                <Link href={PRICE_LIST_PATH} className="font-semibold text-sunset-orange hover:text-sunset-red">
+                  full price list
+                </Link>
+                .
               </p>
             </div>
           </div>

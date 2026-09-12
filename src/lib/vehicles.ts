@@ -24,6 +24,8 @@ export interface VehicleTier {
   maxPax: number;
   /** Display label, e.g. "1 – 5 passengers". */
   paxLabel: string;
+  /** Who usually books this size, for price lists and llms.txt. */
+  typicalUse: string;
   image: string;
   priceField: PriceField;
 }
@@ -42,6 +44,7 @@ export const VEHICLE_TIERS: VehicleTier[] = [
     minPax: 1,
     maxPax: 5,
     paxLabel: "1 – 5 passengers",
+    typicalUse: "Families, couples, solo travellers",
     image: STARIA_URL,
     priceField: "precio1a5",
   },
@@ -51,6 +54,7 @@ export const VEHICLE_TIERS: VehicleTier[] = [
     minPax: 6,
     maxPax: 9,
     paxLabel: "6 – 9 passengers",
+    typicalUse: "Medium groups, extra luggage or surfboards",
     image: HIACE_URL,
     priceField: "precio6a9",
   },
@@ -60,6 +64,7 @@ export const VEHICLE_TIERS: VehicleTier[] = [
     minPax: 10,
     maxPax: 12,
     paxLabel: "10 – 12 passengers",
+    typicalUse: "Large groups, wedding parties, corporate groups",
     image: MAXUS_URL,
     priceField: "precio10a12",
   },

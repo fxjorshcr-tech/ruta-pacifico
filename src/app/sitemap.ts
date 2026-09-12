@@ -20,7 +20,7 @@ const BASE = "https://rutapacifico.com";
  * Route pages omit lastmod (their price/duration edits are not tracked);
  * blog posts use the real updated_at from the database.
  */
-const STATIC_LAST_MODIFIED = new Date("2026-09-09");
+const STATIC_LAST_MODIFIED = new Date("2026-09-12");
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
@@ -29,6 +29,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: STATIC_LAST_MODIFIED,
       changeFrequency: "weekly",
       priority: 1,
+    },
+    {
+      url: `${BASE}/prices`,
+      lastModified: STATIC_LAST_MODIFIED,
+      changeFrequency: "weekly",
+      priority: 0.9,
     },
     {
       url: `${BASE}/private-shuttle`,

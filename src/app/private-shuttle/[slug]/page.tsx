@@ -350,7 +350,7 @@ export default async function RoutePage({
                 </span>
                 <div className="mt-1 flex items-baseline gap-1.5">
                   <span className="bg-gradient-to-r from-sunset-gold via-sunset-orange to-sunset-red bg-clip-text text-5xl font-extrabold tracking-tight text-transparent drop-shadow-sm sm:text-6xl">
-                    ${startingPrice}
+                    {`$${startingPrice}`}
                   </span>
                   <span className="text-sm font-semibold text-white/80">
                     USD

@@ -68,24 +68,31 @@ export const getRoutes = cache(async (): Promise<Route[]> => {
   let from = 0;
   let hasMore = true;
 
-  while (hasMore) {
-    const { data, error } = await getSupabase()
-      .from("routes")
-      .select(ROUTE_COLUMNS)
-      .order("origen", { ascending: true })
-      .range(from, from + pageSize - 1);
+  // Never reject: a missing env var or a network failure degrades to an
+  // empty list, exactly like a query error, so the pages that list prices
+  // (home, /prices, llms.txt) render without the figures instead of 500ing.
+  try {
+    while (hasMore) {
+      const { data, error } = await getSupabase()
+        .from("routes")
+        .select(ROUTE_COLUMNS)
+        .order("origen", { ascending: true })
+        .range(from, from + pageSize - 1);
 
-    if (error) {
-      console.error("Failed to fetch routes:", error.message);
-      break;
+      if (error) {
+        console.error("Failed to fetch routes:", error.message);
+        break;
+      }
+
+      if (data) {
+        allRoutes.push(...(data as RouteRow[]).map(normalizeRoute));
+      }
+
+      hasMore = (data?.length ?? 0) === pageSize;
+      from += pageSize;
     }
-
-    if (data) {
-      allRoutes.push(...(data as RouteRow[]).map(normalizeRoute));
-    }
-
-    hasMore = (data?.length ?? 0) === pageSize;
-    from += pageSize;
+  } catch (err) {
+    console.error("Failed to fetch routes:", err);
   }
 
   return allRoutes;
