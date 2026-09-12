@@ -35,6 +35,16 @@ const HERO_URL =
  */
 export const revalidate = 43200;
 
+/**
+ * No paths at build time: each slug is rendered on its first visit and then
+ * served from the ISR cache until `revalidate` elapses. Next only treats a
+ * dynamic segment as ISR when this function exists (an empty array is the
+ * documented way to say "all paths at runtime").
+ */
+export function generateStaticParams(): { slug: string }[] {
+  return [];
+}
+
 const BASE_URL = "https://rutapacifico.com";
 
 export async function generateMetadata({
