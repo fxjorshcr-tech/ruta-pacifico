@@ -16,7 +16,6 @@ const SITE_URL = "https://rutapacifico.com";
 const WHATSAPP_DISPLAY = "+506 7080-5578";
 const WHATSAPP_RAW = "50670805578";
 const RESERVATIONS_EMAIL = "reservations@rutapacifico.com";
-const ICT_LICENSE = "#4121-2025";
 
 interface BookingRequestBody {
   trips: TripItem[];
@@ -328,7 +327,7 @@ function customerEmailHtml(b: BookingRequestBody): string {
                     <td width="8" style="font-size:0;">&nbsp;</td>
                     <td width="33%" style="padding:10px;background:#faf6ee;border-radius:12px;text-align:center;">
                       <div style="font-size:18px;">⭐</div>
-                      <div style="margin-top:4px;font-size:11px;font-weight:700;color:#1a1a1a;">ICT ${ICT_LICENSE}</div>
+                      <div style="margin-top:4px;font-size:11px;font-weight:700;color:#1a1a1a;">ICT Licensed</div>
                     </td>
                     <td width="8" style="font-size:0;">&nbsp;</td>
                     <td width="33%" style="padding:10px;background:#faf6ee;border-radius:12px;text-align:center;">

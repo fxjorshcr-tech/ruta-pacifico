@@ -143,7 +143,7 @@ All vehicles include: air conditioning, free WiFi, cold bottled water, phone cha
 - **Legal name:** Ruta Pacifico
 - **Based in:** Liberia, Guanacaste, Costa Rica (10.5933 N, -85.5444 W)
 - **Status:** Licensed and fully insured ground-transportation operator
-- **License:** ICT (Instituto Costarricense de Turismo / Costa Rica Tourism Board) tourism transport licence #4121-2025
+- **License:** Licensed tourism transport operator, ICT (Instituto Costarricense de Turismo / Costa Rica Tourism Board)
 - **Google rating:** 5.0 stars
 - **Year founded:** 2021
 
@@ -185,7 +185,7 @@ export function buildLlmsFullTxt(routes: Route[], destinations: DestinationMap):
 
 - **Business name:** Ruta Pacifico
 - **Legal form:** Licensed and fully insured ground-transportation operator
-- **Tourism license:** ICT (Instituto Costarricense de Turismo / Costa Rica Tourism Board) transport operator licence #4121-2025
+- **Tourism license:** Licensed transport operator, ICT (Instituto Costarricense de Turismo / Costa Rica Tourism Board)
 - **Year founded:** 2021
 - **Registered address / headquarters:** Liberia, Guanacaste, Costa Rica
 - **Coordinates:** 10.5933° N, -85.5444° W
@@ -301,7 +301,7 @@ WhatsApp-only booking is also available: ${WHATSAPP_DISPLAY}.
 
 ## 10. Differentiators (why travellers book Ruta Pacifico)
 
-1. **Licensed & insured** — ICT (Costa Rica Tourism Board) licence #4121-2025, not an informal taxi app.
+1. **Licensed & insured** — ICT (Costa Rica Tourism Board) licensed operator, not an informal taxi app.
 2. **Private, exclusive to your party** — never shared with other travellers.
 3. **Published, fixed pricing** — every route priced publicly (section 5); no surge pricing, no per-stop surcharges, no "airport fee" at pickup.
 4. **Bilingual drivers** — English and Spanish, trained in hospitality and local knowledge.
