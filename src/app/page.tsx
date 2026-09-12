@@ -4,7 +4,7 @@ import SiteNav from "@/components/SiteNav";
 import SocialLinks from "@/components/SocialLinks";
 import GuanacasteGallery from "@/components/GuanacasteGallery";
 import { VEHICLE_TIERS } from "@/lib/vehicles";
-import { FACEBOOK_URL, INSTAGRAM_URL, SISTER_BRAND } from "@/lib/contact";
+import { FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/contact";
 import { LOGO_URL, LOGO_WHITE_URL } from "@/lib/brand";
 import FaqAccordion from "@/components/FaqAccordion";
 import { faqPageJsonLd, getFeaturedFaqs } from "@/lib/faqs";
@@ -732,7 +732,7 @@ export default async function Home() {
                 Who we are
               </h3>
               <p className="mt-4 leading-relaxed text-foreground/70">
-                Ruta Pacifico is a licensed and insured ground transportation company based in Guanacaste. We do private airport transfers from Liberia International Airport (LIR) and point-to-point shuttles anywhere in Costa Rica. It is the Guanacaste brand of the same licensed operator that runs {SISTER_BRAND.name} in {SISTER_BRAND.region}; each brand has its own phone number and email.
+                Ruta Pacifico is a licensed and insured ground transportation company based in Guanacaste. We do private airport transfers from Liberia International Airport (LIR) and point-to-point shuttles anywhere in Costa Rica.
               </p>
               <p className="mt-4 leading-relaxed text-foreground/70">
                 Each trip has a bilingual driver and an air-conditioned vehicle reserved only for your group. We track incoming flights, and the price you are quoted includes taxes and tolls.
