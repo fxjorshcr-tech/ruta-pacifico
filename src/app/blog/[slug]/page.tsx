@@ -15,7 +15,18 @@ import { LOGO_WHITE_URL } from "@/lib/brand";
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 
-export const dynamic = "force-dynamic";
+/** Regenerate at most hourly; edits to a post appear within the hour without a deploy. */
+export const revalidate = 3600;
+
+/**
+ * No paths at build time: each slug is rendered on its first visit and then
+ * served from the ISR cache until `revalidate` elapses. Next only treats a
+ * dynamic segment as ISR when this function exists (an empty array is the
+ * documented way to say "all paths at runtime").
+ */
+export function generateStaticParams(): { slug: string }[] {
+  return [];
+}
 
 const BASE = "https://rutapacifico.com";
 

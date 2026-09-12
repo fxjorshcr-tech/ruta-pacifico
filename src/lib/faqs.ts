@@ -1,8 +1,14 @@
 import { cache } from "react";
 import { getSupabase } from "@/lib/supabase";
 import type { Faq } from "@/components/FaqAccordion";
+import { withCurrentContactIn } from "@/lib/contact";
 
 const COLUMNS = "id, category, question, answer, display_order, is_featured";
+
+/** Rows straight from the table, with contact details brought up to date. */
+export function normalise(row: unknown): Faq {
+  return withCurrentContactIn(row as Faq, ["question", "answer"]);
+}
 
 /**
  * Up to `limit` general FAQs from faqs_ruta_pacifico: featured ones first,
@@ -23,7 +29,7 @@ export const getFeaturedFaqs = cache(async (limit = 6): Promise<Faq[]> => {
       console.error("Failed to fetch featured FAQs:", featuredError.message);
       return [];
     }
-    const result: Faq[] = (featured ?? []) as Faq[];
+    const result: Faq[] = (featured ?? []).map(normalise);
     if (result.length >= limit) return result.slice(0, limit);
 
     const { data: fill } = await getSupabase()
@@ -33,7 +39,7 @@ export const getFeaturedFaqs = cache(async (limit = 6): Promise<Faq[]> => {
       .eq("is_featured", false)
       .order("display_order", { ascending: true })
       .limit(limit - result.length);
-    return [...result, ...((fill ?? []) as Faq[])];
+    return [...result, ...(fill ?? []).map(normalise)];
   } catch (err) {
     console.error("Failed to fetch FAQs:", err);
     return [];

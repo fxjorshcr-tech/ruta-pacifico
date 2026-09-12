@@ -21,7 +21,8 @@ import { LOGO_WHITE_URL } from "@/lib/brand";
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 
-export const dynamic = "force-dynamic";
+/** Routes and FAQs change rarely; regenerate at most hourly instead of querying Supabase on every visit. */
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title:
@@ -164,6 +165,7 @@ export default async function TransferPage() {
   const indexable = selectIndexableRoutes(routes, destinations);
   const popular = popularAirportRoutes(routes, destinations, 12);
   const pricedCount = indexable.filter((r) => lowestPrice(r)).length;
+  const pairs = routes.map((r) => ({ origen: r.origen, destino: r.destino }));
 
   return (
     <main className="bg-light-surface min-h-screen">
@@ -223,7 +225,7 @@ export default async function TransferPage() {
       </section>
 
       {/* ─── CLIENT-SIDE ROUTE SEARCH ─── */}
-      <RouteSearch routes={routes} />
+      <RouteSearch routes={pairs} />
 
       {/* ─── POPULAR ROUTES WITH PRICES (server-rendered, crawlable) ─── */}
       <PopularRoutes routes={popular} totalPriced={pricedCount} />

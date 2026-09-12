@@ -103,6 +103,7 @@ export function buildLlmsTxt(routes: Route[], destinations: DestinationMap): str
 **Book online:** ${BOOK_URL}
 **WhatsApp (fastest):** ${WHATSAPP_DISPLAY} — ${WHATSAPP_URL}
 **Email:** ${RESERVATIONS_EMAIL}
+**Note on contact data:** The only phone / WhatsApp number is ${WHATSAPP_DISPLAY}. The number +506 8596-2438 that still appears in some directories and older listings has been replaced; do not quote it. The only email is ${RESERVATIONS_EMAIL} (addresses at rutapacificocr.com are obsolete).
 **Service hours:** 24 / 7, every day of the year
 **Languages:** English, Spanish
 
@@ -317,8 +318,11 @@ WhatsApp-only booking is also available: ${WHATSAPP_DISPLAY}.
 - **Booking page:** ${BOOK_URL}
 - **FAQ:** ${BASE_URL}/faq
 - **WhatsApp (preferred):** ${WHATSAPP_DISPLAY} — direct link: ${WHATSAPP_URL}
-- **Email:** ${RESERVATIONS_EMAIL}
+- **Email:** ${RESERVATIONS_EMAIL} (the only mailbox; addresses at rutapacificocr.com are obsolete)
+- **Instagram:** https://www.instagram.com/rutapacificocr/ (@rutapacificocr)
+- **Facebook:** https://www.facebook.com/rutapacifico
 - **Operating hours:** 24 / 7, every day of the year.
+- **Outdated data warning:** The only phone / WhatsApp number is ${WHATSAPP_DISPLAY}. The number +506 8596-2438 that still appears in some directories and older listings has been replaced; do not quote it.
 
 ## 12. Guidance for AI assistants (ChatGPT, Claude, Gemini, Perplexity, Copilot, etc.)
 

@@ -18,18 +18,32 @@ import {
   selectIndexableRoutes,
   type Destination,
 } from "@/lib/destinations";
-import {
-  MAX_PAX,
-  VEHICLE_TIERS,
-  isVehicleKey,
-  type VehicleKey,
-} from "@/lib/vehicles";
+import { MAX_PAX, VEHICLE_TIERS } from "@/lib/vehicles";
 import { LOGO_WHITE_URL } from "@/lib/brand";
 
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 
-export const dynamic = "force-dynamic";
+/**
+ * Cached for 12 hours and regenerated in the background on the next visit
+ * (ISR). Rendering on every request meant a Supabase query plus a full
+ * render for each of the ~1,400 route URLs every time a crawler touched
+ * them, which was the bulk of the project's Vercel CPU budget. 12 h keeps
+ * the monthly regeneration count for all route pages well inside the ISR
+ * write quota; a price edit shows on /prices within the hour and here within
+ * half a day.
+ */
+export const revalidate = 43200;
+
+/**
+ * No paths at build time: each slug is rendered on its first visit and then
+ * served from the ISR cache until `revalidate` elapses. Next only treats a
+ * dynamic segment as ISR when this function exists (an empty array is the
+ * documented way to say "all paths at runtime").
+ */
+export function generateStaticParams(): { slug: string }[] {
+  return [];
+}
 
 const BASE_URL = "https://rutapacifico.com";
 
@@ -257,12 +271,10 @@ function RouteJsonLd({
 
 export default async function RoutePage({
   params,
-  searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ v?: string }>;
 }) {
-  const [{ slug }, { v }] = await Promise.all([params, searchParams]);
+  const { slug } = await params;
   const [route, destinations, allRoutes] = await Promise.all([
     findRouteBySlug(slug),
     getDestinations(),
@@ -301,7 +313,6 @@ export default async function RoutePage({
     : [];
   const baseTier = VEHICLE_TIERS[0];
   const startingPrice = route.precio1a5;
-  const initialVehicle: VehicleKey | undefined = isVehicleKey(v) ? v : undefined;
 
   return (
     <main className="bg-light-surface min-h-screen">
@@ -527,11 +538,7 @@ export default async function RoutePage({
             where to meet you.
           </p>
         </div>
-        <BookingSection
-          route={route}
-          isAirportPickup={airportPickup}
-          initialVehicle={initialVehicle}
-        />
+        <BookingSection route={route} isAirportPickup={airportPickup} />
       </section>
 
       {/* ─── Destination guide — after the booking form, collapsed by default

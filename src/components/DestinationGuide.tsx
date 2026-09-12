@@ -3,6 +3,7 @@ import { marked } from "marked";
 import type { Destination } from "@/lib/destinations";
 import type { Route } from "@/lib/routes";
 import { routeSlug } from "@/lib/slug";
+import { withCurrentContact } from "@/lib/contact";
 
 /**
  * Unique, per-destination copy rendered on index-able route pages so each
@@ -13,7 +14,7 @@ const PROSE =
   "text-sm leading-relaxed text-foreground/75 [&_p]:mb-4 [&_p:last-child]:mb-0 [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5 [&_ul:last-child]:mb-0 [&_strong]:font-semibold [&_strong]:text-foreground";
 
 function md(src: string): string {
-  return marked.parse(src, { async: false }) as string;
+  return marked.parse(withCurrentContact(src), { async: false }) as string;
 }
 
 interface Props {

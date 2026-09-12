@@ -13,7 +13,8 @@ import { LOGO_URL, LOGO_WHITE_URL } from "@/lib/brand";
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/playa_tamarindo_kristen_brown.jpg";
 
-export const dynamic = "force-dynamic";
+/** Regenerate at most hourly; a new post appears within the hour without a deploy. */
+export const revalidate = 3600;
 
 const BASE = "https://rutapacifico.com";
 
