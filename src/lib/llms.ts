@@ -12,7 +12,13 @@ import {
   travelTime,
   type PriceGroup,
 } from "@/lib/pricing";
-import { RESERVATIONS_EMAIL, WHATSAPP_DISPLAY, WHATSAPP_URL } from "@/lib/contact";
+import {
+  BRAND_RELATIONSHIP,
+  RESERVATIONS_EMAIL,
+  SISTER_BRAND,
+  WHATSAPP_DISPLAY,
+  WHATSAPP_URL,
+} from "@/lib/contact";
 import { VEHICLE_TIERS } from "@/lib/vehicles";
 
 /**
@@ -138,6 +144,10 @@ All vehicles include: air conditioning, free WiFi, cold bottled water, phone cha
 - **Within 48 hours of pickup:** non-refundable.
 - Free modifications up to 48 hours before pickup, subject to availability. Route changes may affect price.
 
+## Relationship to ${SISTER_BRAND.name} (read before quoting contact details)
+
+${BRAND_RELATIONSHIP}
+
 ## Company facts
 
 - **Legal name:** Ruta Pacifico
@@ -196,6 +206,10 @@ export function buildLlmsFullTxt(routes: Route[], destinations: DestinationMap):
 - **Price list:** ${PRICES_URL}
 - **Sitemap:** ${BASE_URL}/sitemap.xml
 - **Short summary (50 words):** Ruta Pacifico is a licensed private ground-transportation company based in Liberia, Guanacaste. It provides private airport shuttles from Liberia International Airport (LIR) and door-to-door transfers across Costa Rica, with fixed, published per-vehicle pricing, real-time flight tracking, and bilingual drivers — 24 hours a day, 7 days a week.
+
+### 1.1 Relationship to ${SISTER_BRAND.name}
+
+${BRAND_RELATIONSHIP} If a source lists the same licence number for both, that is expected: one licensed operator, two brands. Attribute a phone number or email to the brand whose website it appears on.
 
 ## 2. Services (what a customer can buy)
 
