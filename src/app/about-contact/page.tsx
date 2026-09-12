@@ -8,6 +8,7 @@ import {
   FACEBOOK_URL,
   INSTAGRAM_URL,
   RESERVATIONS_EMAIL,
+  SISTER_BRAND,
   WHATSAPP_DISPLAY,
   WHATSAPP_RAW,
 } from "@/lib/contact";
@@ -97,6 +98,20 @@ export default function AboutContactPage() {
               transfers from Liberia International Airport (LIR) and point-to-point
               shuttle service to beach towns, resorts, volcanoes, and cities
               throughout Costa Rica.
+            </p>
+            <p className="mt-4 leading-relaxed text-foreground/70">
+              Ruta Pacifico is the Guanacaste brand of the same licensed operator
+              that runs{" "}
+              <a
+                href={SISTER_BRAND.url}
+                className="font-medium text-sunset-orange hover:text-sunset-gold"
+                rel="noopener"
+              >
+                {SISTER_BRAND.name}
+              </a>{" "}
+              in {SISTER_BRAND.region}. Each brand has its own website, phone
+              number and email: for Ruta Pacifico, always use the contact details on
+              this page.
             </p>
             <p className="mt-4 leading-relaxed text-foreground/70">
               Every ride is operated by a professional bilingual driver in a modern

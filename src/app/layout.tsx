@@ -1,7 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import FloatingCart from "@/components/FloatingCart";
-import { SOCIAL_PROFILES } from "@/lib/contact";
+import {
+  BRAND_RELATIONSHIP,
+  ICT_LICENSE_NUMBER,
+  SOCIAL_PROFILES,
+} from "@/lib/contact";
 import "./globals.css";
 import { LOGO_SQUARE_ABSOLUTE_URL, LOGO_SQUARE_SIZE } from "@/lib/brand";
 
@@ -192,6 +196,9 @@ function JsonLd() {
         legalName: "Ruta Pacifico",
         description:
           "Licensed and insured private ground-transportation operator based in Liberia, Guanacaste. Provides private airport shuttles from Liberia International Airport (LIR) and point-to-point transfers across Costa Rica.",
+        // schema.org's property for exactly this: how to tell this entity
+        // apart from a similar one (the sister brand sharing the licence).
+        disambiguatingDescription: BRAND_RELATIONSHIP,
         url: BASE_URL,
         logo: {
           "@type": "ImageObject",
@@ -212,12 +219,12 @@ function JsonLd() {
         identifier: {
           "@type": "PropertyValue",
           propertyID: "ICT License (Costa Rica Tourism Board)",
-          value: "4121-2025",
+          value: ICT_LICENSE_NUMBER,
         },
         hasCredential: {
           "@type": "EducationalOccupationalCredential",
           credentialCategory: "license",
-          name: "ICT Tourism Transport Operator License #4121-2025",
+          name: `ICT Tourism Transport Operator License #${ICT_LICENSE_NUMBER}`,
           recognizedBy: {
             "@type": "GovernmentOrganization",
             name: "Instituto Costarricense de Turismo (ICT)",

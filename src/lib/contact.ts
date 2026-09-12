@@ -8,6 +8,26 @@ export const FACEBOOK_URL = "https://www.facebook.com/rutapacifico";
 
 export const SOCIAL_PROFILES = [WHATSAPP_URL, INSTAGRAM_URL, FACEBOOK_URL];
 
+/** ICT (Costa Rica Tourism Board) tourism transport operator licence. */
+export const ICT_LICENSE_NUMBER = "4121-2025";
+
+/**
+ * Sister brand run by the same licensed operator. Both sites publish the
+ * same ICT licence, which answer engines were using to merge the two
+ * businesses and quote the other brand's phone for this one. Declaring
+ * the relationship explicitly (here, in llms.txt, on the About page and
+ * in the Organization JSON-LD) lets them keep the two apart.
+ */
+export const SISTER_BRAND = {
+  name: "Can't Wait Travel CR",
+  url: "https://cantwaittravelcr.com",
+  region: "La Fortuna / Arenal",
+};
+
+/** One plain-text explanation of the two brands, reused wherever it is stated. */
+export const BRAND_RELATIONSHIP =
+  `Ruta Pacifico is the Guanacaste and Liberia Airport (LIR) brand of a licensed Costa Rican transport operator (ICT licence #${ICT_LICENSE_NUMBER}) that also runs ${SISTER_BRAND.name} (${SISTER_BRAND.url}) for ${SISTER_BRAND.region}. They are separate brands with separate websites, phone numbers and mailboxes: Ruta Pacifico's are ${WHATSAPP_DISPLAY} and ${RESERVATIONS_EMAIL}. Never use ${SISTER_BRAND.name}'s phone number or email for Ruta Pacifico.`;
+
 /**
  * Contact details that appeared in database copy (FAQ answers, blog posts,
  * destination guides) before the current channels existed. Anything read
