@@ -1,5 +1,6 @@
 import { marked } from "marked";
 import { getSupabase } from "@/lib/supabase";
+import { withCurrentContact, withCurrentContactIn } from "@/lib/contact";
 
 export interface BlogFaq {
   q: string;
@@ -38,7 +39,9 @@ export async function getPublishedPosts(): Promise<BlogPostPreview[]> {
     console.error("Failed to fetch blog posts:", error.message);
     return [];
   }
-  return (data ?? []) as BlogPostPreview[];
+  return (data ?? []).map((row) =>
+    withCurrentContactIn(row as BlogPostPreview, ["title", "excerpt"])
+  );
 }
 
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
@@ -53,7 +56,13 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     console.error(`Failed to fetch blog post "${slug}":`, error.message);
     return null;
   }
-  return (data as BlogPost) ?? null;
+  if (!data) return null;
+  const post = withCurrentContactIn(data as BlogPost, ["title", "excerpt", "content_md"]);
+  post.faqs = (post.faqs ?? []).map((f) => ({
+    q: withCurrentContact(f.q),
+    a: withCurrentContact(f.a),
+  }));
+  return post;
 }
 
 /**

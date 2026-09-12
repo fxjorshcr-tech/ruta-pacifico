@@ -5,6 +5,7 @@ import { getSupabase } from "@/lib/supabase";
 import SiteNav from "@/components/SiteNav";
 import SocialLinks from "@/components/SocialLinks";
 import FaqAccordion, { type Faq } from "@/components/FaqAccordion";
+import { normalise } from "@/lib/faqs";
 import { LOGO_WHITE_URL } from "@/lib/brand";
 
 const HERO_URL =
@@ -89,7 +90,7 @@ async function getFaqs(): Promise<Faq[]> {
     return [];
   }
 
-  return (data ?? []) as Faq[];
+  return (data ?? []).map(normalise);
 }
 
 function groupByCategory(faqs: Faq[]): Map<string, Faq[]> {
