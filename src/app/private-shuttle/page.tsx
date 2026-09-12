@@ -5,8 +5,15 @@ import SiteNav from "@/components/SiteNav";
 import SocialLinks from "@/components/SocialLinks";
 import FaqAccordion from "@/components/FaqAccordion";
 import { getFeaturedFaqs } from "@/lib/faqs";
+import PopularRoutes from "@/components/PopularRoutes";
 import { getRoutes, type Route } from "@/lib/routes";
 import { getDestinations, selectIndexableRoutes } from "@/lib/destinations";
+import {
+  PRICE_LIST_PATH,
+  lowestPrice,
+  popularAirportRoutes,
+  routePrices,
+} from "@/lib/pricing";
 import type { Metadata } from "next";
 import { routeSlug } from "@/lib/slug";
 import { LOGO_WHITE_URL } from "@/lib/brand";
@@ -71,12 +78,35 @@ function TransferPageJsonLd({ routes }: { routes: Route[] }) {
         "@id": `${BASE_URL}/private-shuttle#routes`,
         name: "Private shuttle routes",
         numberOfItems: topRoutes.length,
-        itemListElement: topRoutes.map((r, idx) => ({
-          "@type": "ListItem",
-          position: idx + 1,
-          name: `${r.origen} to ${r.destino}`,
-          url: `${BASE_URL}/private-shuttle/${routeSlug(r.origen, r.destino)}`,
-        })),
+        itemListElement: topRoutes.map((r, idx) => {
+          const url = `${BASE_URL}/private-shuttle/${routeSlug(r.origen, r.destino)}`;
+          const prices = routePrices(r);
+          return {
+            "@type": "ListItem",
+            position: idx + 1,
+            name: `${r.origen} to ${r.destino}`,
+            url,
+            ...(prices.length
+              ? {
+                  item: {
+                    "@type": ["Service", "Product"],
+                    "@id": `${url}#service`,
+                    name: `Private Shuttle: ${r.origen} to ${r.destino}`,
+                    url,
+                    offers: {
+                      "@type": "AggregateOffer",
+                      priceCurrency: "USD",
+                      lowPrice: prices[0].price,
+                      highPrice: prices[prices.length - 1].price,
+                      offerCount: prices.length,
+                      availability: "https://schema.org/InStock",
+                      url,
+                    },
+                  },
+                }
+              : {}),
+          };
+        }),
       },
       {
         "@type": "BreadcrumbList",
@@ -131,10 +161,13 @@ export default async function TransferPage() {
     getFeaturedFaqs(),
     getDestinations(),
   ]);
+  const indexable = selectIndexableRoutes(routes, destinations);
+  const popular = popularAirportRoutes(routes, destinations, 12);
+  const pricedCount = indexable.filter((r) => lowestPrice(r)).length;
 
   return (
     <main className="bg-light-surface min-h-screen">
-      <TransferPageJsonLd routes={selectIndexableRoutes(routes, destinations)} />
+      <TransferPageJsonLd routes={indexable} />
       {/* ─── NAV ─── */}
       <SiteNav transparent />
 
@@ -191,6 +224,9 @@ export default async function TransferPage() {
 
       {/* ─── CLIENT-SIDE ROUTE SEARCH ─── */}
       <RouteSearch routes={routes} />
+
+      {/* ─── POPULAR ROUTES WITH PRICES (server-rendered, crawlable) ─── */}
+      <PopularRoutes routes={popular} totalPriced={pricedCount} />
 
       {/* ─── GOOD TO KNOW ─── */}
       <section className="mx-auto max-w-5xl px-6 pb-16 pt-8">
@@ -430,10 +466,10 @@ export default async function TransferPage() {
                   Home
                 </Link>
                 <Link
-                  href="/#services"
+                  href={PRICE_LIST_PATH}
                   className="transition hover:text-sunset-orange"
                 >
-                  Services
+                  Prices
                 </Link>
                 <Link href="/faq" className="transition hover:text-sunset-orange">
                   FAQ
