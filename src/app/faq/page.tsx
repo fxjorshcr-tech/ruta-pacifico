@@ -10,7 +10,8 @@ import { LOGO_WHITE_URL } from "@/lib/brand";
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 
-export const dynamic = "force-dynamic";
+/** FAQs change rarely; regenerate at most hourly instead of querying Supabase on every visit. */
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Frequently Asked Questions | Ruta Pacifico",

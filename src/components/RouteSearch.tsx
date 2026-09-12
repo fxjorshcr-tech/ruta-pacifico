@@ -8,8 +8,15 @@ import type { Route } from "@/lib/routes";
 
 export type { Route };
 
+/**
+ * The search only needs the two names to build the slug it navigates to.
+ * Passing the full rows (prices, duration, ids) for ~1,400 routes doubled
+ * the page payload for nothing, so the booking page hands over this slice.
+ */
+export type RoutePair = Pick<Route, "origen" | "destino">;
+
 interface RouteSearchProps {
-  routes: Route[];
+  routes: RoutePair[];
 }
 
 const AIRPORT_PREFIXES = ["LIR", "SJO"];
