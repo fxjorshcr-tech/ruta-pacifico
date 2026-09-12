@@ -15,6 +15,7 @@ const SITE_URL = "https://rutapacifico.com";
 const WHATSAPP_DISPLAY = "+506 7080-5578";
 const WHATSAPP_RAW = "50670805578";
 const RESERVATIONS_EMAIL = "reservations@rutapacifico.com";
+const ICT_LICENSE = "#4121-2025";
 
 interface ContactRequestBody {
   name: string;
@@ -152,7 +153,7 @@ function customerEmailHtml(b: ContactRequestBody): string {
                     <td style="padding:18px 20px;text-align:center;">
                       <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#f4a261;">Licensed &amp; Insured</div>
                       <div style="margin-top:6px;font-size:14px;color:rgba(255,255,255,.85);line-height:1.5;">
-                        ICT licensed operator &middot; Costa Rica Tourism Board<br/>
+                        ICT ${ICT_LICENSE} &middot; Costa Rica Tourism Board<br/>
                         Professional bilingual drivers &middot; Modern fleet
                       </div>
                     </td>

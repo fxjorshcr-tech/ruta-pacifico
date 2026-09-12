@@ -402,7 +402,7 @@ export default function CheckoutPage() {
                   </svg>
                   <div className="leading-tight">
                     <div className="text-xs font-bold text-foreground">
-                      ICT Licensed Operator
+                      ICT Licensed #4121-2025
                     </div>
                     <div className="text-[0.65rem] text-foreground/50">
                       Costa Rica Tourism Board

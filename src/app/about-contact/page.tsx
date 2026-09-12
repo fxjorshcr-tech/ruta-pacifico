@@ -18,6 +18,7 @@ const HERO_URL =
 
 const WHATSAPP_NUMBER_DISPLAY = WHATSAPP_DISPLAY;
 const WHATSAPP_NUMBER_RAW = WHATSAPP_RAW;
+const ICT_LICENSE = "#4121-2025";
 
 export const metadata: Metadata = {
   title: "About & Contact Us",
@@ -74,7 +75,7 @@ export default function AboutContactPage() {
             </span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-white/75">
-            Licensed ICT operator based in Guanacaste. Reach us any day
+            Licensed ICT operator {ICT_LICENSE}, based in Guanacaste. Reach us any day
             of the week. WhatsApp gets the fastest reply.
           </p>
         </div>
@@ -170,7 +171,7 @@ export default function AboutContactPage() {
                       ICT License
                     </div>
                     <div className="mt-0.5 font-bold text-foreground">
-                      Licensed tourism transport operator
+                      {ICT_LICENSE}
                     </div>
                     <div className="text-xs text-foreground/50">
                       Costa Rica Tourism Board
@@ -476,7 +477,7 @@ export default function AboutContactPage() {
             </svg>
             <div className="text-left leading-tight">
               <div className="text-sm font-bold text-foreground">
-                ICT Licensed Operator
+                ICT Licensed {ICT_LICENSE}
               </div>
               <div className="text-xs text-foreground/50">
                 Costa Rica Tourism Board
