@@ -5,8 +5,11 @@ import {
   escapeHtml,
   getAdminRecipients,
   getNotificationsFrom,
+  getInlineLogo,
+  logoSrc,
+  EMAIL_FONT_STACK,
+  EMAIL_FONT_LINK,
 } from "@/lib/email";
-import { LOGO_WHITE_ABSOLUTE_URL } from "@/lib/brand";
 import { isPickupDateAllowed, LEAD_TIME_MESSAGE } from "@/lib/leadTime";
 
 export const runtime = "nodejs";
@@ -126,12 +129,25 @@ function tripCardsHtml(trips: TripItem[]): string {
     .join("");
 }
 
+interface CustomerEmailOptions {
+  /** <img src> for the logo (inline cid or absolute URL). */
+  logo: string;
+  /** Extra block rendered above the card (internal copies only). */
+  internalHeader?: string;
+  /** Inbox preview text; defaults to the customer-facing one. */
+  preheader?: string;
+}
+
 function customerEmailHtml(
   b: BookingRequestBody,
-  internalHeader = "",
+  opts: CustomerEmailOptions,
 ): string {
   const firstName = escapeHtml(b.name.split(" ")[0] || b.name);
   const tripsCount = b.trips.length;
+  const internalHeader = opts.internalHeader ?? "";
+  const preheader =
+    opts.preheader ??
+    `Reservation ${escapeHtml(b.confirmationCode)} confirmed for ${firstName}. We&#39;ll send your secure payment link shortly.`;
   return `
   <!doctype html>
   <html lang="en">
@@ -139,9 +155,10 @@ function customerEmailHtml(
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Reservation confirmed · ${escapeHtml(b.confirmationCode)}</title>
+    ${EMAIL_FONT_LINK}
   </head>
-  <body style="margin:0;padding:0;background:#f4efe7;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1a1a1a;-webkit-font-smoothing:antialiased;">
-    <div style="display:none;font-size:0;line-height:0;color:transparent;max-height:0;overflow:hidden;">Reservation ${escapeHtml(b.confirmationCode)} confirmed for ${firstName}. We&#39;ll send your secure payment link shortly.</div>
+  <body style="margin:0;padding:0;background:#f4efe7;font-family:${EMAIL_FONT_STACK};color:#1a1a1a;-webkit-font-smoothing:antialiased;">
+    <div style="display:none;font-size:0;line-height:0;color:transparent;max-height:0;overflow:hidden;">${preheader}</div>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4efe7;">
       <tr>
         <td align="center" style="padding:32px 16px;">
@@ -153,7 +170,7 @@ function customerEmailHtml(
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="background:linear-gradient(135deg,rgba(230,57,70,.86),rgba(227,100,20,.78),rgba(244,162,97,.7));padding:38px 32px 36px;text-align:center;">
-                      <img src="${LOGO_WHITE_ABSOLUTE_URL}" alt="Ruta Pacifico" width="170" style="display:block;margin:0 auto 18px;height:auto;max-width:170px;" />
+                      <img src="${opts.logo}" alt="Ruta Pacifico" width="170" style="display:block;margin:0 auto 18px;height:auto;max-width:170px;" />
                       <div style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#fff;">✓ Reservation confirmed</div>
                       <h1 style="margin:18px 0 20px;font-size:30px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.2;">¡Pura vida, ${firstName}!</h1>
                       <div style="display:inline-block;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px 20px;">
@@ -349,7 +366,7 @@ function customerEmailHtml(
  * The message is sent with Reply-To = customer, so hitting "Reply" from the
  * reservations@ inbox goes straight to them.
  */
-function adminEmailHtml(b: BookingRequestBody): string {
+function adminEmailHtml(b: BookingRequestBody, logo: string): string {
   const phoneDigits = b.phone.replace(/[^0-9]/g, "");
   let created = b.createdAt;
   try {
@@ -367,7 +384,7 @@ function adminEmailHtml(b: BookingRequestBody): string {
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto 14px;background:#1a1a1a;border-radius:14px;">
             <tr>
               <td style="padding:14px 18px;">
-                <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.55);">Internal copy &middot; New booking</div>
+                <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);">🌴☀️ &nbsp;New booking &middot; Internal copy</div>
                 <div style="margin-top:6px;font-size:15px;font-weight:800;color:#fff;">${escapeHtml(b.name)}</div>
                 <div style="margin-top:4px;font-size:13px;line-height:1.7;color:rgba(255,255,255,.85);">
                   <a href="mailto:${escapeHtml(b.email)}" style="color:#ffd9a8;text-decoration:none;">${escapeHtml(b.email)}</a>
@@ -383,7 +400,9 @@ function adminEmailHtml(b: BookingRequestBody): string {
               </td>
             </tr>
           </table>`;
-  return customerEmailHtml(b, internalHeader);
+  const firstTrip = b.trips[0];
+  const preheader = `🌴 ${escapeHtml(b.name)} · ${escapeHtml(firstTrip.from)} → ${escapeHtml(firstTrip.to)} · $${b.total}${b.trips.length > 1 ? ` · ${b.trips.length} shuttles` : ""}`;
+  return customerEmailHtml(b, { logo, internalHeader, preheader });
 }
 
 export async function POST(request: NextRequest) {
@@ -419,13 +438,17 @@ export async function POST(request: NextRequest) {
 
   const adminRecipients = getAdminRecipients();
   const subjectSuffix = `${body.confirmationCode} — ${body.name}`;
+  const inlineLogo = await getInlineLogo();
+  const logo = logoSrc(inlineLogo);
+  const attachments = inlineLogo ? [inlineLogo] : undefined;
 
   const [customerResult, adminResult] = await Promise.all([
     sendEmail({
       to: body.email,
       subject: `Your Ruta Pacifico reservation ${body.confirmationCode}`,
-      html: customerEmailHtml(body),
+      html: customerEmailHtml(body, { logo }),
       replyTo: adminRecipients[0],
+      attachments,
     }),
     adminRecipients.length > 0
       ? sendEmail({
@@ -433,9 +456,12 @@ export async function POST(request: NextRequest) {
           // Send from a distinct address (not the reservations@ inbox) so the
           // copy addressed to reservations@ is not dropped as a mail-to-self.
           from: getNotificationsFrom(),
-          subject: `New booking · ${subjectSuffix}`,
-          html: adminEmailHtml(body),
+          // Palm + sun prefix tells the Ruta Pacifico alerts apart from the
+          // sister brand's (bell) at a glance in a shared inbox.
+          subject: `🌴☀️ New booking · ${subjectSuffix}`,
+          html: adminEmailHtml(body, logo),
           replyTo: body.email,
+          attachments,
         })
       : Promise.resolve({ ok: false, error: "EMAIL_NOTIFICATIONS_TO not configured" }),
   ]);

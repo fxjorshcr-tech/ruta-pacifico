@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // The email routes read the brand logo from disk to embed it inline;
+  // make sure the file is bundled with those serverless functions.
+  outputFileTracingIncludes: {
+    "/api/bookings": ["./public/brand/logo-white.png"],
+    "/api/contact": ["./public/brand/logo-white.png"],
+  },
   images: {
     remotePatterns: [
       {

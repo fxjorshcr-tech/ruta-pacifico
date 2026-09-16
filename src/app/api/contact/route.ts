@@ -4,8 +4,11 @@ import {
   escapeHtml,
   getAdminRecipients,
   getNotificationsFrom,
+  getInlineLogo,
+  logoSrc,
+  EMAIL_FONT_STACK,
+  EMAIL_FONT_LINK,
 } from "@/lib/email";
-import { LOGO_WHITE_ABSOLUTE_URL } from "@/lib/brand";
 
 export const runtime = "nodejs";
 
@@ -45,7 +48,7 @@ function isValidBody(body: unknown): body is ContactRequestBody {
 
 function adminEmailHtml(b: ContactRequestBody): string {
   return `
-  <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;padding:20px;">
+  <div style="font-family:${EMAIL_FONT_STACK};background:#f5f5f5;padding:20px;">
     <div style="max-width:640px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #ddd;">
       <div style="background:#111;color:#fff;padding:16px 20px;">
         <div style="font-size:12px;opacity:.6;text-transform:uppercase;letter-spacing:1px;">Contact form</div>
@@ -63,7 +66,7 @@ function adminEmailHtml(b: ContactRequestBody): string {
   </div>`;
 }
 
-function customerEmailHtml(b: ContactRequestBody): string {
+function customerEmailHtml(b: ContactRequestBody, logo: string): string {
   const firstName = escapeHtml(b.name.split(" ")[0] || b.name);
   return `
   <!doctype html>
@@ -72,8 +75,9 @@ function customerEmailHtml(b: ContactRequestBody): string {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>We received your message · Ruta Pacifico</title>
+    ${EMAIL_FONT_LINK}
   </head>
-  <body style="margin:0;padding:0;background:#f4efe7;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1a1a1a;-webkit-font-smoothing:antialiased;">
+  <body style="margin:0;padding:0;background:#f4efe7;font-family:${EMAIL_FONT_STACK};color:#1a1a1a;-webkit-font-smoothing:antialiased;">
     <div style="display:none;font-size:0;line-height:0;color:transparent;max-height:0;overflow:hidden;">Pura vida, ${firstName}! Thanks for reaching out — we'll get back to you within a few hours.</div>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4efe7;">
       <tr>
@@ -85,7 +89,7 @@ function customerEmailHtml(b: ContactRequestBody): string {
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="background:linear-gradient(135deg,rgba(230,57,70,.85),rgba(227,100,20,.78),rgba(244,162,97,.7));padding:40px 32px;text-align:center;">
-                      <img src="${LOGO_WHITE_ABSOLUTE_URL}" alt="Ruta Pacifico" width="180" style="display:block;margin:0 auto 16px;height:auto;max-width:180px;" />
+                      <img src="${logo}" alt="Ruta Pacifico" width="180" style="display:block;margin:0 auto 16px;height:auto;max-width:180px;" />
                       <div style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:6px 14px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;backdrop-filter:blur(8px);">Message received</div>
                       <h1 style="margin:18px 0 6px;font-size:30px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.2;">¡Pura vida, ${firstName}!</h1>
                       <p style="margin:0;font-size:15px;color:rgba(255,255,255,.92);line-height:1.5;">Thanks for reaching out — we&rsquo;ve got your message.</p>
@@ -215,7 +219,7 @@ export async function POST(request: NextRequest) {
     to: adminRecipients,
     // Distinct sender so the reservations@ copy isn't dropped as a mail-to-self.
     from: getNotificationsFrom(),
-    subject: `Contact · ${body.name}${body.subject ? ` — ${body.subject}` : ""}`,
+    subject: `🌴☀️ Contact · ${body.name}${body.subject ? ` — ${body.subject}` : ""}`,
     html: adminEmailHtml(body),
     replyTo: body.email,
   });
@@ -229,11 +233,13 @@ export async function POST(request: NextRequest) {
   }
 
   // Customer auto-reply (best-effort, never blocks the response).
+  const inlineLogo = await getInlineLogo();
   void sendEmail({
     to: body.email,
     subject: "We received your message · Ruta Pacifico",
-    html: customerEmailHtml(body),
+    html: customerEmailHtml(body, logoSrc(inlineLogo)),
     replyTo: adminRecipients[0],
+    attachments: inlineLogo ? [inlineLogo] : undefined,
   }).then((r) => {
     if (!r.ok) console.error("[contact] customer auto-reply failed:", r.error);
   });
