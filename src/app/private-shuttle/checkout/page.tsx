@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import SiteNav from "@/components/SiteNav";
 import PhoneInput from "@/components/PhoneInput";
+import { isPickupDateAllowed, LEAD_TIME_MESSAGE } from "@/lib/leadTime";
 import {
   BOOKING_STORAGE_KEY,
   CART_STORAGE_KEY,
@@ -72,8 +73,18 @@ export default function CheckoutPage() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (cart.length === 0) return;
-    setSubmitting(true);
     setSubmitError(null);
+
+    // The cart may have been built earlier in the day; re-check the lead-time
+    // rule with the current time before sending anything.
+    const tooSoon = cart.find((t) => !isPickupDateAllowed(t.date));
+    if (tooSoon) {
+      setSubmitError(
+        `${formatDate(tooSoon.date)} is too soon for ${tooSoon.from} → ${tooSoon.to}. ${LEAD_TIME_MESSAGE} Please edit that trip and pick a later date.`,
+      );
+      return;
+    }
+    setSubmitting(true);
 
     const booking = {
       trips: cart,

@@ -7,6 +7,7 @@ import {
   getNotificationsFrom,
 } from "@/lib/email";
 import { LOGO_WHITE_ABSOLUTE_URL } from "@/lib/brand";
+import { isPickupDateAllowed, LEAD_TIME_MESSAGE } from "@/lib/leadTime";
 
 export const runtime = "nodejs";
 
@@ -399,6 +400,19 @@ export async function POST(request: NextRequest) {
   if (!isValidBody(body)) {
     return Response.json(
       { ok: false, error: "Missing or invalid fields" },
+      { status: 422 },
+    );
+  }
+
+  // Enforce the lead-time rule server-side; the UI already prevents this, but
+  // a stale cart or a hand-crafted request must not create a same-day booking.
+  const tooSoon = body.trips.find((t) => !isPickupDateAllowed(t.date));
+  if (tooSoon) {
+    return Response.json(
+      {
+        ok: false,
+        error: `Pickup on ${tooSoon.date} is too soon. ${LEAD_TIME_MESSAGE}`,
+      },
       { status: 422 },
     );
   }
