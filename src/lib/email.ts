@@ -5,7 +5,66 @@
 //   EMAIL_NOTIFICATIONS_TO    – comma-separated admin recipients
 //   EMAIL_REPLY_TO            – optional, defaults to EMAIL_FROM address
 
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import { LOGO_WHITE_ABSOLUTE_URL, LOGO_WHITE_URL } from "@/lib/brand";
+
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
+
+/**
+ * Font stack for every HTML email. Lexend (the site font) loads in clients
+ * that honour <link> stylesheets (Apple Mail, iOS Mail, Outlook for Mac);
+ * everything else falls back to Helvetica/Arial, which render solid and
+ * consistent everywhere — unlike the system-UI stack, which came out thin
+ * and washed-out in Gmail on Windows.
+ */
+export const EMAIL_FONT_STACK =
+  "'Lexend','Helvetica Neue',Helvetica,Arial,sans-serif";
+export const EMAIL_FONT_LINK =
+  '<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&display=swap" rel="stylesheet" />';
+
+export interface EmailAttachment {
+  filename: string;
+  /** Base64-encoded file content. */
+  content: string;
+  content_type?: string;
+  /** Set to reference the file inline as <img src="cid:..."> */
+  content_id?: string;
+}
+
+/** Content-ID used for the inline brand logo. */
+export const LOGO_CID = "rp-logo";
+
+let logoCache: Promise<EmailAttachment | null> | undefined;
+
+/**
+ * The white wordmark as an inline attachment, so the email never depends on
+ * rutapacifico.com answering while a mail client's image proxy fetches it
+ * (Gmail cached a broken logo when a send raced a deploy). Read once per
+ * server instance. Returns null if the file is unavailable; callers then
+ * fall back to the absolute URL.
+ */
+export function getInlineLogo(): Promise<EmailAttachment | null> {
+  if (!logoCache) {
+    logoCache = readFile(path.join(process.cwd(), "public", LOGO_WHITE_URL))
+      .then((buf) => ({
+        filename: "ruta-pacifico-logo.png",
+        content: buf.toString("base64"),
+        content_type: "image/png",
+        content_id: LOGO_CID,
+      }))
+      .catch((err) => {
+        console.error("[email] inline logo unavailable, using URL:", err);
+        return null;
+      });
+  }
+  return logoCache;
+}
+
+/** <img src> for the logo: the inline copy when attached, else the public URL. */
+export function logoSrc(inline: EmailAttachment | null): string {
+  return inline ? `cid:${LOGO_CID}` : LOGO_WHITE_ABSOLUTE_URL;
+}
 
 export interface SendEmailInput {
   to: string | string[];
@@ -16,6 +75,7 @@ export interface SendEmailInput {
   from?: string;
   cc?: string | string[];
   bcc?: string | string[];
+  attachments?: EmailAttachment[];
 }
 
 export interface SendEmailResult {
@@ -86,6 +146,7 @@ export async function sendEmail(input: SendEmailInput): Promise<SendEmailResult>
   if (input.text) payload.text = input.text;
   if (input.cc) payload.cc = Array.isArray(input.cc) ? input.cc : [input.cc];
   if (input.bcc) payload.bcc = Array.isArray(input.bcc) ? input.bcc : [input.bcc];
+  if (input.attachments?.length) payload.attachments = input.attachments;
 
   const replyTo = input.replyTo ?? process.env.EMAIL_REPLY_TO;
   if (replyTo) payload.reply_to = replyTo;
