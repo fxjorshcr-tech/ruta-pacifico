@@ -99,15 +99,15 @@ function tripCardsHtml(trips: TripItem[]): string {
                 <tr>
                   <td style="vertical-align:top;">
                     ${trips.length > 1 ? `<div style="display:inline-block;width:22px;height:22px;line-height:22px;background:#e36414;color:#fff;border-radius:50%;text-align:center;font-size:11px;font-weight:700;margin-right:8px;">${i + 1}</div>` : ""}
-                    <span style="font-size:16px;font-weight:800;color:#1a1a1a;">${escapeHtml(t.from)}</span>
+                    <span style="font-size:16px;font-weight:700;color:#1a1a1a;">${escapeHtml(t.from)}</span>
                     <span style="color:#e36414;font-weight:700;">&nbsp;→&nbsp;</span>
-                    <span style="font-size:16px;font-weight:800;color:#1a1a1a;">${escapeHtml(t.to)}</span>
+                    <span style="font-size:16px;font-weight:700;color:#1a1a1a;">${escapeHtml(t.to)}</span>
                     <div style="margin-top:4px;font-size:12px;color:#999;">
                       ${escapeHtml(formatDate(t.date))} &middot; ${escapeHtml(formatTime(t.time))}${t.duracion ? ` &middot; ~${escapeHtml(t.duracion)}` : ""}
                     </div>
                   </td>
                   <td style="text-align:right;vertical-align:top;white-space:nowrap;">
-                    <div style="font-size:20px;font-weight:800;color:#e36414;">$${t.price}</div>
+                    <div style="font-size:20px;font-weight:700;color:#e36414;">$${t.price}</div>
                   </td>
                 </tr>
               </table>
@@ -169,14 +169,38 @@ function customerEmailHtml(
               <td style="background-color:#1a1a1a;background-image:url('${HERO_URL}');background-size:cover;background-position:center;padding:0;">
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td style="background:linear-gradient(135deg,rgba(230,57,70,.86),rgba(227,100,20,.78),rgba(244,162,97,.7));padding:38px 32px 36px;text-align:center;">
-                      <img src="${opts.logo}" alt="Ruta Pacifico" width="170" style="display:block;margin:0 auto 18px;height:auto;max-width:170px;" />
-                      <div style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#fff;">✓ Reservation confirmed</div>
-                      <h1 style="margin:18px 0 20px;font-size:30px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.2;">¡Pura vida, ${firstName}!</h1>
-                      <div style="display:inline-block;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px 20px;">
-                        <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);">Confirmation code</div>
-                        <div style="margin-top:4px;font-family:'SF Mono',Menlo,Consolas,monospace;font-size:22px;font-weight:800;letter-spacing:2px;color:#ffd9a8;">${escapeHtml(b.confirmationCode)}</div>
-                      </div>
+                    <td style="background:linear-gradient(135deg,rgba(230,57,70,.86),rgba(227,100,20,.78),rgba(244,162,97,.7));padding:38px 32px 36px;">
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td align="center" style="padding:0 0 18px;">
+                            <img src="${opts.logo}" alt="Ruta Pacifico" width="170" height="71" style="display:block;width:170px;height:auto;border:0;" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="center" style="padding:0 0 18px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+                              <tr>
+                                <td style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#ffffff;">✓ Reservation confirmed</td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="center" style="padding:0 0 20px;font-size:30px;line-height:1.2;font-weight:700;color:#ffffff;letter-spacing:-.5px;">¡Pura vida, ${firstName}!</td>
+                        </tr>
+                        <tr>
+                          <td align="center">
+                            <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+                              <tr>
+                                <td align="center" style="background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px 20px;">
+                                  <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);">Confirmation code</div>
+                                  <div style="margin-top:4px;font-family:Menlo,Consolas,'Courier New',monospace;font-size:22px;font-weight:700;letter-spacing:2px;color:#ffd9a8;">${escapeHtml(b.confirmationCode)}</div>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
                     </td>
                   </tr>
                 </table>
@@ -201,7 +225,7 @@ function customerEmailHtml(
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#fff8eb;border:1px solid #f6e3b8;border-radius:14px;">
                   <tr>
                     <td style="padding:16px 18px;">
-                      <div style="font-size:13px;font-weight:800;color:#92560f;">💳 &nbsp;Payment link on the way</div>
+                      <div style="font-size:13px;font-weight:700;color:#92560f;">💳 &nbsp;Payment link on the way</div>
                       <div style="margin-top:4px;font-size:13px;line-height:1.6;color:#7a4a14;">
                         Watch your inbox at <strong>${escapeHtml(b.email)}</strong> and your WhatsApp at <strong>${escapeHtml(b.phone)}</strong>. Your reservation is held in the meantime.
                       </div>
@@ -214,7 +238,7 @@ function customerEmailHtml(
             <!-- Trip cards -->
             <tr>
               <td style="padding:24px 32px 0;">
-                <h2 style="margin:0 0 12px;font-size:14px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#888;">${tripsCount === 1 ? "Your shuttle" : `Your ${tripsCount} shuttles`}</h2>
+                <h2 style="margin:0 0 12px;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888;">${tripsCount === 1 ? "Your shuttle" : `Your ${tripsCount} shuttles`}</h2>
                 ${tripCardsHtml(b.trips)}
               </td>
             </tr>
@@ -249,7 +273,7 @@ function customerEmailHtml(
                             <div style="margin-top:2px;font-size:11px;color:rgba(255,255,255,.4);">13% VAT included</div>
                           </td>
                           <td style="text-align:right;vertical-align:middle;">
-                            <div style="font-size:30px;font-weight:800;color:#fff;letter-spacing:-.5px;">$${b.total}</div>
+                            <div style="font-size:30px;font-weight:700;color:#fff;letter-spacing:-.5px;">$${b.total}</div>
                           </td>
                         </tr>
                       </table>
@@ -262,11 +286,11 @@ function customerEmailHtml(
             <!-- What happens next -->
             <tr>
               <td style="padding:30px 32px 0;">
-                <h2 style="margin:0 0 14px;font-size:18px;font-weight:800;color:#1a1a1a;letter-spacing:-.3px;">What happens next</h2>
+                <h2 style="margin:0 0 14px;font-size:18px;font-weight:700;color:#1a1a1a;letter-spacing:-.3px;">What happens next</h2>
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="padding:0 0 12px;vertical-align:top;width:38px;">
-                      <div style="width:30px;height:30px;line-height:30px;background:#e36414;color:#fff;border-radius:50%;text-align:center;font-size:13px;font-weight:800;">1</div>
+                      <div style="width:30px;height:30px;line-height:30px;background:#e36414;color:#fff;border-radius:50%;text-align:center;font-size:13px;font-weight:700;">1</div>
                     </td>
                     <td style="padding:0 0 12px;vertical-align:top;">
                       <div style="font-size:14px;font-weight:700;color:#1a1a1a;">Pay with the secure link</div>
@@ -275,7 +299,7 @@ function customerEmailHtml(
                   </tr>
                   <tr>
                     <td style="padding:0 0 12px;vertical-align:top;">
-                      <div style="width:30px;height:30px;line-height:30px;background:#e36414;color:#fff;border-radius:50%;text-align:center;font-size:13px;font-weight:800;">2</div>
+                      <div style="width:30px;height:30px;line-height:30px;background:#e36414;color:#fff;border-radius:50%;text-align:center;font-size:13px;font-weight:700;">2</div>
                     </td>
                     <td style="padding:0 0 12px;vertical-align:top;">
                       <div style="font-size:14px;font-weight:700;color:#1a1a1a;">Driver assignment</div>
@@ -284,7 +308,7 @@ function customerEmailHtml(
                   </tr>
                   <tr>
                     <td style="padding:0;vertical-align:top;">
-                      <div style="width:30px;height:30px;line-height:30px;background:#e36414;color:#fff;border-radius:50%;text-align:center;font-size:13px;font-weight:800;">3</div>
+                      <div style="width:30px;height:30px;line-height:30px;background:#e36414;color:#fff;border-radius:50%;text-align:center;font-size:13px;font-weight:700;">3</div>
                     </td>
                     <td style="padding:0;vertical-align:top;">
                       <div style="font-size:14px;font-weight:700;color:#1a1a1a;">Meet &amp; greet, on time</div>
@@ -385,7 +409,7 @@ function adminEmailHtml(b: BookingRequestBody, logo: string): string {
             <tr>
               <td style="padding:14px 18px;">
                 <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);">🌴☀️ &nbsp;New booking &middot; Internal copy</div>
-                <div style="margin-top:6px;font-size:15px;font-weight:800;color:#fff;">${escapeHtml(b.name)}</div>
+                <div style="margin-top:6px;font-size:15px;font-weight:700;color:#fff;">${escapeHtml(b.name)}</div>
                 <div style="margin-top:4px;font-size:13px;line-height:1.7;color:rgba(255,255,255,.85);">
                   <a href="mailto:${escapeHtml(b.email)}" style="color:#ffd9a8;text-decoration:none;">${escapeHtml(b.email)}</a>
                   &nbsp;&middot;&nbsp;

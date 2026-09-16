@@ -18,8 +18,7 @@ const RESEND_ENDPOINT = "https://api.resend.com/emails";
  * consistent everywhere — unlike the system-UI stack, which came out thin
  * and washed-out in Gmail on Windows.
  */
-export const EMAIL_FONT_STACK =
-  "'Lexend','Helvetica Neue',Helvetica,Arial,sans-serif";
+export const EMAIL_FONT_STACK = "Lexend,Arial,Helvetica,sans-serif";
 export const EMAIL_FONT_LINK =
   '<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&display=swap" rel="stylesheet" />';
 
