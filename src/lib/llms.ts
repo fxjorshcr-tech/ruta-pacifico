@@ -138,6 +138,11 @@ ${fleetTable()}
 
 All vehicles include: air conditioning, free WiFi, cold bottled water, phone chargers, complimentary child / booster seats on request, generous luggage space.
 
+## Booking lead time
+
+- Same-day pickups cannot be booked online. Book before 12:00 PM Costa Rica time to travel the next day; after 12:00 PM the earliest online pickup is the day after tomorrow.
+- For urgent same-day transfers, contact the team on WhatsApp and we will try to arrange it.
+
 ## Cancellation & changes
 
 - **More than 48 hours before pickup:** full refund (minus 13 % tax).

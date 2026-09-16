@@ -54,7 +54,7 @@ export default function DatePicker({ value, onChange, minDate }: Props) {
 
   const [open, setOpen] = useState(false);
   const [view, setView] = useState(() => {
-    const d = selected ?? new Date();
+    const d = selected ?? min;
     return { year: d.getFullYear(), month: d.getMonth() };
   });
 
@@ -304,16 +304,16 @@ export default function DatePicker({ value, onChange, minDate }: Props) {
             <button
               type="button"
               onClick={() => {
-                onChange(toISO(today));
+                onChange(toISO(min));
                 setView({
-                  year: today.getFullYear(),
-                  month: today.getMonth(),
+                  year: min.getFullYear(),
+                  month: min.getMonth(),
                 });
                 setOpen(false);
               }}
               className="font-semibold text-sunset-orange transition hover:text-sunset-gold"
             >
-              Today
+              {isSameDay(min, today) ? "Today" : "Earliest date"}
             </button>
             <button
               type="button"

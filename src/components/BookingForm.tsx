@@ -5,6 +5,11 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type { Route } from "@/lib/routes";
 import DatePicker from "@/components/DatePicker";
+import {
+  earliestPickupDate,
+  isPickupDateAllowed,
+  LEAD_TIME_MESSAGE,
+} from "@/lib/leadTime";
 import TimePicker from "@/components/TimePicker";
 import {
   addToCart,
@@ -68,6 +73,12 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
 
   const [submitting, setSubmitting] = useState(false);
   const [showDateTimeError, setShowDateTimeError] = useState(false);
+  const [dateTooSoon, setDateTooSoon] = useState(false);
+
+  // Earliest bookable pickup date. Recomputed on every render so it tracks the
+  // real clock; it only affects the calendar popup, which renders client-side
+  // after a click, so there is no hydration mismatch.
+  const minPickupDate = earliestPickupDate();
 
   const selectedVehicle =
     vehicles.find((v) => v.key === vehicleKey) ?? vehicles[0];
@@ -78,12 +89,12 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
   const groupTooLarge = totalPax > MAX_PAX;
 
   useEffect(() => {
-    if (!showDateTimeError) return;
+    if (!showDateTimeError && !dateTooSoon) return;
     dateTimeErrorRef.current?.scrollIntoView({
       behavior: "smooth",
       block: "center",
     });
-  }, [showDateTimeError]);
+  }, [showDateTimeError, dateTooSoon]);
 
   useEffect(() => {
     if (!vehicleTooSmall) return;
@@ -101,6 +112,12 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
       return;
     }
     setShowDateTimeError(false);
+    // Re-check at submit time: the page may have been open across the noon cutoff.
+    if (!isPickupDateAllowed(date)) {
+      setDateTooSoon(true);
+      return;
+    }
+    setDateTooSoon(false);
     setSubmitting(true);
 
     const tripItem: TripItem = {
@@ -208,15 +225,27 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
             When would you like to be picked up?
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
-            <DatePicker value={date} onChange={setDate} />
+            <DatePicker
+              value={date}
+              onChange={(iso) => {
+                setDate(iso);
+                setDateTooSoon(false);
+              }}
+              minDate={new Date(minPickupDate + "T00:00:00")}
+            />
             <TimePicker value={time} onChange={setTime} />
           </div>
-          {showDateTimeError && (
+          <p className="mt-3 text-xs text-foreground/50">
+            Book before 12:00 PM (Costa Rica time) to travel tomorrow. Same-day pickups aren&apos;t available online.
+          </p>
+          {(showDateTimeError || dateTooSoon) && (
             <p
               ref={dateTimeErrorRef}
               className="mt-3 scroll-mt-24 text-xs font-medium text-red-600"
             >
-              Please choose a pickup date and time to continue.
+              {dateTooSoon
+                ? LEAD_TIME_MESSAGE
+                : "Please choose a pickup date and time to continue."}
             </p>
           )}
         </div>
