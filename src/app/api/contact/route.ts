@@ -88,11 +88,29 @@ function customerEmailHtml(b: ContactRequestBody, logo: string): string {
               <td style="position:relative;background-color:#1a1a1a;background-image:url('${HERO_URL}');background-size:cover;background-position:center;padding:0;">
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td style="background:linear-gradient(135deg,rgba(230,57,70,.85),rgba(227,100,20,.78),rgba(244,162,97,.7));padding:40px 32px;text-align:center;">
-                      <img src="${logo}" alt="Ruta Pacifico" width="180" style="display:block;margin:0 auto 16px;height:auto;max-width:180px;" />
-                      <div style="display:inline-block;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:6px 14px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;backdrop-filter:blur(8px);">Message received</div>
-                      <h1 style="margin:18px 0 6px;font-size:30px;font-weight:800;color:#fff;letter-spacing:-.5px;line-height:1.2;">¡Pura vida, ${firstName}!</h1>
-                      <p style="margin:0;font-size:15px;color:rgba(255,255,255,.92);line-height:1.5;">Thanks for reaching out — we&rsquo;ve got your message.</p>
+                    <td style="background:linear-gradient(135deg,rgba(230,57,70,.86),rgba(227,100,20,.78),rgba(244,162,97,.7));padding:38px 32px 36px;">
+                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td align="center" style="padding:0 0 18px;">
+                            <img src="${logo}" alt="Ruta Pacifico" width="170" height="71" style="display:block;width:170px;height:auto;border:0;" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="center" style="padding:0 0 18px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto;">
+                              <tr>
+                                <td style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#ffffff;">Message received</td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="center" style="padding:0 0 20px;font-size:30px;line-height:1.2;font-weight:700;color:#ffffff;letter-spacing:-.5px;">¡Pura vida, ${firstName}!</td>
+                        </tr>
+                        <tr>
+                          <td align="center" style="font-size:15px;line-height:1.5;color:rgba(255,255,255,.92);">Thanks for reaching out &mdash; we&rsquo;ve got your message.</td>
+                        </tr>
+                      </table>
                     </td>
                   </tr>
                 </table>
@@ -129,7 +147,7 @@ function customerEmailHtml(b: ContactRequestBody, logo: string): string {
             <!-- Need it now? -->
             <tr>
               <td style="padding:8px 32px 24px;">
-                <h2 style="margin:0 0 14px;font-size:18px;font-weight:800;color:#1a1a1a;letter-spacing:-.3px;">Need an answer right now?</h2>
+                <h2 style="margin:0 0 14px;font-size:18px;font-weight:700;color:#1a1a1a;letter-spacing:-.3px;">Need an answer right now?</h2>
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="padding:0 0 10px;">
