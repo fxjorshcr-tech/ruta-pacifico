@@ -36,17 +36,17 @@ export function getAdminRecipients(): string[] {
  * Sender to use for INTERNAL admin notifications (new-booking / contact-form
  * alerts), kept distinct from the reservations@ inbox address.
  *
- * DELIVERABILITY NOTE — the reservations@rutapacifico.com mailbox is hosted
- * on iCloud Mail (custom domain via iCloud+; see the domain's MX records),
- * NOT Gmail/Google Workspace. iCloud silently discards (no bounce, no Junk
- * folder) messages whose From: claims the domain's own address but which
- * arrive from external infrastructure (Resend sends through Amazon SES) —
- * especially while the domain has no DMARC record. That is why bookings
- * arrive at the personal Gmail in EMAIL_NOTIFICATIONS_TO but not at
- * reservations@. Fixes live outside this codebase: publish a DMARC TXT
- * record for the domain (DNS is on Vercel) and add the sender address to
- * the iCloud account's contacts. The sender address does NOT need to exist
- * as a mailbox — Resend can send from any address on the verified domain.
+ * DELIVERABILITY NOTE — if admin notifications stop arriving while the
+ * customer emails still deliver, check Resend → Emails → Suppressions FIRST.
+ * Resend adds a recipient to its suppression list after one hard bounce and
+ * then silently skips it on every later send (the Emails log shows status
+ * "Suppressed"; the API call still returns ok:true with an id). Both admin
+ * addresses sat on that list for ~5 months in 2026. The fix is to remove the
+ * address in the Resend dashboard and re-test. DNS (DMARC/DKIM/SPF) is
+ * already correct and the reservations@rutapacifico.com mailbox is iCloud
+ * Mail (custom domain via iCloud+), so neither is the first suspect.
+ * The sender address does NOT need to exist as a mailbox — Resend can send
+ * from any address on the verified domain.
  *
  * Resolution order:
  *   1. EMAIL_NOTIFICATIONS_FROM, if explicitly set.
