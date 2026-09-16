@@ -125,41 +125,10 @@ function tripCardsHtml(trips: TripItem[]): string {
     .join("");
 }
 
-function tripRowsHtml(trips: TripItem[]): string {
-  return trips
-    .map((t, i) => {
-      const pax =
-        `${t.adults} adult${t.adults !== 1 ? "s" : ""}` +
-        (t.children > 0
-          ? `, ${t.children} child${t.children !== 1 ? "ren" : ""}`
-          : "");
-      return `
-        <tr>
-          <td style="padding:14px 16px;border-bottom:1px solid #eee;">
-            <div style="font-weight:700;color:#111;">
-              ${trips.length > 1 ? `${i + 1}. ` : ""}${escapeHtml(t.from)} → ${escapeHtml(t.to)}
-            </div>
-            <div style="font-size:13px;color:#666;margin-top:4px;">
-              ${escapeHtml(formatDate(t.date))} · ${escapeHtml(formatTime(t.time))}
-              ${t.duracion ? ` · ~${escapeHtml(t.duracion)}` : ""}
-            </div>
-            <div style="font-size:13px;color:#444;margin-top:8px;line-height:1.6;">
-              <div><strong>Vehicle:</strong> ${escapeHtml(t.vehicleName)} (${escapeHtml(t.vehiclePax)})</div>
-              <div><strong>Travelers:</strong> ${escapeHtml(pax)}</div>
-              ${t.flight ? `<div><strong>Flight:</strong> ${escapeHtml(t.flight)}</div>` : ""}
-              <div><strong>Pickup:</strong> ${escapeHtml(t.pickup)}</div>
-              <div><strong>Drop-off:</strong> ${escapeHtml(t.dropoff)}</div>
-            </div>
-          </td>
-          <td style="padding:14px 16px;border-bottom:1px solid #eee;text-align:right;font-weight:700;color:#e36414;white-space:nowrap;vertical-align:top;">
-            $${t.price}
-          </td>
-        </tr>`;
-    })
-    .join("");
-}
-
-function customerEmailHtml(b: BookingRequestBody): string {
+function customerEmailHtml(
+  b: BookingRequestBody,
+  internalHeader = "",
+): string {
   const firstName = escapeHtml(b.name.split(" ")[0] || b.name);
   const tripsCount = b.trips.length;
   return `
@@ -175,6 +144,7 @@ function customerEmailHtml(b: BookingRequestBody): string {
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4efe7;">
       <tr>
         <td align="center" style="padding:32px 16px;">
+          ${internalHeader}
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.08);">
             <!-- Hero -->
             <tr>
@@ -372,36 +342,47 @@ function customerEmailHtml(b: BookingRequestBody): string {
   </html>`;
 }
 
+/**
+ * Internal copy for the team: the exact email the customer received, with a
+ * compact strip on top holding the contact details needed to reply fast.
+ * The message is sent with Reply-To = customer, so hitting "Reply" from the
+ * reservations@ inbox goes straight to them.
+ */
 function adminEmailHtml(b: BookingRequestBody): string {
-  return `
-  <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;padding:20px;">
-    <div style="max-width:640px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #ddd;">
-      <div style="background:#111;color:#fff;padding:16px 20px;">
-        <div style="font-size:12px;opacity:.6;text-transform:uppercase;letter-spacing:1px;">New Reservation</div>
-        <div style="font-size:18px;font-weight:700;margin-top:2px;font-family:monospace;">${escapeHtml(b.confirmationCode)}</div>
-      </div>
-      <div style="padding:20px;">
-        <table style="width:100%;font-size:14px;color:#222;">
-          <tr><td style="padding:4px 0;color:#666;width:120px;">Customer</td><td style="padding:4px 0;font-weight:600;">${escapeHtml(b.name)}</td></tr>
-          <tr><td style="padding:4px 0;color:#666;">Email</td><td style="padding:4px 0;"><a href="mailto:${escapeHtml(b.email)}" style="color:#e36414;">${escapeHtml(b.email)}</a></td></tr>
-          <tr><td style="padding:4px 0;color:#666;">Phone</td><td style="padding:4px 0;"><a href="https://wa.me/${escapeHtml(b.phone.replace(/[^0-9]/g, ""))}" style="color:#e36414;">${escapeHtml(b.phone)}</a></td></tr>
-          <tr><td style="padding:4px 0;color:#666;">Total</td><td style="padding:4px 0;font-weight:700;">$${b.total}</td></tr>
-          <tr><td style="padding:4px 0;color:#666;">Created</td><td style="padding:4px 0;">${escapeHtml(b.createdAt)}</td></tr>
-        </table>
-        ${
-          b.notes
-            ? `<div style="margin-top:12px;padding:10px 12px;background:#fff8e1;border-left:3px solid #f4a261;border-radius:4px;font-size:13px;">
-                 <strong>Notes:</strong> ${escapeHtml(b.notes)}
-               </div>`
-            : ""
-        }
-        <h3 style="margin:20px 0 8px;font-size:13px;color:#666;text-transform:uppercase;letter-spacing:1px;">Trips</h3>
-        <table cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse;border:1px solid #eee;border-radius:8px;overflow:hidden;">
-          ${tripRowsHtml(b.trips)}
-        </table>
-      </div>
-    </div>
-  </div>`;
+  const phoneDigits = b.phone.replace(/[^0-9]/g, "");
+  let created = b.createdAt;
+  try {
+    created = new Date(b.createdAt).toLocaleString("en-US", {
+      timeZone: "America/Costa_Rica",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    });
+  } catch {
+    /* keep raw value */
+  }
+  const internalHeader = `
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto 14px;background:#1a1a1a;border-radius:14px;">
+            <tr>
+              <td style="padding:14px 18px;">
+                <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.55);">Internal copy &middot; New booking</div>
+                <div style="margin-top:6px;font-size:15px;font-weight:800;color:#fff;">${escapeHtml(b.name)}</div>
+                <div style="margin-top:4px;font-size:13px;line-height:1.7;color:rgba(255,255,255,.85);">
+                  <a href="mailto:${escapeHtml(b.email)}" style="color:#ffd9a8;text-decoration:none;">${escapeHtml(b.email)}</a>
+                  &nbsp;&middot;&nbsp;
+                  <a href="https://wa.me/${escapeHtml(phoneDigits)}" style="color:#ffd9a8;text-decoration:none;">${escapeHtml(b.phone)}</a>
+                </div>
+                ${
+                  b.notes
+                    ? `<div style="margin-top:8px;padding:8px 10px;background:rgba(255,217,168,.12);border-left:3px solid #ffd9a8;border-radius:4px;font-size:13px;line-height:1.5;color:#fff;"><strong>Notes:</strong> ${escapeHtml(b.notes)}</div>`
+                    : ""
+                }
+                <div style="margin-top:8px;font-size:11px;color:rgba(255,255,255,.45);">Hit Reply to answer the customer directly. Booked ${escapeHtml(created)} (Costa Rica time)</div>
+              </td>
+            </tr>
+          </table>`;
+  return customerEmailHtml(b, internalHeader);
 }
 
 export async function POST(request: NextRequest) {
