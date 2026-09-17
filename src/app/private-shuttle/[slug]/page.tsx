@@ -19,6 +19,7 @@ import {
   type Destination,
 } from "@/lib/destinations";
 import { MAX_PAX, VEHICLE_TIERS } from "@/lib/vehicles";
+import { GOOGLE_RATING } from "@/lib/contact";
 import { LOGO_WHITE_URL } from "@/lib/brand";
 
 const HERO_URL =
@@ -193,11 +194,11 @@ function RouteJsonLd({
         },
         aggregateRating: {
           "@type": "AggregateRating",
-          ratingValue: "5.0",
+          ratingValue: GOOGLE_RATING.value,
           bestRating: "5",
           worstRating: "1",
-          ratingCount: "50",
-          reviewCount: "50",
+          ratingCount: GOOGLE_RATING.reviewCount,
+          reviewCount: GOOGLE_RATING.reviewCount,
         },
       },
       {

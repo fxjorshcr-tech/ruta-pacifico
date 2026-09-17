@@ -6,17 +6,27 @@ export const RESERVATIONS_EMAIL = "reservations@rutapacifico.com";
 export const INSTAGRAM_URL = "https://www.instagram.com/rutapacificocr/";
 export const FACEBOOK_URL = "https://www.facebook.com/rutapacifico";
 /**
- * Google Business Profile ("Ruta Pacifico", 5.0 on Google Reviews). The
- * review badges on the home and booking pages link here, and it is listed
- * as a `sameAs` profile in the Organization JSON-LD.
- *
- * Swap this for the profile's own link once copied from the Business
- * Profile dashboard (Leer reseñas → share icon, or "Pedir una reseña" for
- * the direct g.page/r/…/review link). Until then a Maps search opens the
- * listing, on the Maps app when the visitor is on a phone.
+ * Google Business Profile ("Ruta Pacifico"). The review badges on the home
+ * and booking pages link here, and it is listed as a `sameAs` profile in
+ * the Organization JSON-LD. `GOOGLE_REVIEW_URL` is the same profile's
+ * "write a review" form, for leave-a-review calls to action.
  */
-export const GOOGLE_BUSINESS_PROFILE_URL =
-  "https://www.google.com/maps/search/?api=1&query=Ruta+Pacifico+shuttle+Guanacaste+Costa+Rica";
+export const GOOGLE_BUSINESS_PROFILE_URL = "https://g.page/r/CV2kZh_WDs-BEAE";
+export const GOOGLE_REVIEW_URL = `${GOOGLE_BUSINESS_PROFILE_URL}/review`;
+
+/**
+ * Live figures from the Google Business Profile. Every AggregateRating in
+ * the JSON-LD and the llms.txt company facts read from here, so the site
+ * never claims more reviews than Google can show. Update `reviewCount`
+ * as reviews come in; rich-result markup that does not match the profile
+ * is what gets review snippets removed.
+ */
+export const GOOGLE_RATING = {
+  value: "5.0",
+  reviewCount: 2,
+  /** Year the Business Profile was opened (the company itself dates from 2021). */
+  profileSince: 2025,
+};
 
 export const SOCIAL_PROFILES = [
   WHATSAPP_URL,

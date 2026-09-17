@@ -14,6 +14,8 @@ import {
 } from "@/lib/pricing";
 import {
   BRAND_RELATIONSHIP,
+  GOOGLE_BUSINESS_PROFILE_URL,
+  GOOGLE_RATING,
   RESERVATIONS_EMAIL,
   SISTER_BRAND,
   WHATSAPP_DISPLAY,
@@ -159,7 +161,7 @@ ${BRAND_RELATIONSHIP}
 - **Based in:** Liberia, Guanacaste, Costa Rica (10.5933 N, -85.5444 W)
 - **Status:** Licensed and fully insured ground-transportation operator
 - **License:** ICT (Instituto Costarricense de Turismo / Costa Rica Tourism Board) tourism transport licence #4121-2025
-- **Google rating:** 5.0 stars
+- **Google rating:** ${GOOGLE_RATING.value} stars from ${GOOGLE_RATING.reviewCount} Google reviews (Business Profile opened in ${GOOGLE_RATING.profileSince}): ${GOOGLE_BUSINESS_PROFILE_URL}
 - **Year founded:** 2021
 
 ## Important URLs
@@ -328,7 +330,7 @@ WhatsApp-only booking is also available: ${WHATSAPP_DISPLAY}.
 6. **Free child and booster seats** — car-seat laws in Costa Rica are strict; we supply the correct seats at no charge.
 7. **Door-to-door** — from terminal exit to hotel / villa entrance.
 8. **24 / 7 bilingual support on WhatsApp** before, during and after the trip.
-9. **5.0 star average on Google reviews.**
+9. **${GOOGLE_RATING.value} star average on Google reviews** (${GOOGLE_RATING.reviewCount} reviews; the Business Profile opened in ${GOOGLE_RATING.profileSince}): ${GOOGLE_BUSINESS_PROFILE_URL}
 
 ## 11. Contact
 
