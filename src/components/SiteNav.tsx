@@ -2,9 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LOGO_URL } from "@/lib/brand";
+import { splitLocale } from "@/lib/i18n";
+import { NAV } from "@/i18n/site";
+import { useLocale } from "@/components/LocaleProvider";
+import Link from "@/components/LocaleLink";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 interface Props {
   /**
@@ -15,8 +19,10 @@ interface Props {
 }
 
 export default function SiteNav({ transparent = true }: Props) {
+  const locale = useLocale();
+  const t = NAV[locale];
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  const isHome = splitLocale(pathname ?? "/").path === "/";
   const [open, setOpen] = useState(false);
 
   const containerClass = transparent
@@ -37,11 +43,20 @@ export default function SiteNav({ transparent = true }: Props) {
     ? "text-white/90 hover:bg-white/5 hover:text-sunset-gold"
     : "text-foreground/80 hover:bg-sunset-orange/5 hover:text-sunset-orange";
 
+  const links: { href: string; label: string }[] = [
+    ...(isHome ? [] : [{ href: "/", label: t.home }]),
+    { href: "/private-shuttle", label: t.shuttles },
+    { href: "/prices", label: t.prices },
+    { href: "/blog", label: t.blog },
+    { href: "/faq", label: t.faq },
+    { href: "/about-contact", label: t.about },
+  ];
+
   return (
     <nav className={containerClass}>
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4 sm:py-5">
         {/* Logo */}
-        <Link href="/" className="flex shrink-0 items-center" aria-label="Ruta Pacifico — Home">
+        <Link href="/" className="flex shrink-0 items-center" aria-label={t.logoLabel}>
           <Image
             src={LOGO_URL}
             alt="Ruta Pacifico"
@@ -54,112 +69,60 @@ export default function SiteNav({ transparent = true }: Props) {
         </Link>
 
         {/* Desktop links */}
-        <div className="hidden items-center gap-8 lg:flex xl:gap-12">
-          {!isHome && (
+        <div className="hidden items-center gap-8 lg:flex xl:gap-10">
+          {links.map((item) => (
             <Link
-              href="/"
+              key={item.href}
+              href={item.href}
               className={`text-[0.95rem] font-bold tracking-wide transition ${linkClass}`}
             >
-              Home
+              {item.label}
             </Link>
-          )}
-          <Link
-            href="/private-shuttle"
-            className={`text-[0.95rem] font-bold tracking-wide transition ${linkClass}`}
-          >
-            Private Shuttles
-          </Link>
-          <Link
-            href="/prices"
-            className={`text-[0.95rem] font-bold tracking-wide transition ${linkClass}`}
-          >
-            Prices
-          </Link>
-          <Link
-            href="/blog"
-            className={`text-[0.95rem] font-bold tracking-wide transition ${linkClass}`}
-          >
-            Blog
-          </Link>
-          <Link
-            href="/faq"
-            className={`text-[0.95rem] font-bold tracking-wide transition ${linkClass}`}
-          >
-            FAQ
-          </Link>
-          <Link
-            href="/about-contact"
-            className={`text-[0.95rem] font-bold tracking-wide transition ${linkClass}`}
-          >
-            About &amp; Contact Us
-          </Link>
+          ))}
+          <LanguageSwitcher tone={transparent ? "light" : "dark"} />
         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          type="button"
-          onClick={() => setOpen(!open)}
-          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden"
-          aria-label="Toggle menu"
-          aria-expanded={open}
-        >
-          <span className={`block h-0.5 w-7 transition-all duration-300 ${hamburgerBar} ${open ? "translate-y-2 rotate-45" : ""}`} />
-          <span className={`block h-0.5 w-7 transition-all duration-300 ${hamburgerBar} ${open ? "opacity-0" : ""}`} />
-          <span className={`block h-0.5 w-7 transition-all duration-300 ${hamburgerBar} ${open ? "-translate-y-2 -rotate-45" : ""}`} />
-        </button>
+        {/* Mobile: language + hamburger */}
+        <div className="flex items-center gap-3 lg:hidden">
+          <LanguageSwitcher tone={transparent ? "light" : "dark"} />
+          <button
+            type="button"
+            onClick={() => setOpen(!open)}
+            className="flex h-10 w-10 flex-col items-center justify-center gap-1.5"
+            aria-label={t.toggleMenu}
+            aria-expanded={open}
+          >
+            <span className={`block h-0.5 w-7 transition-all duration-300 ${hamburgerBar} ${open ? "translate-y-2 rotate-45" : ""}`} />
+            <span className={`block h-0.5 w-7 transition-all duration-300 ${hamburgerBar} ${open ? "opacity-0" : ""}`} />
+            <span className={`block h-0.5 w-7 transition-all duration-300 ${hamburgerBar} ${open ? "-translate-y-2 -rotate-45" : ""}`} />
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
       <div
         className={`lg:hidden overflow-hidden transition-all duration-300 ${
-          open ? "max-h-96" : "max-h-0"
+          open ? "max-h-[32rem]" : "max-h-0"
         } ${mobileMenuClass}`}
       >
         <div className="flex flex-col gap-1 px-6 py-4">
-          {!isHome && (
+          {links.map((item) => (
             <Link
-              href="/"
+              key={item.href}
+              href={item.href}
               onClick={() => setOpen(false)}
               className={`rounded-xl px-4 py-3 text-base font-semibold transition ${mobileLinkClass}`}
             >
-              Home
+              {item.label}
             </Link>
-          )}
-          <Link
-            href="/private-shuttle"
-            onClick={() => setOpen(false)}
-            className={`rounded-xl px-4 py-3 text-base font-semibold transition ${mobileLinkClass}`}
-          >
-            Private Shuttles
-          </Link>
-          <Link
-            href="/prices"
-            onClick={() => setOpen(false)}
-            className={`rounded-xl px-4 py-3 text-base font-semibold transition ${mobileLinkClass}`}
-          >
-            Prices
-          </Link>
-          <Link
-            href="/blog"
-            onClick={() => setOpen(false)}
-            className={`rounded-xl px-4 py-3 text-base font-semibold transition ${mobileLinkClass}`}
-          >
-            Blog
-          </Link>
-          <Link
-            href="/faq"
-            onClick={() => setOpen(false)}
-            className={`rounded-xl px-4 py-3 text-base font-semibold transition ${mobileLinkClass}`}
-          >
-            FAQ
-          </Link>
-          <Link
-            href="/about-contact"
-            onClick={() => setOpen(false)}
-            className={`rounded-xl px-4 py-3 text-base font-semibold transition ${mobileLinkClass}`}
-          >
-            About &amp; Contact Us
-          </Link>
+          ))}
+          <div className="mt-2 px-4 pb-1">
+            <LanguageSwitcher
+              variant="list"
+              tone={transparent ? "light" : "dark"}
+              onNavigate={() => setOpen(false)}
+            />
+          </div>
         </div>
       </div>
     </nav>

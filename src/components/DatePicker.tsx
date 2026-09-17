@@ -1,29 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { INTL_LOCALE } from "@/lib/i18n";
+import { useLocale } from "@/components/LocaleProvider";
+import { BOOKING } from "@/i18n/booking";
 
 interface Props {
   value: string; // ISO date YYYY-MM-DD
   onChange: (iso: string) => void;
   minDate?: Date;
 }
-
-const MONTHS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-const WEEK_DAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
 function toISO(d: Date): string {
   const y = d.getFullYear();
@@ -47,6 +33,8 @@ function isSameDay(a: Date, b: Date): boolean {
 }
 
 export default function DatePicker({ value, onChange, minDate }: Props) {
+  const locale = useLocale();
+  const t = BOOKING[locale].date;
   const today = stripTime(new Date());
   const min = minDate ? stripTime(minDate) : today;
 
@@ -126,13 +114,13 @@ export default function DatePicker({ value, onChange, minDate }: Props) {
   }
 
   const displayValue = selected
-    ? selected.toLocaleDateString("en-US", {
+    ? selected.toLocaleDateString(INTL_LOCALE[locale], {
         weekday: "short",
         month: "short",
         day: "numeric",
         year: "numeric",
       })
-    : "Select a date";
+    : t.placeholder;
 
   return (
     <div ref={wrapperRef} className="relative">
@@ -164,7 +152,7 @@ export default function DatePicker({ value, onChange, minDate }: Props) {
         </div>
         <div className="min-w-0 flex-1">
           <div className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-foreground/40">
-            Pickup Date
+            {t.label}
           </div>
           <div
             className={`mt-1 text-base font-bold ${
@@ -202,7 +190,7 @@ export default function DatePicker({ value, onChange, minDate }: Props) {
               type="button"
               onClick={prevMonth}
               className="flex h-9 w-9 items-center justify-center rounded-full text-foreground/60 transition hover:bg-sunset-orange/10 hover:text-sunset-orange"
-              aria-label="Previous month"
+              aria-label={t.prevMonth}
             >
               <svg
                 className="h-4 w-4"
@@ -219,13 +207,13 @@ export default function DatePicker({ value, onChange, minDate }: Props) {
               </svg>
             </button>
             <div className="text-sm font-bold text-foreground">
-              {MONTHS[view.month]} {view.year}
+              {t.months[view.month]} {view.year}
             </div>
             <button
               type="button"
               onClick={nextMonth}
               className="flex h-9 w-9 items-center justify-center rounded-full text-foreground/60 transition hover:bg-sunset-orange/10 hover:text-sunset-orange"
-              aria-label="Next month"
+              aria-label={t.nextMonth}
             >
               <svg
                 className="h-4 w-4"
@@ -245,7 +233,7 @@ export default function DatePicker({ value, onChange, minDate }: Props) {
 
           {/* Week days */}
           <div className="mt-3 grid grid-cols-7 gap-1">
-            {WEEK_DAYS.map((d) => (
+            {t.weekdays.map((d) => (
               <div
                 key={d}
                 className="py-1 text-center text-[0.65rem] font-bold uppercase tracking-wider text-foreground/40"
@@ -313,14 +301,14 @@ export default function DatePicker({ value, onChange, minDate }: Props) {
               }}
               className="font-semibold text-sunset-orange transition hover:text-sunset-gold"
             >
-              {isSameDay(min, today) ? "Today" : "Earliest date"}
+              {isSameDay(min, today) ? t.today : t.earliest}
             </button>
             <button
               type="button"
               onClick={() => setOpen(false)}
               className="font-semibold text-foreground/50 transition hover:text-foreground"
             >
-              Close
+              {t.close}
             </button>
           </div>
         </div>

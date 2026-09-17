@@ -7,6 +7,7 @@ import {
 import { durationMinutes, formatDuration } from "@/lib/routeFaqs";
 import { routeSlug } from "@/lib/slug";
 import { VEHICLE_TIERS, type VehicleTier } from "@/lib/vehicles";
+import { defineCopy, localeUrl, type Locale } from "@/lib/i18n";
 
 /**
  * Public price list helpers.
@@ -18,6 +19,11 @@ import { VEHICLE_TIERS, type VehicleTier } from "@/lib/vehicles";
  * not publish prices". This module is the single place that turns the
  * table into something a crawler can quote: the /prices page, the
  * llms*.txt files and the "popular routes" blocks all read from here.
+ *
+ * The English constants (`PRICE_FACTS`, group titles, "about 1 hour") are
+ * what llms.txt quotes and must not change. The UI reads the same text
+ * through the locale-aware accessors (`priceFacts`, `priceGroupMeta`,
+ * `travelTime(route, locale)`), which return the English text for `en`.
  */
 
 export const BASE_URL = "https://rutapacifico.com";
@@ -30,6 +36,25 @@ export const PRICE_FACTS = [
   "The same fixed price applies every day of the year: no peak-season, holiday, night or airport surcharge.",
   "Book online and the price shown at checkout is the price charged. Nothing is paid at pickup.",
 ];
+
+/**
+ * `PRICE_FACTS` in both languages for the UI. llms.txt and every other
+ * crawler-facing text keep reading the English constant above.
+ */
+export const PRICE_FACTS_COPY = defineCopy({
+  en: PRICE_FACTS,
+  es: [
+    "Los precios son en dólares estadounidenses, por vehículo, no por persona.",
+    "El 13% de IVA, el combustible, los peajes, el chofer, WiFi, agua y sillas para niños están incluidos.",
+    "El mismo precio fijo aplica todos los días del año: sin recargos por temporada alta, feriados, horario nocturno ni aeropuerto.",
+    "Reserva en línea y el precio que ves al pagar es el precio que se cobra. No se paga nada en la recogida.",
+  ],
+});
+
+/** `PRICE_FACTS` in the given language. */
+export function priceFacts(locale: Locale): string[] {
+  return PRICE_FACTS_COPY[locale];
+}
 
 export interface RoutePrice {
   tier: VehicleTier;
@@ -50,13 +75,27 @@ export function lowestPrice(route: Route): number | null {
   return routePrices(route)[0]?.price ?? null;
 }
 
-export function routeUrl(route: Route): string {
-  return `${BASE_URL}/private-shuttle/${routeSlug(route.origen, route.destino)}`;
+/** Absolute URL of the route page; `/es/...` on the Spanish site. */
+export function routeUrl(route: Route, locale: Locale = "en"): string {
+  return localeUrl(locale, `/private-shuttle/${routeSlug(route.origen, route.destino)}`);
 }
 
-/** "about 1 hour 15 minutes" from the free-form `duracion` column, or the raw value. */
-export function travelTime(route: Route): string {
+/** Spanish twin of `formatDuration`: "aprox. 1 hora 30 minutos", "aprox. 45 minutos". */
+function formatDurationEs(minutes: number): string {
+  const h = Math.floor(minutes / 60);
+  const min = minutes % 60;
+  if (h === 0) return `aprox. ${min} minutos`;
+  const hours = `${h} hora${h === 1 ? "" : "s"}`;
+  return min ? `aprox. ${hours} ${min} minutos` : `aprox. ${hours}`;
+}
+
+/**
+ * "about 1 hour 15 minutes" from the free-form `duracion` column, or the raw
+ * value. Pass a locale for the UI; llms.txt keeps the English default.
+ */
+export function travelTime(route: Route, locale: Locale = "en"): string {
   const minutes = durationMinutes(route.duracion);
+  if (locale === "es") return minutes ? formatDurationEs(minutes) : route.duracion || "varía";
   return minutes ? formatDuration(minutes) : route.duracion || "varies";
 }
 
@@ -104,6 +143,45 @@ const GROUP_META: Record<PriceGroupKey, { title: string; blurb: string }> = {
   },
 };
 
+/** `GROUP_META` in both languages; llms.txt keeps reading the English one. */
+const GROUP_META_COPY = defineCopy({
+  en: GROUP_META,
+  es: {
+    "from-lir": {
+      title: "Desde el Aeropuerto de Liberia (LIR)",
+      blurb:
+        "Recogida en el Aeropuerto Internacional Daniel Oduber Quirós, Liberia. El chofer te espera a la salida de llegadas con un rótulo con tu nombre; los vuelos se monitorean en tiempo real.",
+    },
+    "to-lir": {
+      title: "Hacia el Aeropuerto de Liberia (LIR)",
+      blurb:
+        "Recogida en tu hotel, villa o playa para tu vuelo de salida desde Liberia. Programamos la recogida para que llegues unas 3 horas antes de un vuelo internacional.",
+    },
+    "from-sjo": {
+      title: "Desde el Aeropuerto de San José (SJO)",
+      blurb:
+        "Recogida en el Aeropuerto Internacional Juan Santamaría, San José, hacia la costa de Guanacaste y el resto del país.",
+    },
+    "to-sjo": {
+      title: "Hacia el Aeropuerto de San José (SJO)",
+      blurb: "Traslados al Aeropuerto Internacional Juan Santamaría para vuelos de salida.",
+    },
+    between: {
+      title: "Entre playas, pueblos y destinos",
+      blurb:
+        "Traslados privados punto a punto: de playa a playa en Guanacaste, y de Guanacaste a La Fortuna, Monteverde, Manuel Antonio, San José y de regreso.",
+    },
+  },
+});
+
+/** Title and blurb of a price group in the given language. */
+export function priceGroupMeta(
+  key: PriceGroupKey,
+  locale: Locale = "en"
+): { title: string; blurb: string } {
+  return GROUP_META_COPY[locale][key];
+}
+
 export function priceGroupOf(route: Route): PriceGroupKey {
   if (LIR.test(route.origen)) return "from-lir";
   if (LIR.test(route.destino)) return "to-lir";
@@ -128,10 +206,12 @@ function byName(a: Route, b: Route): number {
  * Routes with at least one published price, split into the groups a traveller
  * thinks in. Airport groups are ordered cheapest first (closest beaches on
  * top); the long "between" list is alphabetical so it is scannable.
+ * `opts.locale` picks the language of the group titles and blurbs
+ * (English when omitted, as llms.txt expects).
  */
 export function groupRoutesForPriceList(
   routes: Route[],
-  opts: { indexableOnly?: boolean; destinations?: DestinationMap } = {}
+  opts: { indexableOnly?: boolean; destinations?: DestinationMap; locale?: Locale } = {}
 ): PriceGroup[] {
   const priced = routes.filter((r) => {
     if (!lowestPrice(r)) return false;
@@ -152,7 +232,7 @@ export function groupRoutesForPriceList(
     .map((key) => {
       const members = priced.filter((r) => priceGroupOf(r) === key);
       members.sort(key === "between" ? byName : byPriceThenName);
-      return { key, ...GROUP_META[key], routes: members };
+      return { key, ...priceGroupMeta(key, opts.locale), routes: members };
     })
     .filter((g) => g.routes.length > 0);
 }

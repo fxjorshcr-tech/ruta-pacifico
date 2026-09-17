@@ -6,7 +6,10 @@ import ComboBox, { type ComboOption } from "@/components/ComboBox";
 import { logHotelMiss } from "@/lib/hotelMiss";
 import { resolveHotelMatches } from "@/lib/hotels";
 import { routeSlug } from "@/lib/slug";
+import { localePath } from "@/lib/i18n";
 import type { Route } from "@/lib/routes";
+import { useLocale } from "@/components/LocaleProvider";
+import { BOOKING } from "@/i18n/booking";
 
 export type { Route };
 
@@ -23,24 +26,23 @@ interface RouteSearchProps {
 
 const AIRPORT_PREFIXES = ["LIR", "SJO"];
 
-const HOTEL_GROUP = "Hotels & landmarks";
-
-const EMPTY_TEXT =
-  "No matches. Try the town, beach or airport code (LIR, SJO) — or ask us on WhatsApp and we'll price it.";
-
 /**
  * Hotel/landmark suggestions for the combobox: "Andaz Costa Rica Resort…"
  * shown with "→ Papagayo Peninsula, Guanacaste" underneath, selecting the
  * route point. Resolved against the same options the box is showing so a
  * hotel never suggests a place that has no route from the chosen origin.
  */
-function hotelSuggestions(query: string, options: ComboOption[]): ComboOption[] {
+function hotelSuggestions(
+  query: string,
+  options: ComboOption[],
+  group: string
+): ComboOption[] {
   const places = options.map((o) => o.value);
   return resolveHotelMatches(query, places).map((m) => ({
     value: m.location,
     label: m.hotel,
     hint: `→ ${m.location}`,
-    group: HOTEL_GROUP,
+    group,
   }));
 }
 
@@ -69,6 +71,9 @@ const GUANACASTE_PRIORITY = [
 
 export default function RouteSearch({ routes }: RouteSearchProps) {
   const router = useRouter();
+  const locale = useLocale();
+  const t = BOOKING[locale].search;
+  const groups = t.groups;
   const [selectedOrigin, setSelectedOrigin] = useState("");
   const [selectedDestination, setSelectedDestination] = useState("");
   const [navigating, setNavigating] = useState(false);
@@ -90,13 +95,13 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
     const rest = all.filter((o) => !used.has(o)).sort();
 
     const opts: ComboOption[] = [];
-    for (const o of airports) opts.push({ value: o, label: o, group: "Airports" });
+    for (const o of airports) opts.push({ value: o, label: o, group: groups.airports });
     for (const o of guanacaste)
-      opts.push({ value: o, label: o, group: "Guanacaste" });
+      opts.push({ value: o, label: o, group: groups.guanacaste });
     for (const o of rest)
-      opts.push({ value: o, label: o, group: "Other destinations" });
+      opts.push({ value: o, label: o, group: groups.other });
     return opts;
-  }, [routes]);
+  }, [routes, groups]);
 
   const destinationOptions: ComboOption[] = useMemo(() => {
     if (!selectedOrigin) return [];
@@ -119,21 +124,21 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
     const rest = dests.filter((d) => !used.has(d)).sort();
 
     const opts: ComboOption[] = [];
-    for (const d of airports) opts.push({ value: d, label: d, group: "Airports" });
+    for (const d of airports) opts.push({ value: d, label: d, group: groups.airports });
     for (const d of guanacaste)
-      opts.push({ value: d, label: d, group: "Guanacaste" });
+      opts.push({ value: d, label: d, group: groups.guanacaste });
     for (const d of rest)
-      opts.push({ value: d, label: d, group: "Other destinations" });
+      opts.push({ value: d, label: d, group: groups.other });
     return opts;
-  }, [routes, selectedOrigin]);
+  }, [routes, selectedOrigin, groups]);
 
   const originHotels = useCallback(
-    (query: string) => hotelSuggestions(query, originOptions),
-    [originOptions]
+    (query: string) => hotelSuggestions(query, originOptions, groups.hotels),
+    [originOptions, groups.hotels]
   );
   const destinationHotels = useCallback(
-    (query: string) => hotelSuggestions(query, destinationOptions),
-    [destinationOptions]
+    (query: string) => hotelSuggestions(query, destinationOptions, groups.hotels),
+    [destinationOptions, groups.hotels]
   );
 
   const matchedRoute = useMemo(() => {
@@ -158,7 +163,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
     if (!matchedRoute) return;
     setNavigating(true);
     const slug = routeSlug(matchedRoute.origen, matchedRoute.destino);
-    router.push(`/private-shuttle/${slug}`);
+    router.push(localePath(locale, `/private-shuttle/${slug}`));
   }
 
   return (
@@ -168,12 +173,9 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
         <div className="rounded-3xl border border-black/5 bg-white p-8 shadow-xl sm:p-10">
           <div className="mb-8 text-center">
             <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
-              Find Your Route
+              {t.heading}
             </h2>
-            <p className="mt-2 text-foreground/60">
-              Type your hotel, town or airport — we&apos;ll show you the price
-              on the next step.
-            </p>
+            <p className="mt-2 text-foreground/60">{t.intro}</p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
@@ -183,14 +185,14 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-sunset-orange text-xs font-bold text-white">
                   1
                 </span>
-                Pick Origin
+                {t.originLabel}
               </label>
               <ComboBox
                 options={originOptions}
                 value={selectedOrigin}
                 onChange={handleOriginChange}
-                placeholder="Hotel, town or airport (e.g. Andaz, LIR, Tamarindo…)"
-                emptyText={EMPTY_TEXT}
+                placeholder={t.originPlaceholder}
+                emptyText={t.empty}
                 extraMatches={originHotels}
                 onNoMatch={logHotelMiss}
               />
@@ -202,7 +204,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-sunset-orange text-xs font-bold text-white">
                   2
                 </span>
-                Pick Destination
+                {t.destinationLabel}
               </label>
               <ComboBox
                 options={destinationOptions}
@@ -210,11 +212,11 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                 onChange={handleDestinationChange}
                 placeholder={
                   selectedOrigin
-                    ? "Hotel, town or airport…"
-                    : "Pick origin first"
+                    ? t.destinationPlaceholder
+                    : t.destinationDisabled
                 }
                 disabled={!selectedOrigin}
-                emptyText={EMPTY_TEXT}
+                emptyText={t.empty}
                 extraMatches={destinationHotels}
                 onNoMatch={logHotelMiss}
               />
@@ -230,10 +232,10 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
               className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-10 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 hover:scale-[1.02] disabled:cursor-not-allowed disabled:bg-none disabled:bg-foreground/10 disabled:text-foreground/40 disabled:shadow-none disabled:hover:scale-100"
             >
               {navigating
-                ? "Loading route…"
+                ? t.loading
                 : matchedRoute
-                  ? "Continue"
-                  : "Pick origin and destination"}
+                  ? t.continue
+                  : t.pickBoth}
               {matchedRoute && !navigating && (
                 <svg
                   className="h-5 w-5 transition-transform group-hover:translate-x-1"
@@ -255,7 +257,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
           {/* WhatsApp alternative */}
           <div className="mt-6 text-center">
             <p className="text-sm text-foreground/50">
-              Need help?{" "}
+              {t.needHelp}{" "}
               <a
                 href="https://wa.me/50670805578"
                 target="_blank"
@@ -270,7 +272,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
                   <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.553 4.116 1.519 5.848L.058 23.306a.5.5 0 00.636.636l5.458-1.461A11.948 11.948 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.94 0-3.753-.563-5.28-1.532l-.368-.224-3.821 1.023 1.023-3.821-.224-.368A9.935 9.935 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z" />
                 </svg>
-                Chat with us on WhatsApp
+                {t.whatsapp}
               </a>
             </p>
           </div>
@@ -283,38 +285,38 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
           {[
             {
               icon: "M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z",
-              label: "Licensed & insured",
+              key: "licensed" as const,
             },
             {
               icon: "M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z",
-              label: "Private — just your group",
+              key: "private" as const,
             },
             {
               icon: "M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25V9m-3 0h13.5M6.75 9v10.5A2.25 2.25 0 0 0 9 21.75h6a2.25 2.25 0 0 0 2.25-2.25V9",
-              label: "Luggage included",
+              key: "luggage" as const,
             },
             {
               icon: "M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z",
-              label: "Free child seats",
+              key: "childSeats" as const,
             },
             {
               icon: "M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z",
-              label: "Free WiFi",
+              key: "wifi" as const,
             },
             {
               icon: "M21 10.5h.375c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125H21M3.75 18h15A2.25 2.25 0 0 0 21 15.75v-6a2.25 2.25 0 0 0-2.25-2.25h-15A2.25 2.25 0 0 0 1.5 9.75v6A2.25 2.25 0 0 0 3.75 18Z",
-              label: "Phone chargers",
+              key: "chargers" as const,
             },
             {
               icon: "M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z",
-              label: "Complimentary water",
+              key: "water" as const,
             },
             {
               icon: "M2.25 8.25h19.5M2.25 9v10.5A1.5 1.5 0 0 0 3.75 21h16.5a1.5 1.5 0 0 0 1.5-1.5V9M3.75 3h16.5A1.5 1.5 0 0 1 21.75 4.5v3.75H2.25V4.5A1.5 1.5 0 0 1 3.75 3Z",
-              label: "No hidden fees",
+              key: "noFees" as const,
             },
           ].map((item) => (
-            <div key={item.label} className="flex items-center gap-2">
+            <div key={item.key} className="flex items-center gap-2">
               <svg
                 className="h-5 w-5 shrink-0 text-sunset-orange"
                 fill="none"
@@ -328,7 +330,7 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                   d={item.icon}
                 />
               </svg>
-              <span>{item.label}</span>
+              <span>{t.badges[item.key]}</span>
             </div>
           ))}
         </div>

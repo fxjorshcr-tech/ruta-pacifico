@@ -1,14 +1,20 @@
-import Link from "next/link";
+import Link from "@/components/LocaleLink";
 import { marked } from "marked";
 import type { Destination } from "@/lib/destinations";
 import type { Route } from "@/lib/routes";
+import type { Locale } from "@/lib/i18n";
 import { routeSlug } from "@/lib/slug";
 import { withCurrentContact } from "@/lib/contact";
+import { DESTINATION_GUIDE } from "@/i18n/route";
 
 /**
  * Unique, per-destination copy rendered on index-able route pages so each
  * URL says something the other 300 do not. Server component: Markdown is
  * converted once at render time, no client JS.
+ *
+ * The caller passes a `Destination` already run through
+ * `localizeDestination()`, so `intro_md`, `arrival_md`, `tips_md` and
+ * `best_for` are in the page language wherever the database has them.
  */
 const PROSE =
   "text-sm leading-relaxed text-foreground/75 [&_p]:mb-4 [&_p:last-child]:mb-0 [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5 [&_ul:last-child]:mb-0 [&_strong]:font-semibold [&_strong]:text-foreground";
@@ -25,6 +31,7 @@ interface Props {
   related: Route[];
   /** The opposite direction of this route, if it is sold. */
   reverse: Route | undefined;
+  locale?: Locale;
 }
 
 export default function DestinationGuide({
@@ -33,9 +40,10 @@ export default function DestinationGuide({
   destination,
   related,
   reverse,
+  locale = "en",
 }: Props) {
+  const t = DESTINATION_GUIDE[locale];
   const originName = origin?.short_name ?? route.origen;
-  const heading = `About ${destination.short_name}`;
 
   return (
     <section
@@ -67,10 +75,10 @@ export default function DestinationGuide({
             </span>
             <span className="min-w-0">
               <span className="block text-sm font-bold text-foreground">
-                Travel notes: {heading.replace(/^About /, "")}
+                {t.travelNotes(destination.short_name)}
               </span>
               <span className="block truncate text-xs text-foreground/50">
-                What to expect, the ride from {originName}, local tips and related routes
+                {t.summaryHint(originName)}
               </span>
             </span>
           </span>
@@ -105,7 +113,7 @@ export default function DestinationGuide({
           id="destination-guide"
           className="mt-4 text-2xl font-bold text-foreground sm:text-3xl"
         >
-          {heading}
+          {t.about(destination.short_name)}
         </h2>
         <div
           className={`mt-4 ${PROSE}`}
@@ -115,7 +123,7 @@ export default function DestinationGuide({
         {destination.arrival_md.trim() ? (
           <>
             <h3 className="mt-8 text-lg font-bold text-foreground">
-              The ride from {originName}
+              {t.rideFrom(originName)}
             </h3>
             <div
               className={`mt-3 ${PROSE}`}
@@ -127,7 +135,7 @@ export default function DestinationGuide({
         {destination.tips_md.trim() ? (
           <>
             <h3 className="mt-8 text-lg font-bold text-foreground">
-              Good to know before you arrive
+              {t.goodToKnow}
             </h3>
             <div
               className={`mt-3 ${PROSE}`}
@@ -139,7 +147,7 @@ export default function DestinationGuide({
         {reverse || related.length ? (
           <div className="mt-8 border-t border-black/5 pt-6">
             <h3 className="text-sm font-semibold uppercase tracking-wider text-foreground/50">
-              Related private shuttles
+              {t.related}
             </h3>
             <ul className="mt-3 grid gap-2 sm:grid-cols-2">
               {reverse ? (
@@ -148,11 +156,9 @@ export default function DestinationGuide({
                     href={`/private-shuttle/${routeSlug(reverse.origen, reverse.destino)}`}
                     className="flex items-center justify-between rounded-xl border border-black/10 px-4 py-2.5 text-sm font-medium text-foreground transition hover:border-sunset-orange hover:text-sunset-orange"
                   >
-                    <span>
-                      Return trip: {reverse.origen} → {reverse.destino}
-                    </span>
+                    <span>{t.returnTrip(reverse.origen, reverse.destino)}</span>
                     <span className="text-xs text-foreground/50">
-                      from ${reverse.precio1a5}
+                      {t.from(reverse.precio1a5)}
                     </span>
                   </Link>
                 </li>
@@ -167,7 +173,7 @@ export default function DestinationGuide({
                       {r.origen} → {r.destino}
                     </span>
                     <span className="text-xs text-foreground/50">
-                      from ${r.precio1a5}
+                      {t.from(r.precio1a5)}
                     </span>
                   </Link>
                 </li>

@@ -2,10 +2,14 @@
 
 import { useState } from "react";
 import PhoneInput from "@/components/PhoneInput";
+import { useLocale } from "@/components/LocaleProvider";
+import { CONTACT_FORM } from "@/i18n/contact";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
 export default function ContactForm() {
+  const locale = useLocale();
+  const t = CONTACT_FORM[locale];
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -30,13 +34,14 @@ export default function ContactForm() {
           phone: phone || undefined,
           subject: subject || undefined,
           message,
+          locale,
         }),
       });
       if (!res.ok) {
         const data = (await res.json().catch(() => null)) as
           | { error?: string }
           | null;
-        throw new Error(data?.error ?? "Could not send your message.");
+        throw new Error(data?.error ?? t.errorGeneric);
       }
       setStatus("success");
       setName("");
@@ -46,11 +51,7 @@ export default function ContactForm() {
       setMessage("");
     } catch (err) {
       setStatus("error");
-      setErrorMessage(
-        err instanceof Error
-          ? err.message
-          : "Could not send your message. Please try WhatsApp instead.",
-      );
+      setErrorMessage(err instanceof Error ? err.message : t.errorNetwork);
     }
   }
 
@@ -68,17 +69,14 @@ export default function ContactForm() {
             <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
           </svg>
         </div>
-        <h3 className="mt-4 text-lg font-bold text-foreground">Message sent</h3>
-        <p className="mt-2 text-sm text-foreground/70">
-          Thanks — we&apos;ve received your message and will reply shortly. Check your
-          inbox for a confirmation.
-        </p>
+        <h3 className="mt-4 text-lg font-bold text-foreground">{t.successTitle}</h3>
+        <p className="mt-2 text-sm text-foreground/70">{t.successBody}</p>
         <button
           type="button"
           onClick={() => setStatus("idle")}
           className="mt-5 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-5 py-2.5 text-sm font-semibold text-foreground transition hover:border-sunset-orange hover:text-sunset-orange"
         >
-          Send another message
+          {t.sendAnother}
         </button>
       </div>
     );
@@ -89,10 +87,8 @@ export default function ContactForm() {
       onSubmit={handleSubmit}
       className="rounded-3xl border border-black/5 bg-white p-6 shadow-sm sm:p-8"
     >
-      <h3 className="text-lg font-bold text-foreground">Send us a message</h3>
-      <p className="mt-1 text-sm text-foreground/60">
-        We&apos;ll reply within a few hours during the day.
-      </p>
+      <h3 className="text-lg font-bold text-foreground">{t.title}</h3>
+      <p className="mt-1 text-sm text-foreground/60">{t.subtitle}</p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <div className="sm:col-span-2">
@@ -100,7 +96,7 @@ export default function ContactForm() {
             htmlFor="contact-name"
             className="text-sm font-medium text-foreground/70"
           >
-            Full name
+            {t.name}
           </label>
           <input
             id="contact-name"
@@ -117,7 +113,7 @@ export default function ContactForm() {
             htmlFor="contact-email"
             className="text-sm font-medium text-foreground/70"
           >
-            Email
+            {t.email}
           </label>
           <input
             id="contact-email"
@@ -134,8 +130,7 @@ export default function ContactForm() {
             htmlFor="contact-phone"
             className="text-sm font-medium text-foreground/70"
           >
-            Phone / WhatsApp{" "}
-            <span className="text-foreground/40">(optional)</span>
+            {t.phone} <span className="text-foreground/40">{t.optional}</span>
           </label>
           <div className="mt-2">
             <PhoneInput id="contact-phone" value={phone} onChange={setPhone} />
@@ -146,7 +141,7 @@ export default function ContactForm() {
             htmlFor="contact-subject"
             className="text-sm font-medium text-foreground/70"
           >
-            Subject <span className="text-foreground/40">(optional)</span>
+            {t.subject} <span className="text-foreground/40">{t.optional}</span>
           </label>
           <input
             id="contact-subject"
@@ -154,7 +149,7 @@ export default function ContactForm() {
             maxLength={200}
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
-            placeholder="Reservation question, custom itinerary, group quote…"
+            placeholder={t.subjectPlaceholder}
             className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
           />
         </div>
@@ -163,7 +158,7 @@ export default function ContactForm() {
             htmlFor="contact-message"
             className="text-sm font-medium text-foreground/70"
           >
-            Message
+            {t.message}
           </label>
           <textarea
             id="contact-message"
@@ -172,7 +167,7 @@ export default function ContactForm() {
             maxLength={5000}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Tell us about your trip, dates, and number of travelers…"
+            placeholder={t.messagePlaceholder}
             className="mt-2 w-full resize-none rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
           />
         </div>
@@ -190,10 +185,10 @@ export default function ContactForm() {
         className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-8 py-4 text-sm font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
       >
         {status === "submitting" ? (
-          "Sending…"
+          t.sending
         ) : (
           <>
-            Send message
+            {t.submit}
             <svg
               className="h-4 w-4"
               fill="none"

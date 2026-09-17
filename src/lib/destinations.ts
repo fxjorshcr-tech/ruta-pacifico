@@ -2,6 +2,7 @@ import { cache } from "react";
 import { getSupabase } from "@/lib/supabase";
 import { toSlug } from "@/lib/slug";
 import type { Route } from "@/lib/routes";
+import { pickLocale, type Locale } from "@/lib/i18n";
 
 /**
  * Destination guides + SEO tiers (table: destinations_ruta_pacifico).
@@ -40,12 +41,31 @@ export interface Destination {
   best_for: string[];
   image_url: string | null;
   image_alt: string | null;
+  /** Spanish twins (supabase/i18n_es_schema.sql); see `localizeDestination`. */
+  intro_md_es?: string | null;
+  arrival_md_es?: string | null;
+  tips_md_es?: string | null;
+  best_for_es?: string[] | null;
+  image_alt_es?: string | null;
 }
 
 export type DestinationMap = Map<string, Destination>;
 
-const COLUMNS =
-  "slug, name, short_name, region, tier, intro_md, arrival_md, tips_md, best_for, image_url, image_alt";
+/** `*` so the optional Spanish columns are read when present and absent before the migration runs. */
+const COLUMNS = "*";
+
+/** The guide copy in the requested language, English wherever Spanish is not filled in yet. */
+export function localizeDestination(d: Destination, locale: Locale): Destination {
+  if (locale === "en") return d;
+  return {
+    ...d,
+    intro_md: pickLocale(locale, d.intro_md_es, d.intro_md),
+    arrival_md: pickLocale(locale, d.arrival_md_es, d.arrival_md),
+    tips_md: pickLocale(locale, d.tips_md_es, d.tips_md),
+    best_for: d.best_for_es?.length ? d.best_for_es : d.best_for,
+    image_alt: pickLocale(locale, d.image_alt_es, d.image_alt),
+  };
+}
 
 /** All destinations keyed by slug. Deduplicated per request via React cache. */
 export const getDestinations = cache(async (): Promise<DestinationMap> => {

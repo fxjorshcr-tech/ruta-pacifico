@@ -11,6 +11,8 @@
  * hour can be derived by a fixed offset without Intl time-zone support.
  */
 
+import { defineCopy, type Locale } from "@/lib/i18n";
+
 export const LEAD_TIME_CUTOFF_HOUR = 12; // noon, Costa Rica time
 const CR_UTC_OFFSET_MINUTES = -6 * 60;
 
@@ -51,3 +53,17 @@ export function isPickupDateAllowed(isoDate: string, now: Date = new Date()): bo
 /** Customer-facing explanation of the rule, used wherever a date is rejected. */
 export const LEAD_TIME_MESSAGE =
   "We need at least one day's notice. Book before 12:00 PM (Costa Rica time) to travel tomorrow; after that, the earliest pickup is the day after tomorrow.";
+
+/** The same rule in both languages; `LEAD_TIME_MESSAGE` stays the English source. */
+export const LEAD_TIME_COPY = defineCopy({
+  en: { message: LEAD_TIME_MESSAGE },
+  es: {
+    message:
+      "Necesitamos al menos un día de anticipación. Reserva antes de las 12:00 p. m. (hora de Costa Rica) para viajar mañana; después de esa hora, la recogida más cercana es pasado mañana.",
+  },
+});
+
+/** Customer-facing lead-time explanation in the visitor's language. */
+export function leadTimeMessage(locale: Locale = "en"): string {
+  return LEAD_TIME_COPY[locale].message;
+}

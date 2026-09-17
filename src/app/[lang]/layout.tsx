@@ -1,0 +1,503 @@
+import type { Metadata, Viewport } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import FloatingCart from "@/components/FloatingCart";
+import {
+  BRAND_LAUNCH,
+  BRAND_RELATIONSHIP,
+  FOUNDER,
+  ICT_LICENSE_NUMBER,
+  SISTER_BRAND,
+  SOCIAL_PROFILES,
+} from "@/lib/contact";
+import { getGoogleRating } from "@/lib/googleRating";
+import { LocaleProvider } from "@/components/LocaleProvider";
+import {
+  HTML_LANG,
+  IN_LANGUAGE,
+  LOCALES,
+  OG_LOCALE,
+  localeAlternates,
+  localeFromParams,
+  localePath,
+  type Locale,
+} from "@/lib/i18n";
+import { SITE } from "@/i18n/site";
+import "../globals.css";
+import { LOGO_SQUARE_ABSOLUTE_URL, LOGO_SQUARE_SIZE } from "@/lib/brand";
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+
+/**
+ * Site-verification tokens. Both variables accept a comma-separated list so
+ * the property can be verified from more than one Search Console / Bing
+ * Webmaster account (each account issues its own token) without touching
+ * the code again.
+ */
+function verificationTokens(value: string | undefined): string[] {
+  return (value ?? "")
+    .split(",")
+    .map((token) => token.trim())
+    .filter(Boolean);
+}
+const GOOGLE_SITE_VERIFICATION = verificationTokens(
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+);
+const BING_SITE_VERIFICATION = verificationTokens(
+  process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+);
+
+const BASE_URL = "https://rutapacifico.com";
+const OG_IMAGE =
+  "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  // Accessibility: allow pinch-zoom up to 5×.
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
+  colorScheme: "light",
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const locale = await localeFromParams(params);
+  const t = SITE[locale];
+  return {
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: t.title,
+    template: t.template,
+  },
+  description: t.description,
+  applicationName: "Ruta Pacifico",
+  generator: "Next.js",
+  authors: [{ name: "Ruta Pacifico", url: BASE_URL }],
+  creator: "Ruta Pacifico",
+  publisher: "Ruta Pacifico",
+  category: "Travel",
+  classification: "Travel & Transportation",
+  referrer: "origin-when-cross-origin",
+  keywords: t.keywords,
+  alternates: {
+    ...localeAlternates("/", locale),
+    types: {
+      "application/xml": "/sitemap.xml",
+      "text/plain": "/llms.txt",
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: OG_LOCALE[locale],
+    url: localePath(locale, "/"),
+    siteName: "Ruta Pacifico",
+    title: t.title,
+    description: t.ogDescription,
+    images: [
+      {
+        url: OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: t.ogImageAlt,
+        type: "image/webp",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: t.title,
+    description: t.twitterDescription,
+    images: [OG_IMAGE],
+    creator: "@rutapacifico",
+  },
+  formatDetection: {
+    email: true,
+    telephone: true,
+    address: true,
+  },
+  verification:
+    GOOGLE_SITE_VERIFICATION.length || BING_SITE_VERIFICATION.length
+      ? {
+          google: GOOGLE_SITE_VERIFICATION.length
+            ? GOOGLE_SITE_VERIFICATION
+            : undefined,
+          // Bing Webmaster Tools reads <meta name="msvalidate.01">.
+          other: BING_SITE_VERIFICATION.length
+            ? { "msvalidate.01": BING_SITE_VERIFICATION }
+            : undefined,
+        }
+      : undefined,
+  other: {
+    // Geo tagging — still picked up by many tools (Bing Places, some AI
+    // summarisers) even though modern schema.org is preferred.
+    "geo.region": "CR-G",
+    "geo.placename": "Liberia, Guanacaste, Costa Rica",
+    "geo.position": "10.5933;-85.5444",
+    ICBM: "10.5933, -85.5444",
+    // Help answer engines pick the right contact fast.
+    "business:contact_data:country_name": "Costa Rica",
+    "business:contact_data:region": "Guanacaste",
+    "business:contact_data:locality": "Liberia",
+    "business:contact_data:phone_number": "+506-7080-5578",
+    "business:contact_data:email": "reservations@rutapacifico.com",
+    // Explicit AI/LLM opt-in signals (redundant with robots.txt but some
+    // crawlers read the meta tag directly on the page).
+    "ai-content-declaration": "human-authored",
+    // rating tag — picked up by some SERP features.
+    rating: "General",
+    "revisit-after": "7 days",
+  },
+  };
+}
+
+/**
+ * Rich JSON-LD graph. A single @graph with connected @id references is easier
+ * for LLMs and Google to reason about than several disconnected blocks.
+ */
+async function JsonLd({ locale }: { locale: Locale }) {
+  const t = SITE[locale];
+  const rating = await getGoogleRating();
+  const pageUrl = `${BASE_URL}${localePath(locale, "/")}`;
+  const graph = {
+    "@context": "https://schema.org",
+    "@graph": [
+      // Organization / Travel Agency — the operating entity.
+      {
+        "@type": ["TravelAgency", "LocalBusiness", "Organization"],
+        "@id": `${BASE_URL}/#organization`,
+        name: "Ruta Pacifico",
+        alternateName: "Ruta Pacifico CR",
+        legalName: "Ruta Pacifico",
+        description:
+          "Licensed and insured private ground-transportation operator based in Liberia, Guanacaste. Provides private airport shuttles from Liberia International Airport (LIR) and point-to-point transfers across Costa Rica.",
+        // schema.org's property for exactly this: how to tell this entity
+        // apart from a similar one (the sister brand sharing the licence).
+        disambiguatingDescription: BRAND_RELATIONSHIP,
+        url: BASE_URL,
+        logo: {
+          "@type": "ImageObject",
+          url: LOGO_SQUARE_ABSOLUTE_URL,
+          width: LOGO_SQUARE_SIZE,
+          height: LOGO_SQUARE_SIZE,
+        },
+        image: OG_IMAGE,
+        telephone: "+506-7080-5578",
+        email: "reservations@rutapacifico.com",
+        priceRange: "$$",
+        currenciesAccepted: "USD, CRC",
+        paymentAccepted: "Credit Card, Debit Card, Cash",
+        foundingDate: BRAND_LAUNCH,
+        founder: {
+          "@type": "Person",
+          "@id": `${BASE_URL}/#founder`,
+          name: FOUNDER.name,
+          description: `Costa Rican tourism professional since ${FOUNDER.inTourismSince}. Founder of ${SISTER_BRAND.name} (launched ${SISTER_BRAND.launched}) and Ruta Pacifico (launched ${BRAND_LAUNCH}).`,
+          worksFor: { "@id": `${BASE_URL}/#organization` },
+        },
+        slogan: "Private shuttles across Guanacaste and Costa Rica.",
+        // Verifiable licensing — reinforces the "licensed & insured" claim for
+        // both Google (E-E-A-T) and answer engines that weigh trust signals.
+        identifier: {
+          "@type": "PropertyValue",
+          propertyID: "ICT License (Costa Rica Tourism Board)",
+          value: ICT_LICENSE_NUMBER,
+        },
+        hasCredential: {
+          "@type": "EducationalOccupationalCredential",
+          credentialCategory: "license",
+          name: `ICT Tourism Transport Operator License #${ICT_LICENSE_NUMBER}`,
+          recognizedBy: {
+            "@type": "GovernmentOrganization",
+            name: "Instituto Costarricense de Turismo (ICT)",
+            alternateName: "Costa Rica Tourism Board",
+          },
+        },
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Liberia",
+          addressRegion: "Guanacaste",
+          addressCountry: "CR",
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 10.5933,
+          longitude: -85.5444,
+        },
+        areaServed: [
+          {
+            "@type": "State",
+            name: "Guanacaste",
+            containedInPlace: { "@type": "Country", name: "Costa Rica" },
+          },
+          { "@type": "Country", name: "Costa Rica" },
+        ],
+        knowsLanguage: ["en", "es"],
+        openingHoursSpecification: {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday",
+          ],
+          opens: "00:00",
+          closes: "23:59",
+        },
+        hoursAvailable: {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday",
+          ],
+          opens: "00:00",
+          closes: "23:59",
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: rating.value,
+          bestRating: "5",
+          worstRating: "1",
+          ratingCount: rating.reviewCount,
+          reviewCount: rating.reviewCount,
+        },
+        contactPoint: [
+          {
+            "@type": "ContactPoint",
+            contactType: "customer service",
+            telephone: "+506-7080-5578",
+            email: "reservations@rutapacifico.com",
+            availableLanguage: ["English", "Spanish"],
+            areaServed: "CR",
+            hoursAvailable: {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday",
+              ],
+              opens: "00:00",
+              closes: "23:59",
+            },
+          },
+          {
+            "@type": "ContactPoint",
+            contactType: "reservations",
+            telephone: "+506-7080-5578",
+            url: "https://wa.me/50670805578",
+            availableLanguage: ["English", "Spanish"],
+          },
+        ],
+        sameAs: SOCIAL_PROFILES,
+        makesOffer: [
+          {
+            "@type": "Offer",
+            name: "Airport Shuttle from Liberia International Airport (LIR)",
+            description:
+              "Private door-to-door transfer from Daniel Oduber Quirós International Airport (LIR) to any beach, resort or destination in Costa Rica. Includes real-time flight tracking.",
+            priceCurrency: "USD",
+            eligibleRegion: { "@type": "Country", name: "Costa Rica" },
+            availability: "https://schema.org/InStock",
+            itemOffered: {
+              "@type": "Service",
+              name: "Private Airport Shuttle",
+              serviceType: "Ground transportation",
+              areaServed: "Costa Rica",
+            },
+          },
+          {
+            "@type": "Offer",
+            name: "Inter-Beach Private Shuttle",
+            description:
+              "Private rides between coastal towns in Guanacaste — Tamarindo, Flamingo, Conchal, Nosara, Papagayo, Sámara, Playas del Coco and more.",
+            priceCurrency: "USD",
+            availability: "https://schema.org/InStock",
+            itemOffered: {
+              "@type": "Service",
+              name: "Inter-Beach Shuttle",
+              serviceType: "Ground transportation",
+              areaServed: "Guanacaste, Costa Rica",
+            },
+          },
+          {
+            "@type": "Offer",
+            name: "Cross-Country Private Shuttle",
+            description:
+              "Long-distance private transfers from Guanacaste to La Fortuna / Arenal, Monteverde, Manuel Antonio, San José and beyond.",
+            priceCurrency: "USD",
+            availability: "https://schema.org/InStock",
+            itemOffered: {
+              "@type": "Service",
+              name: "Cross-Country Shuttle",
+              serviceType: "Ground transportation",
+              areaServed: "Costa Rica",
+            },
+          },
+        ],
+      },
+
+      // WebSite — ties every page to the organisation. No SearchAction: the
+      // site has no ?q= search endpoint, and Google retired the Sitelinks
+      // search box, so declaring one would only be a broken promise to
+      // crawlers and answer engines that try to follow it.
+      {
+        "@type": "WebSite",
+        "@id": `${BASE_URL}/#website`,
+        url: BASE_URL,
+        name: "Ruta Pacifico",
+        description: t.websiteDescription,
+        inLanguage: IN_LANGUAGE[locale],
+        publisher: { "@id": `${BASE_URL}/#organization` },
+      },
+
+      // Home page WebPage
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: t.title,
+        isPartOf: { "@id": `${BASE_URL}/#website` },
+        about: { "@id": `${BASE_URL}/#organization` },
+        primaryImageOfPage: OG_IMAGE,
+        inLanguage: IN_LANGUAGE[locale],
+        breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
+      },
+
+      // Root breadcrumb
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: t.home,
+            item: pageUrl,
+          },
+        ],
+      },
+
+      // LIR airport — declaring it as a known place helps LLMs link queries
+      // like "airport transfer from Liberia Costa Rica" to this business.
+      {
+        "@type": "Airport",
+        "@id": `${BASE_URL}/#lir-airport`,
+        name: "Daniel Oduber Quirós International Airport",
+        alternateName: "Liberia International Airport",
+        iataCode: "LIR",
+        icaoCode: "MRLB",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Liberia",
+          addressRegion: "Guanacaste",
+          addressCountry: "CR",
+        },
+        geo: { "@type": "GeoCoordinates", latitude: 10.5933, longitude: -85.5444 },
+      },
+    ],
+  };
+
+  // A plain <script> so the graph is present in the static HTML. next/script
+  // (even with beforeInteractive) only materialises the tag on the client,
+  // which hides it from crawlers that do not execute JavaScript: Bing,
+  // GPTBot, PerplexityBot, ClaudeBot and most answer engines.
+  return (
+    <script
+      id="ld-json-organization"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
+    />
+  );
+}
+
+/** Both languages are pre-rendered; the proxy maps unprefixed URLs to `en`. */
+export function generateStaticParams(): { lang: Locale }[] {
+  return LOCALES.map((lang) => ({ lang }));
+}
+
+export default async function RootLayout({
+  children,
+  params,
+}: Readonly<{
+  children: React.ReactNode;
+  params: Promise<{ lang: string }>;
+}>) {
+  const locale = await localeFromParams(params);
+  return (
+    <html lang={HTML_LANG[locale]} className="h-full antialiased">
+      <head>
+        {/* Performance: pre-warm the origins we always hit first. */}
+        <link
+          rel="preconnect"
+          href="https://mmlbslwljvmscbgsqkkq.supabase.co"
+          crossOrigin=""
+        />
+        <link rel="dns-prefetch" href="https://mmlbslwljvmscbgsqkkq.supabase.co" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin=""
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
+        {/* Pointer the LLM-facing docs — non-standard but harmless, and some
+            crawlers honour it to find llms.txt without scanning robots.txt. */}
+        <link
+          rel="alternate"
+          type="text/markdown"
+          href="/llms.txt"
+          title="llms.txt — summary for language models"
+        />
+        <link
+          rel="alternate"
+          type="text/markdown"
+          href="/llms-full.txt"
+          title="llms-full.txt — full context for language models"
+        />
+        <JsonLd locale={locale} />
+      </head>
+      <body className="min-h-full flex flex-col bg-background text-foreground overflow-x-hidden">
+        <LocaleProvider locale={locale}>
+          {children}
+          <FloatingCart />
+        </LocaleProvider>
+      </body>
+      {GA_ID ? <GoogleAnalytics gaId={GA_ID} /> : null}
+    </html>
+  );
+}

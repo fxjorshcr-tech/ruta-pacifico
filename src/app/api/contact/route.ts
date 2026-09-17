@@ -9,12 +9,13 @@ import {
   EMAIL_FONT_STACK,
   EMAIL_FONT_LINK,
 } from "@/lib/email";
+import { HTML_LANG, localeUrl, type Locale } from "@/lib/i18n";
+import { CONTACT_API, CONTACT_EMAIL } from "@/i18n/contact";
 
 export const runtime = "nodejs";
 
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
-const SITE_URL = "https://rutapacifico.com";
 const WHATSAPP_DISPLAY = "+506 7080-5578";
 const WHATSAPP_RAW = "50670805578";
 const RESERVATIONS_EMAIL = "reservations@rutapacifico.com";
@@ -26,6 +27,8 @@ interface ContactRequestBody {
   phone?: string;
   subject?: string;
   message: string;
+  /** Site language the form was submitted from ("en" | "es"); anything else means English. */
+  locale?: string;
 }
 
 function isValidBody(body: unknown): body is ContactRequestBody {
@@ -42,11 +45,21 @@ function isValidBody(body: unknown): body is ContactRequestBody {
     b.message.trim().length > 0 &&
     b.message.length <= 5000 &&
     (b.phone === undefined || (typeof b.phone === "string" && b.phone.length <= 50)) &&
-    (b.subject === undefined || (typeof b.subject === "string" && b.subject.length <= 200))
+    (b.subject === undefined || (typeof b.subject === "string" && b.subject.length <= 200)) &&
+    (b.locale === undefined || typeof b.locale === "string")
   );
 }
 
-function adminEmailHtml(b: ContactRequestBody): string {
+/**
+ * The customer's language from the (possibly malformed) body: "es" when the
+ * form said so, English otherwise. The internal notification stays English.
+ */
+function localeOf(body: unknown): Locale {
+  const locale = body && typeof body === "object" ? (body as Record<string, unknown>).locale : undefined;
+  return locale === "es" ? "es" : "en";
+}
+
+function adminEmailHtml(b: ContactRequestBody, locale: Locale): string {
   return `
   <div style="font-family:${EMAIL_FONT_STACK};background:#f5f5f5;padding:20px;">
     <div style="max-width:640px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #ddd;">
@@ -60,25 +73,30 @@ function adminEmailHtml(b: ContactRequestBody): string {
           <tr><td style="padding:4px 0;color:#666;">Email</td><td style="padding:4px 0;"><a href="mailto:${escapeHtml(b.email)}" style="color:#e36414;">${escapeHtml(b.email)}</a></td></tr>
           ${b.phone ? `<tr><td style="padding:4px 0;color:#666;">Phone</td><td style="padding:4px 0;"><a href="https://wa.me/${escapeHtml(b.phone.replace(/[^0-9]/g, ""))}" style="color:#e36414;">${escapeHtml(b.phone)}</a></td></tr>` : ""}
         </table>
+        <div style="margin-top:10px;font-size:13px;color:#666;">${CONTACT_API[locale].adminLanguageLine}</div>
         <div style="margin-top:14px;padding:14px 16px;background:#faf6ee;border-radius:10px;font-size:14px;color:#222;line-height:1.6;white-space:pre-wrap;">${escapeHtml(b.message)}</div>
       </div>
     </div>
   </div>`;
 }
 
-function customerEmailHtml(b: ContactRequestBody, logo: string): string {
+function customerEmailHtml(b: ContactRequestBody, logo: string, locale: Locale): string {
+  const t = CONTACT_EMAIL[locale];
   const firstName = escapeHtml(b.name.split(" ")[0] || b.name);
+  // "https://rutapacifico.com" / "https://rutapacifico.com/es"
+  const homeUrl = localeUrl(locale, "/").replace(/\/$/, "");
+  const routesUrl = localeUrl(locale, "/private-shuttle");
   return `
   <!doctype html>
-  <html lang="en">
+  <html lang="${HTML_LANG[locale]}">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>We received your message · Ruta Pacifico</title>
+    <title>${t.subject}</title>
     ${EMAIL_FONT_LINK}
   </head>
   <body style="margin:0;padding:0;background:#f4efe7;font-family:${EMAIL_FONT_STACK};color:#1a1a1a;-webkit-font-smoothing:antialiased;">
-    <div style="display:none;font-size:0;line-height:0;color:transparent;max-height:0;overflow:hidden;">Pura vida, ${firstName}! Thanks for reaching out — we'll get back to you within a few hours.</div>
+    <div style="display:none;font-size:0;line-height:0;color:transparent;max-height:0;overflow:hidden;">${t.preheader(firstName)}</div>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4efe7;">
       <tr>
         <td align="center" style="padding:32px 16px;">
@@ -99,16 +117,16 @@ function customerEmailHtml(b: ContactRequestBody, logo: string): string {
                           <td align="center" style="padding:0 0 18px;">
                             <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto;">
                               <tr>
-                                <td style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#ffffff;">Message received</td>
+                                <td style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#ffffff;">${t.badge}</td>
                               </tr>
                             </table>
                           </td>
                         </tr>
                         <tr>
-                          <td align="center" style="padding:0 0 20px;font-size:30px;line-height:1.2;font-weight:700;color:#ffffff;letter-spacing:-.5px;">¡Pura vida, ${firstName}!</td>
+                          <td align="center" style="padding:0 0 20px;font-size:30px;line-height:1.2;font-weight:700;color:#ffffff;letter-spacing:-.5px;">${t.greeting(firstName)}</td>
                         </tr>
                         <tr>
-                          <td align="center" style="font-size:15px;line-height:1.5;color:rgba(255,255,255,.92);">Thanks for reaching out &mdash; we&rsquo;ve got your message.</td>
+                          <td align="center" style="font-size:15px;line-height:1.5;color:rgba(255,255,255,.92);">${t.heroSub}</td>
                         </tr>
                       </table>
                     </td>
@@ -121,10 +139,10 @@ function customerEmailHtml(b: ContactRequestBody, logo: string): string {
             <tr>
               <td style="padding:32px 32px 8px;">
                 <p style="margin:0 0 14px;font-size:16px;line-height:1.65;color:#222;">
-                  Our team is right here in beautiful Guanacaste and we usually reply in <strong>under 10 minutes</strong> — unless it&rsquo;s late night or early morning in Costa Rica, in which case you&rsquo;ll hear from us first thing.
+                  ${t.body1}
                 </p>
                 <p style="margin:0 0 22px;font-size:16px;line-height:1.65;color:#222;">
-                  In the meantime, save this email — it has all our contact info if you need to reach us faster.
+                  ${t.body2}
                 </p>
               </td>
             </tr>
@@ -135,7 +153,7 @@ function customerEmailHtml(b: ContactRequestBody, logo: string): string {
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf6ee;border:1px solid #f0e6d2;border-radius:14px;">
                   <tr>
                     <td style="padding:18px 20px;">
-                      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#b07a3a;">Your message</div>
+                      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#b07a3a;">${t.yourMessage}</div>
                       ${b.subject ? `<div style="margin-top:8px;font-size:15px;font-weight:700;color:#1a1a1a;">${escapeHtml(b.subject)}</div>` : ""}
                       <div style="margin-top:${b.subject ? "6px" : "10px"};font-size:14px;line-height:1.65;color:#444;white-space:pre-wrap;">${escapeHtml(b.message)}</div>
                     </td>
@@ -147,12 +165,12 @@ function customerEmailHtml(b: ContactRequestBody, logo: string): string {
             <!-- Need it now? -->
             <tr>
               <td style="padding:8px 32px 24px;">
-                <h2 style="margin:0 0 14px;font-size:18px;font-weight:700;color:#1a1a1a;letter-spacing:-.3px;">Need an answer right now?</h2>
+                <h2 style="margin:0 0 14px;font-size:18px;font-weight:700;color:#1a1a1a;letter-spacing:-.3px;">${t.needNow}</h2>
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="padding:0 0 10px;">
                       <a href="https://wa.me/${WHATSAPP_RAW}" style="display:block;background:#25d366;color:#fff;text-decoration:none;border-radius:12px;padding:14px 18px;font-weight:700;font-size:15px;text-align:center;box-shadow:0 2px 8px rgba(37,211,102,.25);">
-                        💬 &nbsp;WhatsApp us &middot; ${WHATSAPP_DISPLAY}
+                        💬 &nbsp;${t.whatsappUs} &middot; ${WHATSAPP_DISPLAY}
                       </a>
                     </td>
                   </tr>
@@ -173,10 +191,10 @@ function customerEmailHtml(b: ContactRequestBody, logo: string): string {
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#1a1a1a;border-radius:14px;">
                   <tr>
                     <td style="padding:18px 20px;text-align:center;">
-                      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#f4a261;">Licensed &amp; Insured</div>
+                      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#f4a261;">${t.licensedInsured}</div>
                       <div style="margin-top:6px;font-size:14px;color:rgba(255,255,255,.85);line-height:1.5;">
-                        ICT ${ICT_LICENSE} &middot; Costa Rica Tourism Board<br/>
-                        Professional bilingual drivers &middot; Modern fleet
+                        ICT ${ICT_LICENSE} &middot; ${t.tourismBoard}<br/>
+                        ${t.trustLine}
                       </div>
                     </td>
                   </tr>
@@ -187,8 +205,8 @@ function customerEmailHtml(b: ContactRequestBody, logo: string): string {
             <!-- CTA back to site -->
             <tr>
               <td style="padding:0 32px 32px;text-align:center;">
-                <a href="${SITE_URL}/private-shuttle" style="display:inline-block;background:linear-gradient(135deg,#e63946,#e36414,#f4a261);color:#fff;text-decoration:none;border-radius:999px;padding:14px 28px;font-weight:700;font-size:14px;letter-spacing:.3px;box-shadow:0 4px 14px rgba(227,100,20,.35);">
-                  Browse our routes &nbsp;→
+                <a href="${routesUrl}" style="display:inline-block;background:linear-gradient(135deg,#e63946,#e36414,#f4a261);color:#fff;text-decoration:none;border-radius:999px;padding:14px 28px;font-weight:700;font-size:14px;letter-spacing:.3px;box-shadow:0 4px 14px rgba(227,100,20,.35);">
+                  ${t.browseRoutes} &nbsp;→
                 </a>
               </td>
             </tr>
@@ -199,9 +217,9 @@ function customerEmailHtml(b: ContactRequestBody, logo: string): string {
                 <div style="font-size:13px;font-weight:700;color:#1a1a1a;">Ruta Pacifico</div>
                 <div style="margin-top:4px;font-size:12px;color:#888;line-height:1.6;">
                   Liberia, Guanacaste &middot; Costa Rica<br/>
-                  <a href="${SITE_URL}" style="color:#e36414;text-decoration:none;">rutapacifico.com</a>
+                  <a href="${homeUrl}" style="color:#e36414;text-decoration:none;">rutapacifico.com</a>
                 </div>
-                <div style="margin-top:12px;font-size:11px;color:#aaa;">You&rsquo;re receiving this because you contacted us through our website.</div>
+                <div style="margin-top:12px;font-size:11px;color:#aaa;">${t.footerNote}</div>
               </td>
             </tr>
           </table>
@@ -221,14 +239,20 @@ export async function POST(request: NextRequest) {
   }
 
   if (!isValidBody(body)) {
-    return Response.json({ ok: false, error: "Missing or invalid fields" }, { status: 422 });
+    return Response.json(
+      { ok: false, error: CONTACT_API[localeOf(body)].invalidFields },
+      { status: 422 },
+    );
   }
+
+  const locale = localeOf(body);
+  const errors = CONTACT_API[locale];
 
   const adminRecipients = getAdminRecipients();
   if (adminRecipients.length === 0) {
     console.error("[contact] EMAIL_NOTIFICATIONS_TO not configured");
     return Response.json(
-      { ok: false, error: "Server email not configured" },
+      { ok: false, error: errors.notConfigured },
       { status: 500 },
     );
   }
@@ -238,14 +262,14 @@ export async function POST(request: NextRequest) {
     // Distinct sender so the reservations@ copy isn't dropped as a mail-to-self.
     from: getNotificationsFrom(),
     subject: `🌴☀️ Contact · ${body.name}${body.subject ? ` — ${body.subject}` : ""}`,
-    html: adminEmailHtml(body),
+    html: adminEmailHtml(body, locale),
     replyTo: body.email,
   });
 
   if (!adminResult.ok) {
     console.error("[contact] admin email failed:", adminResult.error);
     return Response.json(
-      { ok: false, error: "Could not send your message. Please try WhatsApp instead." },
+      { ok: false, error: errors.sendFailed },
       { status: 502 },
     );
   }
@@ -254,8 +278,8 @@ export async function POST(request: NextRequest) {
   const inlineLogo = await getInlineLogo();
   void sendEmail({
     to: body.email,
-    subject: "We received your message · Ruta Pacifico",
-    html: customerEmailHtml(body, logoSrc(inlineLogo)),
+    subject: CONTACT_EMAIL[locale].subject,
+    html: customerEmailHtml(body, logoSrc(inlineLogo), locale),
     replyTo: adminRecipients[0],
     attachments: inlineLogo ? [inlineLogo] : undefined,
   }).then((r) => {
