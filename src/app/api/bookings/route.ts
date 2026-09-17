@@ -10,6 +10,8 @@ import {
   EMAIL_FONT_STACK,
   EMAIL_FONT_LINK,
 } from "@/lib/email";
+import { HTML_LANG, INTL_LOCALE, type Locale } from "@/lib/i18n";
+import { BOOKING_EMAIL } from "@/i18n/emails";
 import { isPickupDateAllowed, LEAD_TIME_MESSAGE } from "@/lib/leadTime";
 
 export const runtime = "nodejs";
@@ -31,6 +33,8 @@ interface BookingRequestBody {
   total: number;
   confirmationCode: string;
   createdAt: string;
+  /** Language of the site the customer booked on; picks the customer email's language. */
+  locale?: unknown;
 }
 
 function isValidBody(body: unknown): body is BookingRequestBody {
@@ -51,10 +55,15 @@ function isValidBody(body: unknown): body is BookingRequestBody {
   );
 }
 
-function formatDate(iso: string): string {
+/** "es" when the customer booked on the Spanish site, English for anything else. */
+function customerLocale(b: BookingRequestBody): Locale {
+  return b.locale === "es" ? "es" : "en";
+}
+
+function formatDate(iso: string, locale: Locale = "en"): string {
   if (!iso) return "";
   try {
-    return new Date(iso + "T00:00:00").toLocaleDateString("en-US", {
+    return new Date(iso + "T00:00:00").toLocaleDateString(INTL_LOCALE[locale], {
       weekday: "long",
       month: "long",
       day: "numeric",
@@ -65,27 +74,24 @@ function formatDate(iso: string): string {
   }
 }
 
-function formatTime(iso: string): string {
+function formatTime(iso: string, locale: Locale = "en"): string {
   if (!iso) return "";
   const [h, m] = iso.split(":").map(Number);
   if (Number.isNaN(h)) return iso;
   const d = new Date();
   d.setHours(h, m ?? 0);
-  return d.toLocaleTimeString("en-US", {
+  return d.toLocaleTimeString(INTL_LOCALE[locale], {
     hour: "numeric",
     minute: "2-digit",
     hour12: true,
   });
 }
 
-function tripCardsHtml(trips: TripItem[]): string {
+function tripCardsHtml(trips: TripItem[], locale: Locale = "en"): string {
+  const t = BOOKING_EMAIL[locale];
   return trips
-    .map((t, i) => {
-      const pax =
-        `${t.adults} adult${t.adults !== 1 ? "s" : ""}` +
-        (t.children > 0
-          ? `, ${t.children} child${t.children !== 1 ? "ren" : ""}`
-          : "");
+    .map((t_, i) => {
+      const pax = t.pax(t_.adults, t_.children);
       const detailRow = (label: string, value: string) =>
         `<tr>
            <td style="padding:5px 0;font-size:13px;color:#888;width:90px;vertical-align:top;">${label}</td>
@@ -99,15 +105,15 @@ function tripCardsHtml(trips: TripItem[]): string {
                 <tr>
                   <td style="vertical-align:top;">
                     ${trips.length > 1 ? `<div style="display:inline-block;width:22px;height:22px;line-height:22px;background:#e36414;color:#fff;border-radius:50%;text-align:center;font-size:11px;font-weight:700;margin-right:8px;">${i + 1}</div>` : ""}
-                    <span style="font-size:16px;font-weight:700;color:#1a1a1a;">${escapeHtml(t.from)}</span>
+                    <span style="font-size:16px;font-weight:700;color:#1a1a1a;">${escapeHtml(t_.from)}</span>
                     <span style="color:#e36414;font-weight:700;">&nbsp;→&nbsp;</span>
-                    <span style="font-size:16px;font-weight:700;color:#1a1a1a;">${escapeHtml(t.to)}</span>
+                    <span style="font-size:16px;font-weight:700;color:#1a1a1a;">${escapeHtml(t_.to)}</span>
                     <div style="margin-top:4px;font-size:12px;color:#999;">
-                      ${escapeHtml(formatDate(t.date))} &middot; ${escapeHtml(formatTime(t.time))}${t.duracion ? ` &middot; ~${escapeHtml(t.duracion)}` : ""}
+                      ${escapeHtml(formatDate(t_.date, locale))} &middot; ${escapeHtml(formatTime(t_.time, locale))}${t_.duracion ? ` &middot; ~${escapeHtml(t_.duracion)}` : ""}
                     </div>
                   </td>
                   <td style="text-align:right;vertical-align:top;white-space:nowrap;">
-                    <div style="font-size:20px;font-weight:700;color:#e36414;">$${t.price}</div>
+                    <div style="font-size:20px;font-weight:700;color:#e36414;">$${t_.price}</div>
                   </td>
                 </tr>
               </table>
@@ -116,11 +122,11 @@ function tripCardsHtml(trips: TripItem[]): string {
           <tr>
             <td style="padding:14px 20px 18px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                ${detailRow("Vehicle", `${escapeHtml(t.vehicleName)} (${escapeHtml(t.vehiclePax)})`)}
-                ${detailRow("Travelers", escapeHtml(pax))}
-                ${t.flight ? detailRow("Flight", escapeHtml(t.flight)) : ""}
-                ${detailRow("Pickup", escapeHtml(t.pickup))}
-                ${detailRow("Drop-off", escapeHtml(t.dropoff))}
+                ${detailRow(t.labels.vehicle, `${escapeHtml(t_.vehicleName)} (${escapeHtml(t_.vehiclePax)})`)}
+                ${detailRow(t.labels.travelers, escapeHtml(pax))}
+                ${t_.flight ? detailRow(t.labels.flight, escapeHtml(t_.flight)) : ""}
+                ${detailRow(t.labels.pickup, escapeHtml(t_.pickup))}
+                ${detailRow(t.labels.dropoff, escapeHtml(t_.dropoff))}
               </table>
             </td>
           </tr>
@@ -136,25 +142,28 @@ interface CustomerEmailOptions {
   internalHeader?: string;
   /** Inbox preview text; defaults to the customer-facing one. */
   preheader?: string;
+  /** Language of the email copy; defaults to English. */
+  locale?: Locale;
 }
 
 function customerEmailHtml(
   b: BookingRequestBody,
   opts: CustomerEmailOptions,
 ): string {
+  const locale = opts.locale ?? "en";
+  const t = BOOKING_EMAIL[locale];
   const firstName = escapeHtml(b.name.split(" ")[0] || b.name);
+  const code = escapeHtml(b.confirmationCode);
   const tripsCount = b.trips.length;
   const internalHeader = opts.internalHeader ?? "";
-  const preheader =
-    opts.preheader ??
-    `Reservation ${escapeHtml(b.confirmationCode)} confirmed for ${firstName}. We&#39;ll send your secure payment link shortly.`;
+  const preheader = opts.preheader ?? t.preheader(code, firstName);
   return `
   <!doctype html>
-  <html lang="en">
+  <html lang="${HTML_LANG[locale]}">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Reservation confirmed · ${escapeHtml(b.confirmationCode)}</title>
+    <title>${t.title(code)}</title>
     ${EMAIL_FONT_LINK}
   </head>
   <body style="margin:0;padding:0;background:#f4efe7;font-family:${EMAIL_FONT_STACK};color:#1a1a1a;-webkit-font-smoothing:antialiased;">
@@ -180,21 +189,21 @@ function customerEmailHtml(
                           <td align="center" style="padding:0 0 18px;">
                             <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto;">
                               <tr>
-                                <td style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#ffffff;">✓ Reservation confirmed</td>
+                                <td style="background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:7px 16px;font-size:11px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#ffffff;">${t.badge}</td>
                               </tr>
                             </table>
                           </td>
                         </tr>
                         <tr>
-                          <td align="center" style="padding:0 0 20px;font-size:30px;line-height:1.2;font-weight:700;color:#ffffff;letter-spacing:-.5px;">¡Pura vida, ${firstName}!</td>
+                          <td align="center" style="padding:0 0 20px;font-size:30px;line-height:1.2;font-weight:700;color:#ffffff;letter-spacing:-.5px;">${t.greeting(firstName)}</td>
                         </tr>
                         <tr>
                           <td align="center">
                             <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto;">
                               <tr>
                                 <td align="center" style="background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:12px 20px;">
-                                  <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);">Confirmation code</div>
-                                  <div style="margin-top:4px;font-family:Menlo,Consolas,'Courier New',monospace;font-size:22px;font-weight:700;letter-spacing:2px;color:#ffd9a8;">${escapeHtml(b.confirmationCode)}</div>
+                                  <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.7);">${t.codeLabel}</div>
+                                  <div style="margin-top:4px;font-family:Menlo,Consolas,'Courier New',monospace;font-size:22px;font-weight:700;letter-spacing:2px;color:#ffd9a8;">${code}</div>
                                 </td>
                               </tr>
                             </table>
@@ -211,10 +220,10 @@ function customerEmailHtml(
             <tr>
               <td style="padding:32px 32px 8px;">
                 <p style="margin:0 0 14px;font-size:16px;line-height:1.65;color:#222;">
-                  Thank you so much for choosing <strong>Ruta Pacifico</strong>. Your seat is officially held — and we&rsquo;ve already added your trip to our schedule.
+                  ${t.intro1}
                 </p>
                 <p style="margin:0;font-size:16px;line-height:1.65;color:#222;">
-                  In a few minutes you&rsquo;ll get a separate message with your <strong>secure payment link</strong>. As soon as payment clears, the booking becomes final and we&rsquo;ll start monitoring your itinerary.
+                  ${t.intro2}
                 </p>
               </td>
             </tr>
@@ -225,9 +234,9 @@ function customerEmailHtml(
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#fff8eb;border:1px solid #f6e3b8;border-radius:14px;">
                   <tr>
                     <td style="padding:16px 18px;">
-                      <div style="font-size:13px;font-weight:700;color:#92560f;">💳 &nbsp;Payment link on the way</div>
+                      <div style="font-size:13px;font-weight:700;color:#92560f;">${t.paymentTitle}</div>
                       <div style="margin-top:4px;font-size:13px;line-height:1.6;color:#7a4a14;">
-                        Watch your inbox at <strong>${escapeHtml(b.email)}</strong> and your WhatsApp at <strong>${escapeHtml(b.phone)}</strong>. Your reservation is held in the meantime.
+                        ${t.paymentBody(escapeHtml(b.email), escapeHtml(b.phone))}
                       </div>
                     </td>
                   </tr>
@@ -238,8 +247,8 @@ function customerEmailHtml(
             <!-- Trip cards -->
             <tr>
               <td style="padding:24px 32px 0;">
-                <h2 style="margin:0 0 12px;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888;">${tripsCount === 1 ? "Your shuttle" : `Your ${tripsCount} shuttles`}</h2>
-                ${tripCardsHtml(b.trips)}
+                <h2 style="margin:0 0 12px;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888;">${t.shuttles(tripsCount)}</h2>
+                ${tripCardsHtml(b.trips, locale)}
               </td>
             </tr>
 
@@ -250,7 +259,7 @@ function customerEmailHtml(
                       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf6ee;border:1px solid #f0e6d2;border-radius:14px;">
                         <tr>
                           <td style="padding:14px 18px;">
-                            <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#b07a3a;">Special requests</div>
+                            <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#b07a3a;">${t.notesTitle}</div>
                             <div style="margin-top:4px;font-size:14px;line-height:1.6;color:#444;">${escapeHtml(b.notes)}</div>
                           </td>
                         </tr>
@@ -269,8 +278,8 @@ function customerEmailHtml(
                       <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                         <tr>
                           <td style="vertical-align:middle;">
-                            <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.5);">Total &middot; ${tripsCount} shuttle${tripsCount !== 1 ? "s" : ""}</div>
-                            <div style="margin-top:2px;font-size:11px;color:rgba(255,255,255,.4);">13% VAT included</div>
+                            <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.5);">${t.total(tripsCount)}</div>
+                            <div style="margin-top:2px;font-size:11px;color:rgba(255,255,255,.4);">${t.vat}</div>
                           </td>
                           <td style="text-align:right;vertical-align:middle;">
                             <div style="font-size:30px;font-weight:700;color:#fff;letter-spacing:-.5px;">$${b.total}</div>
@@ -286,15 +295,15 @@ function customerEmailHtml(
             <!-- What happens next -->
             <tr>
               <td style="padding:30px 32px 0;">
-                <h2 style="margin:0 0 14px;font-size:18px;font-weight:700;color:#1a1a1a;letter-spacing:-.3px;">What happens next</h2>
+                <h2 style="margin:0 0 14px;font-size:18px;font-weight:700;color:#1a1a1a;letter-spacing:-.3px;">${t.nextTitle}</h2>
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                   <tr>
                     <td style="padding:0 0 12px;vertical-align:top;width:38px;">
                       <div style="width:30px;height:30px;line-height:30px;background:#e36414;color:#fff;border-radius:50%;text-align:center;font-size:13px;font-weight:700;">1</div>
                     </td>
                     <td style="padding:0 0 12px;vertical-align:top;">
-                      <div style="font-size:14px;font-weight:700;color:#1a1a1a;">Pay with the secure link</div>
-                      <div style="margin-top:2px;font-size:13px;line-height:1.55;color:#666;">We send it to your email + WhatsApp within minutes.</div>
+                      <div style="font-size:14px;font-weight:700;color:#1a1a1a;">${t.steps[0].title}</div>
+                      <div style="margin-top:2px;font-size:13px;line-height:1.55;color:#666;">${t.steps[0].body}</div>
                     </td>
                   </tr>
                   <tr>
@@ -302,8 +311,8 @@ function customerEmailHtml(
                       <div style="width:30px;height:30px;line-height:30px;background:#e36414;color:#fff;border-radius:50%;text-align:center;font-size:13px;font-weight:700;">2</div>
                     </td>
                     <td style="padding:0 0 12px;vertical-align:top;">
-                      <div style="font-size:14px;font-weight:700;color:#1a1a1a;">Driver assignment</div>
-                      <div style="margin-top:2px;font-size:13px;line-height:1.55;color:#666;">We&rsquo;ll share your driver&rsquo;s name the day before your pickup.</div>
+                      <div style="font-size:14px;font-weight:700;color:#1a1a1a;">${t.steps[1].title}</div>
+                      <div style="margin-top:2px;font-size:13px;line-height:1.55;color:#666;">${t.steps[1].body}</div>
                     </td>
                   </tr>
                   <tr>
@@ -311,8 +320,8 @@ function customerEmailHtml(
                       <div style="width:30px;height:30px;line-height:30px;background:#e36414;color:#fff;border-radius:50%;text-align:center;font-size:13px;font-weight:700;">3</div>
                     </td>
                     <td style="padding:0;vertical-align:top;">
-                      <div style="font-size:14px;font-weight:700;color:#1a1a1a;">Meet &amp; greet, on time</div>
-                      <div style="margin-top:2px;font-size:13px;line-height:1.55;color:#666;">If it&rsquo;s an airport pickup, we monitor your flight in real time. Just look for the sign with your name.</div>
+                      <div style="font-size:14px;font-weight:700;color:#1a1a1a;">${t.steps[2].title}</div>
+                      <div style="margin-top:2px;font-size:13px;line-height:1.55;color:#666;">${t.steps[2].body}</div>
                     </td>
                   </tr>
                 </table>
@@ -322,8 +331,8 @@ function customerEmailHtml(
             <!-- WhatsApp CTA -->
             <tr>
               <td style="padding:26px 32px 0;">
-                <a href="https://wa.me/${WHATSAPP_RAW}?text=${encodeURIComponent(`Hi! Booking ${b.confirmationCode} — could you send me the payment link?`)}" style="display:block;background:#25d366;color:#fff;text-decoration:none;border-radius:12px;padding:14px 18px;font-weight:700;font-size:15px;text-align:center;box-shadow:0 2px 8px rgba(37,211,102,.25);">
-                  💬 &nbsp;Message us on WhatsApp &middot; ${WHATSAPP_DISPLAY}
+                <a href="https://wa.me/${WHATSAPP_RAW}?text=${encodeURIComponent(t.whatsappMessage(b.confirmationCode))}" style="display:block;background:#25d366;color:#fff;text-decoration:none;border-radius:12px;padding:14px 18px;font-weight:700;font-size:15px;text-align:center;box-shadow:0 2px 8px rgba(37,211,102,.25);">
+                  ${t.whatsappCta(WHATSAPP_DISPLAY)}
                 </a>
               </td>
             </tr>
@@ -335,17 +344,17 @@ function customerEmailHtml(
                   <tr>
                     <td width="33%" style="padding:10px;background:#faf6ee;border-radius:12px;text-align:center;">
                       <div style="font-size:18px;">🛡️</div>
-                      <div style="margin-top:4px;font-size:11px;font-weight:700;color:#1a1a1a;">Insured</div>
+                      <div style="margin-top:4px;font-size:11px;font-weight:700;color:#1a1a1a;">${t.trust.insured}</div>
                     </td>
                     <td width="8" style="font-size:0;">&nbsp;</td>
                     <td width="33%" style="padding:10px;background:#faf6ee;border-radius:12px;text-align:center;">
                       <div style="font-size:18px;">⭐</div>
-                      <div style="margin-top:4px;font-size:11px;font-weight:700;color:#1a1a1a;">ICT ${ICT_LICENSE}</div>
+                      <div style="margin-top:4px;font-size:11px;font-weight:700;color:#1a1a1a;">${t.trust.ict(ICT_LICENSE)}</div>
                     </td>
                     <td width="8" style="font-size:0;">&nbsp;</td>
                     <td width="33%" style="padding:10px;background:#faf6ee;border-radius:12px;text-align:center;">
                       <div style="font-size:18px;">🇨🇷</div>
-                      <div style="margin-top:4px;font-size:11px;font-weight:700;color:#1a1a1a;">Bilingual drivers</div>
+                      <div style="margin-top:4px;font-size:11px;font-weight:700;color:#1a1a1a;">${t.trust.bilingual}</div>
                     </td>
                   </tr>
                 </table>
@@ -355,11 +364,11 @@ function customerEmailHtml(
             <!-- Important -->
             <tr>
               <td style="padding:22px 32px 30px;">
-                <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888;">Good to know</div>
+                <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#888;">${t.goodToKnow}</div>
                 <ul style="margin:8px 0 0;padding-left:18px;font-size:13px;line-height:1.7;color:#555;">
-                  <li>Free changes up to 48h before pickup</li>
-                  <li>Baby seats &amp; boosters at no extra cost — just reply with ages</li>
-                  <li>1 large bag + 1 carry-on per traveler included</li>
+                  <li>${t.goodToKnowItems[0]}</li>
+                  <li>${t.goodToKnowItems[1]}</li>
+                  <li>${t.goodToKnowItems[2]}</li>
                 </ul>
               </td>
             </tr>
@@ -369,11 +378,11 @@ function customerEmailHtml(
               <td style="padding:22px 32px;background:#faf6ee;border-top:1px solid #f0e6d2;text-align:center;">
                 <div style="font-size:13px;font-weight:700;color:#1a1a1a;">Ruta Pacifico</div>
                 <div style="margin-top:4px;font-size:12px;color:#888;line-height:1.6;">
-                  Liberia, Guanacaste &middot; Costa Rica<br/>
+                  ${t.footerAddress}<br/>
                   <a href="${SITE_URL}" style="color:#e36414;text-decoration:none;">rutapacifico.com</a> &middot;
                   <a href="mailto:${RESERVATIONS_EMAIL}" style="color:#e36414;text-decoration:none;">${RESERVATIONS_EMAIL}</a>
                 </div>
-                <div style="margin-top:12px;font-size:11px;color:#aaa;">Confirmation code <strong style="color:#666;">${escapeHtml(b.confirmationCode)}</strong> &middot; Keep this email for your records.</div>
+                <div style="margin-top:12px;font-size:11px;color:#aaa;">${t.footerCode} <strong style="color:#666;">${code}</strong> &middot; ${t.footerKeep}</div>
               </td>
             </tr>
           </table>
@@ -385,12 +394,13 @@ function customerEmailHtml(
 }
 
 /**
- * Internal copy for the team: the exact email the customer received, with a
- * compact strip on top holding the contact details needed to reply fast.
+ * Internal copy for the team: the customer email rendered in English (the
+ * team's working language), with a compact strip on top holding the contact
+ * details needed to reply fast and the language the customer booked in.
  * The message is sent with Reply-To = customer, so hitting "Reply" from the
  * reservations@ inbox goes straight to them.
  */
-function adminEmailHtml(b: BookingRequestBody, logo: string): string {
+function adminEmailHtml(b: BookingRequestBody, logo: string, locale: Locale): string {
   const phoneDigits = b.phone.replace(/[^0-9]/g, "");
   let created = b.createdAt;
   try {
@@ -415,6 +425,7 @@ function adminEmailHtml(b: BookingRequestBody, logo: string): string {
                   &nbsp;&middot;&nbsp;
                   <a href="https://wa.me/${escapeHtml(phoneDigits)}" style="color:#ffd9a8;text-decoration:none;">${escapeHtml(b.phone)}</a>
                 </div>
+                <div style="margin-top:6px;font-size:13px;font-weight:700;color:#ffd9a8;">${BOOKING_EMAIL[locale].customerLanguage}</div>
                 ${
                   b.notes
                     ? `<div style="margin-top:8px;padding:8px 10px;background:rgba(255,217,168,.12);border-left:3px solid #ffd9a8;border-radius:4px;font-size:13px;line-height:1.5;color:#fff;"><strong>Notes:</strong> ${escapeHtml(b.notes)}</div>`
@@ -460,6 +471,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const locale = customerLocale(body);
   const adminRecipients = getAdminRecipients();
   const subjectSuffix = `${body.confirmationCode} — ${body.name}`;
   const inlineLogo = await getInlineLogo();
@@ -469,8 +481,8 @@ export async function POST(request: NextRequest) {
   const [customerResult, adminResult] = await Promise.all([
     sendEmail({
       to: body.email,
-      subject: `Your Ruta Pacifico reservation ${body.confirmationCode}`,
-      html: customerEmailHtml(body, { logo }),
+      subject: BOOKING_EMAIL[locale].subject(body.confirmationCode),
+      html: customerEmailHtml(body, { logo, locale }),
       replyTo: adminRecipients[0],
       attachments,
     }),
@@ -483,7 +495,7 @@ export async function POST(request: NextRequest) {
           // Palm + sun prefix tells the Ruta Pacifico alerts apart from the
           // sister brand's (bell) at a glance in a shared inbox.
           subject: `🌴☀️ New booking · ${subjectSuffix}`,
-          html: adminEmailHtml(body, logo),
+          html: adminEmailHtml(body, logo, locale),
           replyTo: body.email,
           attachments,
         })

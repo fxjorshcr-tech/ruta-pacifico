@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLocale } from "@/components/LocaleProvider";
+import { BOOKING } from "@/i18n/booking";
 
 interface Props {
   value: string; // HH:mm
@@ -21,10 +23,10 @@ function generateSlots(step: number): string[] {
   return slots;
 }
 
-function formatSlot(time: string): string {
+function formatSlot(time: string, am: string, pm: string): string {
   if (!time) return "";
   const [h, m] = time.split(":").map(Number);
-  const period = h >= 12 ? "PM" : "AM";
+  const period = h >= 12 ? pm : am;
   const displayH = h === 0 ? 12 : h > 12 ? h - 12 : h;
   return `${displayH}:${String(m).padStart(2, "0")} ${period}`;
 }
@@ -34,6 +36,8 @@ export default function TimePicker({
   onChange,
   stepMinutes = 15,
 }: Props) {
+  const locale = useLocale();
+  const t = BOOKING[locale].time;
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
@@ -77,7 +81,7 @@ export default function TimePicker({
     list.scrollTop = Math.max(0, nextTop);
   }, [open, value]);
 
-  const displayValue = value ? formatSlot(value) : "Select a time";
+  const displayValue = value ? formatSlot(value, t.am, t.pm) : t.placeholder;
 
   return (
     <div ref={wrapperRef} className="relative">
@@ -109,7 +113,7 @@ export default function TimePicker({
         </div>
         <div className="min-w-0 flex-1">
           <div className="text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-foreground/40">
-            Pickup Time
+            {t.label}
           </div>
           <div
             className={`mt-1 text-base font-bold ${
@@ -163,7 +167,7 @@ export default function TimePicker({
                       : "text-foreground hover:bg-sunset-orange/10 hover:text-sunset-orange"
                   }`}
                 >
-                  <span>{formatSlot(slot)}</span>
+                  <span>{formatSlot(slot, t.am, t.pm)}</span>
                   {active && (
                     <svg
                       className="h-4 w-4"

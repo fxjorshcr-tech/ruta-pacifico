@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/LocaleLink";
+import { useLocale } from "@/components/LocaleProvider";
+import { BOOKING } from "@/i18n/booking";
 import {
   getCart,
   removeFromCart,
@@ -10,6 +12,8 @@ import {
 } from "@/lib/booking";
 
 export default function FloatingCart() {
+  const locale = useLocale();
+  const t = BOOKING[locale].floating;
   const [cart, setCart] = useState<TripItem[]>([]);
   const [open, setOpen] = useState(false);
 
@@ -43,7 +47,7 @@ export default function FloatingCart() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
               </svg>
               <span className="text-sm font-bold text-foreground">
-                My Trip ({cart.length})
+                {t.myTrip(cart.length)}
               </span>
             </div>
             <button
@@ -74,7 +78,7 @@ export default function FloatingCart() {
                   type="button"
                   onClick={() => handleRemove(item.id)}
                   className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-foreground/25 transition hover:bg-red-50 hover:text-red-500"
-                  aria-label="Remove"
+                  aria-label={t.remove}
                 >
                   <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -87,7 +91,7 @@ export default function FloatingCart() {
           <div className="border-t border-black/5 px-5 py-4">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-xs text-foreground/50">Estimated total</div>
+                <div className="text-xs text-foreground/50">{t.estimatedTotal}</div>
                 <div className="text-xl font-bold text-foreground">${total}</div>
               </div>
             </div>
@@ -95,7 +99,7 @@ export default function FloatingCart() {
               href="/private-shuttle/checkout"
               className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-5 py-3 text-sm font-bold text-white shadow-md transition hover:shadow-lg"
             >
-              Proceed to Checkout
+              {t.proceed}
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
               </svg>
@@ -113,7 +117,7 @@ export default function FloatingCart() {
         <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
         </svg>
-        My Trip ({cart.length})
+        {t.myTrip(cart.length)}
         <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs">${total}</span>
       </button>
     </div>

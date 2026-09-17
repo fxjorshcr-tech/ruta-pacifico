@@ -1,9 +1,13 @@
 import { FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/contact";
+import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n";
+import { SOCIAL_LINKS } from "@/i18n/contact";
 
 type Props = {
   /** "light" for dark footers, "dark" for white sections. */
   tone?: "light" | "dark";
   className?: string;
+  /** Server component: pages pass their route locale; defaults to English. */
+  locale?: Locale;
 };
 
 const ICON_BASE =
@@ -33,7 +37,12 @@ export function FacebookIcon({ className = "h-5 w-5" }: { className?: string }) 
   );
 }
 
-export default function SocialLinks({ tone = "light", className = "" }: Props) {
+export default function SocialLinks({
+  tone = "light",
+  className = "",
+  locale = DEFAULT_LOCALE,
+}: Props) {
+  const t = SOCIAL_LINKS[locale];
   const iconClass = `${ICON_BASE} ${TONES[tone]}`;
   return (
     <div className={`flex items-center gap-3 ${className}`}>
@@ -41,8 +50,8 @@ export default function SocialLinks({ tone = "light", className = "" }: Props) {
         href={INSTAGRAM_URL}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Ruta Pacifico on Instagram"
-        title="Instagram @rutapacificocr"
+        aria-label={t.instagramLabel}
+        title={t.instagramTitle}
         className={iconClass}
       >
         <InstagramIcon />
@@ -51,8 +60,8 @@ export default function SocialLinks({ tone = "light", className = "" }: Props) {
         href={FACEBOOK_URL}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Ruta Pacifico on Facebook"
-        title="Facebook"
+        aria-label={t.facebookLabel}
+        title={t.facebookTitle}
         className={iconClass}
       >
         <FacebookIcon />

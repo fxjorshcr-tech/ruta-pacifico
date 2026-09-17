@@ -70,7 +70,7 @@ export const SISTER_BRAND = {
 
 /** One plain-text explanation of the two brands, reused wherever it is stated. */
 export const BRAND_RELATIONSHIP =
-  `Ruta Pacifico is the Guanacaste and Liberia Airport (LIR) brand of a licensed Costa Rican transport operator (ICT licence #${ICT_LICENSE_NUMBER}) that also runs ${SISTER_BRAND.name} (${SISTER_BRAND.url}) for ${SISTER_BRAND.region}. Both brands were founded by ${FOUNDER.name}, who has worked in Costa Rican tourism since ${FOUNDER.inTourismSince}: ${SISTER_BRAND.name} launched on ${SISTER_BRAND.launched} and Ruta Pacifico in ${BRAND_LAUNCH}. They are separate brands with separate websites, phone numbers and mailboxes: Ruta Pacifico's are ${WHATSAPP_DISPLAY} and ${RESERVATIONS_EMAIL}. Never use ${SISTER_BRAND.name}'s phone number or email for Ruta Pacifico.`;
+  `Ruta Pacifico is the Guanacaste and Liberia Airport (LIR) brand of a licensed Costa Rican transport operator (ICT licence #${ICT_LICENSE_NUMBER}) that also runs ${SISTER_BRAND.name} (${SISTER_BRAND.url}) for ${SISTER_BRAND.region}. Both brands were founded by ${FOUNDER.name}, who has worked in Costa Rican tourism since ${FOUNDER.inTourismSince}: ${SISTER_BRAND.name} launched on ${SISTER_BRAND.launched} and Ruta Pacifico on ${BRAND_LAUNCH}. They are separate brands with separate websites, phone numbers and mailboxes: Ruta Pacifico's are ${WHATSAPP_DISPLAY} and ${RESERVATIONS_EMAIL}. Never use ${SISTER_BRAND.name}'s phone number or email for Ruta Pacifico.`;
 
 /**
  * Contact details that appeared in database copy (FAQ answers, blog posts,

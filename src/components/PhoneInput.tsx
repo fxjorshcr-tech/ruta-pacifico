@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useLocale } from "@/components/LocaleProvider";
+import { BOOKING } from "@/i18n/booking";
 
 interface Props {
   value: string;
@@ -61,6 +63,8 @@ function parseInitial(raw: string): { code: string; number: string } {
 }
 
 export default function PhoneInput({ value, onChange, required, id }: Props) {
+  const locale = useLocale();
+  const t = BOOKING[locale].phone;
   const [countryCode, setCountryCode] = useState(
     () => parseInitial(value).code
   );
@@ -99,16 +103,18 @@ export default function PhoneInput({ value, onChange, required, id }: Props) {
     };
   }, [open]);
 
+  const countryName = t.countryName;
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return COUNTRIES;
     return COUNTRIES.filter(
       (c) =>
         c.name.toLowerCase().includes(q) ||
+        countryName(c.code, c.name).toLowerCase().includes(q) ||
         c.dial.replace("+", "").includes(q.replace("+", "")) ||
         c.code.toLowerCase().includes(q)
     );
-  }, [query]);
+  }, [query, countryName]);
 
   return (
     <div ref={wrapperRef} className="relative">
@@ -124,7 +130,7 @@ export default function PhoneInput({ value, onChange, required, id }: Props) {
           type="button"
           onClick={() => setOpen((o) => !o)}
           className="flex shrink-0 items-center gap-2 border-r border-black/10 bg-white/60 px-3 text-sm transition hover:bg-sunset-orange/5"
-          aria-label="Select country code"
+          aria-label={t.selectCountry}
         >
           <span className="text-lg leading-none">{country.flag}</span>
           <span className="font-mono text-sm font-semibold text-foreground">
@@ -152,7 +158,7 @@ export default function PhoneInput({ value, onChange, required, id }: Props) {
           id={id}
           type="tel"
           required={required}
-          placeholder="Phone number"
+          placeholder={t.placeholder}
           value={number}
           onChange={(e) => {
             const n = e.target.value;
@@ -169,7 +175,7 @@ export default function PhoneInput({ value, onChange, required, id }: Props) {
           <div className="mb-2 p-1">
             <input
               type="text"
-              placeholder="Search country or code…"
+              placeholder={t.search}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               autoFocus
@@ -179,7 +185,7 @@ export default function PhoneInput({ value, onChange, required, id }: Props) {
           <div className="max-h-60 overflow-y-auto">
             {filtered.length === 0 ? (
               <div className="px-4 py-6 text-center text-sm text-foreground/40">
-                No match
+                {t.noMatch}
               </div>
             ) : (
               filtered.map((c) => {
@@ -201,7 +207,7 @@ export default function PhoneInput({ value, onChange, required, id }: Props) {
                     }`}
                   >
                     <span className="text-lg leading-none">{c.flag}</span>
-                    <span className="flex-1 font-medium">{c.name}</span>
+                    <span className="flex-1 font-medium">{countryName(c.code, c.name)}</span>
                     <span className="font-mono text-xs text-foreground/50">
                       {c.dial}
                     </span>

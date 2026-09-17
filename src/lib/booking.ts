@@ -1,3 +1,5 @@
+import { INTL_LOCALE, type Locale } from "@/lib/i18n";
+
 export interface TripItem {
   id: string; // unique per cart item
   from: string;
@@ -101,10 +103,11 @@ export function generateConfirmationCode(): string {
   return `RP-${code}`;
 }
 
-export function formatDate(isoDate: string): string {
+/** "Thursday, September 17, 2026" / "jueves, 17 de septiembre de 2026". */
+export function formatDate(isoDate: string, locale: Locale = "en"): string {
   if (!isoDate) return "";
   const d = new Date(isoDate + "T00:00:00");
-  return d.toLocaleDateString("en-US", {
+  return d.toLocaleDateString(INTL_LOCALE[locale], {
     weekday: "long",
     month: "long",
     day: "numeric",
@@ -112,12 +115,13 @@ export function formatDate(isoDate: string): string {
   });
 }
 
-export function formatTime(isoTime: string): string {
+/** "2:30 PM" / "2:30 p. m.". */
+export function formatTime(isoTime: string, locale: Locale = "en"): string {
   if (!isoTime) return "";
   const [h, m] = isoTime.split(":").map(Number);
   const d = new Date();
   d.setHours(h, m);
-  return d.toLocaleTimeString("en-US", {
+  return d.toLocaleTimeString(INTL_LOCALE[locale], {
     hour: "numeric",
     minute: "2-digit",
     hour12: true,

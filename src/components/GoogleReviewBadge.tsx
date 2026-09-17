@@ -1,9 +1,24 @@
 import { getGoogleRating } from "@/lib/googleRating";
+import { defineCopy, type Locale } from "@/lib/i18n";
 
 type Props = {
   /** "dark" for photo heroes, "light" for white sections and footers. */
   tone?: "dark" | "light";
+  locale?: Locale;
 };
+
+const COPY = defineCopy({
+  en: {
+    suffix: "on Google Reviews",
+    label: (value: string, count: number) =>
+      `Rated ${value} on Google Reviews from ${count} reviews. Read them on Google (opens in a new tab)`,
+  },
+  es: {
+    suffix: "en reseñas de Google",
+    label: (value: string, count: number) =>
+      `Calificación ${value} en reseñas de Google con ${count} reseñas. Léelas en Google (se abre en una pestaña nueva)`,
+  },
+});
 
 const TONES = {
   dark: {
@@ -24,15 +39,16 @@ const TONES = {
  * Profile. Links to the profile so a visitor can read the reviews
  * themselves (and leave one).
  */
-export default async function GoogleReviewBadge({ tone = "dark" }: Props) {
+export default async function GoogleReviewBadge({ tone = "dark", locale = "en" }: Props) {
   const t = TONES[tone];
+  const c = COPY[locale];
   const rating = await getGoogleRating();
   return (
     <a
       href={rating.url}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`Rated ${rating.value} on Google Reviews from ${rating.reviewCount} reviews. Read them on Google (opens in a new tab)`}
+      aria-label={c.label(rating.value, rating.reviewCount)}
       className={`inline-flex items-center gap-2.5 rounded-full border px-5 py-2.5 transition ${t.pill}`}
     >
       <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" aria-hidden="true">
@@ -50,7 +66,7 @@ export default async function GoogleReviewBadge({ tone = "dark" }: Props) {
           ))}
         </span>
         <span className={`text-sm font-semibold ${t.rating}`}>{rating.value}</span>
-        <span className={`text-sm ${t.label}`}>on Google Reviews</span>
+        <span className={`text-sm ${t.label}`}>{c.suffix}</span>
       </span>
     </a>
   );

@@ -10,6 +10,8 @@
  * column → tier mapping.
  */
 
+import { defineCopy, type Locale } from "@/lib/i18n";
+
 export type VehicleKey = "staria" | "hiace" | "maxus";
 
 /** Key of the `Route` field holding this tier's price. */
@@ -84,4 +86,48 @@ export function getTier(key: VehicleKey): VehicleTier {
 /** The tier that fits a given group size, or null if the group is too large. */
 export function tierForPax(pax: number): VehicleTier | null {
   return VEHICLE_TIERS.find((t) => pax <= t.maxPax) ?? null;
+}
+
+/** The display strings of a tier that change with the visitor's language. */
+export interface VehicleTierCopy {
+  /** e.g. "1 – 5 passengers" / "1 – 5 pasajeros". */
+  paxLabel: string;
+  /** Who usually books this size. */
+  typicalUse: string;
+}
+
+function englishTierCopy(): Record<VehicleKey, VehicleTierCopy> {
+  const out = {} as Record<VehicleKey, VehicleTierCopy>;
+  for (const tier of VEHICLE_TIERS) {
+    out[tier.key] = { paxLabel: tier.paxLabel, typicalUse: tier.typicalUse };
+  }
+  return out;
+}
+
+/**
+ * Localized tier labels. English is read straight from `VEHICLE_TIERS` so the
+ * two can never drift; `VEHICLE_TIERS` itself stays English for llms.txt and
+ * the data stored with a booking.
+ */
+export const VEHICLE_TIER_COPY = defineCopy<Record<VehicleKey, VehicleTierCopy>>({
+  en: englishTierCopy(),
+  es: {
+    staria: {
+      paxLabel: "1 – 5 pasajeros",
+      typicalUse: "Familias, parejas y viajeros solos",
+    },
+    hiace: {
+      paxLabel: "6 – 9 pasajeros",
+      typicalUse: "Grupos medianos, equipaje extra o tablas de surf",
+    },
+    maxus: {
+      paxLabel: "10 – 12 pasajeros",
+      typicalUse: "Grupos grandes, bodas y grupos corporativos",
+    },
+  },
+});
+
+/** Tier labels in the visitor's language (English when the locale is omitted). */
+export function vehicleTierCopy(key: VehicleKey, locale: Locale = "en"): VehicleTierCopy {
+  return VEHICLE_TIER_COPY[locale][key] ?? VEHICLE_TIER_COPY.en[key];
 }

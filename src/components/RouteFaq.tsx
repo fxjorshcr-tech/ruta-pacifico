@@ -1,4 +1,6 @@
 import type { RouteFaq } from "@/lib/routeFaqs";
+import type { Locale } from "@/lib/i18n";
+import { ROUTE_FAQ } from "@/i18n/route";
 
 /**
  * Route-specific Q&A, collapsed by default so it stays out of the booking
@@ -10,12 +12,15 @@ export default function RouteFaqSection({
   faqs,
   originName,
   destinationName,
+  locale = "en",
 }: {
   faqs: RouteFaq[];
   originName: string;
   destinationName: string;
+  locale?: Locale;
 }) {
   if (!faqs.length) return null;
+  const t = ROUTE_FAQ[locale];
   return (
     <section
       aria-labelledby="route-faq"
@@ -42,10 +47,10 @@ export default function RouteFaqSection({
             </span>
             <span className="min-w-0">
               <span id="route-faq" className="block text-sm font-bold text-foreground">
-                Questions about {originName} to {destinationName}
+                {t.heading(originName, destinationName)}
               </span>
               <span className="block truncate text-xs text-foreground/50">
-                Duration, price, meeting point, stops, child seats, delays and cancellations
+                {t.hint}
               </span>
             </span>
           </span>

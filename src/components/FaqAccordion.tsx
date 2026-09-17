@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale } from "@/components/LocaleProvider";
+import { FAQ_ACCORDION } from "@/i18n/faq";
 
 export interface Faq {
   id: string;
@@ -19,6 +21,8 @@ interface Props {
 }
 
 export default function FaqAccordion({ faqs, defaultOpenFirst = false }: Props) {
+  const locale = useLocale();
+  const t = FAQ_ACCORDION[locale];
   const [openId, setOpenId] = useState<string | null>(
     defaultOpenFirst && faqs.length > 0 ? faqs[0].id : null
   );
@@ -26,7 +30,7 @@ export default function FaqAccordion({ faqs, defaultOpenFirst = false }: Props) 
   if (faqs.length === 0) {
     return (
       <p className="text-center text-sm text-foreground/50">
-        No FAQs available right now.
+        {t.empty}
       </p>
     );
   }

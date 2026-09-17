@@ -1,6 +1,7 @@
 import { marked } from "marked";
 import { getSupabase } from "@/lib/supabase";
 import { withCurrentContact, withCurrentContactIn } from "@/lib/contact";
+import { INTL_LOCALE, pickLocale, type Locale } from "@/lib/i18n";
 
 export interface BlogFaq {
   q: string;
@@ -23,12 +24,32 @@ export interface BlogPost {
   updated_at: string;
 }
 
-const LIST_COLUMNS =
-  "id, slug, title, excerpt, cover_image_url, cover_image_alt, category, tags, published_at, updated_at";
+/**
+ * Spanish twins of the authored fields (supabase/i18n_es_schema.sql). Rows
+ * are read with `*` so the columns are optional until the migration runs.
+ */
+type SpanishFields = {
+  title_es?: string | null;
+  excerpt_es?: string | null;
+  content_md_es?: string | null;
+  faqs_es?: BlogFaq[] | null;
+  cover_image_alt_es?: string | null;
+};
+
+const LIST_COLUMNS = "*";
 
 export type BlogPostPreview = Omit<BlogPost, "content_md" | "faqs" | "author">;
 
-export async function getPublishedPosts(): Promise<BlogPostPreview[]> {
+function localizePreview<T extends BlogPostPreview & SpanishFields>(row: T, locale: Locale): T {
+  return {
+    ...row,
+    title: pickLocale(locale, row.title_es, row.title),
+    excerpt: pickLocale(locale, row.excerpt_es, row.excerpt),
+    cover_image_alt: pickLocale(locale, row.cover_image_alt_es, row.cover_image_alt),
+  };
+}
+
+export async function getPublishedPosts(locale: Locale = "en"): Promise<BlogPostPreview[]> {
   const { data, error } = await getSupabase()
     .from("blog_posts_ruta_pacifico")
     .select(LIST_COLUMNS)
@@ -40,11 +61,11 @@ export async function getPublishedPosts(): Promise<BlogPostPreview[]> {
     return [];
   }
   return (data ?? []).map((row) =>
-    withCurrentContactIn(row as BlogPostPreview, ["title", "excerpt"])
+    withCurrentContactIn(localizePreview(row as BlogPostPreview & SpanishFields, locale), ["title", "excerpt"])
   );
 }
 
-export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
+export async function getPostBySlug(slug: string, locale: Locale = "en"): Promise<BlogPost | null> {
   const { data, error } = await getSupabase()
     .from("blog_posts_ruta_pacifico")
     .select("*")
@@ -57,7 +78,13 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
     return null;
   }
   if (!data) return null;
-  const post = withCurrentContactIn(data as BlogPost, ["title", "excerpt", "content_md"]);
+  const row = data as BlogPost & SpanishFields;
+  const localized: BlogPost = {
+    ...localizePreview(row, locale),
+    content_md: pickLocale(locale, row.content_md_es, row.content_md),
+    faqs: pickLocale(locale, row.faqs_es, row.faqs),
+  };
+  const post = withCurrentContactIn(localized, ["title", "excerpt", "content_md"]);
   post.faqs = (post.faqs ?? []).map((f) => ({
     q: withCurrentContact(f.q),
     a: withCurrentContact(f.a),
@@ -74,10 +101,10 @@ export function renderMarkdown(md: string): string {
   return marked.parse(md, { gfm: true, async: false });
 }
 
-export function formatPostDate(iso: string | null): string {
+export function formatPostDate(iso: string | null, locale: Locale = "en"): string {
   if (!iso) return "";
   try {
-    return new Date(iso).toLocaleDateString("en-US", {
+    return new Date(iso).toLocaleDateString(INTL_LOCALE[locale], {
       month: "long",
       day: "numeric",
       year: "numeric",

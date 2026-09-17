@@ -2,6 +2,8 @@
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { matchesSubstring, matchesWordStart, queryTokens } from "@/lib/hotels";
+import { useLocale } from "@/components/LocaleProvider";
+import { BOOKING } from "@/i18n/booking";
 
 export interface ComboOption {
   value: string;
@@ -51,12 +53,16 @@ export default function ComboBox({
   options,
   value,
   onChange,
-  placeholder = "Search...",
+  placeholder,
   disabled = false,
-  emptyText = "No matches found",
+  emptyText,
   extraMatches,
   onNoMatch,
 }: Props) {
+  const locale = useLocale();
+  const t = BOOKING[locale].combo;
+  const placeholderText = placeholder ?? t.placeholder;
+  const emptyMessage = emptyText ?? t.empty;
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [highlighted, setHighlighted] = useState(0);
@@ -213,7 +219,7 @@ export default function ComboBox({
           ref={inputRef}
           type="text"
           disabled={disabled}
-          placeholder={placeholder}
+          placeholder={placeholderText}
           value={displayValue}
           role="combobox"
           aria-expanded={open}
@@ -245,7 +251,7 @@ export default function ComboBox({
               inputRef.current?.focus();
             }}
             className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-foreground/30 transition hover:bg-black/5 hover:text-foreground"
-            aria-label="Clear selection"
+            aria-label={t.clear}
           >
             <svg
               className="h-3 w-3"
@@ -288,7 +294,7 @@ export default function ComboBox({
         >
           {grouped.length === 0 ? (
             <div className="px-4 py-6 text-center text-sm text-foreground/40">
-              {emptyText}
+              {emptyMessage}
             </div>
           ) : (
             grouped.map(([groupName, opts]) => (
