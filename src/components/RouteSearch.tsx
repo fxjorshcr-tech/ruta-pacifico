@@ -1,8 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import ComboBox, { type ComboOption } from "@/components/ComboBox";
+import { logHotelMiss } from "@/lib/hotelMiss";
+import { resolveHotelMatches } from "@/lib/hotels";
 import { routeSlug } from "@/lib/slug";
 import type { Route } from "@/lib/routes";
 
@@ -20,6 +22,27 @@ interface RouteSearchProps {
 }
 
 const AIRPORT_PREFIXES = ["LIR", "SJO"];
+
+const HOTEL_GROUP = "Hotels & landmarks";
+
+const EMPTY_TEXT =
+  "No matches. Try the town, beach or airport code (LIR, SJO) — or ask us on WhatsApp and we'll price it.";
+
+/**
+ * Hotel/landmark suggestions for the combobox: "Andaz Costa Rica Resort…"
+ * shown with "→ Papagayo Peninsula, Guanacaste" underneath, selecting the
+ * route point. Resolved against the same options the box is showing so a
+ * hotel never suggests a place that has no route from the chosen origin.
+ */
+function hotelSuggestions(query: string, options: ComboOption[]): ComboOption[] {
+  const places = options.map((o) => o.value);
+  return resolveHotelMatches(query, places).map((m) => ({
+    value: m.location,
+    label: m.hotel,
+    hint: `→ ${m.location}`,
+    group: HOTEL_GROUP,
+  }));
+}
 
 const GUANACASTE_PRIORITY = [
   "Brasilito (Guanacaste)",
@@ -104,6 +127,15 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
     return opts;
   }, [routes, selectedOrigin]);
 
+  const originHotels = useCallback(
+    (query: string) => hotelSuggestions(query, originOptions),
+    [originOptions]
+  );
+  const destinationHotels = useCallback(
+    (query: string) => hotelSuggestions(query, destinationOptions),
+    [destinationOptions]
+  );
+
   const matchedRoute = useMemo(() => {
     if (!selectedOrigin || !selectedDestination) return null;
     return (
@@ -139,8 +171,8 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
               Find Your Route
             </h2>
             <p className="mt-2 text-foreground/60">
-              Select origin and destination — we&apos;ll show you the price on
-              the next step.
+              Type your hotel, town or airport — we&apos;ll show you the price
+              on the next step.
             </p>
           </div>
 
@@ -157,7 +189,10 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                 options={originOptions}
                 value={selectedOrigin}
                 onChange={handleOriginChange}
-                placeholder="Type an origin (e.g. LIR, SJO, Tamarindo…)"
+                placeholder="Hotel, town or airport (e.g. Andaz, LIR, Tamarindo…)"
+                emptyText={EMPTY_TEXT}
+                extraMatches={originHotels}
+                onNoMatch={logHotelMiss}
               />
             </div>
 
@@ -174,9 +209,14 @@ export default function RouteSearch({ routes }: RouteSearchProps) {
                 value={selectedDestination}
                 onChange={handleDestinationChange}
                 placeholder={
-                  selectedOrigin ? "Type a destination…" : "Pick origin first"
+                  selectedOrigin
+                    ? "Hotel, town or airport…"
+                    : "Pick origin first"
                 }
                 disabled={!selectedOrigin}
+                emptyText={EMPTY_TEXT}
+                extraMatches={destinationHotels}
+                onNoMatch={logHotelMiss}
               />
             </div>
           </div>
