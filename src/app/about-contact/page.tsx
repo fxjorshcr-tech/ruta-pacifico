@@ -25,8 +25,7 @@ const ICT_LICENSE = "#4121-2025";
 
 const longDate = (iso: string, opts: Intl.DateTimeFormatOptions) =>
   new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-GB", { ...opts, timeZone: "UTC" });
-const LAUNCH_LABEL = longDate(BRAND_LAUNCH, { day: "numeric", month: "long", year: "numeric" });
-const SISTER_LAUNCH_LABEL = longDate(SISTER_BRAND.launched, { month: "long", year: "numeric" });
+const LAUNCH_LABEL = longDate(BRAND_LAUNCH, { month: "long", year: "numeric" });
 
 export const metadata: Metadata = {
   title: "About & Contact Us",
@@ -113,9 +112,8 @@ export default function AboutContactPage() {
               each reservation is exclusive to your party. No sharing, no detours.
             </p>
             <p className="mt-4 leading-relaxed text-foreground/70">
-              Ruta Pacifico launched on {LAUNCH_LABEL}. It is the Guanacaste brand of{" "}
-              {FOUNDER.name}, who has worked in Costa Rican tourism since{" "}
-              {FOUNDER.inTourismSince} and also runs{" "}
+              Behind Ruta Pacifico is {FOUNDER.name}, who has been welcoming
+              travellers to Costa Rica since {FOUNDER.inTourismSince}. He also runs{" "}
               <a
                 href={SISTER_BRAND.url}
                 target="_blank"
@@ -123,10 +121,10 @@ export default function AboutContactPage() {
                 className="font-semibold text-sunset-orange hover:underline"
               >
                 {SISTER_BRAND.name}
-              </a>{" "}
-              for {SISTER_BRAND.region} (since {SISTER_LAUNCH_LABEL}). The two are
-              separate brands with their own phone numbers and mailboxes; the ones on
-              this page are Ruta Pacifico&apos;s.
+              </a>
+              , our sister brand for {SISTER_BRAND.region}, and opened Ruta Pacifico
+              in {LAUNCH_LABEL} to bring the same standard of service to Guanacaste
+              and Liberia Airport.
             </p>
 
             <ul className="mt-6 grid gap-3 text-sm text-foreground/75 sm:grid-cols-2">
