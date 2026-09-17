@@ -112,8 +112,8 @@ export default function AboutContactPage() {
               each reservation is exclusive to your party. No sharing, no detours.
             </p>
             <p className="mt-4 leading-relaxed text-foreground/70">
-              Behind Ruta Pacifico is {FOUNDER.name}, who has been welcoming
-              travellers to Costa Rica since {FOUNDER.inTourismSince}. He also runs{" "}
+              I&apos;m {FOUNDER.name}, the founder. I&apos;ve been welcoming travellers
+              to Costa Rica since {FOUNDER.inTourismSince}, and I also run{" "}
               <a
                 href={SISTER_BRAND.url}
                 target="_blank"
@@ -122,9 +122,9 @@ export default function AboutContactPage() {
               >
                 {SISTER_BRAND.name}
               </a>
-              , our sister brand for {SISTER_BRAND.region}, and opened Ruta Pacifico
-              in {LAUNCH_LABEL} to bring the same standard of service to Guanacaste
-              and Liberia Airport.
+              , our sister brand for {SISTER_BRAND.region}. I opened Ruta Pacifico in{" "}
+              {LAUNCH_LABEL} to bring the same standard of service to Guanacaste and
+              Liberia Airport.
             </p>
 
             <ul className="mt-6 grid gap-3 text-sm text-foreground/75 sm:grid-cols-2">
