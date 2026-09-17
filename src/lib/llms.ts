@@ -15,6 +15,8 @@ import {
 } from "@/lib/pricing";
 import {
   BRAND_RELATIONSHIP,
+  FOUNDER_NAME,
+  FOUNDING_YEAR,
   GOOGLE_PROFILE_SINCE,
   RESERVATIONS_EMAIL,
   SISTER_BRAND,
@@ -166,7 +168,7 @@ ${BRAND_RELATIONSHIP}
 - **Status:** Licensed and fully insured ground-transportation operator
 - **License:** ICT (Instituto Costarricense de Turismo / Costa Rica Tourism Board) tourism transport licence #4121-2025
 - **Google rating:** ${rating.value} stars from ${rating.reviewCount} Google reviews (Business Profile opened in ${GOOGLE_PROFILE_SINCE}): ${rating.url}
-- **Year founded:** 2021
+- **Year founded:** ${FOUNDING_YEAR}, by ${FOUNDER_NAME}, the same operator behind ${SISTER_BRAND.name}
 
 ## Important URLs
 
@@ -211,7 +213,7 @@ export function buildLlmsFullTxt(
 - **Business name:** Ruta Pacifico
 - **Legal form:** Licensed and fully insured ground-transportation operator
 - **Tourism license:** ICT (Instituto Costarricense de Turismo / Costa Rica Tourism Board) transport operator licence #4121-2025
-- **Year founded:** 2021
+- **Year founded:** ${FOUNDING_YEAR}, by ${FOUNDER_NAME}, the same operator behind ${SISTER_BRAND.name}
 - **Registered address / headquarters:** Liberia, Guanacaste, Costa Rica
 - **Coordinates:** 10.5933° N, -85.5444° W
 - **Country code:** CR

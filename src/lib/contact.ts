@@ -25,8 +25,17 @@ export const GOOGLE_RATING_FALLBACK = {
   reviewCount: 2,
 };
 
-/** Year the Google Business Profile was opened (the company itself dates from 2021). */
+/** Year the Google Business Profile was opened (the business is far older, see FOUNDING_YEAR). */
 export const GOOGLE_PROFILE_SINCE = 2025;
+
+/**
+ * Founding facts, kept identical to what Can't Wait Travel CR publishes in
+ * its Organization JSON-LD (foundingDate 2006, founder Jorge): both brands
+ * are the same operator, and Google, the Business Profile and answer
+ * engines should all read one consistent history.
+ */
+export const FOUNDING_YEAR = 2006;
+export const FOUNDER_NAME = "Jorge";
 
 export const SOCIAL_PROFILES = [
   WHATSAPP_URL,

@@ -3,6 +3,8 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import FloatingCart from "@/components/FloatingCart";
 import {
   BRAND_RELATIONSHIP,
+  FOUNDER_NAME,
+  FOUNDING_YEAR,
   ICT_LICENSE_NUMBER,
   SOCIAL_PROFILES,
 } from "@/lib/contact";
@@ -214,7 +216,8 @@ async function JsonLd() {
         priceRange: "$$",
         currenciesAccepted: "USD, CRC",
         paymentAccepted: "Credit Card, Debit Card, Cash",
-        foundingDate: "2021",
+        foundingDate: String(FOUNDING_YEAR),
+        founder: { "@type": "Person", name: FOUNDER_NAME },
         slogan: "Private shuttles across Guanacaste and Costa Rica.",
         // Verifiable licensing — reinforces the "licensed & insured" claim for
         // both Google (E-E-A-T) and answer engines that weigh trust signals.
