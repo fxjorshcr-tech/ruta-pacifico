@@ -1,11 +1,14 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { matchesSubstring, matchesWordStart, queryTokens } from "@/lib/hotels";
 
 export interface ComboOption {
   value: string;
   label: string;
   group?: string;
+  /** Secondary line under the label (e.g. the route point a hotel resolves to). */
+  hint?: string;
 }
 
 interface Props {
@@ -15,10 +18,33 @@ interface Props {
   placeholder?: string;
   disabled?: boolean;
   emptyText?: string;
+  /**
+   * Extra suggestions for a query that the plain label filter cannot find —
+   * hotel and landmark names resolved to their route point. Called with the
+   * raw query; results are appended after the direct matches.
+   */
+  extraMatches?: (query: string) => ComboOption[];
+  /**
+   * Called (debounced) when a non-trivial query produces zero results, so we
+   * can learn which hotels guests look for and never find.
+   */
+  onNoMatch?: (query: string) => void;
+}
+
+const NO_MATCH_MIN_LENGTH = 4;
+const NO_MATCH_DEBOUNCE_MS = 1200;
+
+function optionKey(opt: ComboOption): string {
+  return `${opt.value}|${opt.hint ?? ""}`;
 }
 
 /**
- * Typeable combobox with grouped options. Preserves the order the options
+ * Typeable combobox with grouped options and keyboard navigation.
+ *
+ * Matching is forgiving on purpose: accents and punctuation are ignored and
+ * every typed word only has to START a word of the label ("coco" → Playas
+ * del Coco, "san jose" → San José). When that finds nothing, a plain
+ * substring match is tried before giving up. Preserves the order the options
  * were provided in, both for grouping and for filtering.
  */
 export default function ComboBox({
@@ -28,11 +54,16 @@ export default function ComboBox({
   placeholder = "Search...",
   disabled = false,
   emptyText = "No matches found",
+  extraMatches,
+  onNoMatch,
 }: Props) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [highlighted, setHighlighted] = useState(0);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+  const listId = useId();
 
   const selectedLabel = useMemo(
     () => options.find((o) => o.value === value)?.label ?? "",
@@ -67,15 +98,32 @@ export default function ComboBox({
   }, [open]);
 
   // Filter + group, preserving original input order
-  const grouped = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    const filtered = q
-      ? options.filter((o) => o.label.toLowerCase().includes(q))
-      : options;
+  const { grouped, flat } = useMemo(() => {
+    const tokens = queryTokens(query);
+    let filtered: ComboOption[];
+
+    if (tokens.length === 0) {
+      filtered = options;
+    } else {
+      const direct = options.filter((o) => matchesWordStart(tokens, o.label));
+      const directValues = new Set(direct.map((o) => o.value));
+      const seen = new Set<string>();
+      const extras: ComboOption[] = [];
+      for (const opt of extraMatches?.(query) ?? []) {
+        if (directValues.has(opt.value)) continue;
+        const key = optionKey(opt);
+        if (seen.has(key)) continue;
+        seen.add(key);
+        extras.push(opt);
+      }
+      filtered = [...direct, ...extras];
+      if (filtered.length === 0) {
+        filtered = options.filter((o) => matchesSubstring(query, o.label));
+      }
+    }
 
     const result: Array<[string | null, ComboOption[]]> = [];
     const index = new Map<string | null, number>();
-
     for (const opt of filtered) {
       const key = opt.group ?? null;
       if (!index.has(key)) {
@@ -84,10 +132,58 @@ export default function ComboBox({
       }
       result[index.get(key)!][1].push(opt);
     }
-    return result;
-  }, [options, query]);
+    return { grouped: result, flat: filtered };
+  }, [options, query, extraMatches]);
+
+  // Keep the highlighted row visible while arrowing through a long list.
+  useEffect(() => {
+    if (!open) return;
+    const el = listRef.current?.querySelector<HTMLElement>(
+      `[data-index="${highlighted}"]`
+    );
+    el?.scrollIntoView({ block: "nearest" });
+  }, [highlighted, open]);
+
+  // Report searches that find nothing (debounced, non-trivial queries only).
+  useEffect(() => {
+    if (!onNoMatch || !open) return;
+    const q = query.trim();
+    if (q.length < NO_MATCH_MIN_LENGTH || flat.length > 0) return;
+    const id = window.setTimeout(() => onNoMatch(q), NO_MATCH_DEBOUNCE_MS);
+    return () => window.clearTimeout(id);
+  }, [query, flat.length, open, onNoMatch]);
+
+  function select(opt: ComboOption) {
+    onChange(opt.value);
+    setQuery("");
+    setOpen(false);
+  }
+
+  function onInputKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (!open) {
+      if (e.key === "ArrowDown" || e.key === "Enter") setOpen(true);
+      return;
+    }
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setHighlighted((h) => Math.min(h + 1, flat.length - 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setHighlighted((h) => Math.max(h - 1, 0));
+    } else if (e.key === "Enter") {
+      const opt = flat[highlighted];
+      if (opt) {
+        e.preventDefault();
+        select(opt);
+      }
+    } else if (e.key === "Tab") {
+      setOpen(false);
+      setQuery("");
+    }
+  }
 
   const displayValue = open ? query : selectedLabel;
+  let rowIndex = -1;
 
   return (
     <div ref={wrapperRef} className="relative">
@@ -119,14 +215,24 @@ export default function ComboBox({
           disabled={disabled}
           placeholder={placeholder}
           value={displayValue}
+          role="combobox"
+          aria-expanded={open}
+          aria-controls={listId}
+          aria-autocomplete="list"
+          autoComplete="off"
+          autoCorrect="off"
+          spellCheck={false}
           onChange={(e) => {
             setQuery(e.target.value);
+            setHighlighted(0);
             if (!open) setOpen(true);
           }}
           onFocus={() => {
             setOpen(true);
             setQuery("");
+            setHighlighted(0);
           }}
+          onKeyDown={onInputKeyDown}
           className="w-full bg-transparent text-sm text-foreground outline-none placeholder:text-foreground/40 disabled:cursor-not-allowed"
         />
         {value && !open && (
@@ -174,7 +280,12 @@ export default function ComboBox({
       </div>
 
       {open && !disabled && (
-        <div className="absolute left-0 right-0 top-full z-30 mt-2 max-h-72 overflow-y-auto rounded-xl border border-black/5 bg-white p-1 shadow-2xl">
+        <div
+          ref={listRef}
+          id={listId}
+          role="listbox"
+          className="absolute left-0 right-0 top-full z-30 mt-2 max-h-72 overflow-y-auto rounded-xl border border-black/5 bg-white p-1 shadow-2xl"
+        >
           {grouped.length === 0 ? (
             <div className="px-4 py-6 text-center text-sm text-foreground/40">
               {emptyText}
@@ -188,23 +299,36 @@ export default function ComboBox({
                   </div>
                 )}
                 {opts.map((opt) => {
-                  const active = opt.value === value;
+                  rowIndex += 1;
+                  const index = rowIndex;
+                  const active = opt.value === value && !opt.hint;
+                  const focused = index === highlighted;
                   return (
                     <button
-                      key={opt.value}
+                      key={optionKey(opt)}
                       type="button"
-                      onClick={() => {
-                        onChange(opt.value);
-                        setQuery("");
-                        setOpen(false);
-                      }}
+                      role="option"
+                      aria-selected={active}
+                      data-index={index}
+                      onMouseDown={(e) => e.preventDefault()}
+                      onMouseEnter={() => setHighlighted(index)}
+                      onClick={() => select(opt)}
                       className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-medium transition ${
                         active
                           ? "bg-sunset-orange/10 text-sunset-orange"
-                          : "text-foreground hover:bg-sunset-orange/5 hover:text-sunset-orange"
+                          : focused
+                            ? "bg-sunset-orange/5 text-sunset-orange"
+                            : "text-foreground"
                       }`}
                     >
-                      <span className="flex-1">{opt.label}</span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate">{opt.label}</span>
+                        {opt.hint && (
+                          <span className="block truncate text-xs font-normal text-foreground/50">
+                            {opt.hint}
+                          </span>
+                        )}
+                      </span>
                       {active && (
                         <svg
                           className="h-4 w-4"
