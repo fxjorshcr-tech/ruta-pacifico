@@ -5,8 +5,25 @@ export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_RAW}`;
 export const RESERVATIONS_EMAIL = "reservations@rutapacifico.com";
 export const INSTAGRAM_URL = "https://www.instagram.com/rutapacificocr/";
 export const FACEBOOK_URL = "https://www.facebook.com/rutapacifico";
+/**
+ * Google Business Profile ("Ruta Pacifico", 5.0 on Google Reviews). The
+ * review badges on the home and booking pages link here, and it is listed
+ * as a `sameAs` profile in the Organization JSON-LD.
+ *
+ * Swap this for the profile's own link once copied from the Business
+ * Profile dashboard (Leer reseñas → share icon, or "Pedir una reseña" for
+ * the direct g.page/r/…/review link). Until then a Maps search opens the
+ * listing, on the Maps app when the visitor is on a phone.
+ */
+export const GOOGLE_BUSINESS_PROFILE_URL =
+  "https://www.google.com/maps/search/?api=1&query=Ruta+Pacifico+shuttle+Guanacaste+Costa+Rica";
 
-export const SOCIAL_PROFILES = [WHATSAPP_URL, INSTAGRAM_URL, FACEBOOK_URL];
+export const SOCIAL_PROFILES = [
+  WHATSAPP_URL,
+  INSTAGRAM_URL,
+  FACEBOOK_URL,
+  GOOGLE_BUSINESS_PROFILE_URL,
+];
 
 /** ICT (Costa Rica Tourism Board) tourism transport operator licence. */
 export const ICT_LICENSE_NUMBER = "4121-2025";
