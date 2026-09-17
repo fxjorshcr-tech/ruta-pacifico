@@ -2,10 +2,11 @@ import type { Metadata, Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import FloatingCart from "@/components/FloatingCart";
 import {
+  BRAND_LAUNCH,
   BRAND_RELATIONSHIP,
-  FOUNDER_NAME,
-  FOUNDING_YEAR,
+  FOUNDER,
   ICT_LICENSE_NUMBER,
+  SISTER_BRAND,
   SOCIAL_PROFILES,
 } from "@/lib/contact";
 import { getGoogleRating } from "@/lib/googleRating";
@@ -216,8 +217,14 @@ async function JsonLd() {
         priceRange: "$$",
         currenciesAccepted: "USD, CRC",
         paymentAccepted: "Credit Card, Debit Card, Cash",
-        foundingDate: String(FOUNDING_YEAR),
-        founder: { "@type": "Person", name: FOUNDER_NAME },
+        foundingDate: BRAND_LAUNCH,
+        founder: {
+          "@type": "Person",
+          "@id": `${BASE_URL}/#founder`,
+          name: FOUNDER.name,
+          description: `Costa Rican tourism professional since ${FOUNDER.inTourismSince}. Founder of ${SISTER_BRAND.name} (launched ${SISTER_BRAND.launched}) and Ruta Pacifico (launched ${BRAND_LAUNCH}).`,
+          worksFor: { "@id": `${BASE_URL}/#organization` },
+        },
         slogan: "Private shuttles across Guanacaste and Costa Rica.",
         // Verifiable licensing — reinforces the "licensed & insured" claim for
         // both Google (E-E-A-T) and answer engines that weigh trust signals.

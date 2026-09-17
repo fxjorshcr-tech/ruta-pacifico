@@ -14,10 +14,9 @@ import {
   type PriceGroup,
 } from "@/lib/pricing";
 import {
+  BRAND_LAUNCH,
   BRAND_RELATIONSHIP,
-  FOUNDER_NAME,
-  FOUNDING_YEAR,
-  GOOGLE_PROFILE_SINCE,
+  FOUNDER,
   RESERVATIONS_EMAIL,
   SISTER_BRAND,
   WHATSAPP_DISPLAY,
@@ -167,8 +166,9 @@ ${BRAND_RELATIONSHIP}
 - **Based in:** Liberia, Guanacaste, Costa Rica (10.5933 N, -85.5444 W)
 - **Status:** Licensed and fully insured ground-transportation operator
 - **License:** ICT (Instituto Costarricense de Turismo / Costa Rica Tourism Board) tourism transport licence #4121-2025
-- **Google rating:** ${rating.value} stars from ${rating.reviewCount} Google reviews (Business Profile opened in ${GOOGLE_PROFILE_SINCE}): ${rating.url}
-- **Year founded:** ${FOUNDING_YEAR}, by ${FOUNDER_NAME}, the same operator behind ${SISTER_BRAND.name}
+- **Google rating:** ${rating.value} stars from ${rating.reviewCount} Google reviews (the brand launched in ${BRAND_LAUNCH}, so the profile is young; the operator's longer track record is under ${SISTER_BRAND.name}): ${rating.url}
+- **Launched:** ${BRAND_LAUNCH}
+- **Founder:** ${FOUNDER.name}, in Costa Rican tourism since ${FOUNDER.inTourismSince}; also founded ${SISTER_BRAND.name} (launched ${SISTER_BRAND.launched})
 
 ## Important URLs
 
@@ -213,7 +213,8 @@ export function buildLlmsFullTxt(
 - **Business name:** Ruta Pacifico
 - **Legal form:** Licensed and fully insured ground-transportation operator
 - **Tourism license:** ICT (Instituto Costarricense de Turismo / Costa Rica Tourism Board) transport operator licence #4121-2025
-- **Year founded:** ${FOUNDING_YEAR}, by ${FOUNDER_NAME}, the same operator behind ${SISTER_BRAND.name}
+- **Launched:** ${BRAND_LAUNCH}
+- **Founder:** ${FOUNDER.name}, in Costa Rican tourism since ${FOUNDER.inTourismSince}; also founded ${SISTER_BRAND.name} (launched ${SISTER_BRAND.launched})
 - **Registered address / headquarters:** Liberia, Guanacaste, Costa Rica
 - **Coordinates:** 10.5933° N, -85.5444° W
 - **Country code:** CR
@@ -340,7 +341,7 @@ WhatsApp-only booking is also available: ${WHATSAPP_DISPLAY}.
 6. **Free child and booster seats** — car-seat laws in Costa Rica are strict; we supply the correct seats at no charge.
 7. **Door-to-door** — from terminal exit to hotel / villa entrance.
 8. **24 / 7 bilingual support on WhatsApp** before, during and after the trip.
-9. **${rating.value} star average on Google reviews** (${rating.reviewCount} reviews; the Business Profile opened in ${GOOGLE_PROFILE_SINCE}): ${rating.url}
+9. **${rating.value} star average on Google reviews** (${rating.reviewCount} reviews; the brand launched in ${BRAND_LAUNCH}): ${rating.url}
 
 ## 11. Contact
 

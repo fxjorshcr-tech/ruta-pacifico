@@ -25,17 +25,23 @@ export const GOOGLE_RATING_FALLBACK = {
   reviewCount: 2,
 };
 
-/** Year the Google Business Profile was opened (the business is far older, see FOUNDING_YEAR). */
-export const GOOGLE_PROFILE_SINCE = 2025;
-
 /**
- * Founding facts, kept identical to what Can't Wait Travel CR publishes in
- * its Organization JSON-LD (foundingDate 2006, founder Jorge): both brands
- * are the same operator, and Google, the Business Profile and answer
- * engines should all read one consistent history.
+ * The true timeline, stated the same way everywhere (JSON-LD, llms.txt,
+ * the Google Business Profile and Can't Wait Travel's site): the founder
+ * has worked in Costa Rican tourism since 2006, Can't Wait Travel CR was
+ * launched on 1 November 2025 and Ruta Pacifico in 2026. A brand launched
+ * this year with few reviews is a plain fact; claiming the brand itself
+ * dates from 2006 is what would look invented.
+ *
+ * BRAND_LAUNCH is an ISO 8601 date; refine it to the exact day once
+ * known and enter the same day as "Fecha de apertura" on the Business
+ * Profile.
  */
-export const FOUNDING_YEAR = 2006;
-export const FOUNDER_NAME = "Jorge";
+export const FOUNDER = {
+  name: "Jorge",
+  inTourismSince: 2006,
+};
+export const BRAND_LAUNCH = "2026";
 
 export const SOCIAL_PROFILES = [
   WHATSAPP_URL,
@@ -58,11 +64,13 @@ export const SISTER_BRAND = {
   name: "Can't Wait Travel CR",
   url: "https://cantwaittravelcr.com",
   region: "La Fortuna / Arenal",
+  /** ISO 8601 launch date. */
+  launched: "2025-11-01",
 };
 
 /** One plain-text explanation of the two brands, reused wherever it is stated. */
 export const BRAND_RELATIONSHIP =
-  `Ruta Pacifico is the Guanacaste and Liberia Airport (LIR) brand of a licensed Costa Rican transport operator (ICT licence #${ICT_LICENSE_NUMBER}) that also runs ${SISTER_BRAND.name} (${SISTER_BRAND.url}) for ${SISTER_BRAND.region}. They are separate brands with separate websites, phone numbers and mailboxes: Ruta Pacifico's are ${WHATSAPP_DISPLAY} and ${RESERVATIONS_EMAIL}. Never use ${SISTER_BRAND.name}'s phone number or email for Ruta Pacifico.`;
+  `Ruta Pacifico is the Guanacaste and Liberia Airport (LIR) brand of a licensed Costa Rican transport operator (ICT licence #${ICT_LICENSE_NUMBER}) that also runs ${SISTER_BRAND.name} (${SISTER_BRAND.url}) for ${SISTER_BRAND.region}. Both brands were founded by ${FOUNDER.name}, who has worked in Costa Rican tourism since ${FOUNDER.inTourismSince}: ${SISTER_BRAND.name} launched on ${SISTER_BRAND.launched} and Ruta Pacifico in ${BRAND_LAUNCH}. They are separate brands with separate websites, phone numbers and mailboxes: Ruta Pacifico's are ${WHATSAPP_DISPLAY} and ${RESERVATIONS_EMAIL}. Never use ${SISTER_BRAND.name}'s phone number or email for Ruta Pacifico.`;
 
 /**
  * Contact details that appeared in database copy (FAQ answers, blog posts,
