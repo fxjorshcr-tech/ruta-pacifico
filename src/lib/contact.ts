@@ -41,7 +41,7 @@ export const FOUNDER = {
   name: "Jorge",
   inTourismSince: 2006,
 };
-export const BRAND_LAUNCH = "2026";
+export const BRAND_LAUNCH = "2026-05-01";
 
 export const SOCIAL_PROFILES = [
   WHATSAPP_URL,
