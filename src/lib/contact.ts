@@ -15,18 +15,18 @@ export const GOOGLE_BUSINESS_PROFILE_URL = "https://g.page/r/CV2kZh_WDs-BEAE";
 export const GOOGLE_REVIEW_URL = `${GOOGLE_BUSINESS_PROFILE_URL}/review`;
 
 /**
- * Live figures from the Google Business Profile. Every AggregateRating in
- * the JSON-LD and the llms.txt company facts read from here, so the site
- * never claims more reviews than Google can show. Update `reviewCount`
- * as reviews come in; rich-result markup that does not match the profile
- * is what gets review snippets removed.
+ * Last known figures of the Google Business Profile, used only when the
+ * live lookup in `src/lib/googleRating.ts` is unavailable (no
+ * `GOOGLE_PLACES_API_KEY`, or Google unreachable). Everything that shows
+ * the rating reads `getGoogleRating()`, never this directly.
  */
-export const GOOGLE_RATING = {
+export const GOOGLE_RATING_FALLBACK = {
   value: "5.0",
   reviewCount: 2,
-  /** Year the Business Profile was opened (the company itself dates from 2021). */
-  profileSince: 2025,
 };
+
+/** Year the Google Business Profile was opened (the company itself dates from 2021). */
+export const GOOGLE_PROFILE_SINCE = 2025;
 
 export const SOCIAL_PROFILES = [
   WHATSAPP_URL,

@@ -1,4 +1,4 @@
-import { GOOGLE_BUSINESS_PROFILE_URL } from "@/lib/contact";
+import { getGoogleRating } from "@/lib/googleRating";
 
 type Props = {
   /** "dark" for photo heroes, "light" for white sections and footers. */
@@ -20,17 +20,19 @@ const TONES = {
 };
 
 /**
- * "5.0 on Google Reviews" pill. Links to the Google Business Profile so a
- * visitor can read the reviews themselves (and leave one).
+ * "5.0 on Google Reviews" pill with the live rating of the Google Business
+ * Profile. Links to the profile so a visitor can read the reviews
+ * themselves (and leave one).
  */
-export default function GoogleReviewBadge({ tone = "dark" }: Props) {
+export default async function GoogleReviewBadge({ tone = "dark" }: Props) {
   const t = TONES[tone];
+  const rating = await getGoogleRating();
   return (
     <a
-      href={GOOGLE_BUSINESS_PROFILE_URL}
+      href={rating.url}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Rated 5.0 on Google Reviews. Read our reviews on Google (opens in a new tab)"
+      aria-label={`Rated ${rating.value} on Google Reviews from ${rating.reviewCount} reviews. Read them on Google (opens in a new tab)`}
       className={`inline-flex items-center gap-2.5 rounded-full border px-5 py-2.5 transition ${t.pill}`}
     >
       <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" aria-hidden="true">
@@ -47,7 +49,7 @@ export default function GoogleReviewBadge({ tone = "dark" }: Props) {
             </svg>
           ))}
         </span>
-        <span className={`text-sm font-semibold ${t.rating}`}>5.0</span>
+        <span className={`text-sm font-semibold ${t.rating}`}>{rating.value}</span>
         <span className={`text-sm ${t.label}`}>on Google Reviews</span>
       </span>
     </a>

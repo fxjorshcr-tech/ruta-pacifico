@@ -3,10 +3,10 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import FloatingCart from "@/components/FloatingCart";
 import {
   BRAND_RELATIONSHIP,
-  GOOGLE_RATING,
   ICT_LICENSE_NUMBER,
   SOCIAL_PROFILES,
 } from "@/lib/contact";
+import { getGoogleRating } from "@/lib/googleRating";
 import "./globals.css";
 import { LOGO_SQUARE_ABSOLUTE_URL, LOGO_SQUARE_SIZE } from "@/lib/brand";
 
@@ -184,7 +184,8 @@ export const metadata: Metadata = {
  * Rich JSON-LD graph. A single @graph with connected @id references is easier
  * for LLMs and Google to reason about than several disconnected blocks.
  */
-function JsonLd() {
+async function JsonLd() {
+  const rating = await getGoogleRating();
   const graph = {
     "@context": "https://schema.org",
     "@graph": [
@@ -282,11 +283,11 @@ function JsonLd() {
         },
         aggregateRating: {
           "@type": "AggregateRating",
-          ratingValue: GOOGLE_RATING.value,
+          ratingValue: rating.value,
           bestRating: "5",
           worstRating: "1",
-          ratingCount: GOOGLE_RATING.reviewCount,
-          reviewCount: GOOGLE_RATING.reviewCount,
+          ratingCount: rating.reviewCount,
+          reviewCount: rating.reviewCount,
         },
         contactPoint: [
           {

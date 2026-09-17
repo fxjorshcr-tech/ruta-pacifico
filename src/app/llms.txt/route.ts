@@ -1,5 +1,6 @@
 import { getRoutes } from "@/lib/routes";
 import { getDestinations } from "@/lib/destinations";
+import { getGoogleRating } from "@/lib/googleRating";
 import { buildLlmsTxt } from "@/lib/llms";
 
 /**
@@ -11,11 +12,12 @@ import { buildLlmsTxt } from "@/lib/llms";
 export const revalidate = 3600;
 
 export async function GET() {
-  const [routes, destinations] = await Promise.all([
+  const [routes, destinations, rating] = await Promise.all([
     getRoutes(),
     getDestinations(),
+    getGoogleRating(),
   ]);
-  return new Response(buildLlmsTxt(routes, destinations), {
+  return new Response(buildLlmsTxt(routes, destinations, rating), {
     headers: {
       "content-type": "text/plain; charset=utf-8",
       "cache-control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",

@@ -1,5 +1,6 @@
 import type { Route } from "@/lib/routes";
 import type { DestinationMap } from "@/lib/destinations";
+import type { GoogleRating } from "@/lib/googleRating";
 import {
   BASE_URL,
   PRICE_FACTS,
@@ -14,8 +15,7 @@ import {
 } from "@/lib/pricing";
 import {
   BRAND_RELATIONSHIP,
-  GOOGLE_BUSINESS_PROFILE_URL,
-  GOOGLE_RATING,
+  GOOGLE_PROFILE_SINCE,
   RESERVATIONS_EMAIL,
   SISTER_BRAND,
   WHATSAPP_DISPLAY,
@@ -97,7 +97,11 @@ function updatedStamp(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
-export function buildLlmsTxt(routes: Route[], destinations: DestinationMap): string {
+export function buildLlmsTxt(
+  routes: Route[],
+  destinations: DestinationMap,
+  rating: GoogleRating,
+): string {
   const popular = popularAirportRoutes(routes, destinations, 40);
   const range = priceRange(routes);
   const priced = routes.filter((r) => routePrices(r).length).length;
@@ -161,7 +165,7 @@ ${BRAND_RELATIONSHIP}
 - **Based in:** Liberia, Guanacaste, Costa Rica (10.5933 N, -85.5444 W)
 - **Status:** Licensed and fully insured ground-transportation operator
 - **License:** ICT (Instituto Costarricense de Turismo / Costa Rica Tourism Board) tourism transport licence #4121-2025
-- **Google rating:** ${GOOGLE_RATING.value} stars from ${GOOGLE_RATING.reviewCount} Google reviews (Business Profile opened in ${GOOGLE_RATING.profileSince}): ${GOOGLE_BUSINESS_PROFILE_URL}
+- **Google rating:** ${rating.value} stars from ${rating.reviewCount} Google reviews (Business Profile opened in ${GOOGLE_PROFILE_SINCE}): ${rating.url}
 - **Year founded:** 2021
 
 ## Important URLs
@@ -182,7 +186,11 @@ Last generated: ${updatedStamp()}.
 `;
 }
 
-export function buildLlmsFullTxt(routes: Route[], destinations: DestinationMap): string {
+export function buildLlmsFullTxt(
+  routes: Route[],
+  destinations: DestinationMap,
+  rating: GoogleRating,
+): string {
   const groups = groupRoutesForPriceList(routes);
   const range = priceRange(routes);
   const total = groups.reduce((n, g) => n + g.routes.length, 0);
@@ -330,7 +338,7 @@ WhatsApp-only booking is also available: ${WHATSAPP_DISPLAY}.
 6. **Free child and booster seats** — car-seat laws in Costa Rica are strict; we supply the correct seats at no charge.
 7. **Door-to-door** — from terminal exit to hotel / villa entrance.
 8. **24 / 7 bilingual support on WhatsApp** before, during and after the trip.
-9. **${GOOGLE_RATING.value} star average on Google reviews** (${GOOGLE_RATING.reviewCount} reviews; the Business Profile opened in ${GOOGLE_RATING.profileSince}): ${GOOGLE_BUSINESS_PROFILE_URL}
+9. **${rating.value} star average on Google reviews** (${rating.reviewCount} reviews; the Business Profile opened in ${GOOGLE_PROFILE_SINCE}): ${rating.url}
 
 ## 11. Contact
 
