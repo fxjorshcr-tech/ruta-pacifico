@@ -2,10 +2,14 @@ import type { Metadata, Viewport } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import FloatingCart from "@/components/FloatingCart";
 import {
+  BRAND_LAUNCH,
   BRAND_RELATIONSHIP,
+  FOUNDER,
   ICT_LICENSE_NUMBER,
+  SISTER_BRAND,
   SOCIAL_PROFILES,
 } from "@/lib/contact";
+import { getGoogleRating } from "@/lib/googleRating";
 import "./globals.css";
 import { LOGO_SQUARE_ABSOLUTE_URL, LOGO_SQUARE_SIZE } from "@/lib/brand";
 
@@ -183,7 +187,8 @@ export const metadata: Metadata = {
  * Rich JSON-LD graph. A single @graph with connected @id references is easier
  * for LLMs and Google to reason about than several disconnected blocks.
  */
-function JsonLd() {
+async function JsonLd() {
+  const rating = await getGoogleRating();
   const graph = {
     "@context": "https://schema.org",
     "@graph": [
@@ -212,7 +217,14 @@ function JsonLd() {
         priceRange: "$$",
         currenciesAccepted: "USD, CRC",
         paymentAccepted: "Credit Card, Debit Card, Cash",
-        foundingDate: "2021",
+        foundingDate: BRAND_LAUNCH,
+        founder: {
+          "@type": "Person",
+          "@id": `${BASE_URL}/#founder`,
+          name: FOUNDER.name,
+          description: `Costa Rican tourism professional since ${FOUNDER.inTourismSince}. Founder of ${SISTER_BRAND.name} (launched ${SISTER_BRAND.launched}) and Ruta Pacifico (launched ${BRAND_LAUNCH}).`,
+          worksFor: { "@id": `${BASE_URL}/#organization` },
+        },
         slogan: "Private shuttles across Guanacaste and Costa Rica.",
         // Verifiable licensing — reinforces the "licensed & insured" claim for
         // both Google (E-E-A-T) and answer engines that weigh trust signals.
@@ -281,11 +293,11 @@ function JsonLd() {
         },
         aggregateRating: {
           "@type": "AggregateRating",
-          ratingValue: "5.0",
+          ratingValue: rating.value,
           bestRating: "5",
           worstRating: "1",
-          ratingCount: "50",
-          reviewCount: "50",
+          ratingCount: rating.reviewCount,
+          reviewCount: rating.reviewCount,
         },
         contactPoint: [
           {

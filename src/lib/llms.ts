@@ -1,5 +1,6 @@
 import type { Route } from "@/lib/routes";
 import type { DestinationMap } from "@/lib/destinations";
+import type { GoogleRating } from "@/lib/googleRating";
 import {
   BASE_URL,
   PRICE_FACTS,
@@ -13,7 +14,9 @@ import {
   type PriceGroup,
 } from "@/lib/pricing";
 import {
+  BRAND_LAUNCH,
   BRAND_RELATIONSHIP,
+  FOUNDER,
   RESERVATIONS_EMAIL,
   SISTER_BRAND,
   WHATSAPP_DISPLAY,
@@ -95,7 +98,11 @@ function updatedStamp(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
-export function buildLlmsTxt(routes: Route[], destinations: DestinationMap): string {
+export function buildLlmsTxt(
+  routes: Route[],
+  destinations: DestinationMap,
+  rating: GoogleRating,
+): string {
   const popular = popularAirportRoutes(routes, destinations, 40);
   const range = priceRange(routes);
   const priced = routes.filter((r) => routePrices(r).length).length;
@@ -159,8 +166,9 @@ ${BRAND_RELATIONSHIP}
 - **Based in:** Liberia, Guanacaste, Costa Rica (10.5933 N, -85.5444 W)
 - **Status:** Licensed and fully insured ground-transportation operator
 - **License:** ICT (Instituto Costarricense de Turismo / Costa Rica Tourism Board) tourism transport licence #4121-2025
-- **Google rating:** 5.0 stars
-- **Year founded:** 2021
+- **Google rating:** ${rating.value} stars from ${rating.reviewCount} Google reviews (the brand launched in ${BRAND_LAUNCH}, so the profile is young; the operator's longer track record is under ${SISTER_BRAND.name}): ${rating.url}
+- **Launched:** ${BRAND_LAUNCH}
+- **Founder:** ${FOUNDER.name}, in Costa Rican tourism since ${FOUNDER.inTourismSince}; also founded ${SISTER_BRAND.name} (launched ${SISTER_BRAND.launched})
 
 ## Important URLs
 
@@ -180,7 +188,11 @@ Last generated: ${updatedStamp()}.
 `;
 }
 
-export function buildLlmsFullTxt(routes: Route[], destinations: DestinationMap): string {
+export function buildLlmsFullTxt(
+  routes: Route[],
+  destinations: DestinationMap,
+  rating: GoogleRating,
+): string {
   const groups = groupRoutesForPriceList(routes);
   const range = priceRange(routes);
   const total = groups.reduce((n, g) => n + g.routes.length, 0);
@@ -201,7 +213,8 @@ export function buildLlmsFullTxt(routes: Route[], destinations: DestinationMap):
 - **Business name:** Ruta Pacifico
 - **Legal form:** Licensed and fully insured ground-transportation operator
 - **Tourism license:** ICT (Instituto Costarricense de Turismo / Costa Rica Tourism Board) transport operator licence #4121-2025
-- **Year founded:** 2021
+- **Launched:** ${BRAND_LAUNCH}
+- **Founder:** ${FOUNDER.name}, in Costa Rican tourism since ${FOUNDER.inTourismSince}; also founded ${SISTER_BRAND.name} (launched ${SISTER_BRAND.launched})
 - **Registered address / headquarters:** Liberia, Guanacaste, Costa Rica
 - **Coordinates:** 10.5933° N, -85.5444° W
 - **Country code:** CR
@@ -328,7 +341,7 @@ WhatsApp-only booking is also available: ${WHATSAPP_DISPLAY}.
 6. **Free child and booster seats** — car-seat laws in Costa Rica are strict; we supply the correct seats at no charge.
 7. **Door-to-door** — from terminal exit to hotel / villa entrance.
 8. **24 / 7 bilingual support on WhatsApp** before, during and after the trip.
-9. **5.0 star average on Google reviews.**
+9. **${rating.value} star average on Google reviews** (${rating.reviewCount} reviews; the brand launched in ${BRAND_LAUNCH}): ${rating.url}
 
 ## 11. Contact
 

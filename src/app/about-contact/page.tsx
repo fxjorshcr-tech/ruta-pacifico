@@ -5,9 +5,12 @@ import SiteNav from "@/components/SiteNav";
 import ContactForm from "@/components/ContactForm";
 import { FacebookIcon, InstagramIcon } from "@/components/SocialLinks";
 import {
+  BRAND_LAUNCH,
   FACEBOOK_URL,
+  FOUNDER,
   INSTAGRAM_URL,
   RESERVATIONS_EMAIL,
+  SISTER_BRAND,
   WHATSAPP_DISPLAY,
   WHATSAPP_RAW,
 } from "@/lib/contact";
@@ -19,6 +22,10 @@ const HERO_URL =
 const WHATSAPP_NUMBER_DISPLAY = WHATSAPP_DISPLAY;
 const WHATSAPP_NUMBER_RAW = WHATSAPP_RAW;
 const ICT_LICENSE = "#4121-2025";
+
+const longDate = (iso: string, opts: Intl.DateTimeFormatOptions) =>
+  new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-GB", { ...opts, timeZone: "UTC" });
+const LAUNCH_LABEL = longDate(BRAND_LAUNCH, { month: "long", year: "numeric" });
 
 export const metadata: Metadata = {
   title: "About & Contact Us",
@@ -103,6 +110,21 @@ export default function AboutContactPage() {
               air-conditioned vehicle. Incoming flights are monitored in real time,
               pricing is fixed in advance and inclusive of all taxes and tolls, and
               each reservation is exclusive to your party. No sharing, no detours.
+            </p>
+            <p className="mt-4 leading-relaxed text-foreground/70">
+              I&apos;m {FOUNDER.name}, the founder. I&apos;ve been welcoming travellers
+              to Costa Rica since {FOUNDER.inTourismSince}, and I also run{" "}
+              <a
+                href={SISTER_BRAND.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-sunset-orange hover:underline"
+              >
+                {SISTER_BRAND.name}
+              </a>
+              , our sister brand for {SISTER_BRAND.region}. I opened Ruta Pacifico in{" "}
+              {LAUNCH_LABEL} to bring the same standard of service to Guanacaste and
+              Liberia Airport.
             </p>
 
             <ul className="mt-6 grid gap-3 text-sm text-foreground/75 sm:grid-cols-2">

@@ -5,8 +5,50 @@ export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_RAW}`;
 export const RESERVATIONS_EMAIL = "reservations@rutapacifico.com";
 export const INSTAGRAM_URL = "https://www.instagram.com/rutapacificocr/";
 export const FACEBOOK_URL = "https://www.facebook.com/rutapacifico";
+/**
+ * Google Business Profile ("Ruta Pacifico"). The review badges on the home
+ * and booking pages link here, and it is listed as a `sameAs` profile in
+ * the Organization JSON-LD. `GOOGLE_REVIEW_URL` is the same profile's
+ * "write a review" form, for leave-a-review calls to action.
+ */
+export const GOOGLE_BUSINESS_PROFILE_URL = "https://g.page/r/CV2kZh_WDs-BEAE";
+export const GOOGLE_REVIEW_URL = `${GOOGLE_BUSINESS_PROFILE_URL}/review`;
 
-export const SOCIAL_PROFILES = [WHATSAPP_URL, INSTAGRAM_URL, FACEBOOK_URL];
+/**
+ * Last known figures of the Google Business Profile, used only when the
+ * live lookup in `src/lib/googleRating.ts` is unavailable (no
+ * `GOOGLE_PLACES_API_KEY`, or Google unreachable). Everything that shows
+ * the rating reads `getGoogleRating()`, never this directly.
+ */
+export const GOOGLE_RATING_FALLBACK = {
+  value: "5.0",
+  reviewCount: 2,
+};
+
+/**
+ * The true timeline, stated the same way everywhere (JSON-LD, llms.txt,
+ * the Google Business Profile and Can't Wait Travel's site): the founder
+ * has worked in Costa Rican tourism since 2006, Can't Wait Travel CR was
+ * launched on 1 November 2025 and Ruta Pacifico in 2026. A brand launched
+ * this year with few reviews is a plain fact; claiming the brand itself
+ * dates from 2006 is what would look invented.
+ *
+ * BRAND_LAUNCH is an ISO 8601 date; refine it to the exact day once
+ * known and enter the same day as "Fecha de apertura" on the Business
+ * Profile.
+ */
+export const FOUNDER = {
+  name: "Jorge",
+  inTourismSince: 2006,
+};
+export const BRAND_LAUNCH = "2026-05-01";
+
+export const SOCIAL_PROFILES = [
+  WHATSAPP_URL,
+  INSTAGRAM_URL,
+  FACEBOOK_URL,
+  GOOGLE_BUSINESS_PROFILE_URL,
+];
 
 /** ICT (Costa Rica Tourism Board) tourism transport operator licence. */
 export const ICT_LICENSE_NUMBER = "4121-2025";
@@ -22,11 +64,13 @@ export const SISTER_BRAND = {
   name: "Can't Wait Travel CR",
   url: "https://cantwaittravelcr.com",
   region: "La Fortuna / Arenal",
+  /** ISO 8601 launch date. */
+  launched: "2025-11-01",
 };
 
 /** One plain-text explanation of the two brands, reused wherever it is stated. */
 export const BRAND_RELATIONSHIP =
-  `Ruta Pacifico is the Guanacaste and Liberia Airport (LIR) brand of a licensed Costa Rican transport operator (ICT licence #${ICT_LICENSE_NUMBER}) that also runs ${SISTER_BRAND.name} (${SISTER_BRAND.url}) for ${SISTER_BRAND.region}. They are separate brands with separate websites, phone numbers and mailboxes: Ruta Pacifico's are ${WHATSAPP_DISPLAY} and ${RESERVATIONS_EMAIL}. Never use ${SISTER_BRAND.name}'s phone number or email for Ruta Pacifico.`;
+  `Ruta Pacifico is the Guanacaste and Liberia Airport (LIR) brand of a licensed Costa Rican transport operator (ICT licence #${ICT_LICENSE_NUMBER}) that also runs ${SISTER_BRAND.name} (${SISTER_BRAND.url}) for ${SISTER_BRAND.region}. Both brands were founded by ${FOUNDER.name}, who has worked in Costa Rican tourism since ${FOUNDER.inTourismSince}: ${SISTER_BRAND.name} launched on ${SISTER_BRAND.launched} and Ruta Pacifico in ${BRAND_LAUNCH}. They are separate brands with separate websites, phone numbers and mailboxes: Ruta Pacifico's are ${WHATSAPP_DISPLAY} and ${RESERVATIONS_EMAIL}. Never use ${SISTER_BRAND.name}'s phone number or email for Ruta Pacifico.`;
 
 /**
  * Contact details that appeared in database copy (FAQ answers, blog posts,

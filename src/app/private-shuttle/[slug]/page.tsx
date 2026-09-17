@@ -191,14 +191,6 @@ function RouteJsonLd({
           offerCount: offers.length,
           offers,
         },
-        aggregateRating: {
-          "@type": "AggregateRating",
-          ratingValue: "5.0",
-          bestRating: "5",
-          worstRating: "1",
-          ratingCount: "50",
-          reviewCount: "50",
-        },
       },
       {
         "@type": "Trip",
