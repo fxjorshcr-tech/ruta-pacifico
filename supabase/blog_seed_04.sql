@@ -58,11 +58,11 @@ Most Four Seasons guests land at Liberia expecting a long transfer and get the o
 
 ## Where the hotel actually is
 
-The Four Seasons sits at the neck of **Peninsula Papagayo**, a private 1,400-acre enclave on the north shore of Culebra Bay, 30 km from Liberia Airport. It is the closest luxury resort to LIR in all of Costa Rica: the whole drive is on paved road, first Route 21 north past the airport, then the Guardia turn-off west toward Playa Panamá and the peninsula gate. The resort has two beaches (Playa Virador on the bay side, Playa Blanca on the Pacific side), an Arnold Palmer golf course, and the kind of jungle-meets-ocean setting that made Papagayo famous.
+The Four Seasons sits at the neck of **Peninsula Papagayo**, a private 1,400-acre enclave on the north shore of Culebra Bay, 30 km from Liberia Airport. It is the closest luxury resort to LIR in all of Costa Rica: the whole drive is on paved road, west along Route 21 to Guardia, then the Coco road toward Playa Panamá and the peninsula gate. The resort has two beaches (Playa Virador on the bay side, Playa Blanca on the Pacific side), an Arnold Palmer golf course, and the kind of jungle-meets-ocean setting that made Papagayo famous.
 
 ## The drive from Liberia Airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end; the only variable is traffic through Liberia town at rush hour, which is why we quote **30–40 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **30–40 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
 
 See live prices and book the [LIR → Four Seasons Papagayo transfer](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
 
@@ -90,7 +90,7 @@ For two people a private transfer costs about the same as a taxi and removes eve
 
 ## Tips from our drivers
 
-- **Stop for groceries on the way.** There is no shop on the peninsula. Ask your driver to stop at the Automercado in Liberia or the supermarket in Guardia — it is free on a private transfer.
+- **Stop for groceries on the way.** There is no shop on the peninsula. Ask your driver to stop at the supermarket in Sardinal or the Automercado in Playas del Coco, both on the way — it is free on a private transfer.
 - **Check-in is 3 p.m.** If you land at 11 a.m., the 35-minute drive gets you there early. The resort will hold luggage; a pool day while you wait is standard.
 - **Book day trips as private transfers.** Rincón de la Vieja (1 h 15), Tamarindo (1 h 15) and the Coco sunset strip are all easy from here; the resort concierge quotes are usually higher than booking direct.
 
@@ -149,11 +149,11 @@ La mayoría de huéspedes del Four Seasons aterriza en Liberia esperando un tras
 
 ## Dónde queda realmente el hotel
 
-El Four Seasons está en el cuello de **Península Papagayo**, un enclave privado de 570 hectáreas en la orilla norte de Bahía Culebra, a 30 km del Aeropuerto de Liberia. Es el resort de lujo más cercano a LIR de toda Costa Rica: todo el trayecto es asfaltado, primero por la Ruta 21 hacia el norte pasando el aeropuerto y luego el desvío de Guardia hacia el oeste rumbo a Playa Panamá y el portón de la península. El resort tiene dos playas (Playa Virador del lado de la bahía y Playa Blanca del lado del Pacífico), un campo de golf de Arnold Palmer y ese entorno de selva con mar que hizo famoso a Papagayo.
+El Four Seasons está en el cuello de **Península Papagayo**, un enclave privado de 570 hectáreas en la orilla norte de Bahía Culebra, a 30 km del Aeropuerto de Liberia. Es el resort de lujo más cercano a LIR de toda Costa Rica: todo el trayecto es asfaltado, por la Ruta 21 hacia el oeste hasta Guardia y luego la carretera del Coco rumbo a Playa Panamá y el portón de la península. El resort tiene dos playas (Playa Virador del lado de la bahía y Playa Blanca del lado del Pacífico), un campo de golf de Arnold Palmer y ese entorno de selva con mar que hizo famoso a Papagayo.
 
 ## El viaje desde el Aeropuerto de Liberia
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta; la única variable es el tráfico por Liberia centro en hora pico, por eso decimos **30–40 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **30–40 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
 
 Mira los precios actualizados y reserva el [traslado LIR → Four Seasons Papagayo](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
 
@@ -181,7 +181,7 @@ Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y
 
 ## Consejos de nuestros choferes
 
-- **Para a comprar víveres en el camino.** No hay tienda en la península. Pídele a tu chofer parar en el Automercado de Liberia o en el supermercado de Guardia; en un traslado privado no tiene costo.
+- **Para a comprar víveres en el camino.** No hay tienda en la península. Pídele a tu chofer parar en el supermercado de Sardinal o en el Automercado de Playas del Coco, ambos de camino; en un traslado privado no tiene costo.
 - **El check-in es a las 3 p. m.** Si aterrizas a las 11 a. m., los 35 minutos de viaje te dejan temprano. El resort guarda el equipaje; pasar el rato en la piscina mientras esperas es lo normal.
 - **Reserva las excursiones como traslados privados.** Rincón de la Vieja (1 h 15), Tamarindo (1 h 15) y el atardecer en el Coco son fáciles desde aquí; las cotizaciones del concierge suelen ser más altas que reservar directo.
 
@@ -242,11 +242,11 @@ Nekajui opened in 2025 and already gets the same question every week: how do you
 
 ## Where the hotel actually is
 
-**Nekajui** opened in 2025 at the far tip of **Peninsula Papagayo**, past the Four Seasons and the Andaz, on a headland above Playa Nacascolo. It is the newest and most secluded ultra-luxury address in Costa Rica: treehouse-style suites, a cliffside pool, and a funicular down to the beach. From Liberia Airport it is 34 km on paved road — Route 21 north, the Guardia turn-off toward Playa Panamá, the peninsula gate, and then the winding resort road along the ridge to the point.
+**Nekajui** opened in 2025 at the far tip of **Peninsula Papagayo**, past the Four Seasons and the Andaz, on a headland above Playa Nacascolo. It is the newest and most secluded ultra-luxury address in Costa Rica: treehouse-style suites, a cliffside pool, and a funicular down to the beach. From Liberia Airport it is 34 km on paved road — west along Route 21 to Guardia, the Coco road toward Playa Panamá, the peninsula gate, and then the winding resort road along the ridge to the point.
 
 ## The drive from Liberia Airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end; the only variable is traffic through Liberia town at rush hour, which is why we quote **35–45 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **35–45 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
 
 See live prices and book the [LIR → Nekajui, a Ritz-Carlton Reserve transfer](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
 
@@ -275,7 +275,7 @@ For two people a private transfer costs about the same as a taxi and removes eve
 ## Tips from our drivers
 
 - **Same price as the Four Seasons.** Nekajui is on the Peninsula Papagayo route, so the private transfer is the same fixed fare even though it is 10 minutes farther along the ridge.
-- **Groceries and pharmacy in Liberia.** There is no shop anywhere on the peninsula; a stop at the Automercado on the way is free with a private transfer.
+- **Groceries and pharmacy in Playas del Coco.** There is no shop anywhere on the peninsula; a stop at the Automercado or a pharmacy in Coco on the way is free with a private transfer.
 - **Night arrivals are fine.** The peninsula road is paved and lit at the gate; our drivers do the last stretch to the point daily and the resort is staffed 24 hours.
 
 ## Book the transfer
@@ -333,11 +333,11 @@ Nekajui abrió en 2025 y ya recibe la misma pregunta cada semana: ¿cómo se lle
 
 ## Dónde queda realmente el hotel
 
-**Nekajui** abrió en 2025 en la punta más lejana de **Península Papagayo**, pasando el Four Seasons y el Andaz, en un promontorio sobre Playa Nacascolo. Es la dirección de ultralujo más nueva y aislada de Costa Rica: suites estilo casa del árbol, piscina al borde del acantilado y un funicular hasta la playa. Desde el Aeropuerto de Liberia son 34 km por asfalto: Ruta 21 hacia el norte, el desvío de Guardia hacia Playa Panamá, el portón de la península y luego la carretera serpenteante del resort por la cresta hasta la punta.
+**Nekajui** abrió en 2025 en la punta más lejana de **Península Papagayo**, pasando el Four Seasons y el Andaz, en un promontorio sobre Playa Nacascolo. Es la dirección de ultralujo más nueva y aislada de Costa Rica: suites estilo casa del árbol, piscina al borde del acantilado y un funicular hasta la playa. Desde el Aeropuerto de Liberia son 34 km por asfalto: Ruta 21 hacia el oeste hasta Guardia, la carretera del Coco rumbo a Playa Panamá, el portón de la península y luego la carretera serpenteante del resort por la cresta hasta la punta.
 
 ## El viaje desde el Aeropuerto de Liberia
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta; la única variable es el tráfico por Liberia centro en hora pico, por eso decimos **35–45 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **35–45 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
 
 Mira los precios actualizados y reserva el [traslado LIR → Nekajui, Ritz-Carlton Reserve](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
 
@@ -366,7 +366,7 @@ Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y
 ## Consejos de nuestros choferes
 
 - **Mismo precio que el Four Seasons.** Nekajui está en la ruta de Península Papagayo, así que el traslado privado tiene la misma tarifa fija aunque esté 10 minutos más adelante por la cresta.
-- **Víveres y farmacia en Liberia.** No hay tienda en ninguna parte de la península; una parada en el Automercado en el camino no tiene costo con un traslado privado.
+- **Víveres y farmacia en Playas del Coco.** No hay tienda en ninguna parte de la península; una parada en el Automercado o en una farmacia del Coco en el camino no tiene costo con un traslado privado.
 - **Llegar de noche no es problema.** La carretera de la península es asfaltada e iluminada en el portón; nuestros choferes hacen el último tramo hasta la punta a diario y el resort tiene personal 24 horas.
 
 ## Reserva el traslado
@@ -426,11 +426,11 @@ The Andaz is the Peninsula Papagayo hotel people pick when they want the setting
 
 ## Where the hotel actually is
 
-The **Andaz** is Hyatt’s design-forward resort on the calm, bay side of **Peninsula Papagayo**, a few minutes inside the gate and before the Four Seasons. It looks out over Culebra Bay, with two small beaches, low-rise rooms tucked into the dry forest and a more relaxed, younger feel than its neighbours. From Liberia Airport it is 31 km entirely on paved road: Route 21 north, the Guardia turn-off west past Playa Panamá, and the peninsula entrance.
+The **Andaz** is Hyatt’s design-forward resort on the calm, bay side of **Peninsula Papagayo**, a few minutes inside the gate and before the Four Seasons. It looks out over Culebra Bay, with two small beaches, low-rise rooms tucked into the dry forest and a more relaxed, younger feel than its neighbours. From Liberia Airport it is 31 km entirely on paved road: west along Route 21 to Guardia, the Coco road past Playa Panamá, and the peninsula entrance.
 
 ## The drive from Liberia Airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end; the only variable is traffic through Liberia town at rush hour, which is why we quote **30–40 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **30–40 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
 
 See live prices and book the [LIR → Andaz Papagayo transfer](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
 
@@ -459,7 +459,7 @@ For two people a private transfer costs about the same as a taxi and removes eve
 ## Tips from our drivers
 
 - **Same fare as the Four Seasons and Nekajui.** All three are on the Peninsula Papagayo route, so the private transfer is one fixed price.
-- **Playa Panamá for groceries.** There is a small supermarket in Playa Panamá village just before the gate; the Automercado in Liberia is bigger. Either stop is free on a private transfer.
+- **Playa Panamá for groceries.** There is a small supermarket in Playa Panamá village just before the gate; the Automercado in Playas del Coco is bigger and a short detour. Either stop is free on a private transfer.
 - **Combine with Rincón de la Vieja.** The volcano park is 1 h 15 from the Andaz; a private round trip with waiting time is the easiest way to do it without a rental car.
 
 ## Book the transfer
@@ -517,11 +517,11 @@ El Andaz es el hotel de Península Papagayo que la gente elige cuando quiere el 
 
 ## Dónde queda realmente el hotel
 
-El **Andaz** es el resort de diseño de Hyatt del lado calmo de la bahía en **Península Papagayo**, a pocos minutos dentro del portón y antes del Four Seasons. Mira hacia Bahía Culebra, con dos playas pequeñas, habitaciones bajas escondidas en el bosque seco y un ambiente más relajado y joven que sus vecinos. Desde el Aeropuerto de Liberia son 31 km todo por asfalto: Ruta 21 hacia el norte, el desvío de Guardia hacia el oeste pasando Playa Panamá y la entrada de la península.
+El **Andaz** es el resort de diseño de Hyatt del lado calmo de la bahía en **Península Papagayo**, a pocos minutos dentro del portón y antes del Four Seasons. Mira hacia Bahía Culebra, con dos playas pequeñas, habitaciones bajas escondidas en el bosque seco y un ambiente más relajado y joven que sus vecinos. Desde el Aeropuerto de Liberia son 31 km todo por asfalto: Ruta 21 hacia el oeste hasta Guardia, la carretera del Coco pasando Playa Panamá y la entrada de la península.
 
 ## El viaje desde el Aeropuerto de Liberia
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta; la única variable es el tráfico por Liberia centro en hora pico, por eso decimos **30–40 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **30–40 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
 
 Mira los precios actualizados y reserva el [traslado LIR → Andaz Papagayo](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
 
@@ -550,7 +550,7 @@ Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y
 ## Consejos de nuestros choferes
 
 - **Misma tarifa que el Four Seasons y Nekajui.** Los tres están en la ruta de Península Papagayo, así que el traslado privado tiene un solo precio fijo.
-- **Playa Panamá para víveres.** Hay un supermercado pequeño en el pueblo de Playa Panamá justo antes del portón; el Automercado de Liberia es más grande. Cualquiera de las dos paradas es gratis en un traslado privado.
+- **Playa Panamá para víveres.** Hay un supermercado pequeño en el pueblo de Playa Panamá justo antes del portón; el Automercado de Playas del Coco es más grande y queda a un desvío corto. Cualquiera de las dos paradas es gratis en un traslado privado.
 - **Combínalo con Rincón de la Vieja.** El parque del volcán está a 1 h 15 del Andaz; un viaje privado de ida y vuelta con tiempo de espera es la forma más fácil de hacerlo sin carro de alquiler.
 
 ## Reserva el traslado
@@ -610,11 +610,11 @@ Secrets Papagayo is the honeymoon hotel of Zone 1, and the easiest of the Papaga
 
 ## Where the hotel actually is
 
-**Secrets Papagayo** is an adults-only all-inclusive on Playa Arenilla, on the mainland shore of the Gulf of Papagayo, just before the turn to Playa Panamá and the peninsula. It is **not** inside the Peninsula Papagayo gate, which makes the arrival simpler: 28 km from Liberia Airport, all paved, Route 21 north then the Guardia road west, and the resort entrance is right off the coastal road. The beach is calm, gulf-facing water, and the resort is the most popular honeymoon address in Zone 1.
+**Secrets Papagayo** is an adults-only all-inclusive on Playa Arenilla, on the mainland shore of the Gulf of Papagayo, just before the turn to Playa Panamá and the peninsula. It is **not** inside the Peninsula Papagayo gate, which makes the arrival simpler: 28 km from Liberia Airport, all paved, west along Route 21 to Guardia then the Coco road toward Playa Panamá, and the resort entrance is right off the coastal road. The beach is calm, gulf-facing water, and the resort is the most popular honeymoon address in Zone 1.
 
 ## The drive from Liberia Airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end; the only variable is traffic through Liberia town at rush hour, which is why we quote **30–35 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **30–35 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
 
 See live prices and book the [LIR → Secrets Papagayo transfer](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
 
@@ -701,11 +701,11 @@ Secrets Papagayo es el hotel de luna de miel de la Zona 1, y el más fácil de a
 
 ## Dónde queda realmente el hotel
 
-**Secrets Papagayo** es un todo incluido solo para adultos en Playa Arenilla, en la orilla continental del Golfo de Papagayo, justo antes del desvío a Playa Panamá y la península. **No** está dentro del portón de Península Papagayo, lo que hace la llegada más sencilla: 28 km desde el Aeropuerto de Liberia, todo asfaltado, Ruta 21 hacia el norte y luego la carretera de Guardia hacia el oeste, con la entrada del resort justo sobre la carretera costera. La playa es de aguas calmas del golfo, y el resort es la dirección de luna de miel más popular de la Zona 1.
+**Secrets Papagayo** es un todo incluido solo para adultos en Playa Arenilla, en la orilla continental del Golfo de Papagayo, justo antes del desvío a Playa Panamá y la península. **No** está dentro del portón de Península Papagayo, lo que hace la llegada más sencilla: 28 km desde el Aeropuerto de Liberia, todo asfaltado, Ruta 21 hacia el oeste hasta Guardia y luego la carretera del Coco rumbo a Playa Panamá, con la entrada del resort justo sobre la carretera costera. La playa es de aguas calmas del golfo, y el resort es la dirección de luna de miel más popular de la Zona 1.
 
 ## El viaje desde el Aeropuerto de Liberia
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta; la única variable es el tráfico por Liberia centro en hora pico, por eso decimos **30–35 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **30–35 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
 
 Mira los precios actualizados y reserva el [traslado LIR → Secrets Papagayo](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
 
@@ -794,11 +794,11 @@ If you booked the Riu Guanacaste or the Riu Palace as a package, you were probab
 
 ## Where the hotel actually is
 
-The two Riu resorts — **Riu Guanacaste** and the newer, higher-end **Riu Palace Costa Rica** — sit side by side on **Playa Matapalo**, a long, wild Pacific beach north of Playas del Coco, reached through the town of Sardinal. They are the largest all-inclusives in Guanacaste and the go-to choice for Canadian and American package travellers. From Liberia Airport it is 33 km: Route 21 north, the Guardia/Sardinal road west, and a final paved stretch down to the coast. Count on 35–40 minutes.
+The two Riu resorts — **Riu Guanacaste** and the newer, higher-end **Riu Palace Costa Rica** — sit side by side on **Playa Matapalo**, a long, wild Pacific beach north of Playas del Coco, reached through the town of Sardinal. They are the largest all-inclusives in Guanacaste and the go-to choice for Canadian and American package travellers. From Liberia Airport it is 33 km: west along Route 21 to Guardia, then the road through Sardinal and a final paved stretch down to the coast. Count on 35–40 minutes.
 
 ## The drive from Liberia Airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end; the only variable is traffic through Liberia town at rush hour, which is why we quote **35–40 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **35–40 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
 
 See live prices and book the [LIR → Riu Guanacaste & Riu Palace transfer](/private-shuttle/lir-liberia-int-airport-to-riu-guanacaste-hotel-riu-palace-hotel-guanacaste).
 
@@ -828,7 +828,7 @@ For two people a private transfer costs about the same as a taxi and removes eve
 
 - **Skip the shared package bus.** Tour-operator transfers stop at every resort on the gulf and can take 1.5 hours; a private transfer is 35 minutes and costs less per person for a family of four.
 - **Say which Riu.** The two lobbies are 500 m apart; tell us whether you are at Riu Guanacaste or Riu Palace so the driver goes to the right door.
-- **Sunscreen and snacks from Liberia.** Resort shop prices are high; a free supermarket stop on the way saves real money for a week.
+- **Sunscreen and snacks from Sardinal.** Resort shop prices are high; a free supermarket stop on the way saves real money for a week.
 
 ## Book the transfer
 
@@ -885,11 +885,11 @@ Si reservaste el Riu Guanacaste o el Riu Palace como paquete, seguramente te ofr
 
 ## Dónde queda realmente el hotel
 
-Los dos resorts Riu, el **Riu Guanacaste** y el más nuevo y de mayor categoría **Riu Palace Costa Rica**, están uno junto al otro en **Playa Matapalo**, una playa larga y salvaje del Pacífico al norte de Playas del Coco, a la que se llega por el pueblo de Sardinal. Son los todo incluido más grandes de Guanacaste y la opción habitual de viajeros canadienses y estadounidenses con paquete. Desde el Aeropuerto de Liberia son 33 km: Ruta 21 hacia el norte, la carretera de Guardia/Sardinal hacia el oeste y un último tramo asfaltado hasta la costa. Calcula 35–40 minutos.
+Los dos resorts Riu, el **Riu Guanacaste** y el más nuevo y de mayor categoría **Riu Palace Costa Rica**, están uno junto al otro en **Playa Matapalo**, una playa larga y salvaje del Pacífico al norte de Playas del Coco, a la que se llega por el pueblo de Sardinal. Son los todo incluido más grandes de Guanacaste y la opción habitual de viajeros canadienses y estadounidenses con paquete. Desde el Aeropuerto de Liberia son 33 km: Ruta 21 hacia el oeste hasta Guardia, luego la carretera por Sardinal y un último tramo asfaltado hasta la costa. Calcula 35–40 minutos.
 
 ## El viaje desde el Aeropuerto de Liberia
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta; la única variable es el tráfico por Liberia centro en hora pico, por eso decimos **35–40 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **35–40 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
 
 Mira los precios actualizados y reserva el [traslado LIR → Riu Guanacaste y Riu Palace](/private-shuttle/lir-liberia-int-airport-to-riu-guanacaste-hotel-riu-palace-hotel-guanacaste).
 
@@ -919,7 +919,7 @@ Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y
 
 - **Evita el bus compartido del paquete.** Los traslados de los operadores paran en todos los resorts del golfo y pueden tardar 1,5 horas; un traslado privado son 35 minutos y cuesta menos por persona para una familia de cuatro.
 - **Di cuál Riu.** Los dos lobbies están a 500 m uno del otro; dinos si estás en el Riu Guanacaste o en el Riu Palace para que el chofer llegue a la puerta correcta.
-- **Bloqueador y snacks desde Liberia.** Los precios de la tienda del resort son altos; una parada gratuita en el supermercado en el camino ahorra dinero de verdad en una semana.
+- **Bloqueador y snacks desde Sardinal.** Los precios de la tienda del resort son altos; una parada gratuita en el supermercado en el camino ahorra dinero de verdad en una semana.
 
 ## Reserva el traslado
 
@@ -982,7 +982,7 @@ The **Westin Reserva Conchal** is the largest resort in Guanacaste: an all-inclu
 
 ## The drive from Liberia Airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end; the only variable is traffic through Liberia town at rush hour, which is why we quote **65–70 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **65–70 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
 
 See live prices and book the [LIR → Westin Reserva Conchal transfer](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste).
 
@@ -1073,7 +1073,7 @@ El **Westin Reserva Conchal** es el resort más grande de Guanacaste: un todo in
 
 ## El viaje desde el Aeropuerto de Liberia
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta; la única variable es el tráfico por Liberia centro en hora pico, por eso decimos **65–70 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **65–70 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
 
 Mira los precios actualizados y reserva el [traslado LIR → Westin Reserva Conchal](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste).
 
@@ -1166,7 +1166,7 @@ The **W Costa Rica** is Marriott’s lifestyle hotel inside **Reserva Conchal**,
 
 ## The drive from Liberia Airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end; the only variable is traffic through Liberia town at rush hour, which is why we quote **65–70 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **65–70 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
 
 See live prices and book the [LIR → W Costa Rica – Reserva Conchal transfer](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste).
 
@@ -1257,7 +1257,7 @@ El **W Costa Rica** es el hotel lifestyle de Marriott dentro de **Reserva Concha
 
 ## El viaje desde el Aeropuerto de Liberia
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta; la única variable es el tráfico por Liberia centro en hora pico, por eso decimos **65–70 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **65–70 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
 
 Mira los precios actualizados y reserva el [traslado LIR → W Costa Rica – Reserva Conchal](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste).
 
@@ -1350,7 +1350,7 @@ Margaritaville is the resort we drive the most families to in Flamingo, and the 
 
 ## The drive from Liberia Airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end; the only variable is traffic through Liberia town at rush hour, which is why we quote **65–75 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **65–75 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
 
 See live prices and book the [LIR → Margaritaville Flamingo transfer](/private-shuttle/lir-liberia-int-airport-to-flamingo-guanacaste).
 
@@ -1441,7 +1441,7 @@ Margaritaville es el resort al que más familias llevamos en Flamingo, y la preg
 
 ## El viaje desde el Aeropuerto de Liberia
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta; la única variable es el tráfico por Liberia centro en hora pico, por eso decimos **65–75 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **65–75 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
 
 Mira los precios actualizados y reserva el [traslado LIR → Margaritaville Flamingo](/private-shuttle/lir-liberia-int-airport-to-flamingo-guanacaste).
 
@@ -1538,7 +1538,7 @@ The **JW Marriott Guanacaste** is the hotel we drive to more than any other in t
 
 ## The drive from Liberia Airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end; the only variable is traffic through Liberia town at rush hour, which is why we quote **75–85 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **75–85 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
 
 See live prices and book the [LIR → JW Marriott Guanacaste transfer](/private-shuttle/lir-liberia-int-airport-to-jw-marriott-guanacaste).
 
@@ -1567,7 +1567,7 @@ For two people a private transfer costs about the same as a taxi and removes eve
 ## Tips from our drivers
 
 - **There is no shared shuttle or bus to the JW.** Shared vans stop in Tamarindo; the resort is a further 20 minutes inside a gated estate. Book a private transfer or rent a car.
-- **Groceries in Villarreal or Tamarindo.** The Automercado in Tamarindo is the last real supermarket before the gate; the stop is free on a private transfer.
+- **Groceries in Villarreal.** The supermarket in Villarreal is the last one on the road to the Pinilla gate without detouring into Tamarindo; the stop is free on a private transfer.
 - **Budget a Tamarindo night.** A private round trip with waiting time is the easiest way to get dinner outside the resort; ask us when you book the airport transfer.
 
 ## Book the transfer
@@ -1633,7 +1633,7 @@ El **JW Marriott Guanacaste** es el hotel al que más manejamos en toda la regi�
 
 ## El viaje desde el Aeropuerto de Liberia
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta; la única variable es el tráfico por Liberia centro en hora pico, por eso decimos **75–85 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **75–85 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
 
 Mira los precios actualizados y reserva el [traslado LIR → JW Marriott Guanacaste](/private-shuttle/lir-liberia-int-airport-to-jw-marriott-guanacaste).
 
@@ -1662,7 +1662,7 @@ Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y
 ## Consejos de nuestros choferes
 
 - **No hay shuttle compartido ni bus hasta el JW.** Las vans compartidas paran en Tamarindo; el resort está 20 minutos más adentro de una finca con portón. Reserva un traslado privado o alquila carro.
-- **Víveres en Villarreal o Tamarindo.** El Automercado de Tamarindo es el último supermercado de verdad antes del portón; la parada es gratis en un traslado privado.
+- **Víveres en Villarreal.** El supermercado de Villarreal es el último en el camino al portón de Pinilla sin desviarse a Tamarindo; la parada es gratis en un traslado privado.
 - **Presupuesta una noche en Tamarindo.** Un viaje privado de ida y vuelta con tiempo de espera es la forma más fácil de cenar fuera del resort; pídelo cuando reserves el traslado del aeropuerto.
 
 ## Reserva el traslado
@@ -1726,11 +1726,11 @@ After nine guides to gated resorts with no town nearby, the Tamarindo Diriá is 
 
 ## Where the hotel actually is
 
-The **Tamarindo Diriá** is the resort that sits **in the middle of Tamarindo itself**, on the main beach, with the town’s restaurants, bars and surf shops literally across the street. That makes it the opposite of every gated resort in this series: instead of seclusion, you get the liveliest beach town in Guanacaste at your door. It is the largest and longest-established hotel in Tamarindo, with beachfront and garden wings on both sides of the main road, several pools and direct access to the sand. From Liberia Airport it is about 65 km: Route 21 south to Belén, west through Huacas and Villarreal, and straight into town. Paved all the way; 55–70 minutes depending on traffic in Liberia and along the Tamarindo main street.
+The **Tamarindo Diriá** is the resort that sits **in the middle of Tamarindo itself**, on the main beach, with the town’s restaurants, bars and surf shops literally across the street. That makes it the opposite of every gated resort in this series: instead of seclusion, you get the liveliest beach town in Guanacaste at your door. It is the largest and longest-established hotel in Tamarindo, with beachfront and garden wings on both sides of the main road, several pools and direct access to the sand. From Liberia Airport it is about 65 km: Route 21 south to Belén, west through Huacas and Villarreal, and straight into town. Paved all the way; 55–70 minutes depending on the time of day and traffic along the Tamarindo main street.
 
 ## The drive from Liberia Airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end; the only variable is traffic through Liberia town at rush hour, which is why we quote **55–70 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **55–70 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
 
 See live prices and book the [LIR → Tamarindo Diriá transfer](/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste).
 
@@ -1821,11 +1821,11 @@ Después de nueve guías de resorts con portón y sin pueblo cerca, el Tamarindo
 
 ## Dónde queda realmente el hotel
 
-El **Tamarindo Diriá** es el resort que está **en pleno Tamarindo**, sobre la playa principal, con los restaurantes, bares y tiendas de surf del pueblo literalmente cruzando la calle. Eso lo convierte en lo opuesto a todos los resorts con portón de esta serie: en vez de aislamiento, tienes el pueblo de playa más animado de Guanacaste en la puerta. Es el hotel más grande y de más trayectoria de Tamarindo, con alas frente al mar y de jardín a ambos lados de la calle principal, varias piscinas y acceso directo a la arena. Desde el Aeropuerto de Liberia son unos 65 km: Ruta 21 al sur hasta Belén, al oeste por Huacas y Villarreal, y directo al pueblo. Asfaltado todo el camino; 55–70 minutos según el tráfico en Liberia y en la calle principal de Tamarindo.
+El **Tamarindo Diriá** es el resort que está **en pleno Tamarindo**, sobre la playa principal, con los restaurantes, bares y tiendas de surf del pueblo literalmente cruzando la calle. Eso lo convierte en lo opuesto a todos los resorts con portón de esta serie: en vez de aislamiento, tienes el pueblo de playa más animado de Guanacaste en la puerta. Es el hotel más grande y de más trayectoria de Tamarindo, con alas frente al mar y de jardín a ambos lados de la calle principal, varias piscinas y acceso directo a la arena. Desde el Aeropuerto de Liberia son unos 65 km: Ruta 21 al sur hasta Belén, al oeste por Huacas y Villarreal, y directo al pueblo. Asfaltado todo el camino; 55–70 minutos según la hora y el tráfico en la calle principal de Tamarindo.
 
 ## El viaje desde el Aeropuerto de Liberia
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta; la única variable es el tráfico por Liberia centro en hora pico, por eso decimos **55–70 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **55–70 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
 
 Mira los precios actualizados y reserva el [traslado LIR → Tamarindo Diriá](/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste).
 

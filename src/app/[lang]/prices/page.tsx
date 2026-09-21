@@ -172,16 +172,50 @@ function PriceCell({
   return <span className="text-xs text-foreground/40">{onRequest}</span>;
 }
 
-function GroupTable({ group, locale }: { group: PriceGroup; locale: Locale }) {
+function GroupTable({ group, locale, defaultOpen }: { group: PriceGroup; locale: Locale; defaultOpen: boolean }) {
   const t = PRICES[locale].table;
+  const tp = PRICES[locale];
   const id = `prices-${group.key}`;
   return (
-    <section aria-labelledby={id} className="scroll-mt-24" id={group.key}>
-      <h2 id={id} className="text-2xl font-bold text-foreground sm:text-3xl">
-        {group.title}
-      </h2>
-      <p className="mt-2 max-w-3xl text-sm text-foreground/60">{group.blurb}</p>
-      <div className="mt-6 overflow-x-auto rounded-2xl border border-black/5 bg-white shadow-sm">
+    // Native <details>: only the first group is open by default so the page
+    // is not a 350-row wall, yet every route stays in the DOM for crawlers and
+    // answer engines (collapsed content is indexed normally). Browsers
+    // auto-expand a <details> when a fragment link targets it, so the jump
+    // nav keeps working with no client JS.
+    <details
+      id={group.key}
+      open={defaultOpen}
+      className="group scroll-mt-24 rounded-3xl border border-black/5 bg-white shadow-sm"
+    >
+      <summary
+        aria-describedby={`${id}-blurb`}
+        className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 sm:px-8 [&::-webkit-details-marker]:hidden"
+      >
+        <span className="min-w-0">
+          <h2 id={id} className="text-xl font-bold text-foreground sm:text-2xl">
+            {group.title}
+          </h2>
+          <span id={`${id}-blurb`} className="mt-1 block text-sm text-foreground/60">
+            {group.blurb}
+          </span>
+        </span>
+        <span className="flex shrink-0 items-center gap-3">
+          <span className="hidden rounded-full bg-light-surface px-3 py-1 text-xs font-semibold text-foreground/60 sm:inline">
+            {tp.jumpNav.count(group.routes.length)}
+          </span>
+          <svg
+            className="h-5 w-5 text-foreground/40 transition group-open:rotate-180"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+          </svg>
+        </span>
+      </summary>
+      <div className="overflow-x-auto border-t border-black/5">
         <table className="w-full min-w-[640px] text-left text-sm">
           <caption className="sr-only">{t.caption(group.title)}</caption>
           <thead className="bg-light-surface text-xs uppercase tracking-wider text-foreground/50">
@@ -230,7 +264,7 @@ function GroupTable({ group, locale }: { group: PriceGroup; locale: Locale }) {
           </tbody>
         </table>
       </div>
-    </section>
+    </details>
   );
 }
 
@@ -292,26 +326,17 @@ export default async function PricesPage({ params }: { params: Params }) {
             <div>
               <h2 className="text-lg font-bold text-foreground">{t.tiers.heading}</h2>
               <p className="mt-1 text-xs text-foreground/50">{t.tiers.hint}</p>
-              <div className="mt-4 overflow-hidden rounded-2xl border border-black/5">
-                <table className="w-full text-left text-sm">
-                  <thead className="bg-light-surface text-xs uppercase tracking-wider text-foreground/50">
-                    <tr>
-                      <th scope="col" className="px-4 py-2.5 font-semibold">{t.tiers.passengers}</th>
-                      <th scope="col" className="px-4 py-2.5 font-semibold">{t.tiers.vehicle}</th>
-                      <th scope="col" className="px-4 py-2.5 font-semibold">{t.tiers.typicalUse}</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-black/5">
-                    {VEHICLE_TIERS.map((tier) => (
-                      <tr key={tier.key}>
-                        <td className="px-4 py-2.5 font-bold text-foreground whitespace-nowrap">{t.tiers.paxLabel(tier)}</td>
-                        <td className="px-4 py-2.5 text-foreground/70 whitespace-nowrap">{t.tiers.vehicleLabel(tier)}</td>
-                        <td className="px-4 py-2.5 text-foreground/70">{t.tiers.typicalUseOf(tier)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <ul className="mt-4 divide-y divide-black/5 overflow-hidden rounded-2xl border border-black/5">
+                {VEHICLE_TIERS.map((tier) => (
+                  <li key={tier.key} className="px-4 py-3">
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5">
+                      <span className="font-bold text-foreground">{t.tiers.paxLabel(tier)}</span>
+                      <span className="text-sm text-foreground/70">{t.tiers.vehicleLabel(tier)}</span>
+                    </div>
+                    <p className="mt-0.5 text-xs text-foreground/50">{t.tiers.typicalUseOf(tier)}</p>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
@@ -332,9 +357,9 @@ export default async function PricesPage({ params }: { params: Params }) {
       </section>
 
       {/* ─── Price tables ─── */}
-      <div className="mx-auto max-w-5xl space-y-16 px-6 py-16">
+      <div className="mx-auto max-w-5xl space-y-6 px-6 py-16">
         {all.length ? (
-          groups.map((g) => <GroupTable key={g.key} group={g} locale={locale} />)
+          groups.map((g, i) => <GroupTable key={g.key} group={g} locale={locale} defaultOpen={i === 0} />)
         ) : (
           <section className="rounded-3xl border border-black/5 bg-white p-8 text-center shadow-sm">
             <h2 className="text-xl font-bold text-foreground">{t.unavailable.heading}</h2>

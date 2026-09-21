@@ -93,6 +93,7 @@ export const PRICES = defineCopy({
     jumpNav: {
       label: "Jump to a price group",
       item: (title: string, count: number) => `${title} (${count})`,
+      count: (n: number) => `${n} route${n === 1 ? "" : "s"}`,
     },
     table: {
       caption: (title: string) =>
@@ -202,6 +203,7 @@ export const PRICES = defineCopy({
     jumpNav: {
       label: "Ir a un grupo de precios",
       item: (title: string, count: number) => `${title} (${count})`,
+      count: (n: number) => `${n} ruta${n === 1 ? "" : "s"}`,
     },
     table: {
       caption: (title: string) =>
