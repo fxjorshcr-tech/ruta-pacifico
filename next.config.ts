@@ -25,7 +25,28 @@ const nextConfig: NextConfig = {
       { source: "/book/payment", destination: "/private-shuttle/checkout", permanent: true },
       { source: "/book/confirmation", destination: "/private-shuttle/confirmation", permanent: true },
       { source: "/routes/:slug", destination: "/private-shuttle/:slug", permanent: true },
+      // English is canonical at the root: an explicit /en/... is sent to
+      // /... so the same page never exists at two addresses.
+      { source: "/en", destination: "/", permanent: true },
+      { source: "/en/:path*", destination: "/:path*", permanent: true },
     ];
+  },
+  async rewrites() {
+    return {
+      // Locale routing lives here, in Vercel's routing layer, instead of in a
+      // proxy.ts: a proxy runs as a Node function on EVERY request, cached
+      // pages included, and after the site went bilingual that alone was
+      // most of the project's Vercel CPU. These rewrites cost nothing.
+      //
+      // afterFiles: real files, _next assets and non-dynamic routes
+      // (sitemap.xml, robots.txt, llms.txt, /api/*) are served first; only
+      // what is left is prefixed with /en so it lands in app/[lang].
+      // /es and /es/... are excluded and pass straight through.
+      afterFiles: [
+        { source: "/", destination: "/en" },
+        { source: "/:path((?!es(?:/|$)).*)", destination: "/en/:path" },
+      ],
+    };
   },
 };
 

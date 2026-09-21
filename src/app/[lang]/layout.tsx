@@ -442,7 +442,7 @@ async function JsonLd({ locale }: { locale: Locale }) {
   );
 }
 
-/** Both languages are pre-rendered; the proxy maps unprefixed URLs to `en`. */
+/** Both languages are pre-rendered; the next.config rewrites map unprefixed URLs to `en`. */
 export function generateStaticParams(): { lang: Locale }[] {
   return LOCALES.map((lang) => ({ lang }));
 }

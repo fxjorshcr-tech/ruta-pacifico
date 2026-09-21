@@ -2,8 +2,10 @@
 
 Every page lives under `src/app/[lang]/`. English is served at the root
 (`/prices`), Spanish under `/es` (`/es/prices`) with identical slugs.
-`src/proxy.ts` rewrites unprefixed URLs to `/en/...` invisibly and
-redirects explicit `/en/...` to the root. Helpers live in `src/lib/i18n.ts`.
+Unprefixed URLs are rewritten to `/en/...` invisibly and explicit `/en/...`
+is redirected to the root by the `rewrites`/`redirects` in `next.config.ts`
+(not a proxy.ts: a proxy runs as a function on every request and was most
+of the Vercel CPU bill). Helpers live in `src/lib/i18n.ts`.
 
 ## Copy files
 
