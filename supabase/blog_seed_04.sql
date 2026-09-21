@@ -17,7 +17,7 @@ values
   'liberia-airport-to-four-seasons-papagayo',
   'Liberia Airport to Four Seasons Papagayo: Private Transfer, Drive Time, Gate Access & What’s Nearby',
   'Exactly where the Four Seasons Resort Costa Rica at Peninsula Papagayo is, the real 30–40 min drive from LIR, the fixed $105 private transfer price, what the security gate needs from your driver, and whether there is a town nearby. Written by the drivers who do this route every week.',
-  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Hotel-beach-guanacaste.webp',
+  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/blogs-hotels/hotel-four-seasons-papagayo.webp',
   'Private shuttle arriving at a luxury beach resort on Peninsula Papagayo, Guanacaste',
   'getting-around',
   array['four seasons papagayo shuttle','liberia airport to four seasons','four seasons costa rica transfer','peninsula papagayo transportation','LIR to four seasons'],
@@ -201,7 +201,7 @@ values
   'liberia-airport-to-nekajui-ritz-carlton-reserve-papagayo',
   'Liberia Airport to Nekajui, a Ritz-Carlton Reserve: Private Transfer, Drive Time, Gate Access & What’s Nearby',
   'Exactly where the Nekajui, a Ritz-Carlton Reserve (Peninsula Papagayo) is, the real 35–45 min drive from LIR, the fixed $105 private transfer price, what the security gate needs from your driver, and whether there is a town nearby. Written by the drivers who do this route every week.',
-  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Hotel-beach-guanacaste.webp',
+  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/blogs-hotels/hotel-nekajui-papagayo.webp',
   'Coastline of Peninsula Papagayo near Nekajui, a Ritz-Carlton Reserve, Guanacaste',
   'getting-around',
   array['nekajui shuttle','liberia airport to nekajui','ritz carlton reserve costa rica transfer','nekajui papagayo transportation','LIR to ritz carlton papagayo'],
@@ -385,7 +385,7 @@ values
   'liberia-airport-to-andaz-papagayo',
   'Liberia Airport to Andaz Papagayo: Private Transfer, Drive Time, Gate Access & What’s Nearby',
   'Exactly where the Andaz Costa Rica Resort at Peninsula Papagayo is, the real 30–40 min drive from LIR, the fixed $105 private transfer price, what the security gate needs from your driver, and whether there is a town nearby. Written by the drivers who do this route every week.',
-  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Hotel-beach-guanacaste.webp',
+  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/blogs-hotels/hotel-andaz-papagayo.webp',
   'Culebra Bay seen from Peninsula Papagayo near the Andaz resort, Guanacaste',
   'getting-around',
   array['andaz papagayo shuttle','liberia airport to andaz','andaz costa rica transfer','hyatt papagayo transportation','LIR to andaz papagayo'],
@@ -569,7 +569,7 @@ values
   'liberia-airport-to-secrets-papagayo',
   'Liberia Airport to Secrets Papagayo: Private Transfer, Drive Time, Gate Access & What’s Nearby',
   'Exactly where the Secrets Papagayo Costa Rica is, the real 30–35 min drive from LIR, the fixed $105 private transfer price, what the security gate needs from your driver, and whether there is a town nearby. Written by the drivers who do this route every week.',
-  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Hotel-beach-guanacaste.webp',
+  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/blogs-hotels/hotel-secrets-papagayo.webp',
   'Calm water of the Gulf of Papagayo near Playa Arenilla, Guanacaste',
   'getting-around',
   array['secrets papagayo shuttle','liberia airport to secrets papagayo','secrets papagayo transfer','adults only papagayo transportation','LIR to secrets papagayo'],
@@ -753,7 +753,7 @@ values
   'liberia-airport-to-riu-guanacaste-riu-palace',
   'Liberia Airport to Riu Guanacaste & Riu Palace: Private Transfer, Drive Time, Gate Access & What’s Nearby',
   'Exactly where the Hotel Riu Guanacaste and Riu Palace Costa Rica is, the real 35–40 min drive from LIR, the fixed $120 private transfer price, what the security gate needs from your driver, and whether there is a town nearby. Written by the drivers who do this route every week.',
-  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Hotel-beach-guanacaste.webp',
+  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/blogs-hotels/hotel-riu-guanacaste.webp',
   'Playa Matapalo beach in front of the Riu resorts, Guanacaste, Costa Rica',
   'getting-around',
   array['riu guanacaste shuttle','liberia airport to riu guanacaste','riu palace costa rica transfer','riu matapalo transportation','LIR to riu'],
@@ -937,7 +937,7 @@ values
   'liberia-airport-to-westin-reserva-conchal',
   'Liberia Airport to Westin Reserva Conchal: Private Transfer, Drive Time, Gate Access & What’s Nearby',
   'Exactly where the The Westin Reserva Conchal, an All-Inclusive Golf Resort & Spa is, the real 65–70 min drive from LIR, the fixed $130 private transfer price, what the security gate needs from your driver, and whether there is a town nearby. Written by the drivers who do this route every week.',
-  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Hotel-beach-guanacaste.webp',
+  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/blogs-hotels/hotel-westin-conchal.webp',
   'White shell sand of Playa Conchal in front of the Westin resort, Guanacaste',
   'getting-around',
   array['westin conchal shuttle','liberia airport to westin conchal','westin reserva conchal transfer','playa conchal transportation','LIR to westin'],
@@ -1121,7 +1121,7 @@ values
   'liberia-airport-to-w-costa-rica-reserva-conchal',
   'Liberia Airport to W Costa Rica – Reserva Conchal: Private Transfer, Drive Time, Gate Access & What’s Nearby',
   'Exactly where the W Costa Rica – Reserva Conchal is, the real 65–70 min drive from LIR, the fixed $130 private transfer price, what the security gate needs from your driver, and whether there is a town nearby. Written by the drivers who do this route every week.',
-  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Hotel-beach-guanacaste.webp',
+  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/blogs-hotels/hotel-w-conchal.webp',
   'Playa Conchal coastline at Reserva Conchal, home of the W Costa Rica, Guanacaste',
   'getting-around',
   array['w costa rica shuttle','liberia airport to w conchal','w reserva conchal transfer','w hotel guanacaste transportation','LIR to w costa rica'],
@@ -1305,7 +1305,7 @@ values
   'liberia-airport-to-margaritaville-flamingo',
   'Liberia Airport to Margaritaville Flamingo: Private Transfer, Drive Time, Gate Access & What’s Nearby',
   'Exactly where the Margaritaville Beach Resort Playa Flamingo is, the real 65–75 min drive from LIR, the fixed $130 private transfer price, what the security gate needs from your driver, and whether there is a town nearby. Written by the drivers who do this route every week.',
-  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Hotel-beach-guanacaste.webp',
+  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/blogs-hotels/hotel-margaritaville-flamingo.webp',
   'Playa Flamingo bay and marina, Guanacaste, Costa Rica',
   'getting-around',
   array['margaritaville flamingo shuttle','liberia airport to margaritaville','margaritaville costa rica transfer','playa flamingo transportation','LIR to flamingo'],
@@ -1489,7 +1489,7 @@ values
   'liberia-airport-to-jw-marriott-guanacaste',
   'Liberia Airport to JW Marriott Guanacaste: Private Transfer, Drive Time, Gate Access & What’s Nearby',
   'Exactly where the JW Marriott Guanacaste Resort & Spa (Hacienda Pinilla) is, the real 75–85 min drive from LIR, the fixed $135 private transfer price, what the security gate needs from your driver, and whether there is a town nearby. Written by the drivers who do this route every week.',
-  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Hotel-beach-guanacaste.webp',
+  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/blogs-hotels/hotel-jw-marriott-guanacaste.webp',
   'Playa Mansita beach in front of the JW Marriott Guanacaste, Hacienda Pinilla',
   'getting-around',
   array['jw marriott guanacaste shuttle','liberia airport to jw marriott','jw marriott costa rica transfer','hacienda pinilla transportation','LIR to jw marriott'],
@@ -1670,4 +1670,196 @@ Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y
 Precio fijo por vehículo, vuelo monitoreado, chofer registrado en el resort, sillas para niños incluidas. Reserva el [traslado privado Aeropuerto de Liberia → JW Marriott Guanacaste](/private-shuttle/lir-liberia-int-airport-to-jw-marriott-guanacaste) en línea en dos minutos, o escríbenos por WhatsApp: responde una persona real que maneja esta carretera.
 $es$
 where slug = 'liberia-airport-to-jw-marriott-guanacaste';
+
+-- ------------------------------------------------------------
+-- liberia-airport-to-tamarindo-diria
+-- ------------------------------------------------------------
+insert into public.blog_posts_ruta_pacifico
+  (slug, title, excerpt, cover_image_url, cover_image_alt, category, tags, published, published_at, faqs, content_md)
+values
+(
+  'liberia-airport-to-tamarindo-diria',
+  'Liberia Airport to Tamarindo Diriá: Private Transfer, Drive Time, Gate Access & What’s Nearby',
+  'Exactly where the Tamarindo Diriá Beach Resort is, the real 55–70 min drive from LIR, the fixed $130 private transfer price, what the security gate needs from your driver, and whether there is a town nearby. Written by the drivers who do this route every week.',
+  'https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/blogs-hotels/hotel-tamarindo-diria.webp',
+  'Tamarindo beach at sunset in front of the Tamarindo Diriá Beach Resort, Guanacaste',
+  'getting-around',
+  array['tamarindo diria shuttle','liberia airport to tamarindo diria','tamarindo diria transfer','tamarindo beach resort transportation','LIR to tamarindo hotel'],
+  true,
+  now(),
+  '[
+    {
+        "q": "How far is the Tamarindo Diriá from Liberia Airport?",
+        "a": "About 65 km (40 miles), a 55 to 70 minute drive on paved roads via Belén and Huacas, straight into Tamarindo town."
+    },
+    {
+        "q": "How much is a private shuttle from LIR to the Tamarindo Diriá?",
+        "a": "Ruta Pacifico charges a fixed $130 per vehicle for 1–5 passengers, $165 for 6–9 and $220 for 10–12, with taxes, flight tracking and child seats included."
+    },
+    {
+        "q": "Can I walk to restaurants from the Tamarindo Diriá?",
+        "a": "Yes — dozens. The Diriá is on Tamarindo’s main street, and the town’s restaurants, bars, surf schools and supermarkets are all within a 10-minute walk."
+    },
+    {
+        "q": "Is the Tamarindo Diriá noisy?",
+        "a": "The beachfront wing on the main strip can hear the town on weekend nights. The garden wing across the road is quieter; both share the pools and beach access."
+    },
+    {
+        "q": "Do I need a car if I stay at the Tamarindo Diriá?",
+        "a": "No. Tamarindo is fully walkable, tours include hotel pickup, and day trips to nearby beaches are easy as private transfers. A car only makes sense if you plan to change locations every day."
+    }
+]'::jsonb,
+  $md$
+If you have a reservation at the **Tamarindo Diriá Beach Resort**, the ride from Liberia International Airport (LIR) is the first hour of your trip — and the part most guests leave to the last minute. Here is exactly where the hotel is, how long the drive really takes, what the security gate needs from your driver, and what is (and is not) around the resort once you arrive. We drive this route every week.
+
+## Quick facts
+
+| | |
+| --- | --- |
+| **Distance from LIR** | 65 km (40 mi) |
+| **Real drive time** | 55–70 min, paved the whole way |
+| **Private transfer, 1–5 pax** | **$130** per vehicle, fixed |
+| **Private transfer, 6–9 pax** | $165 per vehicle |
+| **Private transfer, 10–12 pax** | $220 per vehicle |
+| **Included** | Taxes, tolls, flight tracking, child seats, one free stop for groceries |
+| **Gated access** | No community checkpoint |
+
+## Where the hotel actually is
+
+The **Tamarindo Diriá** is the resort that sits **in the middle of Tamarindo itself**, on the main beach, with the town’s restaurants, bars and surf shops literally across the street. That makes it the opposite of every gated resort in this series: instead of seclusion, you get the liveliest beach town in Guanacaste at your door. It is the largest and longest-established hotel in Tamarindo, with beachfront and garden wings on both sides of the main road, several pools and direct access to the sand. From Liberia Airport it is about 65 km: Route 21 south to Belén, west through Huacas and Villarreal, and straight into town. Paved all the way; 55–70 minutes depending on traffic in Liberia and along the Tamarindo main street.
+
+## The drive from Liberia Airport
+
+Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end; the only variable is traffic through Liberia town at rush hour, which is why we quote **55–70 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+
+See live prices and book the [LIR → Tamarindo Diriá transfer](/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste).
+
+## Arrival at the hotel
+
+No gate, no checkpoint, no registration: the Diriá has a regular hotel entrance on Tamarindo’s main street and your driver pulls up to reception. The only thing to know is that the main street can be slow at sunset, when the whole town walks to the beach; our drivers know the back way in.
+
+## What is around the Tamarindo Diriá
+
+**Everything, on foot.** This is the point of staying at the Diriá. Tamarindo has 60+ restaurants, from sodas to sushi to steakhouses, bars with live music, surf schools on the sand, two supermarkets, pharmacies, ATMs and tour offices — all within a 10-minute walk of the lobby. **Playa Langosta**, quieter and more upscale, is a 20-minute walk south. **Playa Grande** and the Las Baulas turtle park are across the estuary. The trade-off is noise: the beachfront rooms on the main strip hear the town on weekend nights. Ask for the garden side if you want quiet.
+
+For the full picture of how Guanacaste’s hotel zones fit together — and which beaches have a town you can walk to — read our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+
+## Your options from LIR, honestly compared
+
+| Option | Time to the hotel | Cost | The catch |
+| --- | --- | --- | --- |
+| **Private transfer** | 55–70 min, direct | $130 fixed, 1–5 pax | None — driver pre-registered at the gate, flight tracked |
+| **Hotel car service** | Same drive | Premium rate via concierge | Usually the most expensive option |
+| **Rental car** | Same drive + pickup paperwork | $40–90/day + mandatory insurance + deposit | Only worth it if you will leave the resort daily |
+| **Shared shuttle** | 1.5–2.5 h, multiple stops | ~$25–35 per person | Waits for other flights; slow with kids |
+| **Airport taxi** | Same drive | $100–150, negotiated | No flight tracking, cash, no child seats |
+
+For two people a private transfer costs about the same as a taxi and removes every unknown. For a family of four it is cheaper per person than a shared shuttle and takes less than half the time.
+
+## Tips from our drivers
+
+- **You do not need a rental car here.** Tamarindo is walkable end to end, tours pick up at the Diriá lobby, and day trips to Flamingo, Conchal or Rincón de la Vieja are easy as private transfers.
+- **Skip the grocery stop.** The Automercado is a 5-minute walk from the hotel; it is the one resort in this series where you can shop after check-in.
+- **Ask for the beachfront wing if you want the sunset, the garden wing if you want sleep.** Both sides share the pools and the beach access.
+
+## Book the transfer
+
+Fixed price per vehicle, flight tracked, driver registered at the resort, child seats included. Book the [Liberia Airport → Tamarindo Diriá private transfer](/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste) online in two minutes, or message us on WhatsApp — a real person who drives this road answers.
+$md$
+)
+on conflict (slug) do update set
+  title = excluded.title,
+  excerpt = excluded.excerpt,
+  cover_image_url = excluded.cover_image_url,
+  cover_image_alt = excluded.cover_image_alt,
+  category = excluded.category,
+  tags = excluded.tags,
+  published = excluded.published,
+  faqs = excluded.faqs,
+  content_md = excluded.content_md;
+
+update public.blog_posts_ruta_pacifico set
+  title_es = 'Del Aeropuerto de Liberia al Tamarindo Diriá: traslado privado, tiempo de viaje, acceso al portón y qué hay cerca',
+  excerpt_es = 'Exactamente dónde queda el Tamarindo Diriá Beach Resort, el viaje real de 55–70 min desde LIR, el precio fijo de $130 del traslado privado, qué necesita el portón de seguridad de tu chofer y si hay un pueblo cerca. Escrito por los choferes que hacen esta ruta todas las semanas.',
+  cover_image_alt_es = 'Playa Tamarindo al atardecer frente al Tamarindo Diriá Beach Resort, Guanacaste',
+  faqs_es = '[
+    {
+        "q": "¿A qué distancia está el Tamarindo Diriá del Aeropuerto de Liberia?",
+        "a": "A unos 65 km (40 millas), un viaje de 55 a 70 minutos por carretera asfaltada vía Belén y Huacas, directo al pueblo de Tamarindo."
+    },
+    {
+        "q": "¿Cuánto cuesta un shuttle privado de LIR al Tamarindo Diriá?",
+        "a": "Ruta Pacifico cobra una tarifa fija de $130 por vehículo para 1–5 pasajeros, $165 para 6–9 y $220 para 10–12, con impuestos, seguimiento de vuelo y sillas para niños incluidos."
+    },
+    {
+        "q": "¿Puedo caminar a restaurantes desde el Tamarindo Diriá?",
+        "a": "Sí, a decenas. El Diriá está sobre la calle principal de Tamarindo, y los restaurantes, bares, escuelas de surf y supermercados del pueblo están a menos de 10 minutos a pie."
+    },
+    {
+        "q": "¿El Tamarindo Diriá es ruidoso?",
+        "a": "El ala frente al mar sobre la calle principal puede escuchar el pueblo las noches de fin de semana. El ala de jardín al otro lado de la calle es más tranquila; ambas comparten piscinas y acceso a la playa."
+    },
+    {
+        "q": "¿Necesito carro si me quedo en el Tamarindo Diriá?",
+        "a": "No. Tamarindo se camina por completo, los tours incluyen recogida en el hotel, y las excursiones a playas cercanas son fáciles como traslados privados. Un carro solo tiene sentido si planeas cambiar de lugar cada día."
+    }
+]'::jsonb,
+  content_md_es = $es$
+Si tienes reserva en el **Tamarindo Diriá Beach Resort**, el viaje desde el Aeropuerto Internacional de Liberia (LIR) es la primera hora de tu viaje, y la parte que la mayoría de huéspedes deja para último momento. Aquí está exactamente dónde queda el hotel, cuánto dura de verdad el trayecto, qué necesita el portón de seguridad de tu chofer y qué hay (y qué no) alrededor del resort cuando llegas. Nosotros manejamos esta ruta todas las semanas.
+
+## Datos rápidos
+
+| | |
+| --- | --- |
+| **Distancia desde LIR** | 65 km (40 mi) |
+| **Tiempo real de viaje** | 55–70 min, asfaltado todo el camino |
+| **Traslado privado, 1–5 pax** | **$130** por vehículo, fijo |
+| **Traslado privado, 6–9 pax** | $165 por vehículo |
+| **Traslado privado, 10–12 pax** | $220 por vehículo |
+| **Incluye** | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada gratis para víveres |
+| **Acceso con portón** | Sin puesto de control comunitario |
+
+## Dónde queda realmente el hotel
+
+El **Tamarindo Diriá** es el resort que está **en pleno Tamarindo**, sobre la playa principal, con los restaurantes, bares y tiendas de surf del pueblo literalmente cruzando la calle. Eso lo convierte en lo opuesto a todos los resorts con portón de esta serie: en vez de aislamiento, tienes el pueblo de playa más animado de Guanacaste en la puerta. Es el hotel más grande y de más trayectoria de Tamarindo, con alas frente al mar y de jardín a ambos lados de la calle principal, varias piscinas y acceso directo a la arena. Desde el Aeropuerto de Liberia son unos 65 km: Ruta 21 al sur hasta Belén, al oeste por Huacas y Villarreal, y directo al pueblo. Asfaltado todo el camino; 55–70 minutos según el tráfico en Liberia y en la calle principal de Tamarindo.
+
+## El viaje desde el Aeropuerto de Liberia
+
+Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta; la única variable es el tráfico por Liberia centro en hora pico, por eso decimos **55–70 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+
+Mira los precios actualizados y reserva el [traslado LIR → Tamarindo Diriá](/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste).
+
+## Llegada al hotel
+
+Sin portón, sin puesto de control, sin registro: el Diriá tiene una entrada de hotel normal sobre la calle principal de Tamarindo y tu chofer llega hasta la recepción. Lo único que hay que saber es que la calle principal puede ser lenta al atardecer, cuando todo el pueblo camina hacia la playa; nuestros choferes conocen la entrada por atrás.
+
+## Qué hay alrededor del Tamarindo Diriá
+
+**Todo, a pie.** Ese es el sentido de quedarse en el Diriá. Tamarindo tiene más de 60 restaurantes, desde sodas hasta sushi y parrillas, bares con música en vivo, escuelas de surf en la arena, dos supermercados, farmacias, cajeros y oficinas de tours, todo a 10 minutos a pie del lobby. **Playa Langosta**, más tranquila y de mayor categoría, está a 20 minutos caminando al sur. **Playa Grande** y el parque de tortugas Las Baulas están al otro lado del estero. El precio a pagar es el ruido: las habitaciones frente al mar sobre la calle principal escuchan el pueblo las noches de fin de semana. Pide el lado de jardín si quieres silencio.
+
+Para ver el panorama completo de cómo encajan las zonas hoteleras de Guanacaste, y qué playas tienen un pueblo al que puedes caminar, lee nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+
+## Tus opciones desde LIR, comparadas con honestidad
+
+| Opción | Tiempo hasta el hotel | Costo | El detalle |
+| --- | --- | --- | --- |
+| **Traslado privado** | 55–70 min, directo | $130 fijo, 1–5 pax | Ninguno: chofer registrado en el portón, vuelo monitoreado |
+| **Servicio de carro del hotel** | El mismo trayecto | Tarifa premium vía concierge | Suele ser la opción más cara |
+| **Carro de alquiler** | El mismo trayecto + trámites de entrega | $40–90/día + seguro obligatorio + depósito | Solo vale la pena si vas a salir del resort a diario |
+| **Shuttle compartido** | 1,5–2,5 h, varias paradas | ~$25–35 por persona | Espera otros vuelos; lento con niños |
+| **Taxi del aeropuerto** | El mismo trayecto | $100–150, negociado | Sin seguimiento de vuelo, en efectivo, sin sillas para niños |
+
+Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y elimina todas las incógnitas. Para una familia de cuatro es más barato por persona que un shuttle compartido y tarda menos de la mitad.
+
+## Consejos de nuestros choferes
+
+- **Aquí no necesitas carro de alquiler.** Tamarindo se camina de punta a punta, los tours recogen en el lobby del Diriá, y las excursiones a Flamingo, Conchal o Rincón de la Vieja son fáciles como traslados privados.
+- **Sáltate la parada del supermercado.** El Automercado está a 5 minutos a pie del hotel; es el único resort de esta serie donde puedes hacer compras después del check-in.
+- **Pide el ala frente al mar si quieres el atardecer, el ala de jardín si quieres dormir.** Ambos lados comparten las piscinas y el acceso a la playa.
+
+## Reserva el traslado
+
+Precio fijo por vehículo, vuelo monitoreado, chofer registrado en el resort, sillas para niños incluidas. Reserva el [traslado privado Aeropuerto de Liberia → Tamarindo Diriá](/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste) en línea en dos minutos, o escríbenos por WhatsApp: responde una persona real que maneja esta carretera.
+$es$
+where slug = 'liberia-airport-to-tamarindo-diria';
 

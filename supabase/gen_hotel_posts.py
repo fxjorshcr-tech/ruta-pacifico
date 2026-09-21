@@ -14,13 +14,14 @@ when a fare changes.
 
 import json
 
-COVER = "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/Hotel-beach-guanacaste.webp"
+COVER_DIR = "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/blogs-hotels"
 PILLAR = "/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer"
 
 HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-four-seasons-papagayo",
+        photo="hotel-four-seasons-papagayo.webp",
         short="Four Seasons Papagayo",
         full="Four Seasons Resort Costa Rica at Peninsula Papagayo",
         short_es="Four Seasons Papagayo",
@@ -63,6 +64,7 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-nekajui-ritz-carlton-reserve-papagayo",
+        photo="hotel-nekajui-papagayo.webp",
         short="Nekajui, a Ritz-Carlton Reserve",
         full="Nekajui, a Ritz-Carlton Reserve (Peninsula Papagayo)",
         short_es="Nekajui, Ritz-Carlton Reserve",
@@ -105,6 +107,7 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-andaz-papagayo",
+        photo="hotel-andaz-papagayo.webp",
         short="Andaz Papagayo",
         full="Andaz Costa Rica Resort at Peninsula Papagayo",
         short_es="Andaz Papagayo",
@@ -147,6 +150,7 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-secrets-papagayo",
+        photo="hotel-secrets-papagayo.webp",
         short="Secrets Papagayo",
         full="Secrets Papagayo Costa Rica",
         short_es="Secrets Papagayo",
@@ -189,6 +193,7 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-riu-guanacaste-riu-palace",
+        photo="hotel-riu-guanacaste.webp",
         short="Riu Guanacaste & Riu Palace",
         full="Hotel Riu Guanacaste and Riu Palace Costa Rica",
         short_es="Riu Guanacaste y Riu Palace",
@@ -231,6 +236,7 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-westin-reserva-conchal",
+        photo="hotel-westin-conchal.webp",
         short="Westin Reserva Conchal",
         full="The Westin Reserva Conchal, an All-Inclusive Golf Resort & Spa",
         short_es="Westin Reserva Conchal",
@@ -273,6 +279,7 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-w-costa-rica-reserva-conchal",
+        photo="hotel-w-conchal.webp",
         short="W Costa Rica – Reserva Conchal",
         full="W Costa Rica – Reserva Conchal",
         short_es="W Costa Rica – Reserva Conchal",
@@ -315,6 +322,7 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-margaritaville-flamingo",
+        photo="hotel-margaritaville-flamingo.webp",
         short="Margaritaville Flamingo",
         full="Margaritaville Beach Resort Playa Flamingo",
         short_es="Margaritaville Flamingo",
@@ -357,6 +365,7 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-jw-marriott-guanacaste",
+        photo="hotel-jw-marriott-guanacaste.webp",
         short="JW Marriott Guanacaste",
         full="JW Marriott Guanacaste Resort & Spa (Hacienda Pinilla)",
         short_es="JW Marriott Guanacaste",
@@ -396,6 +405,51 @@ HOTELS = [
             ("¿Tengo que registrar a mi chofer con el JW Marriott antes de llegar?", "Sí. La seguridad de Hacienda Pinilla exige el nombre, la cédula y los datos del vehículo del chofer en tu reserva. Ruta Pacifico los envía al resort automáticamente al reservar."),
             ("¿El JW Marriott está en Tamarindo?", "No. Está dentro de Hacienda Pinilla, una finca privada a 20–25 minutos al sur de Tamarindo en carro. No hay pueblo a distancia caminable del resort."),
             ("¿Hay shuttle compartido del Aeropuerto de Liberia al JW Marriott?", "No. Los shuttles compartidos llegan al pueblo de Tamarindo, no al resort. Las opciones son traslado privado, el servicio de carro del hotel o carro de alquiler."),
+        ],
+    ),
+    # ------------------------------------------------------------------ #
+    dict(
+        slug="liberia-airport-to-tamarindo-diria",
+        photo="hotel-tamarindo-diria.webp",
+        short="Tamarindo Diriá",
+        full="Tamarindo Diriá Beach Resort",
+        short_es="Tamarindo Diriá",
+        route="lir-liberia-int-airport-to-tamarindo-guanacaste",
+        fares=(130, 165, 220),
+        time="55–70 min", km="65 km (40 mi)",
+        gated=False,
+        cover_alt="Tamarindo beach at sunset in front of the Tamarindo Diriá Beach Resort, Guanacaste",
+        cover_alt_es="Playa Tamarindo al atardecer frente al Tamarindo Diriá Beach Resort, Guanacaste",
+        tags=["tamarindo diria shuttle", "liberia airport to tamarindo diria", "tamarindo diria transfer", "tamarindo beach resort transportation", "LIR to tamarindo hotel"],
+        where_en="The **Tamarindo Diriá** is the resort that sits **in the middle of Tamarindo itself**, on the main beach, with the town’s restaurants, bars and surf shops literally across the street. That makes it the opposite of every gated resort in this series: instead of seclusion, you get the liveliest beach town in Guanacaste at your door. It is the largest and longest-established hotel in Tamarindo, with beachfront and garden wings on both sides of the main road, several pools and direct access to the sand. From Liberia Airport it is about 65 km: Route 21 south to Belén, west through Huacas and Villarreal, and straight into town. Paved all the way; 55–70 minutes depending on traffic in Liberia and along the Tamarindo main street.",
+        where_es="El **Tamarindo Diriá** es el resort que está **en pleno Tamarindo**, sobre la playa principal, con los restaurantes, bares y tiendas de surf del pueblo literalmente cruzando la calle. Eso lo convierte en lo opuesto a todos los resorts con portón de esta serie: en vez de aislamiento, tienes el pueblo de playa más animado de Guanacaste en la puerta. Es el hotel más grande y de más trayectoria de Tamarindo, con alas frente al mar y de jardín a ambos lados de la calle principal, varias piscinas y acceso directo a la arena. Desde el Aeropuerto de Liberia son unos 65 km: Ruta 21 al sur hasta Belén, al oeste por Huacas y Villarreal, y directo al pueblo. Asfaltado todo el camino; 55–70 minutos según el tráfico en Liberia y en la calle principal de Tamarindo.",
+        gate_en="No gate, no checkpoint, no registration: the Diriá has a regular hotel entrance on Tamarindo’s main street and your driver pulls up to reception. The only thing to know is that the main street can be slow at sunset, when the whole town walks to the beach; our drivers know the back way in.",
+        gate_es="Sin portón, sin puesto de control, sin registro: el Diriá tiene una entrada de hotel normal sobre la calle principal de Tamarindo y tu chofer llega hasta la recepción. Lo único que hay que saber es que la calle principal puede ser lenta al atardecer, cuando todo el pueblo camina hacia la playa; nuestros choferes conocen la entrada por atrás.",
+        around_en="**Everything, on foot.** This is the point of staying at the Diriá. Tamarindo has 60+ restaurants, from sodas to sushi to steakhouses, bars with live music, surf schools on the sand, two supermarkets, pharmacies, ATMs and tour offices — all within a 10-minute walk of the lobby. **Playa Langosta**, quieter and more upscale, is a 20-minute walk south. **Playa Grande** and the Las Baulas turtle park are across the estuary. The trade-off is noise: the beachfront rooms on the main strip hear the town on weekend nights. Ask for the garden side if you want quiet.",
+        around_es="**Todo, a pie.** Ese es el sentido de quedarse en el Diriá. Tamarindo tiene más de 60 restaurantes, desde sodas hasta sushi y parrillas, bares con música en vivo, escuelas de surf en la arena, dos supermercados, farmacias, cajeros y oficinas de tours, todo a 10 minutos a pie del lobby. **Playa Langosta**, más tranquila y de mayor categoría, está a 20 minutos caminando al sur. **Playa Grande** y el parque de tortugas Las Baulas están al otro lado del estero. El precio a pagar es el ruido: las habitaciones frente al mar sobre la calle principal escuchan el pueblo las noches de fin de semana. Pide el lado de jardín si quieres silencio.",
+        tips_en=[
+            "**You do not need a rental car here.** Tamarindo is walkable end to end, tours pick up at the Diriá lobby, and day trips to Flamingo, Conchal or Rincón de la Vieja are easy as private transfers.",
+            "**Skip the grocery stop.** The Automercado is a 5-minute walk from the hotel; it is the one resort in this series where you can shop after check-in.",
+            "**Ask for the beachfront wing if you want the sunset, the garden wing if you want sleep.** Both sides share the pools and the beach access.",
+        ],
+        tips_es=[
+            "**Aquí no necesitas carro de alquiler.** Tamarindo se camina de punta a punta, los tours recogen en el lobby del Diriá, y las excursiones a Flamingo, Conchal o Rincón de la Vieja son fáciles como traslados privados.",
+            "**Sáltate la parada del supermercado.** El Automercado está a 5 minutos a pie del hotel; es el único resort de esta serie donde puedes hacer compras después del check-in.",
+            "**Pide el ala frente al mar si quieres el atardecer, el ala de jardín si quieres dormir.** Ambos lados comparten las piscinas y el acceso a la playa.",
+        ],
+        faqs_en=[
+            ("How far is the Tamarindo Diriá from Liberia Airport?", "About 65 km (40 miles), a 55 to 70 minute drive on paved roads via Belén and Huacas, straight into Tamarindo town."),
+            ("How much is a private shuttle from LIR to the Tamarindo Diriá?", "Ruta Pacifico charges a fixed $130 per vehicle for 1–5 passengers, $165 for 6–9 and $220 for 10–12, with taxes, flight tracking and child seats included."),
+            ("Can I walk to restaurants from the Tamarindo Diriá?", "Yes — dozens. The Diriá is on Tamarindo’s main street, and the town’s restaurants, bars, surf schools and supermarkets are all within a 10-minute walk."),
+            ("Is the Tamarindo Diriá noisy?", "The beachfront wing on the main strip can hear the town on weekend nights. The garden wing across the road is quieter; both share the pools and beach access."),
+            ("Do I need a car if I stay at the Tamarindo Diriá?", "No. Tamarindo is fully walkable, tours include hotel pickup, and day trips to nearby beaches are easy as private transfers. A car only makes sense if you plan to change locations every day."),
+        ],
+        faqs_es=[
+            ("¿A qué distancia está el Tamarindo Diriá del Aeropuerto de Liberia?", "A unos 65 km (40 millas), un viaje de 55 a 70 minutos por carretera asfaltada vía Belén y Huacas, directo al pueblo de Tamarindo."),
+            ("¿Cuánto cuesta un shuttle privado de LIR al Tamarindo Diriá?", "Ruta Pacifico cobra una tarifa fija de $130 por vehículo para 1–5 pasajeros, $165 para 6–9 y $220 para 10–12, con impuestos, seguimiento de vuelo y sillas para niños incluidos."),
+            ("¿Puedo caminar a restaurantes desde el Tamarindo Diriá?", "Sí, a decenas. El Diriá está sobre la calle principal de Tamarindo, y los restaurantes, bares, escuelas de surf y supermercados del pueblo están a menos de 10 minutos a pie."),
+            ("¿El Tamarindo Diriá es ruidoso?", "El ala frente al mar sobre la calle principal puede escuchar el pueblo las noches de fin de semana. El ala de jardín al otro lado de la calle es más tranquila; ambas comparten piscinas y acceso a la playa."),
+            ("¿Necesito carro si me quedo en el Tamarindo Diriá?", "No. Tamarindo se camina por completo, los tours incluyen recogida en el hotel, y las excursiones a playas cercanas son fáciles como traslados privados. Un carro solo tiene sentido si planeas cambiar de lugar cada día."),
         ],
     ),
 ]
@@ -577,7 +631,7 @@ values
   {sql_str(h['slug'])},
   {sql_str(title_en(h))},
   {sql_str(excerpt_en(h))},
-  {sql_str(COVER)},
+  {sql_str(COVER_DIR + '/' + h['photo'])},
   {sql_str(h['cover_alt'])},
   'getting-around',
   {tags},
