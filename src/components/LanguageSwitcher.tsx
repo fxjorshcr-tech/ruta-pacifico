@@ -41,7 +41,7 @@ type Props = {
 
 /**
  * EN / ES control. Links to the same page in the other language so a
- * visitor never loses their place; the proxy and hreflang tags handle the
+ * visitor never loses their place; the locale rewrites and hreflang tags handle the
  * rest (see src/lib/i18n.ts).
  */
 export default function LanguageSwitcher({ tone = "light", variant = "dropdown", onNavigate }: Props) {
