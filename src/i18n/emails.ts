@@ -21,14 +21,14 @@ export const BOOKING_EMAIL = defineCopy({
     title: (code: string) => `Reservation confirmed · ${code}`,
     preheader: (code: string, firstName: string) =>
       `Reservation ${code} confirmed for ${firstName}. We&#39;ll send your secure payment link shortly.`,
-    badge: "✓ Reservation confirmed",
+    badge: "Reservation confirmed",
     greeting: (firstName: string) => `¡Pura vida, ${firstName}!`,
     codeLabel: "Confirmation code",
     intro1:
       "Thank you so much for choosing <strong>Ruta Pacifico</strong>. Your seat is officially held — and we&rsquo;ve already added your trip to our schedule.",
     intro2:
       "In a few minutes you&rsquo;ll get a separate message with your <strong>secure payment link</strong>. As soon as payment clears, the booking becomes final and we&rsquo;ll start monitoring your itinerary.",
-    paymentTitle: "💳 &nbsp;Payment link on the way",
+    paymentTitle: "Payment link on the way",
     paymentBody: (email: string, phone: string) =>
       `Watch your inbox at <strong>${email}</strong> and your WhatsApp at <strong>${phone}</strong>. Your reservation is held in the meantime.`,
     shuttles: (count: number) => (count === 1 ? "Your shuttle" : `Your ${count} shuttles`),
@@ -60,7 +60,7 @@ export const BOOKING_EMAIL = defineCopy({
     ],
     /** Pre-filled WhatsApp message (plain text; the caller URL-encodes it). */
     whatsappMessage: (code: string) => `Hi! Booking ${code} — could you send me the payment link?`,
-    whatsappCta: (display: string) => `💬 &nbsp;Message us on WhatsApp &middot; ${display}`,
+    whatsappCta: (display: string) => `Message us on WhatsApp &middot; ${display}`,
     trust: {
       insured: "Insured",
       ict: (license: string) => `ICT ${license}`,
@@ -83,14 +83,14 @@ export const BOOKING_EMAIL = defineCopy({
     title: (code: string) => `Reserva confirmada · ${code}`,
     preheader: (code: string, firstName: string) =>
       `Reserva ${code} confirmada para ${firstName}. En breve te enviamos tu enlace de pago seguro.`,
-    badge: "✓ Reserva confirmada",
+    badge: "Reserva confirmada",
     greeting: (firstName: string) => `¡Pura vida, ${firstName}!`,
     codeLabel: "Código de confirmación",
     intro1:
       "¡Gracias por reservar con <strong>Ruta Pacifico</strong>! Tu lugar ya quedó apartado y tu viaje está en nuestra agenda.",
     intro2:
       "En unos minutos recibirás un mensaje aparte con tu <strong>enlace de pago seguro</strong>. En cuanto se acredite el pago, la reserva queda en firme y empezamos a dar seguimiento a tu itinerario.",
-    paymentTitle: "💳 &nbsp;Tu enlace de pago va en camino",
+    paymentTitle: "Tu enlace de pago va en camino",
     paymentBody: (email: string, phone: string) =>
       `Revisa tu correo <strong>${email}</strong> y tu WhatsApp <strong>${phone}</strong>. Mientras tanto, tu reserva queda apartada.`,
     shuttles: (count: number) => (count === 1 ? "Tu shuttle" : `Tus ${count} shuttles`),
@@ -121,7 +121,7 @@ export const BOOKING_EMAIL = defineCopy({
       },
     ],
     whatsappMessage: (code: string) => `¡Hola! Reserva ${code} — ¿me pueden enviar el enlace de pago?`,
-    whatsappCta: (display: string) => `💬 &nbsp;Escríbenos por WhatsApp &middot; ${display}`,
+    whatsappCta: (display: string) => `Escríbenos por WhatsApp &middot; ${display}`,
     trust: {
       insured: "Asegurados",
       ict: (license: string) => `ICT ${license}`,

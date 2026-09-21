@@ -343,18 +343,15 @@ function customerEmailHtml(
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                   <tr>
                     <td width="33%" style="padding:10px;background:#faf6ee;border-radius:12px;text-align:center;">
-                      <div style="font-size:18px;">🛡️</div>
-                      <div style="margin-top:4px;font-size:11px;font-weight:700;color:#1a1a1a;">${t.trust.insured}</div>
+                      <div style="font-size:11px;font-weight:700;color:#1a1a1a;">${t.trust.insured}</div>
                     </td>
                     <td width="8" style="font-size:0;">&nbsp;</td>
                     <td width="33%" style="padding:10px;background:#faf6ee;border-radius:12px;text-align:center;">
-                      <div style="font-size:18px;">⭐</div>
-                      <div style="margin-top:4px;font-size:11px;font-weight:700;color:#1a1a1a;">${t.trust.ict(ICT_LICENSE)}</div>
+                      <div style="font-size:11px;font-weight:700;color:#1a1a1a;">${t.trust.ict(ICT_LICENSE)}</div>
                     </td>
                     <td width="8" style="font-size:0;">&nbsp;</td>
                     <td width="33%" style="padding:10px;background:#faf6ee;border-radius:12px;text-align:center;">
-                      <div style="font-size:18px;">🇨🇷</div>
-                      <div style="margin-top:4px;font-size:11px;font-weight:700;color:#1a1a1a;">${t.trust.bilingual}</div>
+                      <div style="font-size:11px;font-weight:700;color:#1a1a1a;">${t.trust.bilingual}</div>
                     </td>
                   </tr>
                 </table>
