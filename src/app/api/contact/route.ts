@@ -170,14 +170,14 @@ function customerEmailHtml(b: ContactRequestBody, logo: string, locale: Locale):
                   <tr>
                     <td style="padding:0 0 10px;">
                       <a href="https://wa.me/${WHATSAPP_RAW}" style="display:block;background:#25d366;color:#fff;text-decoration:none;border-radius:12px;padding:14px 18px;font-weight:700;font-size:15px;text-align:center;box-shadow:0 2px 8px rgba(37,211,102,.25);">
-                        💬 &nbsp;${t.whatsappUs} &middot; ${WHATSAPP_DISPLAY}
+                        ${t.whatsappUs} &middot; ${WHATSAPP_DISPLAY}
                       </a>
                     </td>
                   </tr>
                   <tr>
                     <td>
                       <a href="mailto:${RESERVATIONS_EMAIL}" style="display:block;background:#ffffff;border:1px solid #e5dfd2;color:#1a1a1a;text-decoration:none;border-radius:12px;padding:14px 18px;font-weight:600;font-size:15px;text-align:center;">
-                        ✉️ &nbsp;${RESERVATIONS_EMAIL}
+                        ${RESERVATIONS_EMAIL}
                       </a>
                     </td>
                   </tr>
