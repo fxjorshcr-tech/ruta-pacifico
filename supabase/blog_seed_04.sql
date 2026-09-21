@@ -26,7 +26,7 @@ values
   '[
     {
         "q": "How long is the drive from Liberia Airport to the Four Seasons Papagayo?",
-        "a": "30 to 40 minutes on fully paved roads. The resort is about 30 km (19 miles) from LIR, making it the closest luxury resort to the airport in Costa Rica."
+        "a": "Between 30 and 40 minutes on paved roads. The resort is about 30 km from LIR, which makes it the closest luxury resort to the airport in Costa Rica."
     },
     {
         "q": "Does the Four Seasons Papagayo offer an airport shuttle?",
@@ -34,69 +34,69 @@ values
     },
     {
         "q": "Is there Uber at Liberia Airport to get to Papagayo?",
-        "a": "Not reliably. Uber drivers are scarce in Guanacaste and frequently cancel airport requests, and an unregistered car will be held at the Peninsula Papagayo security gate. Pre-book a transfer whose driver details are sent to the resort in advance."
+        "a": "Not reliably. There are few Uber drivers in Guanacaste and they often cancel airport requests. An unregistered car will also be held at the Peninsula Papagayo gate. It is easier to pre-book a transfer whose driver details are sent to the resort in advance."
     },
     {
         "q": "Can I go out to dinner outside the Four Seasons?",
-        "a": "Yes, but you will need a car or transfer. There is no town on the peninsula; Playas del Coco is 20–25 minutes away and has the nearest restaurants and bars."
+        "a": "Yes, but you need a car or a transfer. There is no town on the peninsula. Playas del Coco is 20 to 25 minutes away and has the nearest restaurants and bars."
     }
 ]'::jsonb,
   $md$
-Most Four Seasons guests land at Liberia expecting a long transfer and get the opposite: the resort is 35 minutes away on a paved road. What surprises them instead is the gate. Peninsula Papagayo is a private enclave, and if your driver is not on the list, you sit at the checkpoint while a guard phones the front desk. This is how the arrival actually works, what it costs, and what to expect once you are inside.
+A lot of people who book the Four Seasons assume the transfer from Liberia will be long, because everything else in Costa Rica seems to be. It is not. The resort is about 35 minutes from the airport on a paved road, and the only thing that can slow you down is the security gate at the entrance to the peninsula, which will not let a vehicle through unless the driver has been registered with the hotel beforehand. We take guests there most weeks, so this is written from the driver's seat.
 
 ## Quick facts
 
 | | |
 | --- | --- |
-| **Distance from LIR** | 30 km (19 mi) |
-| **Real drive time** | 30–40 min, paved the whole way |
-| **Private transfer, 1–5 pax** | **$105** per vehicle, fixed |
-| **Private transfer, 6–9 pax** | $130 per vehicle |
-| **Private transfer, 10–12 pax** | $170 per vehicle |
-| **Included** | Taxes, tolls, flight tracking, child seats, one free stop for groceries |
-| **Gated access** | Yes — driver must be pre-registered |
+| Distance from LIR | 30 km (19 mi) |
+| Drive time | 30–40 min, paved the whole way |
+| Private transfer, 1–5 passengers | $105 per vehicle, fixed |
+| Private transfer, 6–9 passengers | $130 per vehicle |
+| Private transfer, 10–12 passengers | $170 per vehicle |
+| Included | Taxes, tolls, flight tracking, child seats, one stop for groceries |
+| Gated access | Yes, the driver has to be registered in advance |
 
-## Where the hotel actually is
+## Where the hotel is
 
-The Four Seasons sits at the neck of **Peninsula Papagayo**, a private 1,400-acre enclave on the north shore of Culebra Bay, 30 km from Liberia Airport. It is the closest luxury resort to LIR in all of Costa Rica: the whole drive is on paved road, west along Route 21 to Guardia, then the Coco road toward Playa Panamá and the peninsula gate. The resort has two beaches (Playa Virador on the bay side, Playa Blanca on the Pacific side), an Arnold Palmer golf course, and the kind of jungle-meets-ocean setting that made Papagayo famous.
+The Four Seasons sits at the neck of Peninsula Papagayo, a private 1,400-acre enclave on the north side of Culebra Bay, about 30 km from Liberia Airport. Of all the luxury resorts in the country, it is the one closest to an international airport. The whole drive is on pavement: you take Route 21 west from the airport to Guardia, turn onto the road toward Playas del Coco, and branch off toward Playa Panamá and the peninsula gate. The property has two beaches, Playa Virador on the bay and Playa Blanca on the open Pacific, plus an Arnold Palmer golf course and the hilly, forested setting the peninsula is known for.
 
-## The drive from Liberia Airport
+## The drive from the airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **30–40 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver waits at the arrivals exit holding a sign with your name. We track the flight, so if it lands early or late the driver is still there when you walk out, and you leave as soon as you have your bags rather than waiting for a van to fill. The road is paved from start to finish and you never go through Liberia town, since the airport sits west of the city and Route 21 heads straight for the coast. The range we give for the drive time comes from daytime traffic at the junctions along the way, nothing more. If you need to stop for groceries, cash or a pharmacy, tell the driver; the vehicle is yours for the trip.
 
-See live prices and book the [LIR → Four Seasons Papagayo transfer](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
+Live prices and booking are on the [LIR to Four Seasons Papagayo route page](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
 
-## At the gate: what security needs
+## What the security gate needs
 
-Peninsula Papagayo has a manned security checkpoint at the entrance, and it is strict: an unregistered vehicle waits while the guard phones the resort. Security expects the **driver’s full name, cédula (national ID) number, and the vehicle’s make, plate and colour** on your reservation before you arrive. When you book with Ruta Pacifico we send those details to the Four Seasons in advance, so the gate has your driver on the list and you roll straight through to the lobby.
+Peninsula Papagayo has a manned checkpoint at its entrance, and the guards there follow the rules closely. They expect the hotel to have sent them the driver's full name, his cédula number, and the make, plate and colour of the vehicle before you show up. If that information is not on file, the vehicle waits at the barrier while someone phones the front desk, and depending on the hour that can take a while. When you book with us, we send those details to the Four Seasons as soon as the reservation is confirmed, so by the time you land the gate already has your driver on its list.
 
 ## What is around the Four Seasons Papagayo
 
-**Nothing, and that is the point.** There is no town on Peninsula Papagayo. Outside the resort you have the Marina Papagayo with a couple of restaurants, and the Prieta Beach Club for members. The nearest real town is **Playas del Coco**, 20–25 minutes by car, with restaurants, bars, a supermarket and a public beach. Most Four Seasons guests eat at the resort every night; those who want a change of scene book a transfer to Coco or to **El Mangroove** on the gulf for dinner.
+There is no town on Peninsula Papagayo. Outside the resort you have the Marina Papagayo, which has a couple of restaurants, and a members' beach club. The nearest place with a street to walk along is Playas del Coco, 20 to 25 minutes away by car, where you will find restaurants, bars, a supermarket and a public beach. Most Four Seasons guests eat at the resort every night and are happy doing so. If you want a change of scene, a transfer to Coco or to El Mangroove, over on the mainland side of the gulf, is the usual choice.
 
-For the full picture of how Guanacaste’s hotel zones fit together — and which beaches have a town you can walk to — read our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+If you want to see how this hotel fits with the rest of the coast, and which beaches have a town you can walk to, our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) covers all of them.
 
-## Your options from LIR, honestly compared
+## Ways to get there from LIR
 
-| Option | Time to the hotel | Cost | The catch |
+| Option | Time to the hotel | Cost | Worth knowing |
 | --- | --- | --- | --- |
-| **Private transfer** | 30–40 min, direct | $105 fixed, 1–5 pax | None — driver pre-registered at the gate, flight tracked |
-| **Hotel car service** | Same drive | Premium rate via concierge | Usually the most expensive option |
-| **Rental car** | Same drive + pickup paperwork | $40–90/day + mandatory insurance + deposit | Only worth it if you will leave the resort daily |
-| **Shared shuttle** | 1.5–2.5 h, multiple stops | ~$25–35 per person | Does not enter the gated estate — drops at the nearest town |
-| **Airport taxi** | Same drive | $100–150, negotiated | Unregistered vehicle is held at the gate |
+| Private transfer | 30–40 min, direct | $105 fixed for 1–5 passengers | Driver registered at the gate, flight tracked |
+| Hotel car service | Same drive | Premium rate through the concierge | Usually the most expensive option |
+| Rental car | Same drive plus pickup paperwork | $40–90 a day plus mandatory insurance and a deposit | Only pays off if you leave the resort every day |
+| Shared shuttle | 1.5–2.5 h with stops | About $25–35 a person | Does not enter the gated estate and drops you at the nearest town |
+| Airport taxi | Same drive | $100–150, negotiated on the spot | An unregistered vehicle is held at the gate |
 
-For two people a private transfer costs about the same as a taxi and removes every unknown. For a family of four it is cheaper per person than a shared shuttle and takes less than half the time.
+For two people a private transfer costs about the same as a taxi and takes the guesswork out of the arrival. For a family of four it works out cheaper per person than a shared shuttle and takes less than half the time.
 
-## Tips from our drivers
+## A few things our drivers would tell you
 
-- **Stop for groceries on the way.** There is no shop on the peninsula. Ask your driver to stop at the supermarket in Sardinal or the Automercado in Playas del Coco, both on the way — it is free on a private transfer.
-- **Check-in is 3 p.m.** If you land at 11 a.m., the 35-minute drive gets you there early. The resort will hold luggage; a pool day while you wait is standard.
-- **Book day trips as private transfers.** Rincón de la Vieja (1 h 15), Tamarindo (1 h 15) and the Coco sunset strip are all easy from here; the resort concierge quotes are usually higher than booking direct.
+- Since there is no shop on the peninsula, it makes sense to stop for groceries on the way in. The supermarket in Sardinal and the Automercado in Playas del Coco are both close to the route, and the stop costs nothing on a private transfer.
+- Check-in is at 3 p.m. If you land late morning, you will arrive early. The resort holds luggage and most people spend the wait at the pool.
+- Rincón de la Vieja and Tamarindo are each about an hour and a quarter away. Booking those day trips as private round trips is usually cheaper than what the concierge quotes.
 
-## Book the transfer
+## Booking
 
-The Four Seasons is a short, easy ride from LIR when the gate already knows your driver. That is the part we handle for you. Fixed price per vehicle, flight tracked, driver registered at the resort, child seats included. Book the [Liberia Airport → Four Seasons Papagayo private transfer](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste) online in two minutes, or message us on WhatsApp — a real person who drives this road answers.
+The [Liberia Airport to Four Seasons Papagayo private transfer](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste) can be booked online in a couple of minutes at a fixed price per vehicle, with the flight tracked, the driver registered at the resort and child seats included. If you would rather ask something first, write to us on WhatsApp and one of the drivers will answer.
 $md$
 )
 on conflict (slug) do update set
@@ -117,7 +117,7 @@ update public.blog_posts_ruta_pacifico set
   faqs_es = '[
     {
         "q": "¿Cuánto dura el viaje del Aeropuerto de Liberia al Four Seasons Papagayo?",
-        "a": "Entre 30 y 40 minutos por carretera completamente asfaltada. El resort está a unos 30 km (19 millas) de LIR, lo que lo convierte en el resort de lujo más cercano al aeropuerto en Costa Rica."
+        "a": "Entre 30 y 40 minutos por carretera asfaltada. El resort está a unos 30 km de LIR, lo que lo convierte en el resort de lujo más cercano al aeropuerto en Costa Rica."
     },
     {
         "q": "¿El Four Seasons Papagayo ofrece shuttle desde el aeropuerto?",
@@ -125,69 +125,69 @@ update public.blog_posts_ruta_pacifico set
     },
     {
         "q": "¿Hay Uber en el Aeropuerto de Liberia para ir a Papagayo?",
-        "a": "No de forma confiable. Hay pocos choferes de Uber en Guanacaste y suelen cancelar las solicitudes del aeropuerto, y un carro no registrado queda retenido en el portón de seguridad de Península Papagayo. Reserva un traslado cuyos datos del chofer se envíen al resort con anticipación."
+        "a": "No de forma confiable. Hay pocos choferes de Uber en Guanacaste y suelen cancelar las solicitudes del aeropuerto. Un carro no registrado además queda retenido en el portón de Península Papagayo. Es más fácil reservar un traslado cuyos datos del chofer se envíen al resort con anticipación."
     },
     {
         "q": "¿Puedo salir a cenar fuera del Four Seasons?",
-        "a": "Sí, pero necesitas carro o traslado. No hay pueblo en la península; Playas del Coco está a 20–25 minutos y tiene los restaurantes y bares más cercanos."
+        "a": "Sí, pero necesitas carro o traslado. No hay pueblo en la península. Playas del Coco está a 20 o 25 minutos y tiene los restaurantes y bares más cercanos."
     }
 ]'::jsonb,
   content_md_es = $es$
-La mayoría de huéspedes del Four Seasons aterriza en Liberia esperando un traslado largo y se encuentra con lo contrario: el resort está a 35 minutos por carretera asfaltada. Lo que sí los sorprende es el portón. Península Papagayo es un enclave privado, y si tu chofer no está en la lista, te quedas en el puesto de control mientras un guarda llama a recepción. Así funciona la llegada en realidad, cuánto cuesta y qué esperar una vez adentro.
+Mucha gente que reserva el Four Seasons da por hecho que el traslado desde Liberia va a ser largo, porque todo lo demás en Costa Rica parece serlo. No es el caso. El resort está a unos 35 minutos del aeropuerto por carretera asfaltada, y lo único que puede atrasarte es el portón de seguridad a la entrada de la península, que no deja pasar un vehículo si el chofer no fue registrado antes con el hotel. Llevamos huéspedes allí casi todas las semanas, así que esto está escrito desde el asiento del chofer.
 
 ## Datos rápidos
 
 | | |
 | --- | --- |
-| **Distancia desde LIR** | 30 km (19 mi) |
-| **Tiempo real de viaje** | 30–40 min, asfaltado todo el camino |
-| **Traslado privado, 1–5 pax** | **$105** por vehículo, fijo |
-| **Traslado privado, 6–9 pax** | $130 por vehículo |
-| **Traslado privado, 10–12 pax** | $170 por vehículo |
-| **Incluye** | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada gratis para víveres |
-| **Acceso con portón** | Sí: el chofer debe estar registrado de antemano |
+| Distancia desde LIR | 30 km (19 mi) |
+| Tiempo de viaje | 30–40 min, asfaltado todo el camino |
+| Traslado privado, 1–5 pasajeros | $105 por vehículo, fijo |
+| Traslado privado, 6–9 pasajeros | $130 por vehículo |
+| Traslado privado, 10–12 pasajeros | $170 por vehículo |
+| Incluye | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada para víveres |
+| Acceso con portón | Sí, el chofer debe estar registrado de antemano |
 
-## Dónde queda realmente el hotel
+## Dónde queda el hotel
 
-El Four Seasons está en el cuello de **Península Papagayo**, un enclave privado de 570 hectáreas en la orilla norte de Bahía Culebra, a 30 km del Aeropuerto de Liberia. Es el resort de lujo más cercano a LIR de toda Costa Rica: todo el trayecto es asfaltado, por la Ruta 21 hacia el oeste hasta Guardia y luego la carretera del Coco rumbo a Playa Panamá y el portón de la península. El resort tiene dos playas (Playa Virador del lado de la bahía y Playa Blanca del lado del Pacífico), un campo de golf de Arnold Palmer y ese entorno de selva con mar que hizo famoso a Papagayo.
+El Four Seasons está en el cuello de Península Papagayo, un enclave privado de 570 hectáreas en el lado norte de Bahía Culebra, a unos 30 km del Aeropuerto de Liberia. De todos los resorts de lujo del país, es el que queda más cerca de un aeropuerto internacional. Todo el trayecto es asfaltado: se toma la Ruta 21 hacia el oeste desde el aeropuerto hasta Guardia, se entra a la carretera hacia Playas del Coco y se desvía hacia Playa Panamá y el portón de la península. La propiedad tiene dos playas, Playa Virador del lado de la bahía y Playa Blanca del lado del Pacífico abierto, además de un campo de golf de Arnold Palmer y el entorno de colinas con bosque por el que se conoce la península.
 
-## El viaje desde el Aeropuerto de Liberia
+## El viaje desde el aeropuerto
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **30–40 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer espera a la salida de llegadas con un rótulo con tu nombre. Monitoreamos el vuelo, así que si aterriza antes o después el chofer sigue ahí cuando sales, y te vas en cuanto tienes las maletas en vez de esperar a que se llene una van. La carretera es asfaltada de principio a fin y nunca pasas por Liberia centro, porque el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. El rango que damos para el tiempo de viaje viene del tráfico de día en los cruces del camino, nada más. Si necesitas parar por víveres, efectivo o una farmacia, díselo al chofer; el vehículo es tuyo durante el viaje.
 
-Mira los precios actualizados y reserva el [traslado LIR → Four Seasons Papagayo](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
+Los precios actualizados y la reserva están en la [página de la ruta LIR a Four Seasons Papagayo](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
 
-## En el portón: qué necesita la seguridad
+## Qué necesita el portón de seguridad
 
-Península Papagayo tiene un puesto de seguridad con guarda en la entrada, y es estricto: un vehículo no registrado espera mientras el guarda llama al resort. La seguridad espera el **nombre completo del chofer, su número de cédula y la marca, placa y color del vehículo** en tu reserva antes de que llegues. Cuando reservas con Ruta Pacifico enviamos esos datos al Four Seasons con anticipación, para que el portón tenga a tu chofer en la lista y pases directo hasta el lobby.
+Península Papagayo tiene un puesto de control con guarda en la entrada, y ahí se aplican las reglas al pie de la letra. Esperan que el hotel les haya enviado el nombre completo del chofer, su número de cédula y la marca, placa y color del vehículo antes de que llegues. Si esa información no está registrada, el vehículo espera en la barrera mientras alguien llama a recepción, y según la hora eso puede tardar. Cuando reservas con nosotros, enviamos esos datos al Four Seasons apenas se confirma la reserva, así que cuando aterrizas el portón ya tiene a tu chofer en la lista.
 
 ## Qué hay alrededor del Four Seasons Papagayo
 
-**Nada, y ese es el punto.** No hay pueblo en Península Papagayo. Fuera del resort tienes la Marina Papagayo con un par de restaurantes y el Prieta Beach Club para miembros. El pueblo real más cercano es **Playas del Coco**, a 20–25 minutos en carro, con restaurantes, bares, supermercado y playa pública. La mayoría de huéspedes del Four Seasons cena en el resort todas las noches; quien quiere cambiar de aire reserva un traslado al Coco o a **El Mangroove** en el golfo para cenar.
+En Península Papagayo no hay pueblo. Fuera del resort tienes la Marina Papagayo, con un par de restaurantes, y un club de playa para miembros. El lugar más cercano con una calle por donde caminar es Playas del Coco, a 20 o 25 minutos en carro, donde hay restaurantes, bares, supermercado y playa pública. La mayoría de huéspedes del Four Seasons cena en el resort todas las noches y está contenta así. Si quieres un cambio de aire, un traslado al Coco o a El Mangroove, del lado continental del golfo, es lo habitual.
 
-Para ver el panorama completo de cómo encajan las zonas hoteleras de Guanacaste, y qué playas tienen un pueblo al que puedes caminar, lee nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+Si quieres ver cómo encaja este hotel con el resto de la costa, y qué playas tienen un pueblo al que se puede caminar, nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) los cubre todos.
 
-## Tus opciones desde LIR, comparadas con honestidad
+## Formas de llegar desde LIR
 
-| Opción | Tiempo hasta el hotel | Costo | El detalle |
+| Opción | Tiempo hasta el hotel | Costo | Conviene saber |
 | --- | --- | --- | --- |
-| **Traslado privado** | 30–40 min, directo | $105 fijo, 1–5 pax | Ninguno: chofer registrado en el portón, vuelo monitoreado |
-| **Servicio de carro del hotel** | El mismo trayecto | Tarifa premium vía concierge | Suele ser la opción más cara |
-| **Carro de alquiler** | El mismo trayecto + trámites de entrega | $40–90/día + seguro obligatorio + depósito | Solo vale la pena si vas a salir del resort a diario |
-| **Shuttle compartido** | 1,5–2,5 h, varias paradas | ~$25–35 por persona | No entra a la finca privada: te deja en el pueblo más cercano |
-| **Taxi del aeropuerto** | El mismo trayecto | $100–150, negociado | El vehículo no registrado queda retenido en el portón |
+| Traslado privado | 30–40 min, directo | $105 fijo para 1–5 pasajeros | Chofer registrado en el portón, vuelo monitoreado |
+| Servicio de carro del hotel | El mismo trayecto | Tarifa premium a través del concierge | Suele ser la opción más cara |
+| Carro de alquiler | El mismo trayecto más trámites de entrega | $40–90 al día más seguro obligatorio y depósito | Solo compensa si sales del resort todos los días |
+| Shuttle compartido | 1,5–2,5 h con paradas | Unos $25–35 por persona | No entra a la finca privada y te deja en el pueblo más cercano |
+| Taxi del aeropuerto | El mismo trayecto | $100–150, negociado en el momento | Un vehículo no registrado queda retenido en el portón |
 
-Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y elimina todas las incógnitas. Para una familia de cuatro es más barato por persona que un shuttle compartido y tarda menos de la mitad.
+Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y le quita la incertidumbre a la llegada. Para una familia de cuatro sale más barato por persona que un shuttle compartido y tarda menos de la mitad.
 
-## Consejos de nuestros choferes
+## Algunas cosas que te dirían nuestros choferes
 
-- **Para a comprar víveres en el camino.** No hay tienda en la península. Pídele a tu chofer parar en el supermercado de Sardinal o en el Automercado de Playas del Coco, ambos de camino; en un traslado privado no tiene costo.
-- **El check-in es a las 3 p. m.** Si aterrizas a las 11 a. m., los 35 minutos de viaje te dejan temprano. El resort guarda el equipaje; pasar el rato en la piscina mientras esperas es lo normal.
-- **Reserva las excursiones como traslados privados.** Rincón de la Vieja (1 h 15), Tamarindo (1 h 15) y el atardecer en el Coco son fáciles desde aquí; las cotizaciones del concierge suelen ser más altas que reservar directo.
+- Como en la península no hay tienda, conviene parar a comprar víveres en el camino. El supermercado de Sardinal y el Automercado de Playas del Coco quedan cerca de la ruta, y la parada no cuesta nada en un traslado privado.
+- El check-in es a las 3 p. m. Si aterrizas a media mañana, vas a llegar temprano. El resort guarda el equipaje y la mayoría pasa la espera en la piscina.
+- Rincón de la Vieja y Tamarindo quedan a una hora y cuarto cada uno. Reservar esas excursiones como viajes privados de ida y vuelta suele salir más barato que lo que cotiza el concierge.
 
-## Reserva el traslado
+## Reserva
 
-El Four Seasons es un viaje corto y fácil desde LIR cuando el portón ya conoce a tu chofer. Esa es la parte que nosotros resolvemos por ti. Precio fijo por vehículo, vuelo monitoreado, chofer registrado en el resort, sillas para niños incluidas. Reserva el [traslado privado Aeropuerto de Liberia → Four Seasons Papagayo](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste) en línea en dos minutos, o escríbenos por WhatsApp: responde una persona real que maneja esta carretera.
+El [traslado privado del Aeropuerto de Liberia al Four Seasons Papagayo](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste) se reserva en línea en un par de minutos a precio fijo por vehículo, con el vuelo monitoreado, el chofer registrado en el resort y las sillas para niños incluidas. Si prefieres preguntar algo primero, escríbenos por WhatsApp y te contesta uno de los choferes.
 $es$
 where slug = 'liberia-airport-to-four-seasons-papagayo';
 
@@ -210,15 +210,15 @@ values
   '[
     {
         "q": "How far is Nekajui from Liberia Airport?",
-        "a": "About 34 km (21 miles), a 35 to 45 minute private transfer on paved roads. It is at the far tip of Peninsula Papagayo, about 10 minutes beyond the Four Seasons."
+        "a": "About 34 km, which is a private transfer of 35 to 45 minutes on paved roads. It sits at the far tip of Peninsula Papagayo, about ten minutes beyond the Four Seasons."
     },
     {
         "q": "How much is a private transfer from LIR to Nekajui?",
-        "a": "Ruta Pacifico charges a fixed $105 per vehicle for 1–5 passengers ($130 for 6–9, $170 for 10–12), including taxes, flight tracking, child seats and registration of the driver at the Peninsula Papagayo gate."
+        "a": "Ruta Pacifico charges a fixed $105 per vehicle for 1 to 5 passengers, $130 for 6 to 9 and $170 for 10 to 12. That includes taxes, flight tracking, child seats and registering the driver at the Peninsula Papagayo gate."
     },
     {
         "q": "Do I need to register my transfer with Nekajui before arrival?",
-        "a": "Yes. Both the Peninsula Papagayo checkpoint and the resort’s own gate expect the driver’s name, ID number and vehicle details in advance. Ruta Pacifico sends them to the resort automatically when you book."
+        "a": "Yes. Both the Peninsula Papagayo checkpoint and the resort''s own gate expect the driver''s name, ID number and vehicle details ahead of time. Ruta Pacifico sends them to the resort when you book."
     },
     {
         "q": "Is Nekajui near a town?",
@@ -226,61 +226,61 @@ values
     }
 ]'::jsonb,
   $md$
-Nekajui opened in 2025 and already gets the same question every week: how do you actually get there? The answer is a 40-minute drive from Liberia Airport, past the Four Seasons, along a ridge road to the end of the peninsula, through two checkpoints that both expect your driver’s details in advance. Here is the route, the price, and what the arrival looks like.
+Nekajui opened in 2025 and it took only a few months for it to become one of the hotels we get asked about most. The question is nearly always the same: how do you actually get there. The short answer is a drive of about 40 minutes from Liberia Airport, past the Four Seasons and along a ridge road to the end of the peninsula, with two checkpoints on the way that both want your driver's details ahead of time. The rest of this page goes through the route, the price and what to expect on arrival.
 
 ## Quick facts
 
 | | |
 | --- | --- |
-| **Distance from LIR** | 34 km (21 mi) |
-| **Real drive time** | 35–45 min, paved the whole way |
-| **Private transfer, 1–5 pax** | **$105** per vehicle, fixed |
-| **Private transfer, 6–9 pax** | $130 per vehicle |
-| **Private transfer, 10–12 pax** | $170 per vehicle |
-| **Included** | Taxes, tolls, flight tracking, child seats, one free stop for groceries |
-| **Gated access** | Yes — driver must be pre-registered |
+| Distance from LIR | 34 km (21 mi) |
+| Drive time | 35–45 min, paved the whole way |
+| Private transfer, 1–5 passengers | $105 per vehicle, fixed |
+| Private transfer, 6–9 passengers | $130 per vehicle |
+| Private transfer, 10–12 passengers | $170 per vehicle |
+| Included | Taxes, tolls, flight tracking, child seats, one stop for groceries |
+| Gated access | Yes, the driver has to be registered in advance |
 
-## Where the hotel actually is
+## Where the hotel is
 
-**Nekajui** opened in 2025 at the far tip of **Peninsula Papagayo**, past the Four Seasons and the Andaz, on a headland above Playa Nacascolo. It is the newest and most secluded ultra-luxury address in Costa Rica: treehouse-style suites, a cliffside pool, and a funicular down to the beach. From Liberia Airport it is 34 km on paved road — west along Route 21 to Guardia, the Coco road toward Playa Panamá, the peninsula gate, and then the winding resort road along the ridge to the point.
+Nekajui is at the far end of Peninsula Papagayo, beyond the Four Seasons and the Andaz, on a headland above Playa Nacascolo. It is the most secluded of the three peninsula resorts and the newest luxury address in the country, with suites built into the treeline, a pool on the cliff edge and a funicular that takes you down to the beach. From Liberia Airport it is 34 km on paved road. You head west on Route 21 to Guardia, take the Coco road toward Playa Panamá, pass the peninsula gate, and then follow the resort road along the ridge until it ends at the hotel.
 
-## The drive from Liberia Airport
+## The drive from the airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **35–45 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver waits at the arrivals exit holding a sign with your name. We track the flight, so if it lands early or late the driver is still there when you walk out, and you leave as soon as you have your bags rather than waiting for a van to fill. The road is paved from start to finish and you never go through Liberia town, since the airport sits west of the city and Route 21 heads straight for the coast. The range we give for the drive time comes from daytime traffic at the junctions along the way, nothing more. If you need to stop for groceries, cash or a pharmacy, tell the driver; the vehicle is yours for the trip.
 
-See live prices and book the [LIR → Nekajui, a Ritz-Carlton Reserve transfer](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
+Live prices and booking are on the [LIR to Nekajui, a Ritz-Carlton Reserve route page](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
 
-## At the gate: what security needs
+## What the security gate needs
 
-Nekajui is behind the same **Peninsula Papagayo security checkpoint** as the Four Seasons, and then a second resort gate of its own. Both expect the **driver’s full name, cédula number and vehicle details** on your reservation. Ruta Pacifico sends them to the resort when you book, so neither gate holds you up; arriving in an unregistered taxi means waiting at the first checkpoint while the guard calls the front desk.
+To reach Nekajui you go through the same Peninsula Papagayo checkpoint as the Four Seasons and then through a second gate that belongs to the resort itself. Both expect the driver's full name, cédula number and vehicle details to have been sent by the hotel in advance. We send them to Nekajui when you book, which means neither gate holds you up. If you arrive in a taxi that was not registered, you will spend some time at the first checkpoint while the guard calls reception and waits for an answer.
 
 ## What is around the Nekajui, a Ritz-Carlton Reserve
 
-Nekajui is the end of the peninsula road, so there is even less around it than the Four Seasons: the resort’s own restaurants, the beach club, and the Marina Papagayo a 10-minute drive back. The nearest town with a street to walk on is **Playas del Coco**, about 30 minutes away. Guests come here precisely to disappear for a week; plan meals at the resort and book a transfer if you want one night out in Coco.
+Nekajui is where the peninsula road ends, so there is even less around it than around the Four Seasons. You have the resort's own restaurants and beach club, and the Marina Papagayo about ten minutes back the way you came. Playas del Coco, the only real town in this part of the coast, is roughly half an hour away. People choose Nekajui to be left alone for a week, and the hotel is built for that. If you do want one dinner out, a transfer to Coco is easy to arrange.
 
-For the full picture of how Guanacaste’s hotel zones fit together — and which beaches have a town you can walk to — read our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+If you want to see how this hotel fits with the rest of the coast, and which beaches have a town you can walk to, our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) covers all of them.
 
-## Your options from LIR, honestly compared
+## Ways to get there from LIR
 
-| Option | Time to the hotel | Cost | The catch |
+| Option | Time to the hotel | Cost | Worth knowing |
 | --- | --- | --- | --- |
-| **Private transfer** | 35–45 min, direct | $105 fixed, 1–5 pax | None — driver pre-registered at the gate, flight tracked |
-| **Hotel car service** | Same drive | Premium rate via concierge | Usually the most expensive option |
-| **Rental car** | Same drive + pickup paperwork | $40–90/day + mandatory insurance + deposit | Only worth it if you will leave the resort daily |
-| **Shared shuttle** | 1.5–2.5 h, multiple stops | ~$25–35 per person | Does not enter the gated estate — drops at the nearest town |
-| **Airport taxi** | Same drive | $100–150, negotiated | Unregistered vehicle is held at the gate |
+| Private transfer | 35–45 min, direct | $105 fixed for 1–5 passengers | Driver registered at the gate, flight tracked |
+| Hotel car service | Same drive | Premium rate through the concierge | Usually the most expensive option |
+| Rental car | Same drive plus pickup paperwork | $40–90 a day plus mandatory insurance and a deposit | Only pays off if you leave the resort every day |
+| Shared shuttle | 1.5–2.5 h with stops | About $25–35 a person | Does not enter the gated estate and drops you at the nearest town |
+| Airport taxi | Same drive | $100–150, negotiated on the spot | An unregistered vehicle is held at the gate |
 
-For two people a private transfer costs about the same as a taxi and removes every unknown. For a family of four it is cheaper per person than a shared shuttle and takes less than half the time.
+For two people a private transfer costs about the same as a taxi and takes the guesswork out of the arrival. For a family of four it works out cheaper per person than a shared shuttle and takes less than half the time.
 
-## Tips from our drivers
+## A few things our drivers would tell you
 
-- **Same price as the Four Seasons.** Nekajui is on the Peninsula Papagayo route, so the private transfer is the same fixed fare even though it is 10 minutes farther along the ridge.
-- **Groceries and pharmacy in Playas del Coco.** There is no shop anywhere on the peninsula; a stop at the Automercado or a pharmacy in Coco on the way is free with a private transfer.
-- **Night arrivals are fine.** The peninsula road is paved and lit at the gate; our drivers do the last stretch to the point daily and the resort is staffed 24 hours.
+- Nekajui is on the same route as the Four Seasons, so the private transfer costs the same fixed fare even though it is another ten minutes along the ridge.
+- There is no shop anywhere on the peninsula. If you need groceries or a pharmacy, ask the driver to stop in Playas del Coco on the way; it adds a few minutes and costs nothing.
+- Arriving after dark is not a problem. The peninsula road is paved and lit at the gate, and the resort has staff around the clock.
 
-## Book the transfer
+## Booking
 
-Nekajui is built for disappearing. Let the transfer be the last logistics you think about. Fixed price per vehicle, flight tracked, driver registered at the resort, child seats included. Book the [Liberia Airport → Nekajui, a Ritz-Carlton Reserve private transfer](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste) online in two minutes, or message us on WhatsApp — a real person who drives this road answers.
+The [Liberia Airport to Nekajui, a Ritz-Carlton Reserve private transfer](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste) can be booked online in a couple of minutes at a fixed price per vehicle, with the flight tracked, the driver registered at the resort and child seats included. If you would rather ask something first, write to us on WhatsApp and one of the drivers will answer.
 $md$
 )
 on conflict (slug) do update set
@@ -301,15 +301,15 @@ update public.blog_posts_ruta_pacifico set
   faqs_es = '[
     {
         "q": "¿A qué distancia está Nekajui del Aeropuerto de Liberia?",
-        "a": "A unos 34 km (21 millas), un traslado privado de 35 a 45 minutos por carretera asfaltada. Está en la punta más lejana de Península Papagayo, unos 10 minutos más allá del Four Seasons."
+        "a": "A unos 34 km, un traslado privado de 35 a 45 minutos por carretera asfaltada. Está en la punta más lejana de Península Papagayo, unos diez minutos más allá del Four Seasons."
     },
     {
         "q": "¿Cuánto cuesta un traslado privado de LIR a Nekajui?",
-        "a": "Ruta Pacifico cobra una tarifa fija de $105 por vehículo para 1–5 pasajeros ($130 para 6–9, $170 para 10–12), que incluye impuestos, seguimiento de vuelo, sillas para niños y el registro del chofer en el portón de Península Papagayo."
+        "a": "Ruta Pacifico cobra una tarifa fija de $105 por vehículo para 1 a 5 pasajeros, $130 para 6 a 9 y $170 para 10 a 12. Incluye impuestos, seguimiento de vuelo, sillas para niños y el registro del chofer en el portón de Península Papagayo."
     },
     {
         "q": "¿Tengo que registrar mi traslado con Nekajui antes de llegar?",
-        "a": "Sí. Tanto el puesto de Península Papagayo como el portón propio del resort esperan el nombre del chofer, su cédula y los datos del vehículo con anticipación. Ruta Pacifico los envía al resort automáticamente al reservar."
+        "a": "Sí. Tanto el puesto de Península Papagayo como el portón del propio resort esperan el nombre del chofer, su cédula y los datos del vehículo con anticipación. Ruta Pacifico los envía al resort al reservar."
     },
     {
         "q": "¿Nekajui está cerca de algún pueblo?",
@@ -317,61 +317,61 @@ update public.blog_posts_ruta_pacifico set
     }
 ]'::jsonb,
   content_md_es = $es$
-Nekajui abrió en 2025 y ya recibe la misma pregunta cada semana: ¿cómo se llega realmente? La respuesta es un viaje de 40 minutos desde el Aeropuerto de Liberia, pasando el Four Seasons, por una carretera de cresta hasta el final de la península, a través de dos puestos de control que esperan los datos de tu chofer de antemano. Aquí está la ruta, el precio y cómo es la llegada.
+Nekajui abrió en 2025 y en pocos meses se convirtió en uno de los hoteles por los que más nos preguntan. La pregunta casi siempre es la misma: cómo se llega realmente. La respuesta corta es un viaje de unos 40 minutos desde el Aeropuerto de Liberia, pasando el Four Seasons y por una carretera de cresta hasta el final de la península, con dos puestos de control en el camino que quieren los datos de tu chofer con anticipación. El resto de esta página repasa la ruta, el precio y qué esperar al llegar.
 
 ## Datos rápidos
 
 | | |
 | --- | --- |
-| **Distancia desde LIR** | 34 km (21 mi) |
-| **Tiempo real de viaje** | 35–45 min, asfaltado todo el camino |
-| **Traslado privado, 1–5 pax** | **$105** por vehículo, fijo |
-| **Traslado privado, 6–9 pax** | $130 por vehículo |
-| **Traslado privado, 10–12 pax** | $170 por vehículo |
-| **Incluye** | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada gratis para víveres |
-| **Acceso con portón** | Sí: el chofer debe estar registrado de antemano |
+| Distancia desde LIR | 34 km (21 mi) |
+| Tiempo de viaje | 35–45 min, asfaltado todo el camino |
+| Traslado privado, 1–5 pasajeros | $105 por vehículo, fijo |
+| Traslado privado, 6–9 pasajeros | $130 por vehículo |
+| Traslado privado, 10–12 pasajeros | $170 por vehículo |
+| Incluye | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada para víveres |
+| Acceso con portón | Sí, el chofer debe estar registrado de antemano |
 
-## Dónde queda realmente el hotel
+## Dónde queda el hotel
 
-**Nekajui** abrió en 2025 en la punta más lejana de **Península Papagayo**, pasando el Four Seasons y el Andaz, en un promontorio sobre Playa Nacascolo. Es la dirección de ultralujo más nueva y aislada de Costa Rica: suites estilo casa del árbol, piscina al borde del acantilado y un funicular hasta la playa. Desde el Aeropuerto de Liberia son 34 km por asfalto: Ruta 21 hacia el oeste hasta Guardia, la carretera del Coco rumbo a Playa Panamá, el portón de la península y luego la carretera serpenteante del resort por la cresta hasta la punta.
+Nekajui está en el extremo de Península Papagayo, más allá del Four Seasons y el Andaz, en un promontorio sobre Playa Nacascolo. Es el más aislado de los tres resorts de la península y la dirección de lujo más nueva del país, con suites metidas entre los árboles, una piscina al borde del acantilado y un funicular que baja a la playa. Desde el Aeropuerto de Liberia son 34 km por asfalto. Se va hacia el oeste por la Ruta 21 hasta Guardia, se toma la carretera del Coco rumbo a Playa Panamá, se pasa el portón de la península y luego se sigue la carretera del resort por la cresta hasta que termina en el hotel.
 
-## El viaje desde el Aeropuerto de Liberia
+## El viaje desde el aeropuerto
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **35–45 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer espera a la salida de llegadas con un rótulo con tu nombre. Monitoreamos el vuelo, así que si aterriza antes o después el chofer sigue ahí cuando sales, y te vas en cuanto tienes las maletas en vez de esperar a que se llene una van. La carretera es asfaltada de principio a fin y nunca pasas por Liberia centro, porque el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. El rango que damos para el tiempo de viaje viene del tráfico de día en los cruces del camino, nada más. Si necesitas parar por víveres, efectivo o una farmacia, díselo al chofer; el vehículo es tuyo durante el viaje.
 
-Mira los precios actualizados y reserva el [traslado LIR → Nekajui, Ritz-Carlton Reserve](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
+Los precios actualizados y la reserva están en la [página de la ruta LIR a Nekajui, Ritz-Carlton Reserve](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
 
-## En el portón: qué necesita la seguridad
+## Qué necesita el portón de seguridad
 
-Nekajui está detrás del mismo **puesto de seguridad de Península Papagayo** que el Four Seasons, y luego de un segundo portón propio del resort. Ambos esperan el **nombre completo del chofer, su número de cédula y los datos del vehículo** en tu reserva. Ruta Pacifico los envía al resort cuando reservas, así ninguno de los dos portones te detiene; llegar en un taxi no registrado significa esperar en el primer puesto mientras el guarda llama a recepción.
+Para llegar a Nekajui se pasa el mismo puesto de Península Papagayo que para el Four Seasons y después un segundo portón que es del propio resort. Ambos esperan que el hotel haya enviado de antemano el nombre completo del chofer, su número de cédula y los datos del vehículo. Nosotros los enviamos a Nekajui cuando reservas, lo que significa que ninguno de los dos portones te detiene. Si llegas en un taxi que no fue registrado, vas a pasar un rato en el primer puesto mientras el guarda llama a recepción y espera respuesta.
 
 ## Qué hay alrededor del Nekajui, Ritz-Carlton Reserve
 
-Nekajui es el final de la carretera de la península, así que hay aún menos alrededor que en el Four Seasons: los restaurantes propios del resort, el club de playa y la Marina Papagayo a 10 minutos de regreso. El pueblo más cercano con una calle para caminar es **Playas del Coco**, a unos 30 minutos. Los huéspedes vienen aquí justamente para desaparecer una semana; planifica las comidas en el resort y reserva un traslado si quieres una noche fuera en el Coco.
+Nekajui es donde termina la carretera de la península, así que hay aún menos alrededor que en el Four Seasons. Tienes los restaurantes y el club de playa del resort, y la Marina Papagayo a unos diez minutos de regreso por donde llegaste. Playas del Coco, el único pueblo de verdad en esta parte de la costa, queda a más o menos media hora. La gente elige Nekajui para que la dejen en paz una semana, y el hotel está hecho para eso. Si quieres una cena fuera, un traslado al Coco se organiza fácil.
 
-Para ver el panorama completo de cómo encajan las zonas hoteleras de Guanacaste, y qué playas tienen un pueblo al que puedes caminar, lee nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+Si quieres ver cómo encaja este hotel con el resto de la costa, y qué playas tienen un pueblo al que se puede caminar, nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) los cubre todos.
 
-## Tus opciones desde LIR, comparadas con honestidad
+## Formas de llegar desde LIR
 
-| Opción | Tiempo hasta el hotel | Costo | El detalle |
+| Opción | Tiempo hasta el hotel | Costo | Conviene saber |
 | --- | --- | --- | --- |
-| **Traslado privado** | 35–45 min, directo | $105 fijo, 1–5 pax | Ninguno: chofer registrado en el portón, vuelo monitoreado |
-| **Servicio de carro del hotel** | El mismo trayecto | Tarifa premium vía concierge | Suele ser la opción más cara |
-| **Carro de alquiler** | El mismo trayecto + trámites de entrega | $40–90/día + seguro obligatorio + depósito | Solo vale la pena si vas a salir del resort a diario |
-| **Shuttle compartido** | 1,5–2,5 h, varias paradas | ~$25–35 por persona | No entra a la finca privada: te deja en el pueblo más cercano |
-| **Taxi del aeropuerto** | El mismo trayecto | $100–150, negociado | El vehículo no registrado queda retenido en el portón |
+| Traslado privado | 35–45 min, directo | $105 fijo para 1–5 pasajeros | Chofer registrado en el portón, vuelo monitoreado |
+| Servicio de carro del hotel | El mismo trayecto | Tarifa premium a través del concierge | Suele ser la opción más cara |
+| Carro de alquiler | El mismo trayecto más trámites de entrega | $40–90 al día más seguro obligatorio y depósito | Solo compensa si sales del resort todos los días |
+| Shuttle compartido | 1,5–2,5 h con paradas | Unos $25–35 por persona | No entra a la finca privada y te deja en el pueblo más cercano |
+| Taxi del aeropuerto | El mismo trayecto | $100–150, negociado en el momento | Un vehículo no registrado queda retenido en el portón |
 
-Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y elimina todas las incógnitas. Para una familia de cuatro es más barato por persona que un shuttle compartido y tarda menos de la mitad.
+Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y le quita la incertidumbre a la llegada. Para una familia de cuatro sale más barato por persona que un shuttle compartido y tarda menos de la mitad.
 
-## Consejos de nuestros choferes
+## Algunas cosas que te dirían nuestros choferes
 
-- **Mismo precio que el Four Seasons.** Nekajui está en la ruta de Península Papagayo, así que el traslado privado tiene la misma tarifa fija aunque esté 10 minutos más adelante por la cresta.
-- **Víveres y farmacia en Playas del Coco.** No hay tienda en ninguna parte de la península; una parada en el Automercado o en una farmacia del Coco en el camino no tiene costo con un traslado privado.
-- **Llegar de noche no es problema.** La carretera de la península es asfaltada e iluminada en el portón; nuestros choferes hacen el último tramo hasta la punta a diario y el resort tiene personal 24 horas.
+- Nekajui está en la misma ruta que el Four Seasons, así que el traslado privado cuesta la misma tarifa fija aunque sean diez minutos más por la cresta.
+- No hay tienda en ninguna parte de la península. Si necesitas víveres o farmacia, pídele al chofer parar en Playas del Coco de camino; añade unos minutos y no cuesta nada.
+- Llegar de noche no es problema. La carretera de la península es asfaltada e iluminada en el portón, y el resort tiene personal las 24 horas.
 
-## Reserva el traslado
+## Reserva
 
-Nekajui está hecho para desaparecer. Que el traslado sea la última logística en la que pienses. Precio fijo por vehículo, vuelo monitoreado, chofer registrado en el resort, sillas para niños incluidas. Reserva el [traslado privado Aeropuerto de Liberia → Nekajui, Ritz-Carlton Reserve](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste) en línea en dos minutos, o escríbenos por WhatsApp: responde una persona real que maneja esta carretera.
+El [traslado privado del Aeropuerto de Liberia al Nekajui, Ritz-Carlton Reserve](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste) se reserva en línea en un par de minutos a precio fijo por vehículo, con el vuelo monitoreado, el chofer registrado en el resort y las sillas para niños incluidas. Si prefieres preguntar algo primero, escríbenos por WhatsApp y te contesta uno de los choferes.
 $es$
 where slug = 'liberia-airport-to-nekajui-ritz-carlton-reserve-papagayo';
 
@@ -394,77 +394,77 @@ values
   '[
     {
         "q": "How long does it take to get from Liberia Airport to the Andaz Papagayo?",
-        "a": "30 to 40 minutes by private transfer, about 31 km (19 miles) on paved roads. The Andaz is one of the closest resorts to LIR."
+        "a": "Between 30 and 40 minutes by private transfer, about 31 km on paved roads. The Andaz is one of the closest resorts to LIR."
     },
     {
         "q": "How much is a shuttle from LIR to the Andaz Costa Rica?",
-        "a": "A Ruta Pacifico private transfer is a fixed $105 per vehicle for up to 5 passengers, $130 for 6–9 and $170 for 10–12, taxes, flight tracking and child seats included."
+        "a": "A Ruta Pacifico private transfer is a fixed $105 per vehicle for up to 5 passengers, $130 for 6 to 9 and $170 for 10 to 12, with taxes, flight tracking and child seats included."
     },
     {
         "q": "Do I need to register my driver with the Andaz?",
-        "a": "Yes. The Peninsula Papagayo gate requires the driver’s name, ID and vehicle details to be on your hotel reservation. Ruta Pacifico sends them to the Andaz when you book."
+        "a": "Yes. The Peninsula Papagayo gate requires the driver''s name, ID and vehicle details to be on your hotel reservation. Ruta Pacifico sends them to the Andaz when you book."
     },
     {
         "q": "What is near the Andaz Papagayo?",
-        "a": "The Marina Papagayo (5 min), Playa Panamá and El Mangroove (10 min) and the town of Playas del Coco (20 min). There is no walkable town at the resort itself."
+        "a": "The Marina Papagayo is 5 minutes away, Playa Panamá and El Mangroove about 10, and the town of Playas del Coco about 20. There is no walkable town at the resort itself."
     }
 ]'::jsonb,
   $md$
-The Andaz is the Peninsula Papagayo hotel people pick when they want the setting without the total isolation. It is the first resort inside the gate, 30–40 minutes from Liberia Airport, and the one from which a dinner in Coco or at El Mangroove is a short hop. This guide covers the drive, the fare, the checkpoint and what is within reach once you are there.
+Of the three hotels on Peninsula Papagayo, the Andaz is the one people tend to pick when they like the setting but do not want to feel cut off. It is the first resort inside the gate, 30 to 40 minutes from Liberia Airport, and from there a dinner in Coco or at El Mangroove is a short drive rather than an expedition. This guide covers the transfer itself, the checkpoint, and what is within easy reach once you are settled in.
 
 ## Quick facts
 
 | | |
 | --- | --- |
-| **Distance from LIR** | 31 km (19 mi) |
-| **Real drive time** | 30–40 min, paved the whole way |
-| **Private transfer, 1–5 pax** | **$105** per vehicle, fixed |
-| **Private transfer, 6–9 pax** | $130 per vehicle |
-| **Private transfer, 10–12 pax** | $170 per vehicle |
-| **Included** | Taxes, tolls, flight tracking, child seats, one free stop for groceries |
-| **Gated access** | Yes — driver must be pre-registered |
+| Distance from LIR | 31 km (19 mi) |
+| Drive time | 30–40 min, paved the whole way |
+| Private transfer, 1–5 passengers | $105 per vehicle, fixed |
+| Private transfer, 6–9 passengers | $130 per vehicle |
+| Private transfer, 10–12 passengers | $170 per vehicle |
+| Included | Taxes, tolls, flight tracking, child seats, one stop for groceries |
+| Gated access | Yes, the driver has to be registered in advance |
 
-## Where the hotel actually is
+## Where the hotel is
 
-The **Andaz** is Hyatt’s design-forward resort on the calm, bay side of **Peninsula Papagayo**, a few minutes inside the gate and before the Four Seasons. It looks out over Culebra Bay, with two small beaches, low-rise rooms tucked into the dry forest and a more relaxed, younger feel than its neighbours. From Liberia Airport it is 31 km entirely on paved road: west along Route 21 to Guardia, the Coco road past Playa Panamá, and the peninsula entrance.
+The Andaz is Hyatt's resort on the calm, bay-facing side of Peninsula Papagayo, a few minutes past the security gate and before you reach the Four Seasons. It looks out over Culebra Bay, has two small beaches, and its low buildings are set back into the dry forest, which gives it a more relaxed feel than its neighbours. From Liberia Airport the distance is 31 km, all of it paved: west on Route 21 to Guardia, then the Coco road past Playa Panamá to the peninsula entrance.
 
-## The drive from Liberia Airport
+## The drive from the airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **30–40 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver waits at the arrivals exit holding a sign with your name. We track the flight, so if it lands early or late the driver is still there when you walk out, and you leave as soon as you have your bags rather than waiting for a van to fill. The road is paved from start to finish and you never go through Liberia town, since the airport sits west of the city and Route 21 heads straight for the coast. The range we give for the drive time comes from daytime traffic at the junctions along the way, nothing more. If you need to stop for groceries, cash or a pharmacy, tell the driver; the vehicle is yours for the trip.
 
-See live prices and book the [LIR → Andaz Papagayo transfer](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
+Live prices and booking are on the [LIR to Andaz Papagayo route page](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
 
-## At the gate: what security needs
+## What the security gate needs
 
-The Andaz is inside the **Peninsula Papagayo security gate**. The checkpoint expects the **driver’s full name, cédula number and vehicle plate** to be on file with the hotel before arrival; unregistered vehicles are held while the guard calls. Booking with Ruta Pacifico means those details go to the Andaz ahead of time and the gate simply waves you through.
+The Andaz is inside the Peninsula Papagayo security gate. The guards there check that the hotel has the driver's full name, cédula number and vehicle plate on file before they let anyone through, and a vehicle that is not registered waits at the barrier while they phone the hotel. When you book with us, those details go to the Andaz ahead of your arrival and the gate lets you straight in.
 
 ## What is around the Andaz Papagayo
 
-Like every resort on the peninsula, the Andaz has **no town nearby**. What it does have is the best position for getting out: the Marina Papagayo restaurants are 5 minutes away, **El Mangroove** and the Playa Panamá beach bars are 10 minutes, and **Playas del Coco**, the only real town in the zone, is 20 minutes. If you want to alternate resort nights with a casual dinner out, the Andaz is the easiest of the three peninsula hotels to do it from.
+Like the other peninsula resorts, the Andaz has no town nearby. What it does have is the best position for getting out in the evening. The Marina Papagayo and its restaurants are five minutes away, El Mangroove and the beach bars at Playa Panamá are ten, and Playas del Coco, the only proper town in the zone, is about twenty. If your idea of a good week mixes resort nights with a few casual dinners out, the Andaz makes that easier than the Four Seasons or Nekajui do.
 
-For the full picture of how Guanacaste’s hotel zones fit together — and which beaches have a town you can walk to — read our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+If you want to see how this hotel fits with the rest of the coast, and which beaches have a town you can walk to, our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) covers all of them.
 
-## Your options from LIR, honestly compared
+## Ways to get there from LIR
 
-| Option | Time to the hotel | Cost | The catch |
+| Option | Time to the hotel | Cost | Worth knowing |
 | --- | --- | --- | --- |
-| **Private transfer** | 30–40 min, direct | $105 fixed, 1–5 pax | None — driver pre-registered at the gate, flight tracked |
-| **Hotel car service** | Same drive | Premium rate via concierge | Usually the most expensive option |
-| **Rental car** | Same drive + pickup paperwork | $40–90/day + mandatory insurance + deposit | Only worth it if you will leave the resort daily |
-| **Shared shuttle** | 1.5–2.5 h, multiple stops | ~$25–35 per person | Does not enter the gated estate — drops at the nearest town |
-| **Airport taxi** | Same drive | $100–150, negotiated | Unregistered vehicle is held at the gate |
+| Private transfer | 30–40 min, direct | $105 fixed for 1–5 passengers | Driver registered at the gate, flight tracked |
+| Hotel car service | Same drive | Premium rate through the concierge | Usually the most expensive option |
+| Rental car | Same drive plus pickup paperwork | $40–90 a day plus mandatory insurance and a deposit | Only pays off if you leave the resort every day |
+| Shared shuttle | 1.5–2.5 h with stops | About $25–35 a person | Does not enter the gated estate and drops you at the nearest town |
+| Airport taxi | Same drive | $100–150, negotiated on the spot | An unregistered vehicle is held at the gate |
 
-For two people a private transfer costs about the same as a taxi and removes every unknown. For a family of four it is cheaper per person than a shared shuttle and takes less than half the time.
+For two people a private transfer costs about the same as a taxi and takes the guesswork out of the arrival. For a family of four it works out cheaper per person than a shared shuttle and takes less than half the time.
 
-## Tips from our drivers
+## A few things our drivers would tell you
 
-- **Same fare as the Four Seasons and Nekajui.** All three are on the Peninsula Papagayo route, so the private transfer is one fixed price.
-- **Playa Panamá for groceries.** There is a small supermarket in Playa Panamá village just before the gate; the Automercado in Playas del Coco is bigger and a short detour. Either stop is free on a private transfer.
-- **Combine with Rincón de la Vieja.** The volcano park is 1 h 15 from the Andaz; a private round trip with waiting time is the easiest way to do it without a rental car.
+- The Andaz, the Four Seasons and Nekajui all sit on the Peninsula Papagayo route, so the private transfer to any of them is the same fixed price.
+- For groceries there is a small supermarket in Playa Panamá village just before the gate. The Automercado in Playas del Coco is bigger and only a short detour. Either stop is free on a private transfer.
+- Rincón de la Vieja is about an hour and a quarter from the Andaz. A private round trip with the driver waiting is the simplest way to do it if you have not rented a car.
 
-## Book the transfer
+## Booking
 
-From the Andaz, the rest of the gulf is minutes away. Start with the airport ride done right. Fixed price per vehicle, flight tracked, driver registered at the resort, child seats included. Book the [Liberia Airport → Andaz Papagayo private transfer](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste) online in two minutes, or message us on WhatsApp — a real person who drives this road answers.
+The [Liberia Airport to Andaz Papagayo private transfer](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste) can be booked online in a couple of minutes at a fixed price per vehicle, with the flight tracked, the driver registered at the resort and child seats included. If you would rather ask something first, write to us on WhatsApp and one of the drivers will answer.
 $md$
 )
 on conflict (slug) do update set
@@ -485,11 +485,11 @@ update public.blog_posts_ruta_pacifico set
   faqs_es = '[
     {
         "q": "¿Cuánto se tarda del Aeropuerto de Liberia al Andaz Papagayo?",
-        "a": "De 30 a 40 minutos en traslado privado, unos 31 km (19 millas) por carretera asfaltada. El Andaz es uno de los resorts más cercanos a LIR."
+        "a": "Entre 30 y 40 minutos en traslado privado, unos 31 km por carretera asfaltada. El Andaz es uno de los resorts más cercanos a LIR."
     },
     {
         "q": "¿Cuánto cuesta un shuttle de LIR al Andaz Costa Rica?",
-        "a": "Un traslado privado de Ruta Pacifico tiene precio fijo de $105 por vehículo para hasta 5 pasajeros, $130 para 6–9 y $170 para 10–12, con impuestos, seguimiento de vuelo y sillas para niños incluidos."
+        "a": "Un traslado privado de Ruta Pacifico tiene precio fijo de $105 por vehículo para hasta 5 pasajeros, $130 para 6 a 9 y $170 para 10 a 12, con impuestos, seguimiento de vuelo y sillas para niños incluidos."
     },
     {
         "q": "¿Tengo que registrar a mi chofer con el Andaz?",
@@ -497,65 +497,65 @@ update public.blog_posts_ruta_pacifico set
     },
     {
         "q": "¿Qué hay cerca del Andaz Papagayo?",
-        "a": "La Marina Papagayo (5 min), Playa Panamá y El Mangroove (10 min) y el pueblo de Playas del Coco (20 min). No hay pueblo caminable en el resort."
+        "a": "La Marina Papagayo está a 5 minutos, Playa Panamá y El Mangroove a unos 10, y el pueblo de Playas del Coco a unos 20. En el resort mismo no hay pueblo caminable."
     }
 ]'::jsonb,
   content_md_es = $es$
-El Andaz es el hotel de Península Papagayo que la gente elige cuando quiere el entorno sin el aislamiento total. Es el primer resort dentro del portón, a 30–40 minutos del Aeropuerto de Liberia, y desde el que una cena en el Coco o en El Mangroove es un salto corto. Esta guía cubre el trayecto, la tarifa, el puesto de control y qué queda a tu alcance una vez allí.
+De los tres hoteles de Península Papagayo, el Andaz es el que la gente suele elegir cuando le gusta el entorno pero no quiere sentirse aislada. Es el primer resort dentro del portón, a 30 o 40 minutos del Aeropuerto de Liberia, y desde ahí una cena en el Coco o en El Mangroove es un viaje corto y no una expedición. Esta guía cubre el traslado en sí, el puesto de control y qué queda a mano una vez instalado.
 
 ## Datos rápidos
 
 | | |
 | --- | --- |
-| **Distancia desde LIR** | 31 km (19 mi) |
-| **Tiempo real de viaje** | 30–40 min, asfaltado todo el camino |
-| **Traslado privado, 1–5 pax** | **$105** por vehículo, fijo |
-| **Traslado privado, 6–9 pax** | $130 por vehículo |
-| **Traslado privado, 10–12 pax** | $170 por vehículo |
-| **Incluye** | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada gratis para víveres |
-| **Acceso con portón** | Sí: el chofer debe estar registrado de antemano |
+| Distancia desde LIR | 31 km (19 mi) |
+| Tiempo de viaje | 30–40 min, asfaltado todo el camino |
+| Traslado privado, 1–5 pasajeros | $105 por vehículo, fijo |
+| Traslado privado, 6–9 pasajeros | $130 por vehículo |
+| Traslado privado, 10–12 pasajeros | $170 por vehículo |
+| Incluye | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada para víveres |
+| Acceso con portón | Sí, el chofer debe estar registrado de antemano |
 
-## Dónde queda realmente el hotel
+## Dónde queda el hotel
 
-El **Andaz** es el resort de diseño de Hyatt del lado calmo de la bahía en **Península Papagayo**, a pocos minutos dentro del portón y antes del Four Seasons. Mira hacia Bahía Culebra, con dos playas pequeñas, habitaciones bajas escondidas en el bosque seco y un ambiente más relajado y joven que sus vecinos. Desde el Aeropuerto de Liberia son 31 km todo por asfalto: Ruta 21 hacia el oeste hasta Guardia, la carretera del Coco pasando Playa Panamá y la entrada de la península.
+El Andaz es el resort de Hyatt del lado calmo de la bahía en Península Papagayo, unos minutos después del portón de seguridad y antes de llegar al Four Seasons. Da a Bahía Culebra, tiene dos playas pequeñas y sus edificios bajos están metidos en el bosque seco, lo que le da un ambiente más relajado que el de sus vecinos. Desde el Aeropuerto de Liberia son 31 km, todo asfaltado: hacia el oeste por la Ruta 21 hasta Guardia, y luego la carretera del Coco pasando Playa Panamá hasta la entrada de la península.
 
-## El viaje desde el Aeropuerto de Liberia
+## El viaje desde el aeropuerto
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **30–40 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer espera a la salida de llegadas con un rótulo con tu nombre. Monitoreamos el vuelo, así que si aterriza antes o después el chofer sigue ahí cuando sales, y te vas en cuanto tienes las maletas en vez de esperar a que se llene una van. La carretera es asfaltada de principio a fin y nunca pasas por Liberia centro, porque el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. El rango que damos para el tiempo de viaje viene del tráfico de día en los cruces del camino, nada más. Si necesitas parar por víveres, efectivo o una farmacia, díselo al chofer; el vehículo es tuyo durante el viaje.
 
-Mira los precios actualizados y reserva el [traslado LIR → Andaz Papagayo](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
+Los precios actualizados y la reserva están en la [página de la ruta LIR a Andaz Papagayo](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
 
-## En el portón: qué necesita la seguridad
+## Qué necesita el portón de seguridad
 
-El Andaz está dentro del **portón de seguridad de Península Papagayo**. El puesto espera que el **nombre completo del chofer, su número de cédula y la placa del vehículo** estén registrados en el hotel antes de la llegada; los vehículos no registrados quedan retenidos mientras el guarda llama. Reservar con Ruta Pacifico significa que esos datos llegan al Andaz con anticipación y en el portón simplemente te dejan pasar.
+El Andaz está dentro del portón de seguridad de Península Papagayo. Los guardas verifican que el hotel tenga registrado el nombre completo del chofer, su número de cédula y la placa del vehículo antes de dejar pasar a alguien, y un vehículo no registrado espera en la barrera mientras llaman al hotel. Cuando reservas con nosotros, esos datos llegan al Andaz antes de tu llegada y el portón te deja pasar directo.
 
 ## Qué hay alrededor del Andaz Papagayo
 
-Como todos los resorts de la península, el Andaz **no tiene pueblo cerca**. Lo que sí tiene es la mejor posición para salir: los restaurantes de la Marina Papagayo están a 5 minutos, **El Mangroove** y los bares de playa de Playa Panamá a 10, y **Playas del Coco**, el único pueblo real de la zona, a 20 minutos. Si quieres alternar noches de resort con una cena casual afuera, el Andaz es el más fácil de los tres hoteles de la península para hacerlo.
+Como los otros resorts de la península, el Andaz no tiene pueblo cerca. Lo que sí tiene es la mejor posición para salir por la noche. La Marina Papagayo y sus restaurantes quedan a cinco minutos, El Mangroove y los bares de playa de Playa Panamá a diez, y Playas del Coco, el único pueblo como tal de la zona, a unos veinte. Si tu idea de una buena semana mezcla noches de resort con algunas cenas casuales afuera, el Andaz lo hace más fácil que el Four Seasons o Nekajui.
 
-Para ver el panorama completo de cómo encajan las zonas hoteleras de Guanacaste, y qué playas tienen un pueblo al que puedes caminar, lee nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+Si quieres ver cómo encaja este hotel con el resto de la costa, y qué playas tienen un pueblo al que se puede caminar, nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) los cubre todos.
 
-## Tus opciones desde LIR, comparadas con honestidad
+## Formas de llegar desde LIR
 
-| Opción | Tiempo hasta el hotel | Costo | El detalle |
+| Opción | Tiempo hasta el hotel | Costo | Conviene saber |
 | --- | --- | --- | --- |
-| **Traslado privado** | 30–40 min, directo | $105 fijo, 1–5 pax | Ninguno: chofer registrado en el portón, vuelo monitoreado |
-| **Servicio de carro del hotel** | El mismo trayecto | Tarifa premium vía concierge | Suele ser la opción más cara |
-| **Carro de alquiler** | El mismo trayecto + trámites de entrega | $40–90/día + seguro obligatorio + depósito | Solo vale la pena si vas a salir del resort a diario |
-| **Shuttle compartido** | 1,5–2,5 h, varias paradas | ~$25–35 por persona | No entra a la finca privada: te deja en el pueblo más cercano |
-| **Taxi del aeropuerto** | El mismo trayecto | $100–150, negociado | El vehículo no registrado queda retenido en el portón |
+| Traslado privado | 30–40 min, directo | $105 fijo para 1–5 pasajeros | Chofer registrado en el portón, vuelo monitoreado |
+| Servicio de carro del hotel | El mismo trayecto | Tarifa premium a través del concierge | Suele ser la opción más cara |
+| Carro de alquiler | El mismo trayecto más trámites de entrega | $40–90 al día más seguro obligatorio y depósito | Solo compensa si sales del resort todos los días |
+| Shuttle compartido | 1,5–2,5 h con paradas | Unos $25–35 por persona | No entra a la finca privada y te deja en el pueblo más cercano |
+| Taxi del aeropuerto | El mismo trayecto | $100–150, negociado en el momento | Un vehículo no registrado queda retenido en el portón |
 
-Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y elimina todas las incógnitas. Para una familia de cuatro es más barato por persona que un shuttle compartido y tarda menos de la mitad.
+Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y le quita la incertidumbre a la llegada. Para una familia de cuatro sale más barato por persona que un shuttle compartido y tarda menos de la mitad.
 
-## Consejos de nuestros choferes
+## Algunas cosas que te dirían nuestros choferes
 
-- **Misma tarifa que el Four Seasons y Nekajui.** Los tres están en la ruta de Península Papagayo, así que el traslado privado tiene un solo precio fijo.
-- **Playa Panamá para víveres.** Hay un supermercado pequeño en el pueblo de Playa Panamá justo antes del portón; el Automercado de Playas del Coco es más grande y queda a un desvío corto. Cualquiera de las dos paradas es gratis en un traslado privado.
-- **Combínalo con Rincón de la Vieja.** El parque del volcán está a 1 h 15 del Andaz; un viaje privado de ida y vuelta con tiempo de espera es la forma más fácil de hacerlo sin carro de alquiler.
+- El Andaz, el Four Seasons y Nekajui están en la ruta de Península Papagayo, así que el traslado privado a cualquiera de los tres tiene el mismo precio fijo.
+- Para víveres hay un supermercado pequeño en el pueblo de Playa Panamá justo antes del portón. El Automercado de Playas del Coco es más grande y queda a un desvío corto. Cualquiera de las dos paradas es gratis en un traslado privado.
+- Rincón de la Vieja está a una hora y cuarto del Andaz. Un viaje privado de ida y vuelta con el chofer esperando es la forma más sencilla de hacerlo si no alquilaste carro.
 
-## Reserva el traslado
+## Reserva
 
-Desde el Andaz, el resto del golfo está a minutos. Empieza con el viaje del aeropuerto bien hecho. Precio fijo por vehículo, vuelo monitoreado, chofer registrado en el resort, sillas para niños incluidas. Reserva el [traslado privado Aeropuerto de Liberia → Andaz Papagayo](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste) en línea en dos minutos, o escríbenos por WhatsApp: responde una persona real que maneja esta carretera.
+El [traslado privado del Aeropuerto de Liberia al Andaz Papagayo](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste) se reserva en línea en un par de minutos a precio fijo por vehículo, con el vuelo monitoreado, el chofer registrado en el resort y las sillas para niños incluidas. Si prefieres preguntar algo primero, escríbenos por WhatsApp y te contesta uno de los choferes.
 $es$
 where slug = 'liberia-airport-to-andaz-papagayo';
 
@@ -578,15 +578,15 @@ values
   '[
     {
         "q": "How far is Secrets Papagayo from Liberia Airport?",
-        "a": "About 28 km (17 miles), a 30 to 35 minute drive on paved roads. It is on the mainland shore of the Gulf of Papagayo, outside the Peninsula Papagayo gate."
+        "a": "About 28 km, a drive of 30 to 35 minutes on paved roads. It is on the mainland side of the Gulf of Papagayo, outside the Peninsula Papagayo gate."
     },
     {
         "q": "How much is a private transfer from LIR to Secrets Papagayo?",
-        "a": "Ruta Pacifico charges a fixed $105 per vehicle for 1–5 passengers, $130 for 6–9 and $170 for 10–12, with taxes and flight tracking included."
+        "a": "Ruta Pacifico charges a fixed $105 per vehicle for 1 to 5 passengers, $130 for 6 to 9 and $170 for 10 to 12, with taxes and flight tracking included."
     },
     {
         "q": "Is Secrets Papagayo inside the Peninsula Papagayo security gate?",
-        "a": "No. Secrets is on Playa Arenilla, before the peninsula turn-off, with its own simple entrance gate. Arrival is faster than at the Four Seasons, Andaz or Nekajui."
+        "a": "No. Secrets is on Playa Arenilla, before the peninsula turn-off, and has its own simple entrance gate. Arrival is quicker than at the Four Seasons, the Andaz or Nekajui."
     },
     {
         "q": "Is there a town near Secrets Papagayo?",
@@ -594,61 +594,61 @@ values
     }
 ]'::jsonb,
   $md$
-Secrets Papagayo is the honeymoon hotel of Zone 1, and the easiest of the Papagayo resorts to reach: 28 km from Liberia Airport, all paved, no community checkpoint. Couples usually arrive on a late flight and want to be at the swim-up bar within the hour. Here is how to make that happen, what it costs, and what is around when you feel like leaving the all-inclusive.
+Secrets Papagayo is the honeymoon hotel of this part of the coast, and it is also the easiest of the Papagayo resorts to reach from the airport. It is 28 km from LIR on paved road, and because it sits outside the peninsula there is no community checkpoint to deal with. Most couples we drive there arrive on an evening flight and want to be at the pool bar within the hour, which is realistic. Below is what the ride involves, what it costs, and what is nearby when you feel like leaving the all-inclusive for a few hours.
 
 ## Quick facts
 
 | | |
 | --- | --- |
-| **Distance from LIR** | 28 km (17 mi) |
-| **Real drive time** | 30–35 min, paved the whole way |
-| **Private transfer, 1–5 pax** | **$105** per vehicle, fixed |
-| **Private transfer, 6–9 pax** | $130 per vehicle |
-| **Private transfer, 10–12 pax** | $170 per vehicle |
-| **Included** | Taxes, tolls, flight tracking, child seats, one free stop for groceries |
-| **Gated access** | No community checkpoint |
+| Distance from LIR | 28 km (17 mi) |
+| Drive time | 30–35 min, paved the whole way |
+| Private transfer, 1–5 passengers | $105 per vehicle, fixed |
+| Private transfer, 6–9 passengers | $130 per vehicle |
+| Private transfer, 10–12 passengers | $170 per vehicle |
+| Included | Taxes, tolls, flight tracking, child seats, one stop for groceries |
+| Gated access | No community checkpoint |
 
-## Where the hotel actually is
+## Where the hotel is
 
-**Secrets Papagayo** is an adults-only all-inclusive on Playa Arenilla, on the mainland shore of the Gulf of Papagayo, just before the turn to Playa Panamá and the peninsula. It is **not** inside the Peninsula Papagayo gate, which makes the arrival simpler: 28 km from Liberia Airport, all paved, west along Route 21 to Guardia then the Coco road toward Playa Panamá, and the resort entrance is right off the coastal road. The beach is calm, gulf-facing water, and the resort is the most popular honeymoon address in Zone 1.
+Secrets Papagayo is an adults-only all-inclusive on Playa Arenilla, on the mainland side of the Gulf of Papagayo, just before the turn toward Playa Panamá and the peninsula. It is not inside the Peninsula Papagayo gate, which makes the arrival simpler than at the Four Seasons or the Andaz. From Liberia Airport you drive west on Route 21 to Guardia, then take the Coco road toward Playa Panamá, and the resort entrance is directly off the coastal road. The beach faces the calm water of the gulf.
 
-## The drive from Liberia Airport
+## The drive from the airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **30–35 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver waits at the arrivals exit holding a sign with your name. We track the flight, so if it lands early or late the driver is still there when you walk out, and you leave as soon as you have your bags rather than waiting for a van to fill. The road is paved from start to finish and you never go through Liberia town, since the airport sits west of the city and Route 21 heads straight for the coast. The range we give for the drive time comes from daytime traffic at the junctions along the way, nothing more. If you need to stop for groceries, cash or a pharmacy, tell the driver; the vehicle is yours for the trip.
 
-See live prices and book the [LIR → Secrets Papagayo transfer](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
+Live prices and booking are on the [LIR to Secrets Papagayo route page](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
 
-## Arrival at the hotel
+## Arriving at the hotel
 
-Secrets has its own entrance gate but no community checkpoint, so arrival is quick: the guard checks the guest name and lets the vehicle through to the lobby. We still send your driver’s name and vehicle details to the resort when you book, which is what the front desk prefers for late-night arrivals.
+Secrets has its own entrance gate but nothing like the peninsula checkpoint. The guard asks for the guest name, confirms it, and lets the vehicle through to the lobby. We still send the resort your driver's name and vehicle details when you book, because the front desk prefers to know who is bringing guests in late at night.
 
 ## What is around the Secrets Papagayo
 
-Secrets is all-inclusive and most guests never leave, but if you want to, you are better placed than the peninsula resorts. **Playa Panamá** with its beach bars is 5 minutes away, **Playa Hermosa** 10 minutes, and **Playas del Coco** — the only real town in the zone, with restaurants, bars and a supermarket — about 15 minutes by car. There is nothing to walk to from the resort itself.
+Most people at Secrets never leave the property, since everything is included. If you do want to, you are better placed than guests on the peninsula. Playa Panamá and its beach bars are five minutes away, Playa Hermosa is ten, and Playas del Coco, with its restaurants, bars and supermarket, is about fifteen by car. There is nothing within walking distance of the resort itself.
 
-For the full picture of how Guanacaste’s hotel zones fit together — and which beaches have a town you can walk to — read our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+If you want to see how this hotel fits with the rest of the coast, and which beaches have a town you can walk to, our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) covers all of them.
 
-## Your options from LIR, honestly compared
+## Ways to get there from LIR
 
-| Option | Time to the hotel | Cost | The catch |
+| Option | Time to the hotel | Cost | Worth knowing |
 | --- | --- | --- | --- |
-| **Private transfer** | 30–35 min, direct | $105 fixed, 1–5 pax | None — driver pre-registered at the gate, flight tracked |
-| **Hotel car service** | Same drive | Premium rate via concierge | Usually the most expensive option |
-| **Rental car** | Same drive + pickup paperwork | $40–90/day + mandatory insurance + deposit | Only worth it if you will leave the resort daily |
-| **Shared shuttle** | 1.5–2.5 h, multiple stops | ~$25–35 per person | Waits for other flights; slow with kids |
-| **Airport taxi** | Same drive | $100–150, negotiated | No flight tracking, cash, no child seats |
+| Private transfer | 30–35 min, direct | $105 fixed for 1–5 passengers | Driver registered at the gate, flight tracked |
+| Hotel car service | Same drive | Premium rate through the concierge | Usually the most expensive option |
+| Rental car | Same drive plus pickup paperwork | $40–90 a day plus mandatory insurance and a deposit | Only pays off if you leave the resort every day |
+| Shared shuttle | 1.5–2.5 h with stops | About $25–35 a person | Waits for other flights, which is slow with children |
+| Airport taxi | Same drive | $100–150, negotiated on the spot | No flight tracking, cash only, no child seats |
 
-For two people a private transfer costs about the same as a taxi and removes every unknown. For a family of four it is cheaper per person than a shared shuttle and takes less than half the time.
+For two people a private transfer costs about the same as a taxi and takes the guesswork out of the arrival. For a family of four it works out cheaper per person than a shared shuttle and takes less than half the time.
 
-## Tips from our drivers
+## A few things our drivers would tell you
 
-- **The transfer is the Papagayo fare.** Secrets is on the same route as the peninsula hotels, so it is the same fixed $105 for up to 5 passengers.
-- **Adults-only means no child seats needed, but couples travel light.** A private transfer still beats a shared van: you leave the airport when you land, not when the van fills.
-- **Pair it with a Coco sunset.** Book a private round trip to Playas del Coco one evening for a dinner outside the all-inclusive; 15 minutes each way.
+- Secrets is on the same route as the peninsula hotels, so the private transfer is the same $105 for up to five passengers.
+- Couples travelling light sometimes consider a shared van. The difference is that a private transfer leaves when you land, while the shared van waits until it fills up.
+- If you want one dinner outside the all-inclusive, a private round trip to Playas del Coco in the evening is fifteen minutes each way and easy to arrange.
 
-## Book the transfer
+## Booking
 
-Half an hour from the arrivals door to the pool. That is the whole trip. Fixed price per vehicle, flight tracked, driver registered at the resort, child seats included. Book the [Liberia Airport → Secrets Papagayo private transfer](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste) online in two minutes, or message us on WhatsApp — a real person who drives this road answers.
+The [Liberia Airport to Secrets Papagayo private transfer](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste) can be booked online in a couple of minutes at a fixed price per vehicle, with the flight tracked, the driver registered at the resort and child seats included. If you would rather ask something first, write to us on WhatsApp and one of the drivers will answer.
 $md$
 )
 on conflict (slug) do update set
@@ -669,15 +669,15 @@ update public.blog_posts_ruta_pacifico set
   faqs_es = '[
     {
         "q": "¿A qué distancia está Secrets Papagayo del Aeropuerto de Liberia?",
-        "a": "A unos 28 km (17 millas), un viaje de 30 a 35 minutos por carretera asfaltada. Está en la orilla continental del Golfo de Papagayo, fuera del portón de Península Papagayo."
+        "a": "A unos 28 km, un viaje de 30 a 35 minutos por carretera asfaltada. Está del lado continental del Golfo de Papagayo, fuera del portón de Península Papagayo."
     },
     {
         "q": "¿Cuánto cuesta un traslado privado de LIR a Secrets Papagayo?",
-        "a": "Ruta Pacifico cobra una tarifa fija de $105 por vehículo para 1–5 pasajeros, $130 para 6–9 y $170 para 10–12, con impuestos y seguimiento de vuelo incluidos."
+        "a": "Ruta Pacifico cobra una tarifa fija de $105 por vehículo para 1 a 5 pasajeros, $130 para 6 a 9 y $170 para 10 a 12, con impuestos y seguimiento de vuelo incluidos."
     },
     {
         "q": "¿Secrets Papagayo está dentro del portón de seguridad de Península Papagayo?",
-        "a": "No. Secrets está en Playa Arenilla, antes del desvío a la península, con su propio portón de entrada sencillo. La llegada es más rápida que en el Four Seasons, el Andaz o Nekajui."
+        "a": "No. Secrets está en Playa Arenilla, antes del desvío a la península, y tiene su propio portón de entrada sencillo. La llegada es más rápida que en el Four Seasons, el Andaz o Nekajui."
     },
     {
         "q": "¿Hay algún pueblo cerca de Secrets Papagayo?",
@@ -685,61 +685,61 @@ update public.blog_posts_ruta_pacifico set
     }
 ]'::jsonb,
   content_md_es = $es$
-Secrets Papagayo es el hotel de luna de miel de la Zona 1, y el más fácil de alcanzar de los resorts de Papagayo: 28 km desde el Aeropuerto de Liberia, todo asfaltado, sin puesto de control comunitario. Las parejas suelen llegar en un vuelo tarde y quieren estar en el bar de la piscina en menos de una hora. Aquí está cómo lograrlo, cuánto cuesta y qué hay alrededor cuando te den ganas de salir del todo incluido.
+Secrets Papagayo es el hotel de luna de miel de esta parte de la costa, y también el más fácil de alcanzar desde el aeropuerto de los resorts de Papagayo. Está a 28 km de LIR por asfalto, y como queda fuera de la península no hay puesto de control comunitario de por medio. La mayoría de parejas que llevamos llega en vuelo de la tarde y quiere estar en el bar de la piscina en menos de una hora, y es realista. Abajo va en qué consiste el viaje, cuánto cuesta y qué hay cerca cuando te den ganas de salir del todo incluido unas horas.
 
 ## Datos rápidos
 
 | | |
 | --- | --- |
-| **Distancia desde LIR** | 28 km (17 mi) |
-| **Tiempo real de viaje** | 30–35 min, asfaltado todo el camino |
-| **Traslado privado, 1–5 pax** | **$105** por vehículo, fijo |
-| **Traslado privado, 6–9 pax** | $130 por vehículo |
-| **Traslado privado, 10–12 pax** | $170 por vehículo |
-| **Incluye** | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada gratis para víveres |
-| **Acceso con portón** | Sin puesto de control comunitario |
+| Distancia desde LIR | 28 km (17 mi) |
+| Tiempo de viaje | 30–35 min, asfaltado todo el camino |
+| Traslado privado, 1–5 pasajeros | $105 por vehículo, fijo |
+| Traslado privado, 6–9 pasajeros | $130 por vehículo |
+| Traslado privado, 10–12 pasajeros | $170 por vehículo |
+| Incluye | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada para víveres |
+| Acceso con portón | Sin puesto de control comunitario |
 
-## Dónde queda realmente el hotel
+## Dónde queda el hotel
 
-**Secrets Papagayo** es un todo incluido solo para adultos en Playa Arenilla, en la orilla continental del Golfo de Papagayo, justo antes del desvío a Playa Panamá y la península. **No** está dentro del portón de Península Papagayo, lo que hace la llegada más sencilla: 28 km desde el Aeropuerto de Liberia, todo asfaltado, Ruta 21 hacia el oeste hasta Guardia y luego la carretera del Coco rumbo a Playa Panamá, con la entrada del resort justo sobre la carretera costera. La playa es de aguas calmas del golfo, y el resort es la dirección de luna de miel más popular de la Zona 1.
+Secrets Papagayo es un todo incluido solo para adultos en Playa Arenilla, del lado continental del Golfo de Papagayo, justo antes del desvío hacia Playa Panamá y la península. No está dentro del portón de Península Papagayo, lo que hace la llegada más sencilla que en el Four Seasons o el Andaz. Desde el Aeropuerto de Liberia se maneja hacia el oeste por la Ruta 21 hasta Guardia, luego se toma la carretera del Coco rumbo a Playa Panamá, y la entrada del resort está directamente sobre la carretera costera. La playa da a las aguas calmas del golfo.
 
-## El viaje desde el Aeropuerto de Liberia
+## El viaje desde el aeropuerto
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **30–35 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer espera a la salida de llegadas con un rótulo con tu nombre. Monitoreamos el vuelo, así que si aterriza antes o después el chofer sigue ahí cuando sales, y te vas en cuanto tienes las maletas en vez de esperar a que se llene una van. La carretera es asfaltada de principio a fin y nunca pasas por Liberia centro, porque el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. El rango que damos para el tiempo de viaje viene del tráfico de día en los cruces del camino, nada más. Si necesitas parar por víveres, efectivo o una farmacia, díselo al chofer; el vehículo es tuyo durante el viaje.
 
-Mira los precios actualizados y reserva el [traslado LIR → Secrets Papagayo](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
+Los precios actualizados y la reserva están en la [página de la ruta LIR a Secrets Papagayo](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste).
 
-## Llegada al hotel
+## La llegada al hotel
 
-Secrets tiene su propio portón de entrada pero no un puesto de control comunitario, así que la llegada es rápida: el guarda verifica el nombre del huésped y deja pasar el vehículo hasta el lobby. Igual enviamos el nombre del chofer y los datos del vehículo al resort al reservar, que es lo que recepción prefiere para llegadas de madrugada.
+Secrets tiene su propio portón de entrada, pero nada parecido al puesto de la península. El guarda pide el nombre del huésped, lo confirma y deja pasar el vehículo hasta el lobby. Igual enviamos al resort el nombre del chofer y los datos del vehículo al reservar, porque recepción prefiere saber quién trae huéspedes de madrugada.
 
 ## Qué hay alrededor del Secrets Papagayo
 
-Secrets es todo incluido y la mayoría de huéspedes nunca sale, pero si quieres hacerlo estás mejor ubicado que en los resorts de la península. **Playa Panamá** con sus bares de playa está a 5 minutos, **Playa Hermosa** a 10, y **Playas del Coco**, el único pueblo real de la zona, con restaurantes, bares y supermercado, a unos 15 minutos en carro. Desde el resort en sí no hay adónde caminar.
+La mayoría de la gente en Secrets nunca sale de la propiedad, porque todo está incluido. Si quieres hacerlo, estás mejor ubicado que los huéspedes de la península. Playa Panamá y sus bares de playa quedan a cinco minutos, Playa Hermosa a diez, y Playas del Coco, con sus restaurantes, bares y supermercado, a unos quince en carro. A pie desde el resort no hay nada.
 
-Para ver el panorama completo de cómo encajan las zonas hoteleras de Guanacaste, y qué playas tienen un pueblo al que puedes caminar, lee nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+Si quieres ver cómo encaja este hotel con el resto de la costa, y qué playas tienen un pueblo al que se puede caminar, nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) los cubre todos.
 
-## Tus opciones desde LIR, comparadas con honestidad
+## Formas de llegar desde LIR
 
-| Opción | Tiempo hasta el hotel | Costo | El detalle |
+| Opción | Tiempo hasta el hotel | Costo | Conviene saber |
 | --- | --- | --- | --- |
-| **Traslado privado** | 30–35 min, directo | $105 fijo, 1–5 pax | Ninguno: chofer registrado en el portón, vuelo monitoreado |
-| **Servicio de carro del hotel** | El mismo trayecto | Tarifa premium vía concierge | Suele ser la opción más cara |
-| **Carro de alquiler** | El mismo trayecto + trámites de entrega | $40–90/día + seguro obligatorio + depósito | Solo vale la pena si vas a salir del resort a diario |
-| **Shuttle compartido** | 1,5–2,5 h, varias paradas | ~$25–35 por persona | Espera otros vuelos; lento con niños |
-| **Taxi del aeropuerto** | El mismo trayecto | $100–150, negociado | Sin seguimiento de vuelo, en efectivo, sin sillas para niños |
+| Traslado privado | 30–35 min, directo | $105 fijo para 1–5 pasajeros | Chofer registrado en el portón, vuelo monitoreado |
+| Servicio de carro del hotel | El mismo trayecto | Tarifa premium a través del concierge | Suele ser la opción más cara |
+| Carro de alquiler | El mismo trayecto más trámites de entrega | $40–90 al día más seguro obligatorio y depósito | Solo compensa si sales del resort todos los días |
+| Shuttle compartido | 1,5–2,5 h con paradas | Unos $25–35 por persona | Espera otros vuelos, lo que es lento con niños |
+| Taxi del aeropuerto | El mismo trayecto | $100–150, negociado en el momento | Sin seguimiento de vuelo, solo efectivo, sin sillas para niños |
 
-Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y elimina todas las incógnitas. Para una familia de cuatro es más barato por persona que un shuttle compartido y tarda menos de la mitad.
+Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y le quita la incertidumbre a la llegada. Para una familia de cuatro sale más barato por persona que un shuttle compartido y tarda menos de la mitad.
 
-## Consejos de nuestros choferes
+## Algunas cosas que te dirían nuestros choferes
 
-- **El traslado tiene la tarifa de Papagayo.** Secrets está en la misma ruta que los hoteles de la península, así que son los mismos $105 fijos para hasta 5 pasajeros.
-- **Solo adultos significa sin sillas para niños, pero las parejas viajan ligero.** Un traslado privado igual le gana a una van compartida: sales del aeropuerto cuando aterrizas, no cuando la van se llena.
-- **Combínalo con un atardecer en el Coco.** Reserva un viaje privado de ida y vuelta a Playas del Coco una noche para cenar fuera del todo incluido; 15 minutos por trayecto.
+- Secrets está en la misma ruta que los hoteles de la península, así que el traslado privado son los mismos $105 para hasta cinco pasajeros.
+- Las parejas que viajan ligero a veces consideran una van compartida. La diferencia es que un traslado privado sale cuando aterrizas, mientras la van compartida espera hasta llenarse.
+- Si quieres una cena fuera del todo incluido, un viaje privado de ida y vuelta a Playas del Coco por la noche son quince minutos por trayecto y se organiza fácil.
 
-## Reserva el traslado
+## Reserva
 
-Media hora de la puerta de llegadas a la piscina. Ese es todo el viaje. Precio fijo por vehículo, vuelo monitoreado, chofer registrado en el resort, sillas para niños incluidas. Reserva el [traslado privado Aeropuerto de Liberia → Secrets Papagayo](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste) en línea en dos minutos, o escríbenos por WhatsApp: responde una persona real que maneja esta carretera.
+El [traslado privado del Aeropuerto de Liberia al Secrets Papagayo](/private-shuttle/lir-liberia-int-airport-to-papagayo-peninsula-guanacaste) se reserva en línea en un par de minutos a precio fijo por vehículo, con el vuelo monitoreado, el chofer registrado en el resort y las sillas para niños incluidas. Si prefieres preguntar algo primero, escríbenos por WhatsApp y te contesta uno de los choferes.
 $es$
 where slug = 'liberia-airport-to-secrets-papagayo';
 
@@ -762,77 +762,77 @@ values
   '[
     {
         "q": "How far is the Riu Guanacaste from Liberia Airport?",
-        "a": "About 33 km (20 miles), a 35 to 40 minute private transfer on paved roads via Sardinal. The Riu Palace is on the same beach, next door."
+        "a": "About 33 km, a private transfer of 35 to 40 minutes on paved roads via Sardinal. The Riu Palace is on the same beach, next door."
     },
     {
         "q": "How much is a private shuttle from LIR to the Riu?",
-        "a": "Ruta Pacifico charges a fixed $120 per vehicle for 1–5 passengers, $130 for 6–9 and $185 for 10–12, taxes, flight tracking and child seats included."
+        "a": "Ruta Pacifico charges a fixed $120 per vehicle for 1 to 5 passengers, $130 for 6 to 9 and $185 for 10 to 12, with taxes, flight tracking and child seats included."
     },
     {
         "q": "Is a private transfer better than the Riu package shuttle?",
-        "a": "The package bus waits for several flights and stops at multiple resorts, often taking 1.5 hours. A private transfer leaves when you land and takes 35 minutes; for four or more people it is usually cheaper per person."
+        "a": "The package bus waits for several flights and stops at multiple resorts, and often takes an hour and a half. A private transfer leaves when you land and takes 35 minutes. For four or more people it is usually cheaper per person as well."
     },
     {
         "q": "Is there anything to do outside the Riu resorts?",
-        "a": "Not on foot. Playa Matapalo has no town. Playas del Coco, 20 minutes by car, has restaurants, bars and shops, and is the usual night out for Riu guests."
+        "a": "Not on foot. Playa Matapalo has no town. Playas del Coco, 20 minutes by car, has restaurants, bars and shops and is where Riu guests usually go for a night out."
     }
 ]'::jsonb,
   $md$
-If you booked the Riu Guanacaste or the Riu Palace as a package, you were probably offered a shared airport shuttle. It works, but it waits for several flights and stops at every resort on the gulf before Matapalo. Most families we drive switched after one trip. This is what the direct ride looks like, what it costs, and what you will find outside the resort walls.
+If you booked the Riu Guanacaste or the Riu Palace as part of a package, you were probably offered a shared airport shuttle along with it. It works, but it waits for several flights to land and then stops at most of the resorts on the gulf before it reaches Matapalo, so a 35-minute trip can stretch past an hour and a half. Many of the families we drive to the Riu tried the shared bus once and switched. This page explains what the direct ride looks like, what it costs, and what there is to do once you are there.
 
 ## Quick facts
 
 | | |
 | --- | --- |
-| **Distance from LIR** | 33 km (20 mi) |
-| **Real drive time** | 35–40 min, paved the whole way |
-| **Private transfer, 1–5 pax** | **$120** per vehicle, fixed |
-| **Private transfer, 6–9 pax** | $130 per vehicle |
-| **Private transfer, 10–12 pax** | $185 per vehicle |
-| **Included** | Taxes, tolls, flight tracking, child seats, one free stop for groceries |
-| **Gated access** | No community checkpoint |
+| Distance from LIR | 33 km (20 mi) |
+| Drive time | 35–40 min, paved the whole way |
+| Private transfer, 1–5 passengers | $120 per vehicle, fixed |
+| Private transfer, 6–9 passengers | $130 per vehicle |
+| Private transfer, 10–12 passengers | $185 per vehicle |
+| Included | Taxes, tolls, flight tracking, child seats, one stop for groceries |
+| Gated access | No community checkpoint |
 
-## Where the hotel actually is
+## Where the hotel is
 
-The two Riu resorts — **Riu Guanacaste** and the newer, higher-end **Riu Palace Costa Rica** — sit side by side on **Playa Matapalo**, a long, wild Pacific beach north of Playas del Coco, reached through the town of Sardinal. They are the largest all-inclusives in Guanacaste and the go-to choice for Canadian and American package travellers. From Liberia Airport it is 33 km: west along Route 21 to Guardia, then the road through Sardinal and a final paved stretch down to the coast. Count on 35–40 minutes.
+The two Riu hotels stand side by side on Playa Matapalo, a long, undeveloped Pacific beach north-west of Playas del Coco that you reach through the town of Sardinal. The Riu Guanacaste is the older and larger of the two, and the Riu Palace is the newer, more upscale one. Together they are the biggest all-inclusive complex in Guanacaste and the usual choice for package travellers from Canada and the United States. From Liberia Airport it is 33 km: west on Route 21 to Guardia, then the road through Sardinal and a final paved stretch down to the coast. Allow 35 to 40 minutes.
 
-## The drive from Liberia Airport
+## The drive from the airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **35–40 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver waits at the arrivals exit holding a sign with your name. We track the flight, so if it lands early or late the driver is still there when you walk out, and you leave as soon as you have your bags rather than waiting for a van to fill. The road is paved from start to finish and you never go through Liberia town, since the airport sits west of the city and Route 21 heads straight for the coast. The range we give for the drive time comes from daytime traffic at the junctions along the way, nothing more. If you need to stop for groceries, cash or a pharmacy, tell the driver; the vehicle is yours for the trip.
 
-See live prices and book the [LIR → Riu Guanacaste & Riu Palace transfer](/private-shuttle/lir-liberia-int-airport-to-riu-guanacaste-hotel-riu-palace-hotel-guanacaste).
+Live prices and booking are on the [LIR to Riu Guanacaste & Riu Palace route page](/private-shuttle/lir-liberia-int-airport-to-riu-guanacaste-hotel-riu-palace-hotel-guanacaste).
 
-## Arrival at the hotel
+## Arriving at the hotel
 
-The Riu complex has a single entrance gate shared by both hotels; the guard checks the guest name and directs the vehicle to the right lobby. No community checkpoint and no pre-registration required, though we send your driver’s details to the hotel anyway so late arrivals go smoothly.
+The Riu complex has one entrance gate shared by both hotels. The guard asks for the guest name and points the vehicle toward the right lobby. There is no community checkpoint and no need to register in advance, although we pass your driver's details to the hotel anyway so that a late arrival goes smoothly.
 
 ## What is around the Riu Guanacaste & Riu Palace
 
-Playa Matapalo is beautiful and empty: **there is no town, shop or restaurant outside the resorts.** Sardinal, 10 minutes inland, is a working Costa Rican town with a supermarket and sodas but not a tourist stop. For a night out, **Playas del Coco** is 20 minutes by car and has the restaurants, bars and the public beach that most Riu guests visit at least once. Package tours pick up at the lobby, so most guests never need a car.
+Playa Matapalo is a beautiful beach with nothing on it apart from the two hotels. There is no town, no shop and no restaurant outside the resorts. Sardinal, ten minutes inland, is a working Costa Rican town with a supermarket and a few sodas, but it is not somewhere tourists go for an evening. For a night out, Playas del Coco is twenty minutes by car and has the restaurants, bars and public beach that most Riu guests visit at least once during their stay. Tour buses collect guests at the lobby, so few people here need a car.
 
-For the full picture of how Guanacaste’s hotel zones fit together — and which beaches have a town you can walk to — read our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+If you want to see how this hotel fits with the rest of the coast, and which beaches have a town you can walk to, our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) covers all of them.
 
-## Your options from LIR, honestly compared
+## Ways to get there from LIR
 
-| Option | Time to the hotel | Cost | The catch |
+| Option | Time to the hotel | Cost | Worth knowing |
 | --- | --- | --- | --- |
-| **Private transfer** | 35–40 min, direct | $120 fixed, 1–5 pax | None — driver pre-registered at the gate, flight tracked |
-| **Hotel car service** | Same drive | Premium rate via concierge | Usually the most expensive option |
-| **Rental car** | Same drive + pickup paperwork | $40–90/day + mandatory insurance + deposit | Only worth it if you will leave the resort daily |
-| **Shared shuttle** | 1.5–2.5 h, multiple stops | ~$25–35 per person | Waits for other flights; slow with kids |
-| **Airport taxi** | Same drive | $100–150, negotiated | No flight tracking, cash, no child seats |
+| Private transfer | 35–40 min, direct | $120 fixed for 1–5 passengers | Driver registered at the gate, flight tracked |
+| Hotel car service | Same drive | Premium rate through the concierge | Usually the most expensive option |
+| Rental car | Same drive plus pickup paperwork | $40–90 a day plus mandatory insurance and a deposit | Only pays off if you leave the resort every day |
+| Shared shuttle | 1.5–2.5 h with stops | About $25–35 a person | Waits for other flights, which is slow with children |
+| Airport taxi | Same drive | $100–150, negotiated on the spot | No flight tracking, cash only, no child seats |
 
-For two people a private transfer costs about the same as a taxi and removes every unknown. For a family of four it is cheaper per person than a shared shuttle and takes less than half the time.
+For two people a private transfer costs about the same as a taxi and takes the guesswork out of the arrival. For a family of four it works out cheaper per person than a shared shuttle and takes less than half the time.
 
-## Tips from our drivers
+## A few things our drivers would tell you
 
-- **Skip the shared package bus.** Tour-operator transfers stop at every resort on the gulf and can take 1.5 hours; a private transfer is 35 minutes and costs less per person for a family of four.
-- **Say which Riu.** The two lobbies are 500 m apart; tell us whether you are at Riu Guanacaste or Riu Palace so the driver goes to the right door.
-- **Sunscreen and snacks from Sardinal.** Resort shop prices are high; a free supermarket stop on the way saves real money for a week.
+- For a family of four, a private transfer usually costs less per person than the tour-operator shuttle and takes a fraction of the time.
+- Tell us which Riu you are staying at. The two lobbies are about 500 metres apart and it saves the driver circling the complex.
+- The resort shops charge a lot for sunscreen and snacks. A stop at the supermarket in Sardinal on the way in costs nothing and saves money over a week.
 
-## Book the transfer
+## Booking
 
-Thirty-five minutes, straight to your lobby, with the car seats already installed. That is the Riu transfer done properly. Fixed price per vehicle, flight tracked, driver registered at the resort, child seats included. Book the [Liberia Airport → Riu Guanacaste & Riu Palace private transfer](/private-shuttle/lir-liberia-int-airport-to-riu-guanacaste-hotel-riu-palace-hotel-guanacaste) online in two minutes, or message us on WhatsApp — a real person who drives this road answers.
+The [Liberia Airport to Riu Guanacaste & Riu Palace private transfer](/private-shuttle/lir-liberia-int-airport-to-riu-guanacaste-hotel-riu-palace-hotel-guanacaste) can be booked online in a couple of minutes at a fixed price per vehicle, with the flight tracked, the driver registered at the resort and child seats included. If you would rather ask something first, write to us on WhatsApp and one of the drivers will answer.
 $md$
 )
 on conflict (slug) do update set
@@ -853,77 +853,77 @@ update public.blog_posts_ruta_pacifico set
   faqs_es = '[
     {
         "q": "¿A qué distancia está el Riu Guanacaste del Aeropuerto de Liberia?",
-        "a": "A unos 33 km (20 millas), un traslado privado de 35 a 40 minutos por carretera asfaltada vía Sardinal. El Riu Palace está en la misma playa, al lado."
+        "a": "A unos 33 km, un traslado privado de 35 a 40 minutos por carretera asfaltada vía Sardinal. El Riu Palace está en la misma playa, al lado."
     },
     {
         "q": "¿Cuánto cuesta un shuttle privado de LIR al Riu?",
-        "a": "Ruta Pacifico cobra una tarifa fija de $120 por vehículo para 1–5 pasajeros, $130 para 6–9 y $185 para 10–12, con impuestos, seguimiento de vuelo y sillas para niños incluidos."
+        "a": "Ruta Pacifico cobra una tarifa fija de $120 por vehículo para 1 a 5 pasajeros, $130 para 6 a 9 y $185 para 10 a 12, con impuestos, seguimiento de vuelo y sillas para niños incluidos."
     },
     {
         "q": "¿Es mejor un traslado privado que el shuttle del paquete del Riu?",
-        "a": "El bus del paquete espera varios vuelos y para en varios resorts, y suele tardar 1,5 horas. Un traslado privado sale cuando aterrizas y tarda 35 minutos; para cuatro o más personas suele ser más barato por persona."
+        "a": "El bus del paquete espera varios vuelos y para en varios resorts, y suele tardar hora y media. Un traslado privado sale cuando aterrizas y tarda 35 minutos. Para cuatro o más personas suele ser más barato por persona también."
     },
     {
         "q": "¿Hay algo que hacer fuera de los resorts Riu?",
-        "a": "No a pie. Playa Matapalo no tiene pueblo. Playas del Coco, a 20 minutos en carro, tiene restaurantes, bares y comercios, y es la salida nocturna habitual de los huéspedes del Riu."
+        "a": "No a pie. Playa Matapalo no tiene pueblo. Playas del Coco, a 20 minutos en carro, tiene restaurantes, bares y comercios y es adonde suelen ir los huéspedes del Riu para salir de noche."
     }
 ]'::jsonb,
   content_md_es = $es$
-Si reservaste el Riu Guanacaste o el Riu Palace como paquete, seguramente te ofrecieron un shuttle compartido del aeropuerto. Funciona, pero espera varios vuelos y para en todos los resorts del golfo antes de Matapalo. La mayoría de familias que llevamos cambió después de un viaje. Así es el trayecto directo, cuánto cuesta y qué vas a encontrar fuera de las paredes del resort.
+Si reservaste el Riu Guanacaste o el Riu Palace como parte de un paquete, seguramente te ofrecieron un shuttle compartido del aeropuerto junto con él. Funciona, pero espera a que aterricen varios vuelos y después para en la mayoría de los resorts del golfo antes de llegar a Matapalo, así que un viaje de 35 minutos puede estirarse a más de hora y media. Muchas de las familias que llevamos al Riu probaron el bus compartido una vez y cambiaron. Esta página explica cómo es el trayecto directo, cuánto cuesta y qué hay para hacer una vez allí.
 
 ## Datos rápidos
 
 | | |
 | --- | --- |
-| **Distancia desde LIR** | 33 km (20 mi) |
-| **Tiempo real de viaje** | 35–40 min, asfaltado todo el camino |
-| **Traslado privado, 1–5 pax** | **$120** por vehículo, fijo |
-| **Traslado privado, 6–9 pax** | $130 por vehículo |
-| **Traslado privado, 10–12 pax** | $185 por vehículo |
-| **Incluye** | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada gratis para víveres |
-| **Acceso con portón** | Sin puesto de control comunitario |
+| Distancia desde LIR | 33 km (20 mi) |
+| Tiempo de viaje | 35–40 min, asfaltado todo el camino |
+| Traslado privado, 1–5 pasajeros | $120 por vehículo, fijo |
+| Traslado privado, 6–9 pasajeros | $130 por vehículo |
+| Traslado privado, 10–12 pasajeros | $185 por vehículo |
+| Incluye | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada para víveres |
+| Acceso con portón | Sin puesto de control comunitario |
 
-## Dónde queda realmente el hotel
+## Dónde queda el hotel
 
-Los dos resorts Riu, el **Riu Guanacaste** y el más nuevo y de mayor categoría **Riu Palace Costa Rica**, están uno junto al otro en **Playa Matapalo**, una playa larga y salvaje del Pacífico al norte de Playas del Coco, a la que se llega por el pueblo de Sardinal. Son los todo incluido más grandes de Guanacaste y la opción habitual de viajeros canadienses y estadounidenses con paquete. Desde el Aeropuerto de Liberia son 33 km: Ruta 21 hacia el oeste hasta Guardia, luego la carretera por Sardinal y un último tramo asfaltado hasta la costa. Calcula 35–40 minutos.
+Los dos hoteles Riu están uno junto al otro en Playa Matapalo, una playa larga y sin desarrollar del Pacífico al noroeste de Playas del Coco, a la que se llega por el pueblo de Sardinal. El Riu Guanacaste es el más antiguo y grande de los dos, y el Riu Palace el más nuevo y de mayor categoría. Juntos forman el complejo todo incluido más grande de Guanacaste y son la opción habitual de viajeros con paquete desde Canadá y Estados Unidos. Desde el Aeropuerto de Liberia son 33 km: hacia el oeste por la Ruta 21 hasta Guardia, luego la carretera por Sardinal y un último tramo asfaltado hasta la costa. Calcula 35 a 40 minutos.
 
-## El viaje desde el Aeropuerto de Liberia
+## El viaje desde el aeropuerto
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **35–40 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer espera a la salida de llegadas con un rótulo con tu nombre. Monitoreamos el vuelo, así que si aterriza antes o después el chofer sigue ahí cuando sales, y te vas en cuanto tienes las maletas en vez de esperar a que se llene una van. La carretera es asfaltada de principio a fin y nunca pasas por Liberia centro, porque el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. El rango que damos para el tiempo de viaje viene del tráfico de día en los cruces del camino, nada más. Si necesitas parar por víveres, efectivo o una farmacia, díselo al chofer; el vehículo es tuyo durante el viaje.
 
-Mira los precios actualizados y reserva el [traslado LIR → Riu Guanacaste y Riu Palace](/private-shuttle/lir-liberia-int-airport-to-riu-guanacaste-hotel-riu-palace-hotel-guanacaste).
+Los precios actualizados y la reserva están en la [página de la ruta LIR a Riu Guanacaste y Riu Palace](/private-shuttle/lir-liberia-int-airport-to-riu-guanacaste-hotel-riu-palace-hotel-guanacaste).
 
-## Llegada al hotel
+## La llegada al hotel
 
-El complejo Riu tiene un solo portón de entrada compartido por los dos hoteles; el guarda verifica el nombre del huésped y dirige el vehículo al lobby correcto. No hay puesto de control comunitario ni registro previo obligatorio, aunque igual enviamos los datos de tu chofer al hotel para que las llegadas tardías sean fluidas.
+El complejo Riu tiene un solo portón de entrada compartido por los dos hoteles. El guarda pide el nombre del huésped y dirige el vehículo al lobby correcto. No hay puesto de control comunitario ni hace falta registrarse de antemano, aunque igual le pasamos los datos de tu chofer al hotel para que una llegada tardía salga sin problema.
 
 ## Qué hay alrededor del Riu Guanacaste y Riu Palace
 
-Playa Matapalo es preciosa y vacía: **no hay pueblo, tienda ni restaurante fuera de los resorts.** Sardinal, a 10 minutos tierra adentro, es un pueblo costarricense de trabajo con supermercado y sodas, pero no un destino turístico. Para una noche fuera, **Playas del Coco** está a 20 minutos en carro y tiene los restaurantes, bares y la playa pública que la mayoría de huéspedes del Riu visita al menos una vez. Los tours de paquete recogen en el lobby, así que la mayoría nunca necesita carro.
+Playa Matapalo es una playa preciosa sin nada más que los dos hoteles. No hay pueblo, ni tienda, ni restaurante fuera de los resorts. Sardinal, a diez minutos tierra adentro, es un pueblo costarricense de trabajo con supermercado y algunas sodas, pero no es un lugar adonde vayan los turistas de noche. Para salir, Playas del Coco está a veinte minutos en carro y tiene los restaurantes, bares y playa pública que la mayoría de huéspedes del Riu visita al menos una vez durante su estancia. Los buses de tours recogen en el lobby, así que poca gente aquí necesita carro.
 
-Para ver el panorama completo de cómo encajan las zonas hoteleras de Guanacaste, y qué playas tienen un pueblo al que puedes caminar, lee nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+Si quieres ver cómo encaja este hotel con el resto de la costa, y qué playas tienen un pueblo al que se puede caminar, nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) los cubre todos.
 
-## Tus opciones desde LIR, comparadas con honestidad
+## Formas de llegar desde LIR
 
-| Opción | Tiempo hasta el hotel | Costo | El detalle |
+| Opción | Tiempo hasta el hotel | Costo | Conviene saber |
 | --- | --- | --- | --- |
-| **Traslado privado** | 35–40 min, directo | $120 fijo, 1–5 pax | Ninguno: chofer registrado en el portón, vuelo monitoreado |
-| **Servicio de carro del hotel** | El mismo trayecto | Tarifa premium vía concierge | Suele ser la opción más cara |
-| **Carro de alquiler** | El mismo trayecto + trámites de entrega | $40–90/día + seguro obligatorio + depósito | Solo vale la pena si vas a salir del resort a diario |
-| **Shuttle compartido** | 1,5–2,5 h, varias paradas | ~$25–35 por persona | Espera otros vuelos; lento con niños |
-| **Taxi del aeropuerto** | El mismo trayecto | $100–150, negociado | Sin seguimiento de vuelo, en efectivo, sin sillas para niños |
+| Traslado privado | 35–40 min, directo | $120 fijo para 1–5 pasajeros | Chofer registrado en el portón, vuelo monitoreado |
+| Servicio de carro del hotel | El mismo trayecto | Tarifa premium a través del concierge | Suele ser la opción más cara |
+| Carro de alquiler | El mismo trayecto más trámites de entrega | $40–90 al día más seguro obligatorio y depósito | Solo compensa si sales del resort todos los días |
+| Shuttle compartido | 1,5–2,5 h con paradas | Unos $25–35 por persona | Espera otros vuelos, lo que es lento con niños |
+| Taxi del aeropuerto | El mismo trayecto | $100–150, negociado en el momento | Sin seguimiento de vuelo, solo efectivo, sin sillas para niños |
 
-Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y elimina todas las incógnitas. Para una familia de cuatro es más barato por persona que un shuttle compartido y tarda menos de la mitad.
+Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y le quita la incertidumbre a la llegada. Para una familia de cuatro sale más barato por persona que un shuttle compartido y tarda menos de la mitad.
 
-## Consejos de nuestros choferes
+## Algunas cosas que te dirían nuestros choferes
 
-- **Evita el bus compartido del paquete.** Los traslados de los operadores paran en todos los resorts del golfo y pueden tardar 1,5 horas; un traslado privado son 35 minutos y cuesta menos por persona para una familia de cuatro.
-- **Di cuál Riu.** Los dos lobbies están a 500 m uno del otro; dinos si estás en el Riu Guanacaste o en el Riu Palace para que el chofer llegue a la puerta correcta.
-- **Bloqueador y snacks desde Sardinal.** Los precios de la tienda del resort son altos; una parada gratuita en el supermercado en el camino ahorra dinero de verdad en una semana.
+- Para una familia de cuatro, un traslado privado suele costar menos por persona que el shuttle del operador y tarda una fracción del tiempo.
+- Dinos en cuál Riu te quedas. Los dos lobbies están a unos 500 metros uno del otro y le ahorra al chofer dar vueltas por el complejo.
+- Las tiendas del resort cobran mucho por bloqueador y snacks. Una parada en el supermercado de Sardinal de camino no cuesta nada y ahorra dinero en una semana.
 
-## Reserva el traslado
+## Reserva
 
-Treinta y cinco minutos, directo a tu lobby, con las sillas para niños ya instaladas. Así es el traslado al Riu bien hecho. Precio fijo por vehículo, vuelo monitoreado, chofer registrado en el resort, sillas para niños incluidas. Reserva el [traslado privado Aeropuerto de Liberia → Riu Guanacaste y Riu Palace](/private-shuttle/lir-liberia-int-airport-to-riu-guanacaste-hotel-riu-palace-hotel-guanacaste) en línea en dos minutos, o escríbenos por WhatsApp: responde una persona real que maneja esta carretera.
+El [traslado privado del Aeropuerto de Liberia al Riu Guanacaste y Riu Palace](/private-shuttle/lir-liberia-int-airport-to-riu-guanacaste-hotel-riu-palace-hotel-guanacaste) se reserva en línea en un par de minutos a precio fijo por vehículo, con el vuelo monitoreado, el chofer registrado en el resort y las sillas para niños incluidas. Si prefieres preguntar algo primero, escríbenos por WhatsApp y te contesta uno de los choferes.
 $es$
 where slug = 'liberia-airport-to-riu-guanacaste-riu-palace';
 
@@ -946,15 +946,15 @@ values
   '[
     {
         "q": "How far is the Westin Reserva Conchal from Liberia Airport?",
-        "a": "About 60 km (37 miles), a 65 to 70 minute drive on paved roads via Belén and Huacas."
+        "a": "About 60 km, a drive of 65 to 70 minutes on paved roads via Belén and Huacas."
     },
     {
         "q": "How much is a private transfer from LIR to the Westin Conchal?",
-        "a": "Ruta Pacifico charges a fixed $130 per vehicle for 1–5 passengers, $165 for 6–9 and $220 for 10–12, including taxes, flight tracking and child seats."
+        "a": "Ruta Pacifico charges a fixed $130 per vehicle for 1 to 5 passengers, $165 for 6 to 9 and $220 for 10 to 12, including taxes, flight tracking and child seats."
     },
     {
         "q": "Is there a town near the Westin Conchal?",
-        "a": "Brasilito, just outside the gate, is a small village with a few sodas and a mini-super. For restaurants and nightlife, Tamarindo is 20–25 minutes away by car."
+        "a": "Brasilito, just outside the gate, is a small village with a few sodas and a mini-market. For restaurants and nightlife, Tamarindo is 20 to 25 minutes away by car."
     },
     {
         "q": "Does the Westin Conchal have an airport shuttle?",
@@ -962,61 +962,61 @@ values
     }
 ]'::jsonb,
   $md$
-The Westin Reserva Conchal is where a large share of Guanacaste’s all-inclusive guests end up, and the first thing they ask us is whether it is near Tamarindo. It is not quite: the resort is inside its own gated reserve, an hour from Liberia Airport, with Brasilito village at the gate and Tamarindo 20 minutes down the road. Here is the drive, the fare, and how to plan around that geography.
+A good share of the all-inclusive guests who land at Liberia are heading for the Westin Reserva Conchal, and the first thing many of them ask us is whether it is in Tamarindo. It is close, but not in it. The resort sits inside its own gated reserve about an hour from the airport, with the small village of Brasilito at the gate and Tamarindo twenty minutes further down the coast. Knowing that ahead of time makes the week easier to plan, so here is the drive, the fare and the geography.
 
 ## Quick facts
 
 | | |
 | --- | --- |
-| **Distance from LIR** | 60 km (37 mi) |
-| **Real drive time** | 65–70 min, paved the whole way |
-| **Private transfer, 1–5 pax** | **$130** per vehicle, fixed |
-| **Private transfer, 6–9 pax** | $165 per vehicle |
-| **Private transfer, 10–12 pax** | $220 per vehicle |
-| **Included** | Taxes, tolls, flight tracking, child seats, one free stop for groceries |
-| **Gated access** | Yes — driver must be pre-registered |
+| Distance from LIR | 60 km (37 mi) |
+| Drive time | 65–70 min, paved the whole way |
+| Private transfer, 1–5 passengers | $130 per vehicle, fixed |
+| Private transfer, 6–9 passengers | $165 per vehicle |
+| Private transfer, 10–12 passengers | $220 per vehicle |
+| Included | Taxes, tolls, flight tracking, child seats, one stop for groceries |
+| Gated access | Yes, the driver has to be registered in advance |
 
-## Where the hotel actually is
+## Where the hotel is
 
-The **Westin Reserva Conchal** is the largest resort in Guanacaste: an all-inclusive with a Robert Trent Jones II golf course, a huge free-form pool and direct access to **Playa Conchal**, whose sand is crushed white shell. It sits inside **Reserva Conchal**, a 2,300-acre gated development between Brasilito and Flamingo. From Liberia Airport it is about 60 km: Route 21 south to Belén, west through Huacas, then north past Matapalo village to the Reserva gate. The road is paved the whole way and the drive takes 65–70 minutes.
+The Westin Reserva Conchal is the largest resort in Guanacaste. It is all-inclusive, has a Robert Trent Jones II golf course and a very large free-form pool, and opens directly onto Playa Conchal, whose sand is made of crushed white shell. The hotel sits inside Reserva Conchal, a 2,300-acre gated development between Brasilito and Flamingo. From Liberia Airport the drive is about 60 km on paved road: Route 21 south to Belén, west through Huacas, then north past the village of Matapalo to the reserve gate. It takes 65 to 70 minutes.
 
-## The drive from Liberia Airport
+## The drive from the airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **65–70 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver waits at the arrivals exit holding a sign with your name. We track the flight, so if it lands early or late the driver is still there when you walk out, and you leave as soon as you have your bags rather than waiting for a van to fill. The road is paved from start to finish and you never go through Liberia town, since the airport sits west of the city and Route 21 heads straight for the coast. The range we give for the drive time comes from daytime traffic at the junctions along the way, nothing more. If you need to stop for groceries, cash or a pharmacy, tell the driver; the vehicle is yours for the trip.
 
-See live prices and book the [LIR → Westin Reserva Conchal transfer](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste).
+Live prices and booking are on the [LIR to Westin Reserva Conchal route page](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste).
 
-## At the gate: what security needs
+## What the security gate needs
 
-Reserva Conchal has a **security gate** at the entrance shared with the W and the residential villas. The guard asks for the guest name and checks the vehicle; it is a lighter process than Papagayo or Pinilla, but a registered driver still gets through faster. We send your driver’s name and vehicle details to the Westin when you book.
+Reserva Conchal has a security gate at its entrance, shared with the W and the residential villas inside. The guard asks for the guest name and takes a look at the vehicle. It is a lighter process than at Papagayo or Hacienda Pinilla, but a driver who has been registered gets through faster, so we send the Westin your driver's name and vehicle details when you book.
 
 ## What is around the Westin Reserva Conchal
 
-Outside the Reserva gate is **Brasilito**, a small fishing village with a couple of sodas, a mini-super and a public beach; it is charming for a walk but not a dinner destination. **Flamingo**’s marina strip is 10 minutes north with a few restaurants. For a real night out, Westin guests go to **Tamarindo**, 20–25 minutes south, which has the region’s best restaurant scene. Inside the reserve, the Westin’s own restaurants are included and the W’s are a short shuttle away.
+Just outside the reserve gate is Brasilito, a small fishing village with a couple of sodas, a mini-market and a public beach. It is a nice place for a walk but not somewhere you would go for dinner. Flamingo, ten minutes north, has a short strip of restaurants by the marina. When Westin guests want a proper evening out, they go to Tamarindo, twenty to twenty-five minutes south, which has the best restaurant scene on this stretch of coast. Inside the reserve, the Westin's restaurants are included in your stay and the W's are a short shuttle ride away.
 
-For the full picture of how Guanacaste’s hotel zones fit together — and which beaches have a town you can walk to — read our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+If you want to see how this hotel fits with the rest of the coast, and which beaches have a town you can walk to, our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) covers all of them.
 
-## Your options from LIR, honestly compared
+## Ways to get there from LIR
 
-| Option | Time to the hotel | Cost | The catch |
+| Option | Time to the hotel | Cost | Worth knowing |
 | --- | --- | --- | --- |
-| **Private transfer** | 65–70 min, direct | $130 fixed, 1–5 pax | None — driver pre-registered at the gate, flight tracked |
-| **Hotel car service** | Same drive | Premium rate via concierge | Usually the most expensive option |
-| **Rental car** | Same drive + pickup paperwork | $40–90/day + mandatory insurance + deposit | Only worth it if you will leave the resort daily |
-| **Shared shuttle** | 1.5–2.5 h, multiple stops | ~$25–35 per person | Does not enter the gated estate — drops at the nearest town |
-| **Airport taxi** | Same drive | $100–150, negotiated | Unregistered vehicle is held at the gate |
+| Private transfer | 65–70 min, direct | $130 fixed for 1–5 passengers | Driver registered at the gate, flight tracked |
+| Hotel car service | Same drive | Premium rate through the concierge | Usually the most expensive option |
+| Rental car | Same drive plus pickup paperwork | $40–90 a day plus mandatory insurance and a deposit | Only pays off if you leave the resort every day |
+| Shared shuttle | 1.5–2.5 h with stops | About $25–35 a person | Does not enter the gated estate and drops you at the nearest town |
+| Airport taxi | Same drive | $100–150, negotiated on the spot | An unregistered vehicle is held at the gate |
 
-For two people a private transfer costs about the same as a taxi and removes every unknown. For a family of four it is cheaper per person than a shared shuttle and takes less than half the time.
+For two people a private transfer costs about the same as a taxi and takes the guesswork out of the arrival. For a family of four it works out cheaper per person than a shared shuttle and takes less than half the time.
 
-## Tips from our drivers
+## A few things our drivers would tell you
 
-- **Groceries in Huacas or Belén.** There is a supermarket in Huacas on the way and a bigger Automercado in Tamarindo; the private transfer stops for free.
-- **Sunset at Flamingo, dinner in Tamarindo.** Book a private round trip one evening: 10 minutes to the Flamingo viewpoint, then 20 minutes to Tamarindo and back after dinner.
-- **Playa Conchal is public.** Locals arrive on foot from Brasilito on weekends; the far end near the resort stays quiet.
+- There is a supermarket in Huacas on the way to the resort and a larger Automercado in Tamarindo. Stopping at either is free on a private transfer.
+- A popular evening is a private round trip that stops at the Flamingo viewpoint for sunset and then continues to Tamarindo for dinner.
+- Playa Conchal is a public beach and fills up with local families on weekends, mostly at the Brasilito end. The stretch in front of the resort stays quiet.
 
-## Book the transfer
+## Booking
 
-An hour from LIR to Playa Conchal, with the guard already expecting you. Everything after that is included. Fixed price per vehicle, flight tracked, driver registered at the resort, child seats included. Book the [Liberia Airport → Westin Reserva Conchal private transfer](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste) online in two minutes, or message us on WhatsApp — a real person who drives this road answers.
+The [Liberia Airport to Westin Reserva Conchal private transfer](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste) can be booked online in a couple of minutes at a fixed price per vehicle, with the flight tracked, the driver registered at the resort and child seats included. If you would rather ask something first, write to us on WhatsApp and one of the drivers will answer.
 $md$
 )
 on conflict (slug) do update set
@@ -1037,15 +1037,15 @@ update public.blog_posts_ruta_pacifico set
   faqs_es = '[
     {
         "q": "¿A qué distancia está el Westin Reserva Conchal del Aeropuerto de Liberia?",
-        "a": "A unos 60 km (37 millas), un viaje de 65 a 70 minutos por carretera asfaltada vía Belén y Huacas."
+        "a": "A unos 60 km, un viaje de 65 a 70 minutos por carretera asfaltada vía Belén y Huacas."
     },
     {
         "q": "¿Cuánto cuesta un traslado privado de LIR al Westin Conchal?",
-        "a": "Ruta Pacifico cobra una tarifa fija de $130 por vehículo para 1–5 pasajeros, $165 para 6–9 y $220 para 10–12, con impuestos, seguimiento de vuelo y sillas para niños incluidos."
+        "a": "Ruta Pacifico cobra una tarifa fija de $130 por vehículo para 1 a 5 pasajeros, $165 para 6 a 9 y $220 para 10 a 12, con impuestos, seguimiento de vuelo y sillas para niños incluidos."
     },
     {
         "q": "¿Hay algún pueblo cerca del Westin Conchal?",
-        "a": "Brasilito, justo fuera del portón, es un pueblito con un par de sodas y un minisúper. Para restaurantes y vida nocturna, Tamarindo está a 20–25 minutos en carro."
+        "a": "Brasilito, justo fuera del portón, es un pueblito con un par de sodas y un minisúper. Para restaurantes y vida nocturna, Tamarindo está a 20 o 25 minutos en carro."
     },
     {
         "q": "¿El Westin Conchal tiene shuttle desde el aeropuerto?",
@@ -1053,61 +1053,61 @@ update public.blog_posts_ruta_pacifico set
     }
 ]'::jsonb,
   content_md_es = $es$
-El Westin Reserva Conchal es donde termina una buena parte de los huéspedes de todo incluido de Guanacaste, y lo primero que nos preguntan es si está cerca de Tamarindo. No exactamente: el resort está dentro de su propia reserva privada, a una hora del Aeropuerto de Liberia, con el pueblito de Brasilito en el portón y Tamarindo a 20 minutos de camino. Aquí está el trayecto, la tarifa y cómo planificar con esa geografía.
+Una buena parte de los huéspedes de todo incluido que aterrizan en Liberia va rumbo al Westin Reserva Conchal, y lo primero que muchos nos preguntan es si está en Tamarindo. Está cerca, pero no ahí. El resort queda dentro de su propia reserva privada a una hora del aeropuerto, con el pueblito de Brasilito en el portón y Tamarindo veinte minutos más abajo por la costa. Saberlo de antemano hace la semana más fácil de planificar, así que aquí van el trayecto, la tarifa y la geografía.
 
 ## Datos rápidos
 
 | | |
 | --- | --- |
-| **Distancia desde LIR** | 60 km (37 mi) |
-| **Tiempo real de viaje** | 65–70 min, asfaltado todo el camino |
-| **Traslado privado, 1–5 pax** | **$130** por vehículo, fijo |
-| **Traslado privado, 6–9 pax** | $165 por vehículo |
-| **Traslado privado, 10–12 pax** | $220 por vehículo |
-| **Incluye** | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada gratis para víveres |
-| **Acceso con portón** | Sí: el chofer debe estar registrado de antemano |
+| Distancia desde LIR | 60 km (37 mi) |
+| Tiempo de viaje | 65–70 min, asfaltado todo el camino |
+| Traslado privado, 1–5 pasajeros | $130 por vehículo, fijo |
+| Traslado privado, 6–9 pasajeros | $165 por vehículo |
+| Traslado privado, 10–12 pasajeros | $220 por vehículo |
+| Incluye | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada para víveres |
+| Acceso con portón | Sí, el chofer debe estar registrado de antemano |
 
-## Dónde queda realmente el hotel
+## Dónde queda el hotel
 
-El **Westin Reserva Conchal** es el resort más grande de Guanacaste: un todo incluido con campo de golf de Robert Trent Jones II, una enorme piscina de forma libre y acceso directo a **Playa Conchal**, cuya arena es concha blanca triturada. Está dentro de **Reserva Conchal**, un desarrollo privado de 930 hectáreas entre Brasilito y Flamingo. Desde el Aeropuerto de Liberia son unos 60 km: Ruta 21 hacia el sur hasta Belén, al oeste por Huacas y luego al norte pasando el pueblo de Matapalo hasta el portón de la Reserva. La carretera es asfaltada todo el camino y el viaje dura 65–70 minutos.
+El Westin Reserva Conchal es el resort más grande de Guanacaste. Es todo incluido, tiene un campo de golf de Robert Trent Jones II y una piscina de forma libre muy grande, y da directamente a Playa Conchal, cuya arena es de concha blanca triturada. El hotel está dentro de Reserva Conchal, un desarrollo privado de 930 hectáreas entre Brasilito y Flamingo. Desde el Aeropuerto de Liberia el viaje son unos 60 km por asfalto: Ruta 21 hacia el sur hasta Belén, al oeste por Huacas y luego al norte pasando el pueblo de Matapalo hasta el portón de la reserva. Tarda 65 a 70 minutos.
 
-## El viaje desde el Aeropuerto de Liberia
+## El viaje desde el aeropuerto
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **65–70 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer espera a la salida de llegadas con un rótulo con tu nombre. Monitoreamos el vuelo, así que si aterriza antes o después el chofer sigue ahí cuando sales, y te vas en cuanto tienes las maletas en vez de esperar a que se llene una van. La carretera es asfaltada de principio a fin y nunca pasas por Liberia centro, porque el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. El rango que damos para el tiempo de viaje viene del tráfico de día en los cruces del camino, nada más. Si necesitas parar por víveres, efectivo o una farmacia, díselo al chofer; el vehículo es tuyo durante el viaje.
 
-Mira los precios actualizados y reserva el [traslado LIR → Westin Reserva Conchal](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste).
+Los precios actualizados y la reserva están en la [página de la ruta LIR a Westin Reserva Conchal](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste).
 
-## En el portón: qué necesita la seguridad
+## Qué necesita el portón de seguridad
 
-Reserva Conchal tiene un **portón de seguridad** en la entrada, compartido con el W y las villas residenciales. El guarda pide el nombre del huésped y revisa el vehículo; es un proceso más ligero que en Papagayo o Pinilla, pero un chofer registrado igual pasa más rápido. Enviamos el nombre de tu chofer y los datos del vehículo al Westin al reservar.
+Reserva Conchal tiene un portón de seguridad en la entrada, compartido con el W y las villas residenciales de adentro. El guarda pide el nombre del huésped y le da un vistazo al vehículo. Es un proceso más ligero que en Papagayo o Hacienda Pinilla, pero un chofer registrado pasa más rápido, así que le enviamos al Westin el nombre de tu chofer y los datos del vehículo cuando reservas.
 
 ## Qué hay alrededor del Westin Reserva Conchal
 
-Fuera del portón de la Reserva está **Brasilito**, un pueblito de pescadores con un par de sodas, un minisúper y playa pública; es encantador para caminar pero no un destino para cenar. La franja de la marina de **Flamingo** está a 10 minutos al norte con algunos restaurantes. Para una noche fuera en serio, los huéspedes del Westin van a **Tamarindo**, a 20–25 minutos al sur, que tiene la mejor oferta de restaurantes de la región. Dentro de la reserva, los restaurantes del Westin están incluidos y los del W quedan a un shuttle corto.
+Justo fuera del portón de la reserva está Brasilito, un pueblito de pescadores con un par de sodas, un minisúper y playa pública. Es agradable para caminar pero no es un lugar adonde ir a cenar. Flamingo, a diez minutos al norte, tiene una franja corta de restaurantes junto a la marina. Cuando los huéspedes del Westin quieren una salida nocturna en serio, van a Tamarindo, a veinte o veinticinco minutos al sur, que tiene la mejor oferta de restaurantes de este tramo de costa. Dentro de la reserva, los restaurantes del Westin están incluidos en tu estancia y los del W quedan a un shuttle corto.
 
-Para ver el panorama completo de cómo encajan las zonas hoteleras de Guanacaste, y qué playas tienen un pueblo al que puedes caminar, lee nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+Si quieres ver cómo encaja este hotel con el resto de la costa, y qué playas tienen un pueblo al que se puede caminar, nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) los cubre todos.
 
-## Tus opciones desde LIR, comparadas con honestidad
+## Formas de llegar desde LIR
 
-| Opción | Tiempo hasta el hotel | Costo | El detalle |
+| Opción | Tiempo hasta el hotel | Costo | Conviene saber |
 | --- | --- | --- | --- |
-| **Traslado privado** | 65–70 min, directo | $130 fijo, 1–5 pax | Ninguno: chofer registrado en el portón, vuelo monitoreado |
-| **Servicio de carro del hotel** | El mismo trayecto | Tarifa premium vía concierge | Suele ser la opción más cara |
-| **Carro de alquiler** | El mismo trayecto + trámites de entrega | $40–90/día + seguro obligatorio + depósito | Solo vale la pena si vas a salir del resort a diario |
-| **Shuttle compartido** | 1,5–2,5 h, varias paradas | ~$25–35 por persona | No entra a la finca privada: te deja en el pueblo más cercano |
-| **Taxi del aeropuerto** | El mismo trayecto | $100–150, negociado | El vehículo no registrado queda retenido en el portón |
+| Traslado privado | 65–70 min, directo | $130 fijo para 1–5 pasajeros | Chofer registrado en el portón, vuelo monitoreado |
+| Servicio de carro del hotel | El mismo trayecto | Tarifa premium a través del concierge | Suele ser la opción más cara |
+| Carro de alquiler | El mismo trayecto más trámites de entrega | $40–90 al día más seguro obligatorio y depósito | Solo compensa si sales del resort todos los días |
+| Shuttle compartido | 1,5–2,5 h con paradas | Unos $25–35 por persona | No entra a la finca privada y te deja en el pueblo más cercano |
+| Taxi del aeropuerto | El mismo trayecto | $100–150, negociado en el momento | Un vehículo no registrado queda retenido en el portón |
 
-Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y elimina todas las incógnitas. Para una familia de cuatro es más barato por persona que un shuttle compartido y tarda menos de la mitad.
+Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y le quita la incertidumbre a la llegada. Para una familia de cuatro sale más barato por persona que un shuttle compartido y tarda menos de la mitad.
 
-## Consejos de nuestros choferes
+## Algunas cosas que te dirían nuestros choferes
 
-- **Víveres en Huacas o Belén.** Hay supermercado en Huacas en el camino y un Automercado más grande en Tamarindo; el traslado privado para sin costo.
-- **Atardecer en Flamingo, cena en Tamarindo.** Reserva un viaje privado de ida y vuelta una noche: 10 minutos al mirador de Flamingo y luego 20 minutos a Tamarindo y de regreso después de cenar.
-- **Playa Conchal es pública.** Los locales llegan a pie desde Brasilito los fines de semana; el extremo cercano al resort se mantiene tranquilo.
+- Hay un supermercado en Huacas de camino al resort y un Automercado más grande en Tamarindo. Parar en cualquiera de los dos es gratis en un traslado privado.
+- Una salida popular es un viaje privado de ida y vuelta que para en el mirador de Flamingo para el atardecer y sigue a Tamarindo a cenar.
+- Playa Conchal es pública y se llena de familias locales los fines de semana, sobre todo del lado de Brasilito. El tramo frente al resort se mantiene tranquilo.
 
-## Reserva el traslado
+## Reserva
 
-Una hora de LIR a Playa Conchal, con el guarda ya esperándote. Todo lo que sigue está incluido. Precio fijo por vehículo, vuelo monitoreado, chofer registrado en el resort, sillas para niños incluidas. Reserva el [traslado privado Aeropuerto de Liberia → Westin Reserva Conchal](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste) en línea en dos minutos, o escríbenos por WhatsApp: responde una persona real que maneja esta carretera.
+El [traslado privado del Aeropuerto de Liberia al Westin Reserva Conchal](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste) se reserva en línea en un par de minutos a precio fijo por vehículo, con el vuelo monitoreado, el chofer registrado en el resort y las sillas para niños incluidas. Si prefieres preguntar algo primero, escríbenos por WhatsApp y te contesta uno de los choferes.
 $es$
 where slug = 'liberia-airport-to-westin-reserva-conchal';
 
@@ -1130,77 +1130,77 @@ values
   '[
     {
         "q": "How far is the W Costa Rica from Liberia Airport?",
-        "a": "About 60 km (37 miles), 65 to 70 minutes on paved roads. It is inside Reserva Conchal, next to the Westin."
+        "a": "About 60 km, 65 to 70 minutes on paved roads. It is inside Reserva Conchal, next to the Westin."
     },
     {
         "q": "How much is a private shuttle from LIR to the W Costa Rica?",
-        "a": "A fixed $130 per vehicle for 1–5 passengers with Ruta Pacifico, $165 for 6–9 and $220 for 10–12, including taxes, flight tracking and child seats."
+        "a": "A fixed $130 per vehicle for 1 to 5 passengers with Ruta Pacifico, $165 for 6 to 9 and $220 for 10 to 12, including taxes, flight tracking and child seats."
     },
     {
         "q": "Is the W Costa Rica all-inclusive?",
-        "a": "No. The W is a full-service hotel with restaurants and bars charged separately, unlike the Westin next door. Many guests take a transfer to Tamarindo for dinner."
+        "a": "No. The W is a full-service hotel where restaurants and bars are charged separately, unlike the Westin next door. Many guests take a transfer to Tamarindo for dinner."
     },
     {
         "q": "Can I walk from the W to a town?",
-        "a": "No. Brasilito village is just outside the gate but is a 20-minute walk and has only a few sodas. Tamarindo, the nearest real town, is 20–25 minutes by car."
+        "a": "No. Brasilito village is just outside the gate but it is a 20-minute walk and has only a few sodas. Tamarindo, the nearest real town, is 20 to 25 minutes by car."
     }
 ]'::jsonb,
   $md$
-The W Costa Rica shares a gate, a beach and a fare with the Westin next door, but the stay is different: no all-inclusive wristband, three restaurants on site, and a crowd that wants to go out. That changes the transport math. This guide covers the airport ride, the checkpoint, and how W guests actually handle evenings.
+The W Costa Rica shares a gate, a beach and a transfer fare with the Westin next door, but staying there is a different experience. There is no all-inclusive wristband, the hotel has three restaurants of its own, and the guests tend to be younger and more inclined to go out. That changes how you plan transport for the week. This guide covers the ride from the airport, the checkpoint at the reserve, and how W guests usually handle evenings.
 
 ## Quick facts
 
 | | |
 | --- | --- |
-| **Distance from LIR** | 60 km (37 mi) |
-| **Real drive time** | 65–70 min, paved the whole way |
-| **Private transfer, 1–5 pax** | **$130** per vehicle, fixed |
-| **Private transfer, 6–9 pax** | $165 per vehicle |
-| **Private transfer, 10–12 pax** | $220 per vehicle |
-| **Included** | Taxes, tolls, flight tracking, child seats, one free stop for groceries |
-| **Gated access** | Yes — driver must be pre-registered |
+| Distance from LIR | 60 km (37 mi) |
+| Drive time | 65–70 min, paved the whole way |
+| Private transfer, 1–5 passengers | $130 per vehicle, fixed |
+| Private transfer, 6–9 passengers | $165 per vehicle |
+| Private transfer, 10–12 passengers | $220 per vehicle |
+| Included | Taxes, tolls, flight tracking, child seats, one stop for groceries |
+| Gated access | Yes, the driver has to be registered in advance |
 
-## Where the hotel actually is
+## Where the hotel is
 
-The **W Costa Rica** is Marriott’s lifestyle hotel inside **Reserva Conchal**, a few hundred metres from the Westin on the same gated estate. It is smaller, louder and more design-driven than its neighbour: a rooftop-style pool scene, DJ nights, and rooms opening onto the dry forest above **Playa Conchal**. From Liberia Airport it is about 60 km on paved road — Route 21 south to Belén, west through Huacas, north past Matapalo to the Reserva gate — and the drive takes 65–70 minutes.
+The W Costa Rica is Marriott's lifestyle hotel inside Reserva Conchal, a few hundred metres from the Westin on the same gated estate. It is smaller and louder than its neighbour and leans hard on design, with a pool scene that runs into the evening, DJ nights, and rooms that look out over the dry forest toward Playa Conchal. From Liberia Airport it is about 60 km on paved road, the same way as the Westin: Route 21 south to Belén, west through Huacas, then north past Matapalo to the reserve gate. The drive is 65 to 70 minutes.
 
-## The drive from Liberia Airport
+## The drive from the airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **65–70 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver waits at the arrivals exit holding a sign with your name. We track the flight, so if it lands early or late the driver is still there when you walk out, and you leave as soon as you have your bags rather than waiting for a van to fill. The road is paved from start to finish and you never go through Liberia town, since the airport sits west of the city and Route 21 heads straight for the coast. The range we give for the drive time comes from daytime traffic at the junctions along the way, nothing more. If you need to stop for groceries, cash or a pharmacy, tell the driver; the vehicle is yours for the trip.
 
-See live prices and book the [LIR → W Costa Rica – Reserva Conchal transfer](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste).
+Live prices and booking are on the [LIR to W Costa Rica – Reserva Conchal route page](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste).
 
-## At the gate: what security needs
+## What the security gate needs
 
-The W shares the **Reserva Conchal security gate** with the Westin and the villas. The guard takes the guest name and checks the vehicle; pre-registered drivers pass faster, so we send yours to the W when you book. From the gate it is a two-minute drive to the W’s own entrance.
+The W uses the same Reserva Conchal security gate as the Westin and the villas. The guard takes the guest name and checks the vehicle, and drivers who are already registered get through faster, so we send yours to the W when you book. From the gate it is about two minutes to the W's own entrance.
 
 ## What is around the W Costa Rica – Reserva Conchal
 
-Same situation as the Westin: **Brasilito** village at the gate for a walk and a soda lunch, **Flamingo**’s marina strip 10 minutes north, and **Tamarindo** 20–25 minutes south for the real restaurant and bar scene. The W is not all-inclusive, so guests do go out more than Westin guests; a private round trip to Tamarindo for dinner is the most common request we get from the W.
+The surroundings are the same as for the Westin: Brasilito village at the gate for a walk and a soda lunch, the Flamingo marina strip ten minutes north, and Tamarindo twenty to twenty-five minutes south for the real choice of restaurants and bars. Because the W is not all-inclusive, its guests go out much more than Westin guests do, and the most common request we get from the W is a private round trip to Tamarindo for dinner with the driver waiting.
 
-For the full picture of how Guanacaste’s hotel zones fit together — and which beaches have a town you can walk to — read our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+If you want to see how this hotel fits with the rest of the coast, and which beaches have a town you can walk to, our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) covers all of them.
 
-## Your options from LIR, honestly compared
+## Ways to get there from LIR
 
-| Option | Time to the hotel | Cost | The catch |
+| Option | Time to the hotel | Cost | Worth knowing |
 | --- | --- | --- | --- |
-| **Private transfer** | 65–70 min, direct | $130 fixed, 1–5 pax | None — driver pre-registered at the gate, flight tracked |
-| **Hotel car service** | Same drive | Premium rate via concierge | Usually the most expensive option |
-| **Rental car** | Same drive + pickup paperwork | $40–90/day + mandatory insurance + deposit | Only worth it if you will leave the resort daily |
-| **Shared shuttle** | 1.5–2.5 h, multiple stops | ~$25–35 per person | Does not enter the gated estate — drops at the nearest town |
-| **Airport taxi** | Same drive | $100–150, negotiated | Unregistered vehicle is held at the gate |
+| Private transfer | 65–70 min, direct | $130 fixed for 1–5 passengers | Driver registered at the gate, flight tracked |
+| Hotel car service | Same drive | Premium rate through the concierge | Usually the most expensive option |
+| Rental car | Same drive plus pickup paperwork | $40–90 a day plus mandatory insurance and a deposit | Only pays off if you leave the resort every day |
+| Shared shuttle | 1.5–2.5 h with stops | About $25–35 a person | Does not enter the gated estate and drops you at the nearest town |
+| Airport taxi | Same drive | $100–150, negotiated on the spot | An unregistered vehicle is held at the gate |
 
-For two people a private transfer costs about the same as a taxi and removes every unknown. For a family of four it is cheaper per person than a shared shuttle and takes less than half the time.
+For two people a private transfer costs about the same as a taxi and takes the guesswork out of the arrival. For a family of four it works out cheaper per person than a shared shuttle and takes less than half the time.
 
-## Tips from our drivers
+## A few things our drivers would tell you
 
-- **Not all-inclusive, so plan dinners.** The W has three restaurants; for variety, Tamarindo is the answer and a private round trip beats two taxis.
-- **Groceries and wine in Huacas or Tamarindo.** The transfer stops for free; the in-room minibar is expensive.
-- **Ask for the W, not the Westin.** They share the gate but have separate entrances; tell us which one so the driver does not have to circle.
+- Since meals are not included, it is worth planning a couple of dinners in Tamarindo. A private round trip works out cheaper than two taxis and you are not waiting for one at the end of the night.
+- The minibar is expensive. Pick up drinks and snacks at the supermarket in Huacas or the Automercado in Tamarindo on the way in; the stop is free.
+- When you book, say the W rather than the Westin. They share the gate but have separate entrances, and it saves the driver a loop through the reserve.
 
-## Book the transfer
+## Booking
 
-Get to the W without thinking about it, then let us handle the nights out. Fixed price per vehicle, flight tracked, driver registered at the resort, child seats included. Book the [Liberia Airport → W Costa Rica – Reserva Conchal private transfer](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste) online in two minutes, or message us on WhatsApp — a real person who drives this road answers.
+The [Liberia Airport to W Costa Rica – Reserva Conchal private transfer](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste) can be booked online in a couple of minutes at a fixed price per vehicle, with the flight tracked, the driver registered at the resort and child seats included. If you would rather ask something first, write to us on WhatsApp and one of the drivers will answer.
 $md$
 )
 on conflict (slug) do update set
@@ -1221,77 +1221,77 @@ update public.blog_posts_ruta_pacifico set
   faqs_es = '[
     {
         "q": "¿A qué distancia está el W Costa Rica del Aeropuerto de Liberia?",
-        "a": "A unos 60 km (37 millas), de 65 a 70 minutos por carretera asfaltada. Está dentro de Reserva Conchal, junto al Westin."
+        "a": "A unos 60 km, de 65 a 70 minutos por carretera asfaltada. Está dentro de Reserva Conchal, junto al Westin."
     },
     {
         "q": "¿Cuánto cuesta un shuttle privado de LIR al W Costa Rica?",
-        "a": "Un precio fijo de $130 por vehículo para 1–5 pasajeros con Ruta Pacifico, $165 para 6–9 y $220 para 10–12, con impuestos, seguimiento de vuelo y sillas para niños incluidos."
+        "a": "Un precio fijo de $130 por vehículo para 1 a 5 pasajeros con Ruta Pacifico, $165 para 6 a 9 y $220 para 10 a 12, con impuestos, seguimiento de vuelo y sillas para niños incluidos."
     },
     {
         "q": "¿El W Costa Rica es todo incluido?",
-        "a": "No. El W es un hotel de servicio completo con restaurantes y bares que se cobran aparte, a diferencia del Westin de al lado. Muchos huéspedes toman un traslado a Tamarindo para cenar."
+        "a": "No. El W es un hotel de servicio completo donde los restaurantes y bares se cobran aparte, a diferencia del Westin de al lado. Muchos huéspedes toman un traslado a Tamarindo para cenar."
     },
     {
         "q": "¿Puedo caminar del W a algún pueblo?",
-        "a": "No. El pueblito de Brasilito está justo fuera del portón pero son 20 minutos a pie y solo tiene unas pocas sodas. Tamarindo, el pueblo real más cercano, está a 20–25 minutos en carro."
+        "a": "No. El pueblito de Brasilito está justo fuera del portón pero son 20 minutos a pie y solo tiene unas pocas sodas. Tamarindo, el pueblo real más cercano, está a 20 o 25 minutos en carro."
     }
 ]'::jsonb,
   content_md_es = $es$
-El W Costa Rica comparte portón, playa y tarifa con el Westin de al lado, pero la estancia es distinta: sin pulsera de todo incluido, tres restaurantes en el lugar y un público que quiere salir. Eso cambia la cuenta del transporte. Esta guía cubre el viaje del aeropuerto, el puesto de control y cómo resuelven las noches los huéspedes del W en la práctica.
+El W Costa Rica comparte portón, playa y tarifa de traslado con el Westin de al lado, pero quedarse ahí es una experiencia distinta. No hay pulsera de todo incluido, el hotel tiene tres restaurantes propios y los huéspedes suelen ser más jóvenes y con más ganas de salir. Eso cambia cómo se planifica el transporte de la semana. Esta guía cubre el viaje desde el aeropuerto, el puesto de control de la reserva y cómo resuelven las noches los huéspedes del W.
 
 ## Datos rápidos
 
 | | |
 | --- | --- |
-| **Distancia desde LIR** | 60 km (37 mi) |
-| **Tiempo real de viaje** | 65–70 min, asfaltado todo el camino |
-| **Traslado privado, 1–5 pax** | **$130** por vehículo, fijo |
-| **Traslado privado, 6–9 pax** | $165 por vehículo |
-| **Traslado privado, 10–12 pax** | $220 por vehículo |
-| **Incluye** | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada gratis para víveres |
-| **Acceso con portón** | Sí: el chofer debe estar registrado de antemano |
+| Distancia desde LIR | 60 km (37 mi) |
+| Tiempo de viaje | 65–70 min, asfaltado todo el camino |
+| Traslado privado, 1–5 pasajeros | $130 por vehículo, fijo |
+| Traslado privado, 6–9 pasajeros | $165 por vehículo |
+| Traslado privado, 10–12 pasajeros | $220 por vehículo |
+| Incluye | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada para víveres |
+| Acceso con portón | Sí, el chofer debe estar registrado de antemano |
 
-## Dónde queda realmente el hotel
+## Dónde queda el hotel
 
-El **W Costa Rica** es el hotel lifestyle de Marriott dentro de **Reserva Conchal**, a unos cientos de metros del Westin en la misma finca privada. Es más pequeño, más ruidoso y más de diseño que su vecino: ambiente de piscina tipo rooftop, noches de DJ y habitaciones que dan al bosque seco sobre **Playa Conchal**. Desde el Aeropuerto de Liberia son unos 60 km por asfalto, Ruta 21 al sur hasta Belén, al oeste por Huacas y al norte pasando Matapalo hasta el portón de la Reserva, y el viaje dura 65–70 minutos.
+El W Costa Rica es el hotel lifestyle de Marriott dentro de Reserva Conchal, a unos cientos de metros del Westin en la misma finca privada. Es más pequeño y más ruidoso que su vecino y apuesta fuerte por el diseño, con un ambiente de piscina que sigue hasta la noche, noches de DJ y habitaciones que miran al bosque seco hacia Playa Conchal. Desde el Aeropuerto de Liberia son unos 60 km por asfalto, el mismo camino que al Westin: Ruta 21 al sur hasta Belén, al oeste por Huacas y luego al norte pasando Matapalo hasta el portón de la reserva. El viaje dura 65 a 70 minutos.
 
-## El viaje desde el Aeropuerto de Liberia
+## El viaje desde el aeropuerto
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **65–70 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer espera a la salida de llegadas con un rótulo con tu nombre. Monitoreamos el vuelo, así que si aterriza antes o después el chofer sigue ahí cuando sales, y te vas en cuanto tienes las maletas en vez de esperar a que se llene una van. La carretera es asfaltada de principio a fin y nunca pasas por Liberia centro, porque el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. El rango que damos para el tiempo de viaje viene del tráfico de día en los cruces del camino, nada más. Si necesitas parar por víveres, efectivo o una farmacia, díselo al chofer; el vehículo es tuyo durante el viaje.
 
-Mira los precios actualizados y reserva el [traslado LIR → W Costa Rica – Reserva Conchal](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste).
+Los precios actualizados y la reserva están en la [página de la ruta LIR a W Costa Rica – Reserva Conchal](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste).
 
-## En el portón: qué necesita la seguridad
+## Qué necesita el portón de seguridad
 
-El W comparte el **portón de seguridad de Reserva Conchal** con el Westin y las villas. El guarda toma el nombre del huésped y revisa el vehículo; los choferes registrados pasan más rápido, así que enviamos el tuyo al W al reservar. Desde el portón son dos minutos hasta la entrada propia del W.
+El W usa el mismo portón de seguridad de Reserva Conchal que el Westin y las villas. El guarda toma el nombre del huésped y revisa el vehículo, y los choferes ya registrados pasan más rápido, así que enviamos el tuyo al W cuando reservas. Desde el portón son unos dos minutos hasta la entrada propia del W.
 
 ## Qué hay alrededor del W Costa Rica – Reserva Conchal
 
-Misma situación que el Westin: el pueblito de **Brasilito** en el portón para caminar y almorzar en una soda, la franja de la marina de **Flamingo** a 10 minutos al norte y **Tamarindo** a 20–25 minutos al sur para la oferta real de restaurantes y bares. El W no es todo incluido, así que los huéspedes sí salen más que los del Westin; un viaje privado de ida y vuelta a Tamarindo para cenar es la solicitud más común que recibimos desde el W.
+Los alrededores son los mismos que para el Westin: el pueblito de Brasilito en el portón para caminar y almorzar en una soda, la franja de la marina de Flamingo a diez minutos al norte, y Tamarindo a veinte o veinticinco minutos al sur para la verdadera variedad de restaurantes y bares. Como el W no es todo incluido, sus huéspedes salen mucho más que los del Westin, y la solicitud más común que recibimos desde el W es un viaje privado de ida y vuelta a Tamarindo para cenar con el chofer esperando.
 
-Para ver el panorama completo de cómo encajan las zonas hoteleras de Guanacaste, y qué playas tienen un pueblo al que puedes caminar, lee nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+Si quieres ver cómo encaja este hotel con el resto de la costa, y qué playas tienen un pueblo al que se puede caminar, nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) los cubre todos.
 
-## Tus opciones desde LIR, comparadas con honestidad
+## Formas de llegar desde LIR
 
-| Opción | Tiempo hasta el hotel | Costo | El detalle |
+| Opción | Tiempo hasta el hotel | Costo | Conviene saber |
 | --- | --- | --- | --- |
-| **Traslado privado** | 65–70 min, directo | $130 fijo, 1–5 pax | Ninguno: chofer registrado en el portón, vuelo monitoreado |
-| **Servicio de carro del hotel** | El mismo trayecto | Tarifa premium vía concierge | Suele ser la opción más cara |
-| **Carro de alquiler** | El mismo trayecto + trámites de entrega | $40–90/día + seguro obligatorio + depósito | Solo vale la pena si vas a salir del resort a diario |
-| **Shuttle compartido** | 1,5–2,5 h, varias paradas | ~$25–35 por persona | No entra a la finca privada: te deja en el pueblo más cercano |
-| **Taxi del aeropuerto** | El mismo trayecto | $100–150, negociado | El vehículo no registrado queda retenido en el portón |
+| Traslado privado | 65–70 min, directo | $130 fijo para 1–5 pasajeros | Chofer registrado en el portón, vuelo monitoreado |
+| Servicio de carro del hotel | El mismo trayecto | Tarifa premium a través del concierge | Suele ser la opción más cara |
+| Carro de alquiler | El mismo trayecto más trámites de entrega | $40–90 al día más seguro obligatorio y depósito | Solo compensa si sales del resort todos los días |
+| Shuttle compartido | 1,5–2,5 h con paradas | Unos $25–35 por persona | No entra a la finca privada y te deja en el pueblo más cercano |
+| Taxi del aeropuerto | El mismo trayecto | $100–150, negociado en el momento | Un vehículo no registrado queda retenido en el portón |
 
-Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y elimina todas las incógnitas. Para una familia de cuatro es más barato por persona que un shuttle compartido y tarda menos de la mitad.
+Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y le quita la incertidumbre a la llegada. Para una familia de cuatro sale más barato por persona que un shuttle compartido y tarda menos de la mitad.
 
-## Consejos de nuestros choferes
+## Algunas cosas que te dirían nuestros choferes
 
-- **No es todo incluido, así que planifica las cenas.** El W tiene tres restaurantes; para variedad, Tamarindo es la respuesta y un viaje privado de ida y vuelta le gana a dos taxis.
-- **Víveres y vino en Huacas o Tamarindo.** El traslado para sin costo; el minibar de la habitación es caro.
-- **Pide el W, no el Westin.** Comparten portón pero tienen entradas separadas; dinos cuál para que el chofer no tenga que dar vueltas.
+- Como las comidas no están incluidas, vale la pena planificar un par de cenas en Tamarindo. Un viaje privado de ida y vuelta sale más barato que dos taxis y no te quedas esperando uno al final de la noche.
+- El minibar es caro. Compra bebidas y snacks en el supermercado de Huacas o en el Automercado de Tamarindo de camino; la parada es gratis.
+- Al reservar, indica el W y no el Westin. Comparten portón pero tienen entradas separadas, y le ahorra al chofer una vuelta por la reserva.
 
-## Reserva el traslado
+## Reserva
 
-Llega al W sin pensar en ello, y déjanos las salidas nocturnas a nosotros. Precio fijo por vehículo, vuelo monitoreado, chofer registrado en el resort, sillas para niños incluidas. Reserva el [traslado privado Aeropuerto de Liberia → W Costa Rica – Reserva Conchal](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste) en línea en dos minutos, o escríbenos por WhatsApp: responde una persona real que maneja esta carretera.
+El [traslado privado del Aeropuerto de Liberia al W Costa Rica – Reserva Conchal](/private-shuttle/lir-liberia-int-airport-to-conchal-guanacaste) se reserva en línea en un par de minutos a precio fijo por vehículo, con el vuelo monitoreado, el chofer registrado en el resort y las sillas para niños incluidas. Si prefieres preguntar algo primero, escríbenos por WhatsApp y te contesta uno de los choferes.
 $es$
 where slug = 'liberia-airport-to-w-costa-rica-reserva-conchal';
 
@@ -1314,77 +1314,77 @@ values
   '[
     {
         "q": "How far is Margaritaville Flamingo from Liberia Airport?",
-        "a": "About 62 km (39 miles), a 65 to 75 minute drive on paved roads via Belén, Huacas and Brasilito."
+        "a": "About 62 km, a drive of 65 to 75 minutes on paved roads via Belén, Huacas and Brasilito."
     },
     {
         "q": "How much is a private shuttle from LIR to Margaritaville Playa Flamingo?",
-        "a": "Ruta Pacifico charges a fixed $130 per vehicle for 1–5 passengers, $165 for 6–9 and $220 for 10–12, with taxes, flight tracking and child seats included."
+        "a": "Ruta Pacifico charges a fixed $130 per vehicle for 1 to 5 passengers, $165 for 6 to 9 and $220 for 10 to 12, with taxes, flight tracking and child seats included."
     },
     {
         "q": "Can I walk to restaurants from Margaritaville Flamingo?",
-        "a": "Yes, a few. The Flamingo marina strip with several restaurants and bars is within a 10-minute walk. For more choice, Tamarindo is 25 minutes by car."
+        "a": "Yes, to a few. The Flamingo marina strip with several restaurants and bars is within a 10-minute walk. For more choice, Tamarindo is 25 minutes by car."
     },
     {
         "q": "Is Flamingo a good base for families?",
-        "a": "Yes. The bay is calm, the resort is family-oriented, and Potrero and Las Catalinas are minutes away. Tamarindo’s restaurants and surf schools are a 25-minute transfer."
+        "a": "Yes. The bay is calm, the resort is family-oriented, and Potrero and Las Catalinas are minutes away. Tamarindo''s restaurants and surf schools are a 25-minute transfer."
     }
 ]'::jsonb,
   $md$
-Margaritaville is the resort we drive the most families to in Flamingo, and the arrival day question is always the same: car seats, groceries and how long until the kids can be in the water. Roughly 70 minutes from Liberia Airport, no gate, and a marina strip you can walk to. Here is the ride, the price and what is around.
+Margaritaville is the hotel in Flamingo we drive the most families to, and the questions on arrival day are always practical ones: whether there are car seats, where to buy groceries, and how long until the kids can get in the water. The answers are yes, on the way, and about 70 minutes after you leave the airport. There is no gate to deal with and the marina strip is close enough to walk to. Here is how the ride works, what it costs and what you will find around the resort.
 
 ## Quick facts
 
 | | |
 | --- | --- |
-| **Distance from LIR** | 62 km (39 mi) |
-| **Real drive time** | 65–75 min, paved the whole way |
-| **Private transfer, 1–5 pax** | **$130** per vehicle, fixed |
-| **Private transfer, 6–9 pax** | $165 per vehicle |
-| **Private transfer, 10–12 pax** | $220 per vehicle |
-| **Included** | Taxes, tolls, flight tracking, child seats, one free stop for groceries |
-| **Gated access** | No community checkpoint |
+| Distance from LIR | 62 km (39 mi) |
+| Drive time | 65–75 min, paved the whole way |
+| Private transfer, 1–5 passengers | $130 per vehicle, fixed |
+| Private transfer, 6–9 passengers | $165 per vehicle |
+| Private transfer, 10–12 passengers | $220 per vehicle |
+| Included | Taxes, tolls, flight tracking, child seats, one stop for groceries |
+| Gated access | No community checkpoint |
 
-## Where the hotel actually is
+## Where the hotel is
 
-**Margaritaville Beach Resort Playa Flamingo** is the big family resort on **Playa Flamingo**, a white-sand bay with a marina, about 62 km from Liberia Airport. The drive is Route 21 south to Belén, west through Huacas, then north through Brasilito and along the coast to Flamingo; paved the entire way, 65–75 minutes. The resort is across the road from the beach, a two-minute walk to the sand, with the marina and the small Flamingo strip a few minutes further on.
+Margaritaville Beach Resort is the large family hotel on Playa Flamingo, a white-sand bay with a marina about 62 km from Liberia Airport. The route is Route 21 south to Belén, west through Huacas, then north through Brasilito and along the coast into Flamingo, all on pavement, in 65 to 75 minutes. The resort is across the road from the beach, a two-minute walk to the sand, with the marina and Flamingo's small commercial strip a few minutes further along.
 
-## The drive from Liberia Airport
+## The drive from the airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **65–75 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver waits at the arrivals exit holding a sign with your name. We track the flight, so if it lands early or late the driver is still there when you walk out, and you leave as soon as you have your bags rather than waiting for a van to fill. The road is paved from start to finish and you never go through Liberia town, since the airport sits west of the city and Route 21 heads straight for the coast. The range we give for the drive time comes from daytime traffic at the junctions along the way, nothing more. If you need to stop for groceries, cash or a pharmacy, tell the driver; the vehicle is yours for the trip.
 
-See live prices and book the [LIR → Margaritaville Flamingo transfer](/private-shuttle/lir-liberia-int-airport-to-flamingo-guanacaste).
+Live prices and booking are on the [LIR to Margaritaville Flamingo route page](/private-shuttle/lir-liberia-int-airport-to-flamingo-guanacaste).
 
-## Arrival at the hotel
+## Arriving at the hotel
 
-No community gate and no registration needed: Margaritaville has a regular hotel entrance and the driver pulls up to the lobby. We still share your driver’s details with the front desk so a late-night arrival is expected.
+Margaritaville has an ordinary hotel entrance, with no community gate and nothing to register beforehand. Your driver takes you to the lobby door. We still pass your driver's details to the front desk so that a late-night arrival is expected.
 
 ## What is around the Margaritaville Flamingo
 
-Flamingo is **the most walkable of the resort beaches in Zone 2, but it is still not a town.** Within a 10-minute walk of Margaritaville you have the marina, a handful of restaurants and bars, a small supermarket and the beach. For a proper evening out with choice, **Tamarindo** is 25 minutes south. **Potrero**, 5 minutes north, is a quiet local village; **Las Catalinas**, 10 minutes, is the car-free planned village with good restaurants.
+Flamingo is the most walkable of the resort beaches in this zone, although it is still a small place rather than a town. Within ten minutes on foot from Margaritaville you have the marina, a handful of restaurants and bars, a small supermarket and the beach. For an evening with more choice, Tamarindo is 25 minutes south. Potrero, five minutes north, is a quiet local village, and Las Catalinas, ten minutes away, is the car-free planned village with a few good restaurants.
 
-For the full picture of how Guanacaste’s hotel zones fit together — and which beaches have a town you can walk to — read our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+If you want to see how this hotel fits with the rest of the coast, and which beaches have a town you can walk to, our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) covers all of them.
 
-## Your options from LIR, honestly compared
+## Ways to get there from LIR
 
-| Option | Time to the hotel | Cost | The catch |
+| Option | Time to the hotel | Cost | Worth knowing |
 | --- | --- | --- | --- |
-| **Private transfer** | 65–75 min, direct | $130 fixed, 1–5 pax | None — driver pre-registered at the gate, flight tracked |
-| **Hotel car service** | Same drive | Premium rate via concierge | Usually the most expensive option |
-| **Rental car** | Same drive + pickup paperwork | $40–90/day + mandatory insurance + deposit | Only worth it if you will leave the resort daily |
-| **Shared shuttle** | 1.5–2.5 h, multiple stops | ~$25–35 per person | Waits for other flights; slow with kids |
-| **Airport taxi** | Same drive | $100–150, negotiated | No flight tracking, cash, no child seats |
+| Private transfer | 65–75 min, direct | $130 fixed for 1–5 passengers | Driver registered at the gate, flight tracked |
+| Hotel car service | Same drive | Premium rate through the concierge | Usually the most expensive option |
+| Rental car | Same drive plus pickup paperwork | $40–90 a day plus mandatory insurance and a deposit | Only pays off if you leave the resort every day |
+| Shared shuttle | 1.5–2.5 h with stops | About $25–35 a person | Waits for other flights, which is slow with children |
+| Airport taxi | Same drive | $100–150, negotiated on the spot | No flight tracking, cash only, no child seats |
 
-For two people a private transfer costs about the same as a taxi and removes every unknown. For a family of four it is cheaper per person than a shared shuttle and takes less than half the time.
+For two people a private transfer costs about the same as a taxi and takes the guesswork out of the arrival. For a family of four it works out cheaper per person than a shared shuttle and takes less than half the time.
 
-## Tips from our drivers
+## A few things our drivers would tell you
 
-- **Families: the private transfer includes child seats.** Two or three car seats at no charge, which shared shuttles rarely guarantee.
-- **Supermarket in Huacas on the way.** The Flamingo mini-super is small and pricey; a stop in Huacas is free on a private transfer.
-- **Catamaran and Las Catalinas day.** The Flamingo marina is where most sunset sails leave from, walking distance from the resort.
+- Child seats come with the private transfer at no charge, two or three if you need them. Shared shuttles rarely guarantee that.
+- The mini-market in Flamingo is small and not cheap. There is a proper supermarket in Huacas on the way, and stopping there is free.
+- Most of the sunset catamaran trips leave from the Flamingo marina, which is walking distance from the resort.
 
-## Book the transfer
+## Booking
 
-Car seats in, groceries picked up, kids at the pool by mid-afternoon. That is the plan. Fixed price per vehicle, flight tracked, driver registered at the resort, child seats included. Book the [Liberia Airport → Margaritaville Flamingo private transfer](/private-shuttle/lir-liberia-int-airport-to-flamingo-guanacaste) online in two minutes, or message us on WhatsApp — a real person who drives this road answers.
+The [Liberia Airport to Margaritaville Flamingo private transfer](/private-shuttle/lir-liberia-int-airport-to-flamingo-guanacaste) can be booked online in a couple of minutes at a fixed price per vehicle, with the flight tracked, the driver registered at the resort and child seats included. If you would rather ask something first, write to us on WhatsApp and one of the drivers will answer.
 $md$
 )
 on conflict (slug) do update set
@@ -1405,11 +1405,11 @@ update public.blog_posts_ruta_pacifico set
   faqs_es = '[
     {
         "q": "¿A qué distancia está Margaritaville Flamingo del Aeropuerto de Liberia?",
-        "a": "A unos 62 km (39 millas), un viaje de 65 a 75 minutos por carretera asfaltada vía Belén, Huacas y Brasilito."
+        "a": "A unos 62 km, un viaje de 65 a 75 minutos por carretera asfaltada vía Belén, Huacas y Brasilito."
     },
     {
         "q": "¿Cuánto cuesta un shuttle privado de LIR a Margaritaville Playa Flamingo?",
-        "a": "Ruta Pacifico cobra una tarifa fija de $130 por vehículo para 1–5 pasajeros, $165 para 6–9 y $220 para 10–12, con impuestos, seguimiento de vuelo y sillas para niños incluidos."
+        "a": "Ruta Pacifico cobra una tarifa fija de $130 por vehículo para 1 a 5 pasajeros, $165 para 6 a 9 y $220 para 10 a 12, con impuestos, seguimiento de vuelo y sillas para niños incluidos."
     },
     {
         "q": "¿Puedo caminar a restaurantes desde Margaritaville Flamingo?",
@@ -1421,61 +1421,61 @@ update public.blog_posts_ruta_pacifico set
     }
 ]'::jsonb,
   content_md_es = $es$
-Margaritaville es el resort al que más familias llevamos en Flamingo, y la pregunta del día de llegada siempre es la misma: sillas para niños, víveres y cuánto falta para que los niños estén en el agua. Unos 70 minutos desde el Aeropuerto de Liberia, sin portón y con una franja de marina a la que se puede caminar. Aquí está el viaje, el precio y qué hay alrededor.
+Margaritaville es el hotel de Flamingo al que más familias llevamos, y las preguntas del día de llegada siempre son prácticas: si hay sillas para niños, dónde comprar víveres y cuánto falta para que los niños puedan meterse al agua. Las respuestas son sí, de camino, y unos 70 minutos después de salir del aeropuerto. No hay portón de por medio y la franja de la marina queda lo bastante cerca para ir a pie. Así funciona el viaje, cuánto cuesta y qué vas a encontrar alrededor del resort.
 
 ## Datos rápidos
 
 | | |
 | --- | --- |
-| **Distancia desde LIR** | 62 km (39 mi) |
-| **Tiempo real de viaje** | 65–75 min, asfaltado todo el camino |
-| **Traslado privado, 1–5 pax** | **$130** por vehículo, fijo |
-| **Traslado privado, 6–9 pax** | $165 por vehículo |
-| **Traslado privado, 10–12 pax** | $220 por vehículo |
-| **Incluye** | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada gratis para víveres |
-| **Acceso con portón** | Sin puesto de control comunitario |
+| Distancia desde LIR | 62 km (39 mi) |
+| Tiempo de viaje | 65–75 min, asfaltado todo el camino |
+| Traslado privado, 1–5 pasajeros | $130 por vehículo, fijo |
+| Traslado privado, 6–9 pasajeros | $165 por vehículo |
+| Traslado privado, 10–12 pasajeros | $220 por vehículo |
+| Incluye | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada para víveres |
+| Acceso con portón | Sin puesto de control comunitario |
 
-## Dónde queda realmente el hotel
+## Dónde queda el hotel
 
-**Margaritaville Beach Resort Playa Flamingo** es el gran resort familiar en **Playa Flamingo**, una bahía de arena blanca con marina, a unos 62 km del Aeropuerto de Liberia. El trayecto es Ruta 21 al sur hasta Belén, al oeste por Huacas, y luego al norte por Brasilito y por la costa hasta Flamingo; asfaltado todo el camino, 65–75 minutos. El resort está al otro lado de la calle de la playa, a dos minutos a pie de la arena, con la marina y la pequeña franja de Flamingo unos minutos más adelante.
+Margaritaville Beach Resort es el gran hotel familiar de Playa Flamingo, una bahía de arena blanca con marina a unos 62 km del Aeropuerto de Liberia. La ruta es Ruta 21 al sur hasta Belén, al oeste por Huacas, y luego al norte por Brasilito y por la costa hasta Flamingo, todo asfaltado, en 65 a 75 minutos. El resort está al otro lado de la calle de la playa, a dos minutos a pie de la arena, con la marina y la pequeña franja comercial de Flamingo unos minutos más adelante.
 
-## El viaje desde el Aeropuerto de Liberia
+## El viaje desde el aeropuerto
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **65–75 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer espera a la salida de llegadas con un rótulo con tu nombre. Monitoreamos el vuelo, así que si aterriza antes o después el chofer sigue ahí cuando sales, y te vas en cuanto tienes las maletas en vez de esperar a que se llene una van. La carretera es asfaltada de principio a fin y nunca pasas por Liberia centro, porque el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. El rango que damos para el tiempo de viaje viene del tráfico de día en los cruces del camino, nada más. Si necesitas parar por víveres, efectivo o una farmacia, díselo al chofer; el vehículo es tuyo durante el viaje.
 
-Mira los precios actualizados y reserva el [traslado LIR → Margaritaville Flamingo](/private-shuttle/lir-liberia-int-airport-to-flamingo-guanacaste).
+Los precios actualizados y la reserva están en la [página de la ruta LIR a Margaritaville Flamingo](/private-shuttle/lir-liberia-int-airport-to-flamingo-guanacaste).
 
-## Llegada al hotel
+## La llegada al hotel
 
-Sin portón comunitario ni registro necesario: Margaritaville tiene una entrada de hotel normal y el chofer llega hasta el lobby. Igual compartimos los datos de tu chofer con recepción para que una llegada de madrugada esté prevista.
+Margaritaville tiene una entrada de hotel normal, sin portón comunitario ni nada que registrar de antemano. Tu chofer te lleva hasta la puerta del lobby. Igual le pasamos los datos de tu chofer a recepción para que una llegada de madrugada esté prevista.
 
 ## Qué hay alrededor del Margaritaville Flamingo
 
-Flamingo es **la más caminable de las playas con resort de la Zona 2, pero sigue sin ser un pueblo.** A 10 minutos a pie de Margaritaville tienes la marina, un puñado de restaurantes y bares, un supermercado pequeño y la playa. Para una noche fuera con opciones, **Tamarindo** está a 25 minutos al sur. **Potrero**, a 5 minutos al norte, es un pueblito local tranquilo; **Las Catalinas**, a 10 minutos, es el pueblo planificado sin carros con buenos restaurantes.
+Flamingo es la más caminable de las playas con resort de esta zona, aunque sigue siendo un lugar pequeño y no un pueblo. A diez minutos a pie de Margaritaville tienes la marina, un puñado de restaurantes y bares, un supermercado pequeño y la playa. Para una noche con más opciones, Tamarindo está a 25 minutos al sur. Potrero, a cinco minutos al norte, es un pueblito local tranquilo, y Las Catalinas, a diez minutos, es el pueblo planificado sin carros con algunos buenos restaurantes.
 
-Para ver el panorama completo de cómo encajan las zonas hoteleras de Guanacaste, y qué playas tienen un pueblo al que puedes caminar, lee nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+Si quieres ver cómo encaja este hotel con el resto de la costa, y qué playas tienen un pueblo al que se puede caminar, nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) los cubre todos.
 
-## Tus opciones desde LIR, comparadas con honestidad
+## Formas de llegar desde LIR
 
-| Opción | Tiempo hasta el hotel | Costo | El detalle |
+| Opción | Tiempo hasta el hotel | Costo | Conviene saber |
 | --- | --- | --- | --- |
-| **Traslado privado** | 65–75 min, directo | $130 fijo, 1–5 pax | Ninguno: chofer registrado en el portón, vuelo monitoreado |
-| **Servicio de carro del hotel** | El mismo trayecto | Tarifa premium vía concierge | Suele ser la opción más cara |
-| **Carro de alquiler** | El mismo trayecto + trámites de entrega | $40–90/día + seguro obligatorio + depósito | Solo vale la pena si vas a salir del resort a diario |
-| **Shuttle compartido** | 1,5–2,5 h, varias paradas | ~$25–35 por persona | Espera otros vuelos; lento con niños |
-| **Taxi del aeropuerto** | El mismo trayecto | $100–150, negociado | Sin seguimiento de vuelo, en efectivo, sin sillas para niños |
+| Traslado privado | 65–75 min, directo | $130 fijo para 1–5 pasajeros | Chofer registrado en el portón, vuelo monitoreado |
+| Servicio de carro del hotel | El mismo trayecto | Tarifa premium a través del concierge | Suele ser la opción más cara |
+| Carro de alquiler | El mismo trayecto más trámites de entrega | $40–90 al día más seguro obligatorio y depósito | Solo compensa si sales del resort todos los días |
+| Shuttle compartido | 1,5–2,5 h con paradas | Unos $25–35 por persona | Espera otros vuelos, lo que es lento con niños |
+| Taxi del aeropuerto | El mismo trayecto | $100–150, negociado en el momento | Sin seguimiento de vuelo, solo efectivo, sin sillas para niños |
 
-Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y elimina todas las incógnitas. Para una familia de cuatro es más barato por persona que un shuttle compartido y tarda menos de la mitad.
+Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y le quita la incertidumbre a la llegada. Para una familia de cuatro sale más barato por persona que un shuttle compartido y tarda menos de la mitad.
 
-## Consejos de nuestros choferes
+## Algunas cosas que te dirían nuestros choferes
 
-- **Familias: el traslado privado incluye sillas para niños.** Dos o tres sillas sin costo, algo que los shuttles compartidos rara vez garantizan.
-- **Supermercado en Huacas en el camino.** El minisúper de Flamingo es pequeño y caro; una parada en Huacas es gratis en un traslado privado.
-- **Día de catamarán y Las Catalinas.** La marina de Flamingo es de donde salen la mayoría de paseos al atardecer, a distancia caminable del resort.
+- Las sillas para niños vienen con el traslado privado sin costo, dos o tres si las necesitas. Los shuttles compartidos rara vez lo garantizan.
+- El minisúper de Flamingo es pequeño y no es barato. Hay un supermercado como tal en Huacas de camino, y parar ahí es gratis.
+- La mayoría de los paseos en catamarán al atardecer salen de la marina de Flamingo, que queda a distancia caminable del resort.
 
-## Reserva el traslado
+## Reserva
 
-Sillas instaladas, víveres comprados, niños en la piscina a media tarde. Ese es el plan. Precio fijo por vehículo, vuelo monitoreado, chofer registrado en el resort, sillas para niños incluidas. Reserva el [traslado privado Aeropuerto de Liberia → Margaritaville Flamingo](/private-shuttle/lir-liberia-int-airport-to-flamingo-guanacaste) en línea en dos minutos, o escríbenos por WhatsApp: responde una persona real que maneja esta carretera.
+El [traslado privado del Aeropuerto de Liberia al Margaritaville Flamingo](/private-shuttle/lir-liberia-int-airport-to-flamingo-guanacaste) se reserva en línea en un par de minutos a precio fijo por vehículo, con el vuelo monitoreado, el chofer registrado en el resort y las sillas para niños incluidas. Si prefieres preguntar algo primero, escríbenos por WhatsApp y te contesta uno de los choferes.
 $es$
 where slug = 'liberia-airport-to-margaritaville-flamingo';
 
@@ -1498,81 +1498,81 @@ values
   '[
     {
         "q": "How far is the JW Marriott Guanacaste from Liberia Airport?",
-        "a": "About 80 km (50 miles), a 75 to 85 minute private transfer on paved roads via Belén, Huacas and the Hacienda Pinilla gate south of Tamarindo."
+        "a": "About 80 km, a private transfer of 75 to 85 minutes on paved roads via Belén, Huacas and the Hacienda Pinilla gate south of Tamarindo."
     },
     {
         "q": "How much is a private shuttle from LIR to the JW Marriott?",
-        "a": "Ruta Pacifico charges a fixed $135 per vehicle for 1–5 passengers, $175 for 6–9 and $260 for 10–12, including taxes, flight tracking, child seats and registration of the driver at the Hacienda Pinilla gate."
+        "a": "Ruta Pacifico charges a fixed $135 per vehicle for 1 to 5 passengers, $175 for 6 to 9 and $260 for 10 to 12, including taxes, flight tracking, child seats and registering the driver at the Hacienda Pinilla gate."
     },
     {
         "q": "Do I need to register my driver with the JW Marriott before arrival?",
-        "a": "Yes. Hacienda Pinilla security requires the driver’s name, ID number and vehicle details on your reservation. Ruta Pacifico sends them to the resort automatically when you book."
+        "a": "Yes. Hacienda Pinilla security requires the driver''s name, ID number and vehicle details on your reservation. Ruta Pacifico sends them to the resort automatically when you book."
     },
     {
         "q": "Is the JW Marriott in Tamarindo?",
-        "a": "No. It is inside Hacienda Pinilla, a gated estate 20–25 minutes south of Tamarindo by car. There is no town within walking distance of the resort."
+        "a": "No. It is inside Hacienda Pinilla, a gated estate 20 to 25 minutes south of Tamarindo by car. There is no town within walking distance of the resort."
     },
     {
         "q": "Is there a shared shuttle from Liberia Airport to the JW Marriott?",
-        "a": "No. Shared shuttles serve Tamarindo town, not the resort. The options are a private transfer, the hotel’s own car service, or a rental car."
+        "a": "No. Shared shuttles serve Tamarindo town, not the resort. The options are a private transfer, the hotel''s own car service, or a rental car."
     }
 ]'::jsonb,
   $md$
-We drive to the JW Marriott more than to any other hotel in Guanacaste, and we still see the same surprise at the gate every week: guests who thought they were staying in Tamarindo. They are not. The resort is inside Hacienda Pinilla, a private estate with the strictest security checkpoint in the region and no town for 25 minutes. This is the honest guide to getting there and making the most of it.
+We drive to the JW Marriott more often than to any other hotel in Guanacaste, and we still see the same surprise at the gate most weeks: guests who thought they had booked a hotel in Tamarindo. The JW is not in Tamarindo. It is inside Hacienda Pinilla, a private estate about 25 minutes further south, behind the strictest security checkpoint in the region and with no town anywhere near it. None of that is a problem if you know it in advance, which is the reason for this page.
 
 ## Quick facts
 
 | | |
 | --- | --- |
-| **Distance from LIR** | 80 km (50 mi) |
-| **Real drive time** | 75–85 min, paved the whole way |
-| **Private transfer, 1–5 pax** | **$135** per vehicle, fixed |
-| **Private transfer, 6–9 pax** | $175 per vehicle |
-| **Private transfer, 10–12 pax** | $260 per vehicle |
-| **Included** | Taxes, tolls, flight tracking, child seats, one free stop for groceries |
-| **Gated access** | Yes — driver must be pre-registered |
+| Distance from LIR | 80 km (50 mi) |
+| Drive time | 75–85 min, paved the whole way |
+| Private transfer, 1–5 passengers | $135 per vehicle, fixed |
+| Private transfer, 6–9 passengers | $175 per vehicle |
+| Private transfer, 10–12 passengers | $260 per vehicle |
+| Included | Taxes, tolls, flight tracking, child seats, one stop for groceries |
+| Gated access | Yes, the driver has to be registered in advance |
 
-## Where the hotel actually is
+## Where the hotel is
 
-The **JW Marriott Guanacaste** is the hotel we drive to more than any other in the region, and the one whose location surprises the most guests. It sits on **Playa Mansita** inside **Hacienda Pinilla**, a 4,500-acre gated estate **south of Tamarindo** — not in Tamarindo, and not in any town. The resort has the largest pool in Central America, a golf course, a beach club and miles of estate roads, and nothing else around it. From Liberia Airport it is about 80 km: Route 21 south to Belén, west through Huacas and Villarreal, past the Tamarindo turn-off, then south through the Hacienda Pinilla gate and along the estate road to the resort. Paved all the way; 75–85 minutes.
+The JW Marriott Guanacaste sits on Playa Mansita inside Hacienda Pinilla, a 4,500-acre gated estate south of Tamarindo. The resort has the largest swimming pool in Central America, a golf course, a beach club and miles of estate roads, and beyond the estate boundary there is very little. From Liberia Airport the drive is about 80 km: Route 21 south to Belén, west through Huacas and Villarreal, past the turn for Tamarindo, then south to the Hacienda Pinilla gate and along the estate road to the hotel. It is paved the whole way and takes 75 to 85 minutes.
 
-## The drive from Liberia Airport
+## The drive from the airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **75–85 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver waits at the arrivals exit holding a sign with your name. We track the flight, so if it lands early or late the driver is still there when you walk out, and you leave as soon as you have your bags rather than waiting for a van to fill. The road is paved from start to finish and you never go through Liberia town, since the airport sits west of the city and Route 21 heads straight for the coast. The range we give for the drive time comes from daytime traffic at the junctions along the way, nothing more. If you need to stop for groceries, cash or a pharmacy, tell the driver; the vehicle is yours for the trip.
 
-See live prices and book the [LIR → JW Marriott Guanacaste transfer](/private-shuttle/lir-liberia-int-airport-to-jw-marriott-guanacaste).
+Live prices and booking are on the [LIR to JW Marriott Guanacaste route page](/private-shuttle/lir-liberia-int-airport-to-jw-marriott-guanacaste).
 
-## At the gate: what security needs
+## What the security gate needs
 
-**Hacienda Pinilla’s gate is the strictest in Guanacaste after Papagayo.** Security expects the **driver’s full name, cédula number, and the vehicle’s make, plate and colour** to be on the guest’s reservation; an unregistered taxi waits at the barrier while the guard phones the resort, sometimes for a long time. When you book with Ruta Pacifico we send those details to the JW Marriott in advance — every time, for every arrival — so the gate already expects you.
+After Papagayo, the Hacienda Pinilla gate is the strictest in Guanacaste. The guards expect the hotel to have the driver's full name, cédula number, and the make, plate and colour of the vehicle on the guest's reservation. A taxi that is not registered waits at the barrier while the guard phones the resort, and we have seen that wait run to twenty minutes on a busy afternoon. We send those details to the JW Marriott ahead of every arrival, without exception, so the gate is already expecting your vehicle when you pull up.
 
 ## What is around the JW Marriott Guanacaste
 
-**There is nothing around the JW Marriott.** No town, no strip, no walk to a restaurant. Inside the estate you have the resort’s own restaurants and the Hacienda Pinilla beach club. The nearest place with a choice of restaurants is **Tamarindo, 20–25 minutes by car**; **Playa Avellanas**, 10 minutes south, has the famous Lola’s beach restaurant and little else. Guests who arrive knowing this have a superb, quiet stay. Guests who expected Tamarindo next door spend the week paying for taxis — so plan on a private round trip for the one or two nights you want to go out.
+There is nothing around the JW Marriott. No town, no commercial strip, and no restaurant you can walk to. Inside the estate you have the resort's own restaurants and the Hacienda Pinilla beach club. The nearest place with a real choice of restaurants is Tamarindo, twenty to twenty-five minutes away by car. Playa Avellanas, ten minutes south, has Lola's, the well-known beach restaurant, and not much else. Guests who arrive knowing this tend to have an excellent, quiet week. Guests who expected Tamarindo next door end up spending a fair amount on taxis, so it helps to plan a private round trip for the one or two nights you want to go out.
 
-For the full picture of how Guanacaste’s hotel zones fit together — and which beaches have a town you can walk to — read our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+If you want to see how this hotel fits with the rest of the coast, and which beaches have a town you can walk to, our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) covers all of them.
 
-## Your options from LIR, honestly compared
+## Ways to get there from LIR
 
-| Option | Time to the hotel | Cost | The catch |
+| Option | Time to the hotel | Cost | Worth knowing |
 | --- | --- | --- | --- |
-| **Private transfer** | 75–85 min, direct | $135 fixed, 1–5 pax | None — driver pre-registered at the gate, flight tracked |
-| **Hotel car service** | Same drive | Premium rate via concierge | Usually the most expensive option |
-| **Rental car** | Same drive + pickup paperwork | $40–90/day + mandatory insurance + deposit | Only worth it if you will leave the resort daily |
-| **Shared shuttle** | 1.5–2.5 h, multiple stops | ~$25–35 per person | Does not enter the gated estate — drops at the nearest town |
-| **Airport taxi** | Same drive | $100–150, negotiated | Unregistered vehicle is held at the gate |
+| Private transfer | 75–85 min, direct | $135 fixed for 1–5 passengers | Driver registered at the gate, flight tracked |
+| Hotel car service | Same drive | Premium rate through the concierge | Usually the most expensive option |
+| Rental car | Same drive plus pickup paperwork | $40–90 a day plus mandatory insurance and a deposit | Only pays off if you leave the resort every day |
+| Shared shuttle | 1.5–2.5 h with stops | About $25–35 a person | Does not enter the gated estate and drops you at the nearest town |
+| Airport taxi | Same drive | $100–150, negotiated on the spot | An unregistered vehicle is held at the gate |
 
-For two people a private transfer costs about the same as a taxi and removes every unknown. For a family of four it is cheaper per person than a shared shuttle and takes less than half the time.
+For two people a private transfer costs about the same as a taxi and takes the guesswork out of the arrival. For a family of four it works out cheaper per person than a shared shuttle and takes less than half the time.
 
-## Tips from our drivers
+## A few things our drivers would tell you
 
-- **There is no shared shuttle or bus to the JW.** Shared vans stop in Tamarindo; the resort is a further 20 minutes inside a gated estate. Book a private transfer or rent a car.
-- **Groceries in Villarreal.** The supermarket in Villarreal is the last one on the road to the Pinilla gate without detouring into Tamarindo; the stop is free on a private transfer.
-- **Budget a Tamarindo night.** A private round trip with waiting time is the easiest way to get dinner outside the resort; ask us when you book the airport transfer.
+- There is no shared shuttle or bus to the JW. The shared vans stop in Tamarindo, and the resort is another twenty minutes inside a gated estate. It is either a private transfer or a rental car.
+- The supermarket in Villarreal is the last one on the road to the Pinilla gate without detouring into Tamarindo. Stopping there costs nothing on a private transfer.
+- If you would like a dinner in Tamarindo during your stay, mention it when you book the airport transfer and we will quote the round trip with the driver waiting.
 
-## Book the transfer
+## Booking
 
-Eighty minutes from LIR, the Pinilla gate already expecting you, and a plan for the nights you want to leave. That is how the JW works. Fixed price per vehicle, flight tracked, driver registered at the resort, child seats included. Book the [Liberia Airport → JW Marriott Guanacaste private transfer](/private-shuttle/lir-liberia-int-airport-to-jw-marriott-guanacaste) online in two minutes, or message us on WhatsApp — a real person who drives this road answers.
+The [Liberia Airport to JW Marriott Guanacaste private transfer](/private-shuttle/lir-liberia-int-airport-to-jw-marriott-guanacaste) can be booked online in a couple of minutes at a fixed price per vehicle, with the flight tracked, the driver registered at the resort and child seats included. If you would rather ask something first, write to us on WhatsApp and one of the drivers will answer.
 $md$
 )
 on conflict (slug) do update set
@@ -1593,11 +1593,11 @@ update public.blog_posts_ruta_pacifico set
   faqs_es = '[
     {
         "q": "¿A qué distancia está el JW Marriott Guanacaste del Aeropuerto de Liberia?",
-        "a": "A unos 80 km (50 millas), un traslado privado de 75 a 85 minutos por carretera asfaltada vía Belén, Huacas y el portón de Hacienda Pinilla al sur de Tamarindo."
+        "a": "A unos 80 km, un traslado privado de 75 a 85 minutos por carretera asfaltada vía Belén, Huacas y el portón de Hacienda Pinilla al sur de Tamarindo."
     },
     {
         "q": "¿Cuánto cuesta un shuttle privado de LIR al JW Marriott?",
-        "a": "Ruta Pacifico cobra una tarifa fija de $135 por vehículo para 1–5 pasajeros, $175 para 6–9 y $260 para 10–12, con impuestos, seguimiento de vuelo, sillas para niños y el registro del chofer en el portón de Hacienda Pinilla incluidos."
+        "a": "Ruta Pacifico cobra una tarifa fija de $135 por vehículo para 1 a 5 pasajeros, $175 para 6 a 9 y $260 para 10 a 12, con impuestos, seguimiento de vuelo, sillas para niños y el registro del chofer en el portón de Hacienda Pinilla incluidos."
     },
     {
         "q": "¿Tengo que registrar a mi chofer con el JW Marriott antes de llegar?",
@@ -1605,7 +1605,7 @@ update public.blog_posts_ruta_pacifico set
     },
     {
         "q": "¿El JW Marriott está en Tamarindo?",
-        "a": "No. Está dentro de Hacienda Pinilla, una finca privada a 20–25 minutos al sur de Tamarindo en carro. No hay pueblo a distancia caminable del resort."
+        "a": "No. Está dentro de Hacienda Pinilla, una finca privada a 20 o 25 minutos al sur de Tamarindo en carro. No hay pueblo a distancia caminable del resort."
     },
     {
         "q": "¿Hay shuttle compartido del Aeropuerto de Liberia al JW Marriott?",
@@ -1613,61 +1613,61 @@ update public.blog_posts_ruta_pacifico set
     }
 ]'::jsonb,
   content_md_es = $es$
-Manejamos al JW Marriott más que a cualquier otro hotel de Guanacaste, y todavía vemos la misma sorpresa en el portón cada semana: huéspedes que creían que se quedaban en Tamarindo. No es así. El resort está dentro de Hacienda Pinilla, una finca privada con el puesto de seguridad más estricto de la región y sin pueblo en 25 minutos. Esta es la guía honesta para llegar y sacarle el máximo.
+Manejamos al JW Marriott más seguido que a cualquier otro hotel de Guanacaste, y todavía vemos la misma sorpresa en el portón casi todas las semanas: huéspedes que creían haber reservado un hotel en Tamarindo. El JW no está en Tamarindo. Está dentro de Hacienda Pinilla, una finca privada unos 25 minutos más al sur, detrás del puesto de seguridad más estricto de la región y sin ningún pueblo cerca. Nada de eso es un problema si lo sabes de antemano, y esa es la razón de esta página.
 
 ## Datos rápidos
 
 | | |
 | --- | --- |
-| **Distancia desde LIR** | 80 km (50 mi) |
-| **Tiempo real de viaje** | 75–85 min, asfaltado todo el camino |
-| **Traslado privado, 1–5 pax** | **$135** por vehículo, fijo |
-| **Traslado privado, 6–9 pax** | $175 por vehículo |
-| **Traslado privado, 10–12 pax** | $260 por vehículo |
-| **Incluye** | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada gratis para víveres |
-| **Acceso con portón** | Sí: el chofer debe estar registrado de antemano |
+| Distancia desde LIR | 80 km (50 mi) |
+| Tiempo de viaje | 75–85 min, asfaltado todo el camino |
+| Traslado privado, 1–5 pasajeros | $135 por vehículo, fijo |
+| Traslado privado, 6–9 pasajeros | $175 por vehículo |
+| Traslado privado, 10–12 pasajeros | $260 por vehículo |
+| Incluye | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada para víveres |
+| Acceso con portón | Sí, el chofer debe estar registrado de antemano |
 
-## Dónde queda realmente el hotel
+## Dónde queda el hotel
 
-El **JW Marriott Guanacaste** es el hotel al que más manejamos en toda la región, y el que más sorprende a los huéspedes por su ubicación. Está en **Playa Mansita** dentro de **Hacienda Pinilla**, una finca privada de 1.800 hectáreas **al sur de Tamarindo**: no en Tamarindo, y no en ningún pueblo. El resort tiene la piscina más grande de Centroamérica, campo de golf, club de playa y kilómetros de caminos internos, y nada más alrededor. Desde el Aeropuerto de Liberia son unos 80 km: Ruta 21 al sur hasta Belén, al oeste por Huacas y Villarreal, pasando el desvío a Tamarindo, y luego al sur por el portón de Hacienda Pinilla y el camino interno hasta el resort. Asfaltado todo el camino; 75–85 minutos.
+El JW Marriott Guanacaste está en Playa Mansita dentro de Hacienda Pinilla, una finca privada de 1.800 hectáreas al sur de Tamarindo. El resort tiene la piscina más grande de Centroamérica, campo de golf, club de playa y kilómetros de caminos internos, y más allá del límite de la finca hay muy poco. Desde el Aeropuerto de Liberia el viaje son unos 80 km: Ruta 21 al sur hasta Belén, al oeste por Huacas y Villarreal, pasando el desvío a Tamarindo, y luego al sur hasta el portón de Hacienda Pinilla y por el camino interno hasta el hotel. Es asfaltado todo el trayecto y tarda 75 a 85 minutos.
 
-## El viaje desde el Aeropuerto de Liberia
+## El viaje desde el aeropuerto
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **75–85 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer espera a la salida de llegadas con un rótulo con tu nombre. Monitoreamos el vuelo, así que si aterriza antes o después el chofer sigue ahí cuando sales, y te vas en cuanto tienes las maletas en vez de esperar a que se llene una van. La carretera es asfaltada de principio a fin y nunca pasas por Liberia centro, porque el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. El rango que damos para el tiempo de viaje viene del tráfico de día en los cruces del camino, nada más. Si necesitas parar por víveres, efectivo o una farmacia, díselo al chofer; el vehículo es tuyo durante el viaje.
 
-Mira los precios actualizados y reserva el [traslado LIR → JW Marriott Guanacaste](/private-shuttle/lir-liberia-int-airport-to-jw-marriott-guanacaste).
+Los precios actualizados y la reserva están en la [página de la ruta LIR a JW Marriott Guanacaste](/private-shuttle/lir-liberia-int-airport-to-jw-marriott-guanacaste).
 
-## En el portón: qué necesita la seguridad
+## Qué necesita el portón de seguridad
 
-**El portón de Hacienda Pinilla es el más estricto de Guanacaste después de Papagayo.** La seguridad espera que el **nombre completo del chofer, su número de cédula y la marca, placa y color del vehículo** estén en la reserva del huésped; un taxi no registrado espera en la barrera mientras el guarda llama al resort, a veces un buen rato. Cuando reservas con Ruta Pacifico enviamos esos datos al JW Marriott con anticipación, siempre, en cada llegada, para que el portón ya te espere.
+Después de Papagayo, el portón de Hacienda Pinilla es el más estricto de Guanacaste. Los guardas esperan que el hotel tenga en la reserva del huésped el nombre completo del chofer, su número de cédula y la marca, placa y color del vehículo. Un taxi no registrado espera en la barrera mientras el guarda llama al resort, y hemos visto esa espera llegar a veinte minutos en una tarde movida. Nosotros enviamos esos datos al JW Marriott antes de cada llegada, sin excepción, así que el portón ya espera tu vehículo cuando llegas.
 
 ## Qué hay alrededor del JW Marriott Guanacaste
 
-**No hay nada alrededor del JW Marriott.** Ni pueblo, ni franja comercial, ni caminata hasta un restaurante. Dentro de la finca tienes los restaurantes del resort y el club de playa de Hacienda Pinilla. El lugar más cercano con variedad de restaurantes es **Tamarindo, a 20–25 minutos en carro**; **Playa Avellanas**, a 10 minutos al sur, tiene el famoso restaurante de playa Lola's y poco más. Quien llega sabiendo esto tiene una estancia excelente y tranquila. Quien esperaba tener Tamarindo al lado se pasa la semana pagando taxis, así que planifica un viaje privado de ida y vuelta para la o las dos noches que quieras salir.
+No hay nada alrededor del JW Marriott. Ni pueblo, ni franja comercial, ni un restaurante al que se pueda ir caminando. Dentro de la finca tienes los restaurantes del resort y el club de playa de Hacienda Pinilla. El lugar más cercano con variedad real de restaurantes es Tamarindo, a veinte o veinticinco minutos en carro. Playa Avellanas, a diez minutos al sur, tiene Lola's, el conocido restaurante de playa, y poco más. Quien llega sabiendo esto suele pasar una semana excelente y tranquila. Quien esperaba tener Tamarindo al lado termina gastando bastante en taxis, así que conviene planificar un viaje privado de ida y vuelta para la o las dos noches que quieras salir.
 
-Para ver el panorama completo de cómo encajan las zonas hoteleras de Guanacaste, y qué playas tienen un pueblo al que puedes caminar, lee nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+Si quieres ver cómo encaja este hotel con el resto de la costa, y qué playas tienen un pueblo al que se puede caminar, nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) los cubre todos.
 
-## Tus opciones desde LIR, comparadas con honestidad
+## Formas de llegar desde LIR
 
-| Opción | Tiempo hasta el hotel | Costo | El detalle |
+| Opción | Tiempo hasta el hotel | Costo | Conviene saber |
 | --- | --- | --- | --- |
-| **Traslado privado** | 75–85 min, directo | $135 fijo, 1–5 pax | Ninguno: chofer registrado en el portón, vuelo monitoreado |
-| **Servicio de carro del hotel** | El mismo trayecto | Tarifa premium vía concierge | Suele ser la opción más cara |
-| **Carro de alquiler** | El mismo trayecto + trámites de entrega | $40–90/día + seguro obligatorio + depósito | Solo vale la pena si vas a salir del resort a diario |
-| **Shuttle compartido** | 1,5–2,5 h, varias paradas | ~$25–35 por persona | No entra a la finca privada: te deja en el pueblo más cercano |
-| **Taxi del aeropuerto** | El mismo trayecto | $100–150, negociado | El vehículo no registrado queda retenido en el portón |
+| Traslado privado | 75–85 min, directo | $135 fijo para 1–5 pasajeros | Chofer registrado en el portón, vuelo monitoreado |
+| Servicio de carro del hotel | El mismo trayecto | Tarifa premium a través del concierge | Suele ser la opción más cara |
+| Carro de alquiler | El mismo trayecto más trámites de entrega | $40–90 al día más seguro obligatorio y depósito | Solo compensa si sales del resort todos los días |
+| Shuttle compartido | 1,5–2,5 h con paradas | Unos $25–35 por persona | No entra a la finca privada y te deja en el pueblo más cercano |
+| Taxi del aeropuerto | El mismo trayecto | $100–150, negociado en el momento | Un vehículo no registrado queda retenido en el portón |
 
-Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y elimina todas las incógnitas. Para una familia de cuatro es más barato por persona que un shuttle compartido y tarda menos de la mitad.
+Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y le quita la incertidumbre a la llegada. Para una familia de cuatro sale más barato por persona que un shuttle compartido y tarda menos de la mitad.
 
-## Consejos de nuestros choferes
+## Algunas cosas que te dirían nuestros choferes
 
-- **No hay shuttle compartido ni bus hasta el JW.** Las vans compartidas paran en Tamarindo; el resort está 20 minutos más adentro de una finca con portón. Reserva un traslado privado o alquila carro.
-- **Víveres en Villarreal.** El supermercado de Villarreal es el último en el camino al portón de Pinilla sin desviarse a Tamarindo; la parada es gratis en un traslado privado.
-- **Presupuesta una noche en Tamarindo.** Un viaje privado de ida y vuelta con tiempo de espera es la forma más fácil de cenar fuera del resort; pídelo cuando reserves el traslado del aeropuerto.
+- No hay shuttle compartido ni bus hasta el JW. Las vans compartidas paran en Tamarindo, y el resort está veinte minutos más adentro de una finca con portón. Es traslado privado o carro de alquiler.
+- El supermercado de Villarreal es el último en el camino al portón de Pinilla sin desviarse a Tamarindo. Parar ahí no cuesta nada en un traslado privado.
+- Si te gustaría cenar en Tamarindo durante tu estancia, menciónalo al reservar el traslado del aeropuerto y te cotizamos el viaje de ida y vuelta con el chofer esperando.
 
-## Reserva el traslado
+## Reserva
 
-Ochenta minutos desde LIR, el portón de Pinilla ya esperándote y un plan para las noches que quieras salir. Así funciona el JW. Precio fijo por vehículo, vuelo monitoreado, chofer registrado en el resort, sillas para niños incluidas. Reserva el [traslado privado Aeropuerto de Liberia → JW Marriott Guanacaste](/private-shuttle/lir-liberia-int-airport-to-jw-marriott-guanacaste) en línea en dos minutos, o escríbenos por WhatsApp: responde una persona real que maneja esta carretera.
+El [traslado privado del Aeropuerto de Liberia al JW Marriott Guanacaste](/private-shuttle/lir-liberia-int-airport-to-jw-marriott-guanacaste) se reserva en línea en un par de minutos a precio fijo por vehículo, con el vuelo monitoreado, el chofer registrado en el resort y las sillas para niños incluidas. Si prefieres preguntar algo primero, escríbenos por WhatsApp y te contesta uno de los choferes.
 $es$
 where slug = 'liberia-airport-to-jw-marriott-guanacaste';
 
@@ -1690,19 +1690,19 @@ values
   '[
     {
         "q": "How far is the Tamarindo Diriá from Liberia Airport?",
-        "a": "About 65 km (40 miles), a 55 to 70 minute drive on paved roads via Belén and Huacas, straight into Tamarindo town."
+        "a": "About 65 km, a drive of 55 to 70 minutes on paved roads via Belén and Huacas, straight into Tamarindo town."
     },
     {
         "q": "How much is a private shuttle from LIR to the Tamarindo Diriá?",
-        "a": "Ruta Pacifico charges a fixed $130 per vehicle for 1–5 passengers, $165 for 6–9 and $220 for 10–12, with taxes, flight tracking and child seats included."
+        "a": "Ruta Pacifico charges a fixed $130 per vehicle for 1 to 5 passengers, $165 for 6 to 9 and $220 for 10 to 12, with taxes, flight tracking and child seats included."
     },
     {
         "q": "Can I walk to restaurants from the Tamarindo Diriá?",
-        "a": "Yes — dozens. The Diriá is on Tamarindo’s main street, and the town’s restaurants, bars, surf schools and supermarkets are all within a 10-minute walk."
+        "a": "Yes, to dozens of them. The Diriá is on Tamarindo''s main street, and the town''s restaurants, bars, surf schools and supermarkets are all within a 10-minute walk."
     },
     {
         "q": "Is the Tamarindo Diriá noisy?",
-        "a": "The beachfront wing on the main strip can hear the town on weekend nights. The garden wing across the road is quieter; both share the pools and beach access."
+        "a": "The beachfront wing on the main strip can hear the town on weekend nights. The garden wing across the road is quieter, and both share the pools and beach access."
     },
     {
         "q": "Do I need a car if I stay at the Tamarindo Diriá?",
@@ -1710,61 +1710,61 @@ values
     }
 ]'::jsonb,
   $md$
-After nine guides to gated resorts with no town nearby, the Tamarindo Diriá is the exception: a beachfront resort in the middle of the busiest beach town in Guanacaste. You walk out of the lobby and you are on the main street. The transfer from Liberia Airport is an hour on paved road with no checkpoint at the end. Here is what to know before you book it.
+Most of the big resorts in Guanacaste are behind a gate with no town for miles. The Tamarindo Diriá is the exception. It is a beachfront resort in the middle of the busiest beach town in the province, and when you walk out of the lobby you are on the main street with restaurants on both sides. The transfer from Liberia Airport is about an hour on paved road and there is no checkpoint at the end of it. This page covers the ride, the price and a few things worth knowing before you book.
 
 ## Quick facts
 
 | | |
 | --- | --- |
-| **Distance from LIR** | 65 km (40 mi) |
-| **Real drive time** | 55–70 min, paved the whole way |
-| **Private transfer, 1–5 pax** | **$130** per vehicle, fixed |
-| **Private transfer, 6–9 pax** | $165 per vehicle |
-| **Private transfer, 10–12 pax** | $220 per vehicle |
-| **Included** | Taxes, tolls, flight tracking, child seats, one free stop for groceries |
-| **Gated access** | No community checkpoint |
+| Distance from LIR | 65 km (40 mi) |
+| Drive time | 55–70 min, paved the whole way |
+| Private transfer, 1–5 passengers | $130 per vehicle, fixed |
+| Private transfer, 6–9 passengers | $165 per vehicle |
+| Private transfer, 10–12 passengers | $220 per vehicle |
+| Included | Taxes, tolls, flight tracking, child seats, one stop for groceries |
+| Gated access | No community checkpoint |
 
-## Where the hotel actually is
+## Where the hotel is
 
-The **Tamarindo Diriá** is the resort that sits **in the middle of Tamarindo itself**, on the main beach, with the town’s restaurants, bars and surf shops literally across the street. That makes it the opposite of every gated resort in this series: instead of seclusion, you get the liveliest beach town in Guanacaste at your door. It is the largest and longest-established hotel in Tamarindo, with beachfront and garden wings on both sides of the main road, several pools and direct access to the sand. From Liberia Airport it is about 65 km: Route 21 south to Belén, west through Huacas and Villarreal, and straight into town. Paved all the way; 55–70 minutes depending on the time of day and traffic along the Tamarindo main street.
+The Tamarindo Diriá is the resort that sits in the middle of Tamarindo itself, on the main beach, with the town's restaurants, bars and surf shops directly across the road. It is the largest and longest-established hotel in Tamarindo, with beachfront and garden wings on either side of the main street, several pools and direct access to the sand. From Liberia Airport it is about 65 km: Route 21 south to Belén, west through Huacas and Villarreal, and straight into town. The road is paved all the way and the drive takes 55 to 70 minutes depending on the time of day and traffic on Tamarindo's main street.
 
-## The drive from Liberia Airport
+## The drive from the airport
 
-Your driver meets you at the arrivals exit with a name sign, having tracked your flight, and you leave the moment you have your bags — no waiting for other passengers, no van filling up. The road is paved end to end and you never enter Liberia town — the airport sits west of the city and Route 21 heads straight for the coast. The only variable is daytime traffic at the junctions along the way, which is why we quote **55–70 min** rather than a single number. Want to stop for groceries, cash or a pharmacy on the way? Just say so; it is your vehicle.
+Your driver waits at the arrivals exit holding a sign with your name. We track the flight, so if it lands early or late the driver is still there when you walk out, and you leave as soon as you have your bags rather than waiting for a van to fill. The road is paved from start to finish and you never go through Liberia town, since the airport sits west of the city and Route 21 heads straight for the coast. The range we give for the drive time comes from daytime traffic at the junctions along the way, nothing more. If you need to stop for groceries, cash or a pharmacy, tell the driver; the vehicle is yours for the trip.
 
-See live prices and book the [LIR → Tamarindo Diriá transfer](/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste).
+Live prices and booking are on the [LIR to Tamarindo Diriá route page](/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste).
 
-## Arrival at the hotel
+## Arriving at the hotel
 
-No gate, no checkpoint, no registration: the Diriá has a regular hotel entrance on Tamarindo’s main street and your driver pulls up to reception. The only thing to know is that the main street can be slow at sunset, when the whole town walks to the beach; our drivers know the back way in.
+The Diriá has a regular hotel entrance on Tamarindo's main street and your driver takes you straight to reception. There is no gate and nothing to register. The one thing worth knowing is that the main street gets slow around sunset, when the whole town walks down to the beach, and our drivers use the back way into the hotel at that hour.
 
 ## What is around the Tamarindo Diriá
 
-**Everything, on foot.** This is the point of staying at the Diriá. Tamarindo has 60+ restaurants, from sodas to sushi to steakhouses, bars with live music, surf schools on the sand, two supermarkets, pharmacies, ATMs and tour offices — all within a 10-minute walk of the lobby. **Playa Langosta**, quieter and more upscale, is a 20-minute walk south. **Playa Grande** and the Las Baulas turtle park are across the estuary. The trade-off is noise: the beachfront rooms on the main strip hear the town on weekend nights. Ask for the garden side if you want quiet.
+Everything in Tamarindo is within walking distance of the Diriá, which is the reason to stay there. The town has more than sixty restaurants, from sodas to sushi to steakhouses, bars with live music, surf schools on the sand, two supermarkets, pharmacies, ATMs and tour offices, all within ten minutes on foot from the lobby. Playa Langosta, which is quieter and more upscale, is a twenty-minute walk south. Playa Grande and the Las Baulas turtle park are across the estuary. The trade-off is noise: the beachfront rooms facing the main strip hear the town on weekend nights, so ask for the garden side if you want quiet.
 
-For the full picture of how Guanacaste’s hotel zones fit together — and which beaches have a town you can walk to — read our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+If you want to see how this hotel fits with the rest of the coast, and which beaches have a town you can walk to, our guide to the [best hotels in Guanacaste by zone](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) covers all of them.
 
-## Your options from LIR, honestly compared
+## Ways to get there from LIR
 
-| Option | Time to the hotel | Cost | The catch |
+| Option | Time to the hotel | Cost | Worth knowing |
 | --- | --- | --- | --- |
-| **Private transfer** | 55–70 min, direct | $130 fixed, 1–5 pax | None — driver pre-registered at the gate, flight tracked |
-| **Hotel car service** | Same drive | Premium rate via concierge | Usually the most expensive option |
-| **Rental car** | Same drive + pickup paperwork | $40–90/day + mandatory insurance + deposit | Only worth it if you will leave the resort daily |
-| **Shared shuttle** | 1.5–2.5 h, multiple stops | ~$25–35 per person | Waits for other flights; slow with kids |
-| **Airport taxi** | Same drive | $100–150, negotiated | No flight tracking, cash, no child seats |
+| Private transfer | 55–70 min, direct | $130 fixed for 1–5 passengers | Driver registered at the gate, flight tracked |
+| Hotel car service | Same drive | Premium rate through the concierge | Usually the most expensive option |
+| Rental car | Same drive plus pickup paperwork | $40–90 a day plus mandatory insurance and a deposit | Only pays off if you leave the resort every day |
+| Shared shuttle | 1.5–2.5 h with stops | About $25–35 a person | Waits for other flights, which is slow with children |
+| Airport taxi | Same drive | $100–150, negotiated on the spot | No flight tracking, cash only, no child seats |
 
-For two people a private transfer costs about the same as a taxi and removes every unknown. For a family of four it is cheaper per person than a shared shuttle and takes less than half the time.
+For two people a private transfer costs about the same as a taxi and takes the guesswork out of the arrival. For a family of four it works out cheaper per person than a shared shuttle and takes less than half the time.
 
-## Tips from our drivers
+## A few things our drivers would tell you
 
-- **You do not need a rental car here.** Tamarindo is walkable end to end, tours pick up at the Diriá lobby, and day trips to Flamingo, Conchal or Rincón de la Vieja are easy as private transfers.
-- **Skip the grocery stop.** The Automercado is a 5-minute walk from the hotel; it is the one resort in this series where you can shop after check-in.
-- **Ask for the beachfront wing if you want the sunset, the garden wing if you want sleep.** Both sides share the pools and the beach access.
+- You do not need a rental car in Tamarindo. The town is walkable end to end, tours pick up at the Diriá lobby, and day trips to Flamingo, Conchal or Rincón de la Vieja are easy to book as private transfers.
+- There is no need to stop for groceries on the way in. The Automercado is a five-minute walk from the hotel, which makes the Diriá the one resort in this series where you can shop after check-in.
+- The beachfront wing gets the sunset and the garden wing gets the quiet. Both sides share the pools and the beach access, so pick according to how you sleep.
 
-## Book the transfer
+## Booking
 
-An hour from LIR to the middle of Tamarindo, and from there you walk everywhere. Simple. Fixed price per vehicle, flight tracked, driver registered at the resort, child seats included. Book the [Liberia Airport → Tamarindo Diriá private transfer](/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste) online in two minutes, or message us on WhatsApp — a real person who drives this road answers.
+The [Liberia Airport to Tamarindo Diriá private transfer](/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste) can be booked online in a couple of minutes at a fixed price per vehicle, with the flight tracked, the driver registered at the resort and child seats included. If you would rather ask something first, write to us on WhatsApp and one of the drivers will answer.
 $md$
 )
 on conflict (slug) do update set
@@ -1785,11 +1785,11 @@ update public.blog_posts_ruta_pacifico set
   faqs_es = '[
     {
         "q": "¿A qué distancia está el Tamarindo Diriá del Aeropuerto de Liberia?",
-        "a": "A unos 65 km (40 millas), un viaje de 55 a 70 minutos por carretera asfaltada vía Belén y Huacas, directo al pueblo de Tamarindo."
+        "a": "A unos 65 km, un viaje de 55 a 70 minutos por carretera asfaltada vía Belén y Huacas, directo al pueblo de Tamarindo."
     },
     {
         "q": "¿Cuánto cuesta un shuttle privado de LIR al Tamarindo Diriá?",
-        "a": "Ruta Pacifico cobra una tarifa fija de $130 por vehículo para 1–5 pasajeros, $165 para 6–9 y $220 para 10–12, con impuestos, seguimiento de vuelo y sillas para niños incluidos."
+        "a": "Ruta Pacifico cobra una tarifa fija de $130 por vehículo para 1 a 5 pasajeros, $165 para 6 a 9 y $220 para 10 a 12, con impuestos, seguimiento de vuelo y sillas para niños incluidos."
     },
     {
         "q": "¿Puedo caminar a restaurantes desde el Tamarindo Diriá?",
@@ -1797,7 +1797,7 @@ update public.blog_posts_ruta_pacifico set
     },
     {
         "q": "¿El Tamarindo Diriá es ruidoso?",
-        "a": "El ala frente al mar sobre la calle principal puede escuchar el pueblo las noches de fin de semana. El ala de jardín al otro lado de la calle es más tranquila; ambas comparten piscinas y acceso a la playa."
+        "a": "El ala frente al mar sobre la calle principal puede escuchar el pueblo las noches de fin de semana. El ala de jardín al otro lado de la calle es más tranquila, y ambas comparten piscinas y acceso a la playa."
     },
     {
         "q": "¿Necesito carro si me quedo en el Tamarindo Diriá?",
@@ -1805,61 +1805,61 @@ update public.blog_posts_ruta_pacifico set
     }
 ]'::jsonb,
   content_md_es = $es$
-Después de nueve guías de resorts con portón y sin pueblo cerca, el Tamarindo Diriá es la excepción: un resort frente al mar en medio del pueblo de playa más animado de Guanacaste. Sales del lobby y estás en la calle principal. El traslado desde el Aeropuerto de Liberia es una hora por asfalto sin puesto de control al final. Esto es lo que hay que saber antes de reservarlo.
+La mayoría de los resorts grandes de Guanacaste están detrás de un portón sin pueblo en kilómetros. El Tamarindo Diriá es la excepción. Es un resort frente al mar en medio del pueblo de playa más animado de la provincia, y cuando sales del lobby estás en la calle principal con restaurantes a ambos lados. El traslado desde el Aeropuerto de Liberia es más o menos una hora por asfalto y no hay puesto de control al final. Esta página cubre el viaje, el precio y algunas cosas que conviene saber antes de reservar.
 
 ## Datos rápidos
 
 | | |
 | --- | --- |
-| **Distancia desde LIR** | 65 km (40 mi) |
-| **Tiempo real de viaje** | 55–70 min, asfaltado todo el camino |
-| **Traslado privado, 1–5 pax** | **$130** por vehículo, fijo |
-| **Traslado privado, 6–9 pax** | $165 por vehículo |
-| **Traslado privado, 10–12 pax** | $220 por vehículo |
-| **Incluye** | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada gratis para víveres |
-| **Acceso con portón** | Sin puesto de control comunitario |
+| Distancia desde LIR | 65 km (40 mi) |
+| Tiempo de viaje | 55–70 min, asfaltado todo el camino |
+| Traslado privado, 1–5 pasajeros | $130 por vehículo, fijo |
+| Traslado privado, 6–9 pasajeros | $165 por vehículo |
+| Traslado privado, 10–12 pasajeros | $220 por vehículo |
+| Incluye | Impuestos, peajes, seguimiento de vuelo, sillas para niños, una parada para víveres |
+| Acceso con portón | Sin puesto de control comunitario |
 
-## Dónde queda realmente el hotel
+## Dónde queda el hotel
 
-El **Tamarindo Diriá** es el resort que está **en pleno Tamarindo**, sobre la playa principal, con los restaurantes, bares y tiendas de surf del pueblo literalmente cruzando la calle. Eso lo convierte en lo opuesto a todos los resorts con portón de esta serie: en vez de aislamiento, tienes el pueblo de playa más animado de Guanacaste en la puerta. Es el hotel más grande y de más trayectoria de Tamarindo, con alas frente al mar y de jardín a ambos lados de la calle principal, varias piscinas y acceso directo a la arena. Desde el Aeropuerto de Liberia son unos 65 km: Ruta 21 al sur hasta Belén, al oeste por Huacas y Villarreal, y directo al pueblo. Asfaltado todo el camino; 55–70 minutos según la hora y el tráfico en la calle principal de Tamarindo.
+El Tamarindo Diriá es el resort que está en pleno Tamarindo, sobre la playa principal, con los restaurantes, bares y tiendas de surf del pueblo directamente al otro lado de la calle. Es el hotel más grande y de más trayectoria de Tamarindo, con alas frente al mar y de jardín a ambos lados de la calle principal, varias piscinas y acceso directo a la arena. Desde el Aeropuerto de Liberia son unos 65 km: Ruta 21 al sur hasta Belén, al oeste por Huacas y Villarreal, y directo al pueblo. La carretera es asfaltada todo el camino y el viaje tarda 55 a 70 minutos según la hora y el tráfico en la calle principal de Tamarindo.
 
-## El viaje desde el Aeropuerto de Liberia
+## El viaje desde el aeropuerto
 
-Tu chofer te recibe a la salida de llegadas con un rótulo con tu nombre, habiendo monitoreado tu vuelo, y sales en cuanto tienes las maletas: sin esperar a otros pasajeros ni a que se llene una van. La carretera es asfaltada de punta a punta y nunca entras a Liberia centro: el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. La única variable es el tráfico de día en los cruces del camino, por eso decimos **55–70 min** y no un solo número. ¿Quieres parar por víveres, efectivo o una farmacia en el camino? Solo dilo; el vehículo es tuyo.
+Tu chofer espera a la salida de llegadas con un rótulo con tu nombre. Monitoreamos el vuelo, así que si aterriza antes o después el chofer sigue ahí cuando sales, y te vas en cuanto tienes las maletas en vez de esperar a que se llene una van. La carretera es asfaltada de principio a fin y nunca pasas por Liberia centro, porque el aeropuerto queda al oeste de la ciudad y la Ruta 21 sale directo hacia la costa. El rango que damos para el tiempo de viaje viene del tráfico de día en los cruces del camino, nada más. Si necesitas parar por víveres, efectivo o una farmacia, díselo al chofer; el vehículo es tuyo durante el viaje.
 
-Mira los precios actualizados y reserva el [traslado LIR → Tamarindo Diriá](/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste).
+Los precios actualizados y la reserva están en la [página de la ruta LIR a Tamarindo Diriá](/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste).
 
-## Llegada al hotel
+## La llegada al hotel
 
-Sin portón, sin puesto de control, sin registro: el Diriá tiene una entrada de hotel normal sobre la calle principal de Tamarindo y tu chofer llega hasta la recepción. Lo único que hay que saber es que la calle principal puede ser lenta al atardecer, cuando todo el pueblo camina hacia la playa; nuestros choferes conocen la entrada por atrás.
+El Diriá tiene una entrada de hotel normal sobre la calle principal de Tamarindo y tu chofer te lleva directo a recepción. No hay portón ni nada que registrar. Lo único que conviene saber es que la calle principal se pone lenta al atardecer, cuando todo el pueblo baja a la playa, y nuestros choferes usan la entrada por atrás del hotel a esa hora.
 
 ## Qué hay alrededor del Tamarindo Diriá
 
-**Todo, a pie.** Ese es el sentido de quedarse en el Diriá. Tamarindo tiene más de 60 restaurantes, desde sodas hasta sushi y parrillas, bares con música en vivo, escuelas de surf en la arena, dos supermercados, farmacias, cajeros y oficinas de tours, todo a 10 minutos a pie del lobby. **Playa Langosta**, más tranquila y de mayor categoría, está a 20 minutos caminando al sur. **Playa Grande** y el parque de tortugas Las Baulas están al otro lado del estero. El precio a pagar es el ruido: las habitaciones frente al mar sobre la calle principal escuchan el pueblo las noches de fin de semana. Pide el lado de jardín si quieres silencio.
+Todo Tamarindo queda a distancia caminable del Diriá, y esa es la razón para quedarse ahí. El pueblo tiene más de sesenta restaurantes, desde sodas hasta sushi y parrillas, bares con música en vivo, escuelas de surf en la arena, dos supermercados, farmacias, cajeros y oficinas de tours, todo a diez minutos a pie del lobby. Playa Langosta, más tranquila y de mayor categoría, está a veinte minutos caminando hacia el sur. Playa Grande y el parque de tortugas Las Baulas están al otro lado del estero. El precio a pagar es el ruido: las habitaciones frente al mar que dan a la calle principal escuchan el pueblo las noches de fin de semana, así que pide el lado de jardín si quieres silencio.
 
-Para ver el panorama completo de cómo encajan las zonas hoteleras de Guanacaste, y qué playas tienen un pueblo al que puedes caminar, lee nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer).
+Si quieres ver cómo encaja este hotel con el resto de la costa, y qué playas tienen un pueblo al que se puede caminar, nuestra guía de los [mejores hoteles de Guanacaste por zona](/blog/best-hotels-guanacaste-by-zone-liberia-airport-transfer) los cubre todos.
 
-## Tus opciones desde LIR, comparadas con honestidad
+## Formas de llegar desde LIR
 
-| Opción | Tiempo hasta el hotel | Costo | El detalle |
+| Opción | Tiempo hasta el hotel | Costo | Conviene saber |
 | --- | --- | --- | --- |
-| **Traslado privado** | 55–70 min, directo | $130 fijo, 1–5 pax | Ninguno: chofer registrado en el portón, vuelo monitoreado |
-| **Servicio de carro del hotel** | El mismo trayecto | Tarifa premium vía concierge | Suele ser la opción más cara |
-| **Carro de alquiler** | El mismo trayecto + trámites de entrega | $40–90/día + seguro obligatorio + depósito | Solo vale la pena si vas a salir del resort a diario |
-| **Shuttle compartido** | 1,5–2,5 h, varias paradas | ~$25–35 por persona | Espera otros vuelos; lento con niños |
-| **Taxi del aeropuerto** | El mismo trayecto | $100–150, negociado | Sin seguimiento de vuelo, en efectivo, sin sillas para niños |
+| Traslado privado | 55–70 min, directo | $130 fijo para 1–5 pasajeros | Chofer registrado en el portón, vuelo monitoreado |
+| Servicio de carro del hotel | El mismo trayecto | Tarifa premium a través del concierge | Suele ser la opción más cara |
+| Carro de alquiler | El mismo trayecto más trámites de entrega | $40–90 al día más seguro obligatorio y depósito | Solo compensa si sales del resort todos los días |
+| Shuttle compartido | 1,5–2,5 h con paradas | Unos $25–35 por persona | Espera otros vuelos, lo que es lento con niños |
+| Taxi del aeropuerto | El mismo trayecto | $100–150, negociado en el momento | Sin seguimiento de vuelo, solo efectivo, sin sillas para niños |
 
-Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y elimina todas las incógnitas. Para una familia de cuatro es más barato por persona que un shuttle compartido y tarda menos de la mitad.
+Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y le quita la incertidumbre a la llegada. Para una familia de cuatro sale más barato por persona que un shuttle compartido y tarda menos de la mitad.
 
-## Consejos de nuestros choferes
+## Algunas cosas que te dirían nuestros choferes
 
-- **Aquí no necesitas carro de alquiler.** Tamarindo se camina de punta a punta, los tours recogen en el lobby del Diriá, y las excursiones a Flamingo, Conchal o Rincón de la Vieja son fáciles como traslados privados.
-- **Sáltate la parada del supermercado.** El Automercado está a 5 minutos a pie del hotel; es el único resort de esta serie donde puedes hacer compras después del check-in.
-- **Pide el ala frente al mar si quieres el atardecer, el ala de jardín si quieres dormir.** Ambos lados comparten las piscinas y el acceso a la playa.
+- En Tamarindo no necesitas carro de alquiler. El pueblo se camina de punta a punta, los tours recogen en el lobby del Diriá, y las excursiones a Flamingo, Conchal o Rincón de la Vieja se reservan fácil como traslados privados.
+- No hace falta parar por víveres de camino. El Automercado está a cinco minutos a pie del hotel, lo que hace del Diriá el único resort de esta serie donde puedes hacer compras después del check-in.
+- El ala frente al mar tiene el atardecer y el ala de jardín tiene el silencio. Ambos lados comparten las piscinas y el acceso a la playa, así que elige según cómo duermes.
 
-## Reserva el traslado
+## Reserva
 
-Una hora de LIR al centro de Tamarindo, y desde ahí caminas a todos lados. Simple. Precio fijo por vehículo, vuelo monitoreado, chofer registrado en el resort, sillas para niños incluidas. Reserva el [traslado privado Aeropuerto de Liberia → Tamarindo Diriá](/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste) en línea en dos minutos, o escríbenos por WhatsApp: responde una persona real que maneja esta carretera.
+El [traslado privado del Aeropuerto de Liberia al Tamarindo Diriá](/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste) se reserva en línea en un par de minutos a precio fijo por vehículo, con el vuelo monitoreado, el chofer registrado en el resort y las sillas para niños incluidas. Si prefieres preguntar algo primero, escríbenos por WhatsApp y te contesta uno de los choferes.
 $es$
 where slug = 'liberia-airport-to-tamarindo-diria';
 
