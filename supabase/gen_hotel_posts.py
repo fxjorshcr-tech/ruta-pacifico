@@ -21,6 +21,14 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-four-seasons-papagayo",
+        title_en='Getting to the Four Seasons Papagayo from Liberia Airport: 35 Minutes, One Gate, No Town',
+        title_es='Cómo llegar al Four Seasons Papagayo desde el Aeropuerto de Liberia: 35 minutos, un portón y ningún pueblo',
+        excerpt_en='The Four Seasons is the closest luxury resort to LIR in Costa Rica, but it sits behind a security gate with no town for miles. Drive time, the $105 fixed transfer, what the peninsula guard needs from your driver, and where to eat if you leave the resort.',
+        excerpt_es='El Four Seasons es el resort de lujo más cercano a LIR en Costa Rica, pero está detrás de un portón de seguridad sin pueblo en kilómetros. Tiempo de viaje, el traslado fijo de $105, qué pide el guarda de la península a tu chofer y dónde comer si sales del resort.',
+        intro_en='Most Four Seasons guests land at Liberia expecting a long transfer and get the opposite: the resort is 35 minutes away on a paved road. What surprises them instead is the gate. Peninsula Papagayo is a private enclave, and if your driver is not on the list, you sit at the checkpoint while a guard phones the front desk. This is how the arrival actually works, what it costs, and what to expect once you are inside.',
+        intro_es='La mayoría de huéspedes del Four Seasons aterriza en Liberia esperando un traslado largo y se encuentra con lo contrario: el resort está a 35 minutos por carretera asfaltada. Lo que sí los sorprende es el portón. Península Papagayo es un enclave privado, y si tu chofer no está en la lista, te quedas en el puesto de control mientras un guarda llama a recepción. Así funciona la llegada en realidad, cuánto cuesta y qué esperar una vez adentro.',
+        close_en='The Four Seasons is a short, easy ride from LIR when the gate already knows your driver. That is the part we handle for you.',
+        close_es='El Four Seasons es un viaje corto y fácil desde LIR cuando el portón ya conoce a tu chofer. Esa es la parte que nosotros resolvemos por ti.',
         photo="hotel-four-seasons-papagayo.webp",
         short="Four Seasons Papagayo",
         full="Four Seasons Resort Costa Rica at Peninsula Papagayo",
@@ -64,6 +72,14 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-nekajui-ritz-carlton-reserve-papagayo",
+        title_en='Nekajui, Ritz-Carlton Reserve: How to Get There from Liberia Airport (and Through Both Gates)',
+        title_es='Nekajui, Ritz-Carlton Reserve: cómo llegar desde el Aeropuerto de Liberia (y pasar los dos portones)',
+        excerpt_en='Costa Rica’s newest ultra-luxury resort is at the very tip of Peninsula Papagayo, behind two security gates. Real drive time from LIR, the $105 fixed transfer, pre-registering your driver, and why there is nothing else at the end of that road.',
+        excerpt_es='El resort de ultralujo más nuevo de Costa Rica está en la punta misma de Península Papagayo, detrás de dos portones de seguridad. Tiempo real desde LIR, el traslado fijo de $105, cómo registrar a tu chofer y por qué no hay nada más al final de ese camino.',
+        intro_en='Nekajui opened in 2025 and already gets the same question every week: how do you actually get there? The answer is a 40-minute drive from Liberia Airport, past the Four Seasons, along a ridge road to the end of the peninsula, through two checkpoints that both expect your driver’s details in advance. Here is the route, the price, and what the arrival looks like.',
+        intro_es='Nekajui abrió en 2025 y ya recibe la misma pregunta cada semana: ¿cómo se llega realmente? La respuesta es un viaje de 40 minutos desde el Aeropuerto de Liberia, pasando el Four Seasons, por una carretera de cresta hasta el final de la península, a través de dos puestos de control que esperan los datos de tu chofer de antemano. Aquí está la ruta, el precio y cómo es la llegada.',
+        close_en='Nekajui is built for disappearing. Let the transfer be the last logistics you think about.',
+        close_es='Nekajui está hecho para desaparecer. Que el traslado sea la última logística en la que pienses.',
         photo="hotel-nekajui-papagayo.webp",
         short="Nekajui, a Ritz-Carlton Reserve",
         full="Nekajui, a Ritz-Carlton Reserve (Peninsula Papagayo)",
@@ -107,6 +123,14 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-andaz-papagayo",
+        title_en='Liberia Airport to the Andaz Papagayo: Drive Time, Transfer Price and the Best Nights Out Nearby',
+        title_es='Del Aeropuerto de Liberia al Andaz Papagayo: tiempo de viaje, precio del traslado y las mejores salidas cerca',
+        excerpt_en='The Andaz is the peninsula resort best placed for leaving it: Marina Papagayo in 5 minutes, El Mangroove in 10, Coco in 20. How long the ride from LIR really takes, the $105 fixed fare, and the gate rule that applies to every Papagayo hotel.',
+        excerpt_es='El Andaz es el resort de la península mejor ubicado para salir: Marina Papagayo a 5 minutos, El Mangroove a 10, el Coco a 20. Cuánto dura realmente el viaje desde LIR, la tarifa fija de $105 y la regla del portón que aplica a todos los hoteles de Papagayo.',
+        intro_en='The Andaz is the Peninsula Papagayo hotel people pick when they want the setting without the total isolation. It is the first resort inside the gate, 30–40 minutes from Liberia Airport, and the one from which a dinner in Coco or at El Mangroove is a short hop. This guide covers the drive, the fare, the checkpoint and what is within reach once you are there.',
+        intro_es='El Andaz es el hotel de Península Papagayo que la gente elige cuando quiere el entorno sin el aislamiento total. Es el primer resort dentro del portón, a 30–40 minutos del Aeropuerto de Liberia, y desde el que una cena en el Coco o en El Mangroove es un salto corto. Esta guía cubre el trayecto, la tarifa, el puesto de control y qué queda a tu alcance una vez allí.',
+        close_en='From the Andaz, the rest of the gulf is minutes away. Start with the airport ride done right.',
+        close_es='Desde el Andaz, el resto del golfo está a minutos. Empieza con el viaje del aeropuerto bien hecho.',
         photo="hotel-andaz-papagayo.webp",
         short="Andaz Papagayo",
         full="Andaz Costa Rica Resort at Peninsula Papagayo",
@@ -150,6 +174,14 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-secrets-papagayo",
+        title_en='Secrets Papagayo from Liberia Airport: The 30-Minute Transfer Honeymooners Ask Us About',
+        title_es='Secrets Papagayo desde el Aeropuerto de Liberia: el traslado de 30 minutos por el que preguntan las parejas',
+        excerpt_en='Adults-only, all-inclusive and just 28 km from LIR, outside the peninsula gate. What the ride costs ($105 fixed), why arrival is faster than at the Four Seasons, and how close you really are to Playa Panamá and Coco.',
+        excerpt_es='Solo adultos, todo incluido y a solo 28 km de LIR, fuera del portón de la península. Cuánto cuesta el viaje ($105 fijo), por qué la llegada es más rápida que en el Four Seasons y qué tan cerca estás realmente de Playa Panamá y el Coco.',
+        intro_en='Secrets Papagayo is the honeymoon hotel of Zone 1, and the easiest of the Papagayo resorts to reach: 28 km from Liberia Airport, all paved, no community checkpoint. Couples usually arrive on a late flight and want to be at the swim-up bar within the hour. Here is how to make that happen, what it costs, and what is around when you feel like leaving the all-inclusive.',
+        intro_es='Secrets Papagayo es el hotel de luna de miel de la Zona 1, y el más fácil de alcanzar de los resorts de Papagayo: 28 km desde el Aeropuerto de Liberia, todo asfaltado, sin puesto de control comunitario. Las parejas suelen llegar en un vuelo tarde y quieren estar en el bar de la piscina en menos de una hora. Aquí está cómo lograrlo, cuánto cuesta y qué hay alrededor cuando te den ganas de salir del todo incluido.',
+        close_en='Half an hour from the arrivals door to the pool. That is the whole trip.',
+        close_es='Media hora de la puerta de llegadas a la piscina. Ese es todo el viaje.',
         photo="hotel-secrets-papagayo.webp",
         short="Secrets Papagayo",
         full="Secrets Papagayo Costa Rica",
@@ -193,6 +225,14 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-riu-guanacaste-riu-palace",
+        title_en='Riu Guanacaste and Riu Palace: Skip the Package Bus, Here Is the 35-Minute Ride from LIR',
+        title_es='Riu Guanacaste y Riu Palace: olvida el bus del paquete, este es el viaje de 35 minutos desde LIR',
+        excerpt_en='The tour-operator shuttle to the Riu can take 90 minutes with stops. A private transfer is 35 minutes and $120 fixed for up to five. Where Playa Matapalo really is, which lobby is which, and what to do outside the all-inclusive.',
+        excerpt_es='El shuttle del operador al Riu puede tardar 90 minutos con paradas. Un traslado privado son 35 minutos y $120 fijos para hasta cinco. Dónde queda realmente Playa Matapalo, cuál lobby es cuál y qué hacer fuera del todo incluido.',
+        intro_en='If you booked the Riu Guanacaste or the Riu Palace as a package, you were probably offered a shared airport shuttle. It works, but it waits for several flights and stops at every resort on the gulf before Matapalo. Most families we drive switched after one trip. This is what the direct ride looks like, what it costs, and what you will find outside the resort walls.',
+        intro_es='Si reservaste el Riu Guanacaste o el Riu Palace como paquete, seguramente te ofrecieron un shuttle compartido del aeropuerto. Funciona, pero espera varios vuelos y para en todos los resorts del golfo antes de Matapalo. La mayoría de familias que llevamos cambió después de un viaje. Así es el trayecto directo, cuánto cuesta y qué vas a encontrar fuera de las paredes del resort.',
+        close_en='Thirty-five minutes, straight to your lobby, with the car seats already installed. That is the Riu transfer done properly.',
+        close_es='Treinta y cinco minutos, directo a tu lobby, con las sillas para niños ya instaladas. Así es el traslado al Riu bien hecho.',
         photo="hotel-riu-guanacaste.webp",
         short="Riu Guanacaste & Riu Palace",
         full="Hotel Riu Guanacaste and Riu Palace Costa Rica",
@@ -236,6 +276,14 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-westin-reserva-conchal",
+        title_en='Westin Reserva Conchal from Liberia Airport: The Hour-Long Drive, the Gate, and Where Dinner Really Is',
+        title_es='Westin Reserva Conchal desde el Aeropuerto de Liberia: la hora de viaje, el portón y dónde está realmente la cena',
+        excerpt_en='Guanacaste’s biggest all-inclusive sits inside a gated reserve an hour from LIR, with only a fishing village outside. Real drive time, the $130 fixed transfer for up to five, what Reserva Conchal security checks, and why guests end up in Tamarindo for dinner.',
+        excerpt_es='El todo incluido más grande de Guanacaste está dentro de una reserva privada a una hora de LIR, con solo un pueblito de pescadores afuera. Tiempo real de viaje, el traslado fijo de $130 para hasta cinco, qué revisa la seguridad de Reserva Conchal y por qué los huéspedes terminan cenando en Tamarindo.',
+        intro_en='The Westin Reserva Conchal is where a large share of Guanacaste’s all-inclusive guests end up, and the first thing they ask us is whether it is near Tamarindo. It is not quite: the resort is inside its own gated reserve, an hour from Liberia Airport, with Brasilito village at the gate and Tamarindo 20 minutes down the road. Here is the drive, the fare, and how to plan around that geography.',
+        intro_es='El Westin Reserva Conchal es donde termina una buena parte de los huéspedes de todo incluido de Guanacaste, y lo primero que nos preguntan es si está cerca de Tamarindo. No exactamente: el resort está dentro de su propia reserva privada, a una hora del Aeropuerto de Liberia, con el pueblito de Brasilito en el portón y Tamarindo a 20 minutos de camino. Aquí está el trayecto, la tarifa y cómo planificar con esa geografía.',
+        close_en='An hour from LIR to Playa Conchal, with the guard already expecting you. Everything after that is included.',
+        close_es='Una hora de LIR a Playa Conchal, con el guarda ya esperándote. Todo lo que sigue está incluido.',
         photo="hotel-westin-conchal.webp",
         short="Westin Reserva Conchal",
         full="The Westin Reserva Conchal, an All-Inclusive Golf Resort & Spa",
@@ -279,6 +327,14 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-w-costa-rica-reserva-conchal",
+        title_en='How to Get to the W Costa Rica from Liberia Airport, and How to Get to Tamarindo for Dinner After',
+        title_es='Cómo llegar al W Costa Rica desde el Aeropuerto de Liberia, y cómo ir a Tamarindo a cenar después',
+        excerpt_en='The W is not all-inclusive, so its guests leave the reserve more than anyone else in Conchal. The 65-minute ride from LIR, the $130 fixed transfer, the shared gate with the Westin, and the Tamarindo dinner run we get asked for most.',
+        excerpt_es='El W no es todo incluido, así que sus huéspedes salen de la reserva más que nadie en Conchal. El viaje de 65 minutos desde LIR, el traslado fijo de $130, el portón compartido con el Westin y la salida a cenar a Tamarindo que más nos piden.',
+        intro_en='The W Costa Rica shares a gate, a beach and a fare with the Westin next door, but the stay is different: no all-inclusive wristband, three restaurants on site, and a crowd that wants to go out. That changes the transport math. This guide covers the airport ride, the checkpoint, and how W guests actually handle evenings.',
+        intro_es='El W Costa Rica comparte portón, playa y tarifa con el Westin de al lado, pero la estancia es distinta: sin pulsera de todo incluido, tres restaurantes en el lugar y un público que quiere salir. Eso cambia la cuenta del transporte. Esta guía cubre el viaje del aeropuerto, el puesto de control y cómo resuelven las noches los huéspedes del W en la práctica.',
+        close_en='Get to the W without thinking about it, then let us handle the nights out.',
+        close_es='Llega al W sin pensar en ello, y déjanos las salidas nocturnas a nosotros.',
         photo="hotel-w-conchal.webp",
         short="W Costa Rica – Reserva Conchal",
         full="W Costa Rica – Reserva Conchal",
@@ -322,6 +378,14 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-margaritaville-flamingo",
+        title_en='Margaritaville Playa Flamingo from Liberia Airport: Family Transfer Guide with Car Seats Included',
+        title_es='Margaritaville Playa Flamingo desde el Aeropuerto de Liberia: guía de traslado familiar con sillas incluidas',
+        excerpt_en='Flamingo is the most walkable of the Zone 2 resort beaches, and Margaritaville is its family hotel. The 70-minute ride from LIR, the $130 fixed transfer with child seats, what is within a 10-minute walk, and when Tamarindo is worth the drive.',
+        excerpt_es='Flamingo es la más caminable de las playas con resort de la Zona 2, y Margaritaville es su hotel familiar. El viaje de 70 minutos desde LIR, el traslado fijo de $130 con sillas para niños, qué hay a 10 minutos a pie y cuándo vale la pena ir a Tamarindo.',
+        intro_en='Margaritaville is the resort we drive the most families to in Flamingo, and the arrival day question is always the same: car seats, groceries and how long until the kids can be in the water. Roughly 70 minutes from Liberia Airport, no gate, and a marina strip you can walk to. Here is the ride, the price and what is around.',
+        intro_es='Margaritaville es el resort al que más familias llevamos en Flamingo, y la pregunta del día de llegada siempre es la misma: sillas para niños, víveres y cuánto falta para que los niños estén en el agua. Unos 70 minutos desde el Aeropuerto de Liberia, sin portón y con una franja de marina a la que se puede caminar. Aquí está el viaje, el precio y qué hay alrededor.',
+        close_en='Car seats in, groceries picked up, kids at the pool by mid-afternoon. That is the plan.',
+        close_es='Sillas instaladas, víveres comprados, niños en la piscina a media tarde. Ese es el plan.',
         photo="hotel-margaritaville-flamingo.webp",
         short="Margaritaville Flamingo",
         full="Margaritaville Beach Resort Playa Flamingo",
@@ -365,6 +429,14 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-jw-marriott-guanacaste",
+        title_en='JW Marriott Guanacaste Is Not in Tamarindo: How to Get There from Liberia Airport and What to Expect',
+        title_es='El JW Marriott Guanacaste no está en Tamarindo: cómo llegar desde el Aeropuerto de Liberia y qué esperar',
+        excerpt_en='The most-requested hotel on our routes sits inside Hacienda Pinilla, a gated estate 25 minutes south of Tamarindo with nothing around it. The 80-minute drive from LIR, the $135 fixed transfer, the strictest gate in the region, and how to plan dinners.',
+        excerpt_es='El hotel más solicitado en nuestras rutas está dentro de Hacienda Pinilla, una finca privada a 25 minutos al sur de Tamarindo sin nada alrededor. El viaje de 80 minutos desde LIR, el traslado fijo de $135, el portón más estricto de la región y cómo planificar las cenas.',
+        intro_en='We drive to the JW Marriott more than to any other hotel in Guanacaste, and we still see the same surprise at the gate every week: guests who thought they were staying in Tamarindo. They are not. The resort is inside Hacienda Pinilla, a private estate with the strictest security checkpoint in the region and no town for 25 minutes. This is the honest guide to getting there and making the most of it.',
+        intro_es='Manejamos al JW Marriott más que a cualquier otro hotel de Guanacaste, y todavía vemos la misma sorpresa en el portón cada semana: huéspedes que creían que se quedaban en Tamarindo. No es así. El resort está dentro de Hacienda Pinilla, una finca privada con el puesto de seguridad más estricto de la región y sin pueblo en 25 minutos. Esta es la guía honesta para llegar y sacarle el máximo.',
+        close_en='Eighty minutes from LIR, the Pinilla gate already expecting you, and a plan for the nights you want to leave. That is how the JW works.',
+        close_es='Ochenta minutos desde LIR, el portón de Pinilla ya esperándote y un plan para las noches que quieras salir. Así funciona el JW.',
         photo="hotel-jw-marriott-guanacaste.webp",
         short="JW Marriott Guanacaste",
         full="JW Marriott Guanacaste Resort & Spa (Hacienda Pinilla)",
@@ -410,6 +482,14 @@ HOTELS = [
     # ------------------------------------------------------------------ #
     dict(
         slug="liberia-airport-to-tamarindo-diria",
+        title_en='Tamarindo Diriá from Liberia Airport: The One Resort Where You Can Walk to Dinner',
+        title_es='Tamarindo Diriá desde el Aeropuerto de Liberia: el único resort donde puedes caminar a cenar',
+        excerpt_en='The Diriá sits on Tamarindo’s main beach with the whole town across the street, which makes it the opposite of every gated resort in Guanacaste. The 60-minute ride from LIR, the $130 fixed transfer, which wing to ask for, and why you will not need a car.',
+        excerpt_es='El Diriá está sobre la playa principal de Tamarindo con todo el pueblo cruzando la calle, lo que lo hace lo opuesto a todos los resorts con portón de Guanacaste. El viaje de 60 minutos desde LIR, el traslado fijo de $130, qué ala pedir y por qué no vas a necesitar carro.',
+        intro_en='After nine guides to gated resorts with no town nearby, the Tamarindo Diriá is the exception: a beachfront resort in the middle of the busiest beach town in Guanacaste. You walk out of the lobby and you are on the main street. The transfer from Liberia Airport is an hour on paved road with no checkpoint at the end. Here is what to know before you book it.',
+        intro_es='Después de nueve guías de resorts con portón y sin pueblo cerca, el Tamarindo Diriá es la excepción: un resort frente al mar en medio del pueblo de playa más animado de Guanacaste. Sales del lobby y estás en la calle principal. El traslado desde el Aeropuerto de Liberia es una hora por asfalto sin puesto de control al final. Esto es lo que hay que saber antes de reservarlo.',
+        close_en='An hour from LIR to the middle of Tamarindo, and from there you walk everywhere. Simple.',
+        close_es='Una hora de LIR al centro de Tamarindo, y desde ahí caminas a todos lados. Simple.',
         photo="hotel-tamarindo-diria.webp",
         short="Tamarindo Diriá",
         full="Tamarindo Diriá Beach Resort",
@@ -468,7 +548,7 @@ def body_en(h):
     gate_head = "## At the gate: what security needs" if h["gated"] else "## Arrival at the hotel"
     tips = "\n".join(f"- {t}" for t in h["tips_en"])
     return f"""
-If you have a reservation at the **{h['full']}**, the ride from Liberia International Airport (LIR) is the first hour of your trip — and the part most guests leave to the last minute. Here is exactly where the hotel is, how long the drive really takes, what the security gate needs from your driver, and what is (and is not) around the resort once you arrive. We drive this route every week.
+{h['intro_en']}
 
 ## Quick facts
 
@@ -520,7 +600,7 @@ For two people a private transfer costs about the same as a taxi and removes eve
 
 ## Book the transfer
 
-Fixed price per vehicle, flight tracked, driver registered at the resort, child seats included. Book the [Liberia Airport → {h['short']} private transfer](/private-shuttle/{h['route']}) online in two minutes, or message us on WhatsApp — a real person who drives this road answers.
+{h['close_en']} Fixed price per vehicle, flight tracked, driver registered at the resort, child seats included. Book the [Liberia Airport → {h['short']} private transfer](/private-shuttle/{h['route']}) online in two minutes, or message us on WhatsApp — a real person who drives this road answers.
 """
 
 
@@ -529,7 +609,7 @@ def body_es(h):
     gate_head = "## En el portón: qué necesita la seguridad" if h["gated"] else "## Llegada al hotel"
     tips = "\n".join(f"- {t}" for t in h["tips_es"])
     return f"""
-Si tienes reserva en el **{h['full']}**, el viaje desde el Aeropuerto Internacional de Liberia (LIR) es la primera hora de tu viaje, y la parte que la mayoría de huéspedes deja para último momento. Aquí está exactamente dónde queda el hotel, cuánto dura de verdad el trayecto, qué necesita el portón de seguridad de tu chofer y qué hay (y qué no) alrededor del resort cuando llegas. Nosotros manejamos esta ruta todas las semanas.
+{h['intro_es']}
 
 ## Datos rápidos
 
@@ -581,30 +661,24 @@ Para dos personas un traslado privado cuesta más o menos lo mismo que un taxi y
 
 ## Reserva el traslado
 
-Precio fijo por vehículo, vuelo monitoreado, chofer registrado en el resort, sillas para niños incluidas. Reserva el [traslado privado Aeropuerto de Liberia → {h['short_es']}](/private-shuttle/{h['route']}) en línea en dos minutos, o escríbenos por WhatsApp: responde una persona real que maneja esta carretera.
+{h['close_es']} Precio fijo por vehículo, vuelo monitoreado, chofer registrado en el resort, sillas para niños incluidas. Reserva el [traslado privado Aeropuerto de Liberia → {h['short_es']}](/private-shuttle/{h['route']}) en línea en dos minutos, o escríbenos por WhatsApp: responde una persona real que maneja esta carretera.
 """
 
 
 def title_en(h):
-    return f"Liberia Airport to {h['short']}: Private Transfer, Drive Time, Gate Access & What’s Nearby"
+    return h['title_en']
 
 
 def title_es(h):
-    return f"Del Aeropuerto de Liberia al {h['short_es']}: traslado privado, tiempo de viaje, acceso al portón y qué hay cerca"
+    return h['title_es']
 
 
 def excerpt_en(h):
-    p1 = h["fares"][0]
-    return (f"Exactly where the {h['full']} is, the real {h['time']} drive from LIR, "
-            f"the fixed ${p1} private transfer price, what the security gate needs from your driver, "
-            f"and whether there is a town nearby. Written by the drivers who do this route every week.")
+    return h['excerpt_en']
 
 
 def excerpt_es(h):
-    p1 = h["fares"][0]
-    return (f"Exactamente dónde queda el {h['full']}, el viaje real de {h['time']} desde LIR, "
-            f"el precio fijo de ${p1} del traslado privado, qué necesita el portón de seguridad de tu chofer "
-            f"y si hay un pueblo cerca. Escrito por los choferes que hacen esta ruta todas las semanas.")
+    return h['excerpt_es']
 
 
 def main():
