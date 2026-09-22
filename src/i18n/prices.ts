@@ -73,7 +73,7 @@ export const PRICES = defineCopy({
       titleHighlight: "Prices",
       titleAfter: "in Costa Rica",
       intro: (count: number, low: number) =>
-        `Every price we charge, published. ${count} routes from Liberia Airport (LIR), San José Airport (SJO) and between beaches, from $${low} per vehicle with 13% VAT included. The same price on any date of the year.`,
+        `Every price we charge, published: ${count} routes from Liberia Airport (LIR), San José Airport (SJO) and between beaches. Airport transfers from Liberia start at $${low} per vehicle, 13% VAT included, and the price is the same on any date of the year.`,
       introFallback:
         "Every price we charge, published: fixed, per vehicle, taxes included, the same on any date of the year.",
     },
@@ -104,6 +104,7 @@ export const PRICES = defineCopy({
       bookColumn: "Book",
       book: "Book",
       onRequest: "on request",
+      returnLabel: "Return",
     },
     unavailable: {
       heading: "Prices are loading",
@@ -183,7 +184,7 @@ export const PRICES = defineCopy({
       titleHighlight: "Shuttle Privado",
       titleAfter: "en Costa Rica",
       intro: (count: number, low: number) =>
-        `Todos los precios que cobramos, publicados. ${count} rutas desde el Aeropuerto de Liberia (LIR), el Aeropuerto de San José (SJO) y entre playas, desde $${low} por vehículo con el 13% de IVA incluido. El mismo precio en cualquier fecha del año.`,
+        `Todos los precios que cobramos, publicados: ${count} rutas desde el Aeropuerto de Liberia (LIR), el Aeropuerto de San José (SJO) y entre playas. Los traslados desde el Aeropuerto de Liberia empiezan en $${low} por vehículo, con el 13% de IVA incluido, y el precio es el mismo en cualquier fecha del año.`,
       introFallback:
         "Todos los precios que cobramos, publicados: fijos, por vehículo, con impuestos incluidos y los mismos en cualquier fecha del año.",
     },
@@ -214,6 +215,7 @@ export const PRICES = defineCopy({
       bookColumn: "Reservar",
       book: "Reservar",
       onRequest: "consultar",
+      returnLabel: "Regreso",
     },
     unavailable: {
       heading: "Los precios se están cargando",

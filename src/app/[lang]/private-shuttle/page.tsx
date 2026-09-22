@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "@/components/LocaleLink";
 import RouteSearch from "@/components/RouteSearch";
 import SiteNav from "@/components/SiteNav";
-import SocialLinks from "@/components/SocialLinks";
+import SiteFooter from "@/components/SiteFooter";
 import GoogleReviewBadge from "@/components/GoogleReviewBadge";
 import FaqAccordion from "@/components/FaqAccordion";
 import { getFeaturedFaqs } from "@/lib/faqs";
@@ -13,11 +13,9 @@ import {
   PRICE_LIST_PATH,
   lowestPrice,
   popularAirportRoutes,
-  routePrices,
-} from "@/lib/pricing";
+  routePrices } from "@/lib/pricing";
 import type { Metadata } from "next";
 import { routeSlug } from "@/lib/slug";
-import { LOGO_WHITE_URL } from "@/lib/brand";
 import {
   BASE_URL,
   IN_LANGUAGE,
@@ -25,8 +23,7 @@ import {
   localeAlternates,
   localeFromParams,
   localeUrl,
-  type Locale,
-} from "@/lib/i18n";
+  type Locale } from "@/lib/i18n";
 import { SHUTTLE } from "@/i18n/shuttle";
 
 type Params = Promise<{ lang: string }>;
@@ -38,8 +35,7 @@ const HERO_URL =
 export const revalidate = 3600;
 
 export async function generateMetadata({
-  params,
-}: {
+  params }: {
   params: Params;
 }): Promise<Metadata> {
   const locale = await localeFromParams(params);
@@ -59,17 +55,13 @@ export async function generateMetadata({
           url: HERO_URL,
           width: 1200,
           height: 630,
-          alt: t.heroAlt,
-        },
-      ],
-    },
+          alt: t.heroAlt },
+      ] },
     twitter: {
       card: "summary_large_image",
       title: t.ogTitle,
       description: t.twitterDescription,
-      images: [HERO_URL],
-    },
-  };
+      images: [HERO_URL] } };
 }
 
 function TransferPageJsonLd({ routes, locale }: { routes: Route[]; locale: Locale }) {
@@ -89,8 +81,7 @@ function TransferPageJsonLd({ routes, locale }: { routes: Route[]; locale: Local
         description: t.pageDescription,
         isPartOf: { "@id": `${BASE_URL}/#website` },
         inLanguage: IN_LANGUAGE[locale],
-        primaryImageOfPage: HERO_URL,
-      },
+        primaryImageOfPage: HERO_URL },
       {
         "@type": "ItemList",
         "@id": `${pageUrl}#routes`,
@@ -118,14 +109,9 @@ function TransferPageJsonLd({ routes, locale }: { routes: Route[]; locale: Local
                       highPrice: prices[prices.length - 1].price,
                       offerCount: prices.length,
                       availability: "https://schema.org/InStock",
-                      url,
-                    },
-                  },
-                }
-              : {}),
-          };
-        }),
-      },
+                      url } } }
+              : {}) };
+        }) },
       {
         "@type": "BreadcrumbList",
         "@id": `${pageUrl}#breadcrumb`,
@@ -135,12 +121,9 @@ function TransferPageJsonLd({ routes, locale }: { routes: Route[]; locale: Local
             "@type": "ListItem",
             position: 2,
             name: t.shuttles,
-            item: pageUrl,
-          },
-        ],
-      },
-    ],
-  };
+            item: pageUrl },
+        ] },
+    ] };
   return (
     <script
       type="application/ld+json"
@@ -444,54 +427,7 @@ export default async function TransferPage({ params }: { params: Params }) {
       )}
 
       {/* ─── FOOTER ─── */}
-      <footer className="border-t border-black/5 bg-foreground text-white">
-        <div className="mx-auto max-w-6xl px-6 py-12">
-          <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
-            <div className="flex items-center gap-4">
-              <Image
-                src={LOGO_WHITE_URL}
-                alt="Ruta Pacifico"
-                width={240}
-                height={100}
-                className="h-16 w-auto"
-                unoptimized
-              />
-            </div>
-            <div className="flex flex-col items-center gap-5 sm:flex-row sm:gap-8">
-              <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/50">
-                <Link href="/" className="transition hover:text-sunset-orange">
-                  {t.footer.home}
-                </Link>
-                <Link
-                  href={PRICE_LIST_PATH}
-                  className="transition hover:text-sunset-orange"
-                >
-                  {t.footer.prices}
-                </Link>
-                <Link href="/faq" className="transition hover:text-sunset-orange">
-                  {t.footer.faq}
-                </Link>
-                <a
-                  href="https://wa.me/50670805578"
-                  className="transition hover:text-sunset-orange"
-                >
-                  {t.footer.whatsapp}
-                </a>
-                <a
-                  href="mailto:reservations@rutapacifico.com"
-                  className="transition hover:text-sunset-orange"
-                >
-                  {t.footer.email}
-                </a>
-              </div>
-              <SocialLinks />
-            </div>
-          </div>
-          <div className="mt-8 border-t border-white/10 pt-6 text-center text-xs text-white/30">
-            &copy; {new Date().getFullYear()} Ruta Pacifico. {t.footer.rights}
-          </div>
-        </div>
-      </footer>
+      <SiteFooter locale={locale} />
     </main>
   );
 }

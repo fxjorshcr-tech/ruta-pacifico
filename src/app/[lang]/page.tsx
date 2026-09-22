@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "@/components/LocaleLink";
 import SiteNav from "@/components/SiteNav";
-import SocialLinks from "@/components/SocialLinks";
+import SiteFooter from "@/components/SiteFooter";
 import GoogleReviewBadge from "@/components/GoogleReviewBadge";
 import GuanacasteGallery from "@/components/GuanacasteGallery";
 import { VEHICLE_TIERS, vehicleTierCopy } from "@/lib/vehicles";
 import { FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/contact";
-import { LOGO_URL, LOGO_WHITE_URL } from "@/lib/brand";
+import { LOGO_URL } from "@/lib/brand";
 import FaqAccordion from "@/components/FaqAccordion";
 import { faqPageJsonLd, getFeaturedFaqs } from "@/lib/faqs";
 import { getRoutes, type Route } from "@/lib/routes";
@@ -49,8 +49,7 @@ const SERVICE_CARD_STYLES = [
     tagBg: "bg-sunset-orange/10",
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
-    ),
-  },
+    ) },
   {
     gradient: "from-sunset-gold to-sunset-orange",
     shadowColor: "hover:shadow-sunset-gold/20",
@@ -60,16 +59,14 @@ const SERVICE_CARD_STYLES = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
       </>
-    ),
-  },
+    ) },
   {
     gradient: "from-foreground to-foreground/80",
     shadowColor: "hover:shadow-foreground/10",
     tagBg: "bg-foreground/5",
     icon: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
-    ),
-  },
+    ) },
 ];
 
 /**
@@ -569,9 +566,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
               __html: JSON.stringify({
                 "@context": "https://schema.org",
                 ...faqPageJsonLd(`${localeUrl(locale, "/")}#faq`, faqs),
-                inLanguage: IN_LANGUAGE[locale],
-              }),
-            }}
+                inLanguage: IN_LANGUAGE[locale] }) }}
           />
           <div className="mx-auto max-w-3xl px-6">
             <div className="text-center">
@@ -765,47 +760,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       </section>
 
       {/* ─── FOOTER ─── */}
-      <footer className="border-t border-black/5 bg-foreground text-white">
-        <div className="mx-auto max-w-6xl px-6 py-16">
-          <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="lg:col-span-1">
-              <Image src={LOGO_WHITE_URL} alt="Ruta Pacifico" width={480} height={200} className="h-32 w-auto" unoptimized />
-              <p className="mt-4 text-sm leading-relaxed text-white/50">{t.footer.tagline}</p>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold uppercase tracking-wider text-white/80">{t.footer.services}</h4>
-              <ul className="mt-4 space-y-3 text-sm text-white/50">
-                {t.footer.serviceLinks.map((label) => (
-                  <li key={label}><a href="#services" className="transition hover:text-sunset-orange">{label}</a></li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold uppercase tracking-wider text-white/80">{t.footer.popularRoutes}</h4>
-              <ul className="mt-4 space-y-3 text-sm text-white/50">
-                {t.footer.routes.map((label) => (
-                  <li key={label}>{label}</li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold uppercase tracking-wider text-white/80">{t.footer.contact}</h4>
-              <ul className="mt-4 space-y-3 text-sm text-white/50">
-                <li><a href="https://wa.me/50670805578" className="transition hover:text-sunset-orange">WhatsApp +506 7080-5578</a></li>
-                <li><a href="mailto:reservations@rutapacifico.com" className="transition hover:text-sunset-orange">reservations@rutapacifico.com</a></li>
-                <li><Link href="/about-contact" className="transition hover:text-sunset-orange">{t.footer.aboutLink}</Link></li>
-                <li>Guanacaste, Costa Rica</li>
-              </ul>
-              <h4 className="mt-8 text-sm font-semibold uppercase tracking-wider text-white/80">{t.footer.follow}</h4>
-              <SocialLinks className="mt-4" locale={locale} />
-            </div>
-          </div>
-          <div className="mt-12 flex flex-col items-center gap-4 border-t border-white/10 pt-8 sm:flex-row sm:justify-between">
-            <p className="text-xs text-white/30">&copy; {new Date().getFullYear()} Ruta Pacifico. {t.footer.rights}</p>
-            <GoogleReviewBadge tone="light" locale={locale} />
-          </div>
-        </div>
-      </footer>
+      <SiteFooter locale={locale} />
     </main>
   );
 }

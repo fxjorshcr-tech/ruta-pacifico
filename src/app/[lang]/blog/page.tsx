@@ -2,13 +2,12 @@ import Image from "next/image";
 import Link from "@/components/LocaleLink";
 import type { Metadata } from "next";
 import SiteNav from "@/components/SiteNav";
-import SocialLinks from "@/components/SocialLinks";
+import SiteFooter from "@/components/SiteFooter";
 import {
   getPublishedPosts,
   formatPostDate,
-  type BlogPostPreview,
-} from "@/lib/blog";
-import { LOGO_URL, LOGO_WHITE_URL } from "@/lib/brand";
+  type BlogPostPreview } from "@/lib/blog";
+import { LOGO_URL } from "@/lib/brand";
 import {
   BASE_URL,
   IN_LANGUAGE,
@@ -16,8 +15,7 @@ import {
   localeAlternates,
   localeFromParams,
   localeUrl,
-  type Locale,
-} from "@/lib/i18n";
+  type Locale } from "@/lib/i18n";
 import { BLOG } from "@/i18n/blog";
 
 const HERO_URL =
@@ -42,9 +40,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       title: t.metaTitle,
       description: t.ogDescription,
       siteName: "Ruta Pacifico",
-      images: [{ url: HERO_URL, width: 1200, height: 630, alt: t.ogImageAlt }],
-    },
-  };
+      images: [{ url: HERO_URL, width: 1200, height: 630, alt: t.ogImageAlt }] } };
 }
 
 function BlogListJsonLd({ posts, locale }: { posts: BlogPostPreview[]; locale: Locale }) {
@@ -69,20 +65,16 @@ function BlogListJsonLd({ posts, locale }: { posts: BlogPostPreview[]; locale: L
             headline: p.title,
             url,
             datePublished: p.published_at ?? undefined,
-            dateModified: p.updated_at,
-          };
-        }),
-      },
+            dateModified: p.updated_at };
+        }) },
       {
         "@type": "BreadcrumbList",
         "@id": `${pageUrl}#breadcrumb`,
         itemListElement: [
           { "@type": "ListItem", position: 1, name: t.breadcrumbHome, item: localeUrl(locale, "/") },
           { "@type": "ListItem", position: 2, name: t.breadcrumbBlog, item: pageUrl },
-        ],
-      },
-    ],
-  };
+        ] },
+    ] };
   return (
     <script
       type="application/ld+json"
@@ -247,40 +239,7 @@ export default async function BlogIndexPage({ params }: { params: Params }) {
       </section>
 
       {/* ─── FOOTER ─── */}
-      <footer className="border-t border-black/5 bg-foreground text-white">
-        <div className="mx-auto max-w-6xl px-6 py-12">
-          <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
-            <Image
-              src={LOGO_WHITE_URL}
-              alt="Ruta Pacifico"
-              width={240}
-              height={100}
-              className="h-16 w-auto"
-              unoptimized
-            />
-            <div className="flex flex-col items-center gap-5 sm:flex-row sm:gap-8">
-              <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/50">
-                <Link href="/" className="transition hover:text-sunset-orange">
-                  {t.footer.home}
-                </Link>
-                <Link href="/private-shuttle" className="transition hover:text-sunset-orange">
-                  {t.footer.allRoutes}
-                </Link>
-                <Link href="/faq" className="transition hover:text-sunset-orange">
-                  {t.footer.faq}
-                </Link>
-                <a href="https://wa.me/50670805578" className="transition hover:text-sunset-orange">
-                  {t.footer.whatsapp}
-                </a>
-              </div>
-              <SocialLinks />
-            </div>
-          </div>
-          <div className="mt-8 border-t border-white/10 pt-6 text-center text-xs text-white/30">
-            &copy; {new Date().getFullYear()} Ruta Pacifico. {t.footer.rights}
-          </div>
-        </div>
-      </footer>
+      <SiteFooter locale={locale} />
     </main>
   );
 }

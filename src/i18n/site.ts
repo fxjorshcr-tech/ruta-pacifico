@@ -140,3 +140,79 @@ export const NOT_FOUND = defineCopy({
     ],
   },
 });
+
+/** Shared site footer (src/components/SiteFooter.tsx). */
+export const FOOTER = defineCopy({
+  en: {
+    tagline:
+      "Private shuttles from Liberia Airport to every beach in Guanacaste and across Costa Rica. Licensed by the ICT, fully insured, fixed prices per vehicle.",
+    license: "ICT licence",
+    quickLinks: "Quick links",
+    links: {
+      shuttles: "Private shuttles",
+      prices: "Prices",
+      blog: "Travel guide",
+      faq: "FAQ",
+      about: "About & contact",
+    },
+    legal: "Legal",
+    legalLinks: {
+      terms: "Terms & conditions",
+      privacy: "Privacy policy",
+      refund: "Refund policy",
+    },
+    popularRoutes: "Popular routes",
+    routes: [
+      { label: "LIR → Tamarindo", slug: "lir-liberia-int-airport-to-tamarindo-guanacaste" },
+      { label: "LIR → Papagayo", slug: "lir-liberia-int-airport-to-papagayo-peninsula-guanacaste" },
+      { label: "LIR → Flamingo", slug: "lir-liberia-int-airport-to-flamingo-guanacaste" },
+      { label: "LIR → JW Marriott", slug: "lir-liberia-int-airport-to-jw-marriott-guanacaste" },
+      { label: "LIR → Nosara", slug: "lir-liberia-int-airport-to-nosara-playa-guiones-area" },
+    ],
+    contact: "Contact",
+    location: "Liberia, Guanacaste, Costa Rica",
+    follow: "Follow us",
+    rights: "All rights reserved.",
+    membersOf: "Proud members of",
+    membersLine:
+      "Member of Marca País Costa Rica (Esencial Costa Rica) · Licensed by the ICT, Instituto Costarricense de Turismo",
+    esencialAlt: "Esencial Costa Rica, Marca País",
+    ictAlt: "Instituto Costarricense de Turismo (ICT)",
+  },
+  es: {
+    tagline:
+      "Shuttles privados desde el Aeropuerto de Liberia a todas las playas de Guanacaste y a todo Costa Rica. Con licencia del ICT, asegurados, precios fijos por vehículo.",
+    license: "Licencia ICT",
+    quickLinks: "Enlaces",
+    links: {
+      shuttles: "Shuttles privados",
+      prices: "Precios",
+      blog: "Guía de viaje",
+      faq: "Preguntas frecuentes",
+      about: "Nosotros y contacto",
+    },
+    legal: "Legal",
+    legalLinks: {
+      terms: "Términos y condiciones",
+      privacy: "Política de privacidad",
+      refund: "Política de reembolso",
+    },
+    popularRoutes: "Rutas populares",
+    routes: [
+      { label: "LIR → Tamarindo", slug: "lir-liberia-int-airport-to-tamarindo-guanacaste" },
+      { label: "LIR → Papagayo", slug: "lir-liberia-int-airport-to-papagayo-peninsula-guanacaste" },
+      { label: "LIR → Flamingo", slug: "lir-liberia-int-airport-to-flamingo-guanacaste" },
+      { label: "LIR → JW Marriott", slug: "lir-liberia-int-airport-to-jw-marriott-guanacaste" },
+      { label: "LIR → Nosara", slug: "lir-liberia-int-airport-to-nosara-playa-guiones-area" },
+    ],
+    contact: "Contacto",
+    location: "Liberia, Guanacaste, Costa Rica",
+    follow: "Síguenos",
+    rights: "Todos los derechos reservados.",
+    membersOf: "Miembros de",
+    membersLine:
+      "Miembro de Marca País Costa Rica (Esencial Costa Rica) · Con licencia del ICT, Instituto Costarricense de Turismo",
+    esencialAlt: "Esencial Costa Rica, Marca País",
+    ictAlt: "Instituto Costarricense de Turismo (ICT)",
+  },
+});

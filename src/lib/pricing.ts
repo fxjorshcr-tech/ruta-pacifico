@@ -274,3 +274,128 @@ export function priceRange(routes: Route[]): { low: number; high: number } | nul
   }
   return Number.isFinite(low) ? { low, high } : null;
 }
+
+
+// ---------------------------------------------------------------------------
+// Paired price list (the visible tables on /prices)
+// ---------------------------------------------------------------------------
+
+export type PairGroupKey = "lir" | "sjo" | "between";
+
+/** One origin/destination pair. `back` is the reverse route when it exists and is priced differently. */
+export interface RoutePair {
+  out: Route;
+  back: Route | null;
+}
+
+export interface PairGroup {
+  key: PairGroupKey;
+  title: string;
+  blurb: string;
+  pairs: RoutePair[];
+}
+
+const PAIR_META_COPY = defineCopy<Record<PairGroupKey, { title: string; blurb: string }>>({
+  en: {
+    lir: {
+      title: "Liberia Airport (LIR) ↔ Guanacaste and beyond",
+      blurb:
+        "Airport pickups and drop-offs at Daniel Oduber Quirós International Airport. The price is the same in both directions unless a return fare is shown under the route.",
+    },
+    sjo: {
+      title: "San José Airport (SJO) ↔ Guanacaste and the rest of Costa Rica",
+      blurb:
+        "Pickups and drop-offs at Juan Santamaría International Airport. Same fixed price each way unless a return fare is shown.",
+    },
+    between: {
+      title: "Between beaches, towns and destinations",
+      blurb:
+        "Point-to-point private transfers: beach to beach in Guanacaste, and Guanacaste to La Fortuna, Monteverde, Manuel Antonio and San José. Same fixed price each way unless a return fare is shown.",
+    },
+  },
+  es: {
+    lir: {
+      title: "Aeropuerto de Liberia (LIR) ↔ Guanacaste y más allá",
+      blurb:
+        "Recogidas y entregas en el Aeropuerto Internacional Daniel Oduber Quirós. El precio es el mismo en ambos sentidos salvo que se muestre una tarifa de regreso bajo la ruta.",
+    },
+    sjo: {
+      title: "Aeropuerto de San José (SJO) ↔ Guanacaste y el resto de Costa Rica",
+      blurb:
+        "Recogidas y entregas en el Aeropuerto Internacional Juan Santamaría. Mismo precio fijo en cada sentido salvo que se muestre una tarifa de regreso.",
+    },
+    between: {
+      title: "Entre playas, pueblos y destinos",
+      blurb:
+        "Traslados privados punto a punto: de playa a playa en Guanacaste, y de Guanacaste a La Fortuna, Monteverde, Manuel Antonio y San José. Mismo precio fijo en cada sentido salvo que se muestre una tarifa de regreso.",
+    },
+  },
+});
+
+function samePrices(a: Route, b: Route): boolean {
+  return (
+    a.precio1a5 === b.precio1a5 &&
+    a.precio6a9 === b.precio6a9 &&
+    a.precio10a12 === b.precio10a12
+  );
+}
+
+function pairGroupOf(route: Route): PairGroupKey {
+  if (LIR.test(route.origen) || LIR.test(route.destino)) return "lir";
+  if (SJO.test(route.origen) || SJO.test(route.destino)) return "sjo";
+  return "between";
+}
+
+/**
+ * The same routes as `groupRoutesForPriceList`, but each origin/destination
+ * pair appears once. A→B and B→A are almost always the same fare, so listing
+ * both doubled the page for no information; when the return fare differs
+ * it is kept on the pair as `back` and rendered as a second line.
+ *
+ * Which direction is "out": the airport-origin one for airport groups, the
+ * alphabetically first origin otherwise.
+ */
+export function pairRoutesForPriceList(
+  routes: Route[],
+  opts: { indexableOnly?: boolean; destinations?: DestinationMap; locale?: Locale } = {}
+): PairGroup[] {
+  const oneWay = groupRoutesForPriceList(routes, opts).flatMap((g) => g.routes);
+  const byKey = new Map<string, Route>();
+  for (const r of oneWay) byKey.set(`${r.origen}|${r.destino}`, r);
+
+  const isAirport = (name: string) => LIR.test(name) || SJO.test(name);
+  const seen = new Set<string>();
+  const pairs: RoutePair[] = [];
+  for (const r of oneWay) {
+    const key = [r.origen, r.destino].sort().join("|");
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const reverse = byKey.get(`${r.destino}|${r.origen}`) ?? null;
+    // Canonical direction: the airport is the origin when exactly one end is
+    // an airport; otherwise (two airports, or none) the alphabetically first
+    // name is the origin, so LIR ↔ SJO reads from Liberia.
+    let out = r;
+    if (reverse) {
+      const rIsOut =
+        isAirport(r.origen) && !isAirport(r.destino)
+          ? true
+          : isAirport(r.destino) && !isAirport(r.origen)
+            ? false
+            : r.origen.localeCompare(r.destino) <= 0;
+      out = rIsOut ? r : reverse;
+    }
+    const back = reverse ? (out === r ? reverse : r) : null;
+    pairs.push({ out, back: back && !samePrices(out, back) ? back : null });
+  }
+
+  const order: PairGroupKey[] = ["lir", "sjo", "between"];
+  return order
+    .map((key) => {
+      const members = pairs.filter((p) => pairGroupOf(p.out) === key);
+      members.sort((a, b) =>
+        key === "between" ? byName(a.out, b.out) : byPriceThenName(a.out, b.out)
+      );
+      return { key, ...PAIR_META_COPY[opts.locale ?? "en"][key], pairs: members };
+    })
+    .filter((g) => g.pairs.length > 0);
+}

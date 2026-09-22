@@ -3,14 +3,12 @@ import Link from "@/components/LocaleLink";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import SiteNav from "@/components/SiteNav";
-import SocialLinks from "@/components/SocialLinks";
+import SiteFooter from "@/components/SiteFooter";
 import {
   getPostBySlug,
   renderMarkdown,
   formatPostDate,
-  type BlogPost,
-} from "@/lib/blog";
-import { LOGO_WHITE_URL } from "@/lib/brand";
+  type BlogPost } from "@/lib/blog";
 import {
   BASE_URL,
   IN_LANGUAGE,
@@ -18,8 +16,7 @@ import {
   localeAlternates,
   localeFromParams,
   localeUrl,
-  type Locale,
-} from "@/lib/i18n";
+  type Locale } from "@/lib/i18n";
 import { BLOG } from "@/i18n/blog";
 
 const HERO_URL =
@@ -48,8 +45,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   if (!post) {
     return {
       title: t.notFoundTitle,
-      robots: { index: false, follow: false },
-    };
+      robots: { index: false, follow: false } };
   }
   const canonical = `/blog/${post.slug}`;
   const ogImage = post.cover_image_url ?? HERO_URL;
@@ -67,15 +63,12 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       siteName: "Ruta Pacifico",
       publishedTime: post.published_at ?? undefined,
       modifiedTime: post.updated_at,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: post.cover_image_alt ?? post.title }],
-    },
+      images: [{ url: ogImage, width: 1200, height: 630, alt: post.cover_image_alt ?? post.title }] },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
-      images: [ogImage],
-    },
-  };
+      images: [ogImage] } };
 }
 
 function ArticleJsonLd({ post, locale }: { post: BlogPost; locale: Locale }) {
@@ -95,13 +88,11 @@ function ArticleJsonLd({ post, locale }: { post: BlogPost; locale: Locale }) {
       author: {
         "@type": "Organization",
         name: post.author,
-        url: BASE_URL,
-      },
+        url: BASE_URL },
       publisher: { "@id": `${BASE_URL}/#organization` },
       mainEntityOfPage: { "@type": "WebPage", "@id": url },
       keywords: post.tags.join(", "),
-      articleSection: post.category,
-    },
+      articleSection: post.category },
     {
       "@type": "BreadcrumbList",
       "@id": `${url}#breadcrumb`,
@@ -109,8 +100,7 @@ function ArticleJsonLd({ post, locale }: { post: BlogPost; locale: Locale }) {
         { "@type": "ListItem", position: 1, name: t.breadcrumbHome, item: localeUrl(locale, "/") },
         { "@type": "ListItem", position: 2, name: t.breadcrumbBlog, item: localeUrl(locale, "/blog") },
         { "@type": "ListItem", position: 3, name: post.title, item: url },
-      ],
-    },
+      ] },
   ];
 
   if (post.faqs.length > 0) {
@@ -122,17 +112,14 @@ function ArticleJsonLd({ post, locale }: { post: BlogPost; locale: Locale }) {
       mainEntity: post.faqs.map((f) => ({
         "@type": "Question",
         name: f.q,
-        acceptedAnswer: { "@type": "Answer", text: f.a },
-      })),
-    });
+        acceptedAnswer: { "@type": "Answer", text: f.a } })) });
   }
 
   return (
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify({ "@context": "https://schema.org", "@graph": graph }),
-      }}
+        __html: JSON.stringify({ "@context": "https://schema.org", "@graph": graph }) }}
     />
   );
 }
@@ -249,43 +236,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
       </article>
 
       {/* ─── FOOTER ─── */}
-      <footer className="border-t border-black/5 bg-foreground text-white">
-        <div className="mx-auto max-w-6xl px-6 py-12">
-          <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
-            <Image
-              src={LOGO_WHITE_URL}
-              alt="Ruta Pacifico"
-              width={240}
-              height={100}
-              className="h-16 w-auto"
-              unoptimized
-            />
-            <div className="flex flex-col items-center gap-5 sm:flex-row sm:gap-8">
-              <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/50">
-                <Link href="/" className="transition hover:text-sunset-orange">
-                  {t.footer.home}
-                </Link>
-                <Link href="/blog" className="transition hover:text-sunset-orange">
-                  {t.footer.blog}
-                </Link>
-                <Link href="/private-shuttle" className="transition hover:text-sunset-orange">
-                  {t.footer.allRoutes}
-                </Link>
-                <Link href="/faq" className="transition hover:text-sunset-orange">
-                  {t.footer.faq}
-                </Link>
-                <a href="https://wa.me/50670805578" className="transition hover:text-sunset-orange">
-                  {t.footer.whatsapp}
-                </a>
-              </div>
-              <SocialLinks />
-            </div>
-          </div>
-          <div className="mt-8 border-t border-white/10 pt-6 text-center text-xs text-white/30">
-            &copy; {new Date().getFullYear()} Ruta Pacifico. {t.footer.rights}
-          </div>
-        </div>
-      </footer>
+      <SiteFooter locale={locale} />
     </main>
   );
 }

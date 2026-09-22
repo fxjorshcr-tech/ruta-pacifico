@@ -20,6 +20,7 @@ export const revalidate = 3600;
  * blog posts use the real updated_at from the database.
  */
 const STATIC_LAST_MODIFIED = new Date("2026-09-17");
+const LEGAL_LAST_MODIFIED = new Date("2026-09-22");
 
 type Entry = Omit<MetadataRoute.Sitemap[number], "url" | "alternates">;
 
@@ -48,6 +49,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...localized("/faq", { lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.7 }),
     ...localized("/blog", { lastModified: STATIC_LAST_MODIFIED, changeFrequency: "weekly", priority: 0.8 }),
     ...localized("/about-contact", { lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.7 }),
+    ...localized("/terms-and-conditions", { lastModified: LEGAL_LAST_MODIFIED, changeFrequency: "yearly", priority: 0.3 }),
+    ...localized("/privacy-policy", { lastModified: LEGAL_LAST_MODIFIED, changeFrequency: "yearly", priority: 0.3 }),
+    ...localized("/refund-policy", { lastModified: LEGAL_LAST_MODIFIED, changeFrequency: "yearly", priority: 0.3 }),
   ];
 
   // Route pages — only the SEO-worthy subset (see src/lib/destinations.ts),
