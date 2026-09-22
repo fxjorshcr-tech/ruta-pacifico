@@ -23,7 +23,9 @@ const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 
 /** Regenerate at most hourly; edits to a post appear within the hour without a deploy. */
-export const revalidate = 3600;
+// A day: each regeneration is an ISR write, and posts change rarely. Re-run
+// the SQL seed and the new copy shows within 24 h.
+export const revalidate = 86400;
 
 /**
  * No paths at build time: each slug is rendered on its first visit and then

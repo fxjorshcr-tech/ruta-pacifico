@@ -32,15 +32,15 @@ const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 
 /**
- * Cached for 12 hours and regenerated in the background on the next visit
- * (ISR). Rendering on every request meant a Supabase query plus a full
- * render for each of the ~1,400 route URLs every time a crawler touched
- * them, which was the bulk of the project's Vercel CPU budget. 12 h keeps
- * the monthly regeneration count for all route pages well inside the ISR
- * write quota; a price edit shows on /prices within the hour and here within
- * half a day.
+ * Cached for 7 days and regenerated in the background on the next visit
+ * (ISR). Every regeneration is an ISR write on Vercel, and with ~1,400
+ * route URLs in two languages, almost all of them visited only by crawlers,
+ * a 12-hour window meant several thousand writes a day: the bulk of the
+ * project's ISR write budget. Prices change rarely; /prices (1 h) and the
+ * booking search always show the live figure, and this page catches up
+ * within a week.
  */
-export const revalidate = 43200;
+export const revalidate = 604800;
 
 /**
  * No paths at build time: each slug is rendered on its first visit and then
