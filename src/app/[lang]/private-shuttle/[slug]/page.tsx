@@ -1,10 +1,9 @@
 import Image from "next/image";
-import Link from "@/components/LocaleLink";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import BookingSection from "@/components/BookingSection";
 import SiteNav from "@/components/SiteNav";
-import SocialLinks from "@/components/SocialLinks";
+import SiteFooter from "@/components/SiteFooter";
 import DestinationGuide from "@/components/DestinationGuide";
 import RouteFaqSection from "@/components/RouteFaq";
 import { buildRouteFaqs, type RouteFaq } from "@/lib/routeFaqs";
@@ -17,10 +16,8 @@ import {
   isRouteIndexable,
   localizeDestination,
   selectIndexableRoutes,
-  type Destination,
-} from "@/lib/destinations";
+  type Destination } from "@/lib/destinations";
 import { MAX_PAX, VEHICLE_TIERS } from "@/lib/vehicles";
-import { LOGO_WHITE_URL } from "@/lib/brand";
 import {
   BASE_URL,
   IN_LANGUAGE,
@@ -28,23 +25,22 @@ import {
   localeAlternates,
   localeFromParams,
   localeUrl,
-  type Locale,
-} from "@/lib/i18n";
+  type Locale } from "@/lib/i18n";
 import { ROUTE } from "@/i18n/route";
 
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 
 /**
- * Cached for 12 hours and regenerated in the background on the next visit
- * (ISR). Rendering on every request meant a Supabase query plus a full
- * render for each of the ~1,400 route URLs every time a crawler touched
- * them, which was the bulk of the project's Vercel CPU budget. 12 h keeps
- * the monthly regeneration count for all route pages well inside the ISR
- * write quota; a price edit shows on /prices within the hour and here within
- * half a day.
+ * Cached for 7 days and regenerated in the background on the next visit
+ * (ISR). Every regeneration is an ISR write on Vercel, and with ~1,400
+ * route URLs in two languages, almost all of them visited only by crawlers,
+ * a 12-hour window meant several thousand writes a day: the bulk of the
+ * project's ISR write budget. Prices change rarely; /prices (1 h) and the
+ * booking search always show the live figure, and this page catches up
+ * within a week.
  */
-export const revalidate = 43200;
+export const revalidate = 604800;
 
 /**
  * No paths at build time: each slug is rendered on its first visit and then
@@ -59,8 +55,7 @@ export function generateStaticParams(): { slug: string }[] {
 type Params = Promise<{ lang: string; slug: string }>;
 
 export async function generateMetadata({
-  params,
-}: {
+  params }: {
   params: Params;
 }): Promise<Metadata> {
   const { slug } = await params;
@@ -73,8 +68,7 @@ export async function generateMetadata({
   if (!route) {
     return {
       title: t.notFoundTitle,
-      robots: { index: false, follow: false },
-    };
+      robots: { index: false, follow: false } };
   }
   const indexable = isRouteIndexable(route, destinations);
   const title = t.metaTitle(route.origen, route.destino, route.precio1a5);
@@ -106,17 +100,13 @@ export async function generateMetadata({
           url: HERO_URL,
           width: 1200,
           height: 630,
-          alt: t.ogImageAlt(route.origen, route.destino),
-        },
-      ],
-    },
+          alt: t.ogImageAlt(route.origen, route.destino) },
+      ] },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [HERO_URL],
-    },
-  };
+      images: [HERO_URL] } };
 }
 
 /** First paragraph of a Markdown block as plain text, for JSON-LD descriptions. */
@@ -138,8 +128,7 @@ function RouteJsonLd({
   origin,
   destination,
   faqs,
-  locale,
-}: {
+  locale }: {
   route: Route;
   slug: string;
   airportPickup: boolean;
@@ -156,8 +145,7 @@ function RouteJsonLd({
   const homeUrl = localeUrl(locale, "/").replace(/\/$/, "");
   const prices = VEHICLE_TIERS.map((tier) => ({
     tier,
-    price: route[tier.priceField],
-  })).filter((entry): entry is { tier: (typeof VEHICLE_TIERS)[number]; price: number } =>
+    price: route[tier.priceField] })).filter((entry): entry is { tier: (typeof VEHICLE_TIERS)[number]; price: number } =>
     Boolean(entry.price)
   );
   const offers: Record<string, unknown>[] = prices.map(({ tier, price }) => ({
@@ -171,9 +159,7 @@ function RouteJsonLd({
       "@type": "QuantitativeValue",
       minValue: tier.minPax,
       maxValue: tier.maxPax,
-      unitText: t.passengers,
-    },
-  }));
+      unitText: t.passengers } }));
   const lowPrice = prices.length ? prices[0].price : route.precio1a5;
   const highPrice = prices.length
     ? prices[prices.length - 1].price
@@ -205,9 +191,7 @@ function RouteJsonLd({
           lowPrice,
           highPrice,
           offerCount: offers.length,
-          offers,
-        },
-      },
+          offers } },
       {
         "@type": "Trip",
         "@id": `${url}#trip`,
@@ -218,22 +202,18 @@ function RouteJsonLd({
           {
             "@type": "Place",
             name: route.origen,
-            description: plainSummary(origin?.intro_md),
-          },
+            description: plainSummary(origin?.intro_md) },
           {
             "@type": "Place",
             name: route.destino,
-            description: plainSummary(destination?.intro_md),
-          },
+            description: plainSummary(destination?.intro_md) },
         ],
         offers: {
           "@type": "Offer",
           price: lowPrice,
           priceCurrency: "USD",
           url,
-          availability: "https://schema.org/InStock",
-        },
-      },
+          availability: "https://schema.org/InStock" } },
       ...(faqs.length
         ? [
             {
@@ -243,9 +223,7 @@ function RouteJsonLd({
               mainEntity: faqs.map((f) => ({
                 "@type": "Question",
                 name: f.q,
-                acceptedAnswer: { "@type": "Answer", text: f.a },
-              })),
-            },
+                acceptedAnswer: { "@type": "Answer", text: f.a } })) },
           ]
         : []),
       {
@@ -257,18 +235,14 @@ function RouteJsonLd({
             "@type": "ListItem",
             position: 2,
             name: t.breadcrumbShuttles,
-            item: localeUrl(locale, "/private-shuttle"),
-          },
+            item: localeUrl(locale, "/private-shuttle") },
           {
             "@type": "ListItem",
             position: 3,
             name: t.breadcrumbRoute(route.origen, route.destino),
-            item: url,
-          },
-        ],
-      },
-    ],
-  };
+            item: url },
+        ] },
+    ] };
 
   return (
     <script
@@ -279,8 +253,7 @@ function RouteJsonLd({
 }
 
 export default async function RoutePage({
-  params,
-}: {
+  params }: {
   params: Params;
 }) {
   const { slug } = await params;
@@ -572,48 +545,7 @@ export default async function RoutePage({
       />
 
       {/* ─── FOOTER ─── */}
-      <footer className="border-t border-black/5 bg-foreground text-white">
-        <div className="mx-auto max-w-6xl px-6 py-12">
-          <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
-            <div className="flex items-center gap-4">
-              <Image
-                src={LOGO_WHITE_URL}
-                alt="Ruta Pacifico"
-                width={240}
-                height={100}
-                className="h-16 w-auto"
-                unoptimized
-              />
-            </div>
-            <div className="flex flex-col items-center gap-5 sm:flex-row sm:gap-8">
-              <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/50">
-                <Link href="/" className="transition hover:text-sunset-orange">
-                  {t.footer.home}
-                </Link>
-                <Link
-                  href="/private-shuttle"
-                  className="transition hover:text-sunset-orange"
-                >
-                  {t.footer.allRoutes}
-                </Link>
-                <Link href="/faq" className="transition hover:text-sunset-orange">
-                  {t.footer.faq}
-                </Link>
-                <a
-                  href="https://wa.me/50670805578"
-                  className="transition hover:text-sunset-orange"
-                >
-                  WhatsApp
-                </a>
-              </div>
-              <SocialLinks />
-            </div>
-          </div>
-          <div className="mt-8 border-t border-white/10 pt-6 text-center text-xs text-white/30">
-            &copy; {new Date().getFullYear()} Ruta Pacifico. {t.footer.rights}
-          </div>
-        </div>
-      </footer>
+      <SiteFooter locale={locale} />
     </main>
   );
 }

@@ -1,12 +1,10 @@
 import Image from "next/image";
-import Link from "@/components/LocaleLink";
 import type { Metadata } from "next";
 import { getSupabase } from "@/lib/supabase";
 import SiteNav from "@/components/SiteNav";
-import SocialLinks from "@/components/SocialLinks";
+import SiteFooter from "@/components/SiteFooter";
 import FaqAccordion, { type Faq } from "@/components/FaqAccordion";
 import { normalise } from "@/lib/faqs";
-import { LOGO_WHITE_URL } from "@/lib/brand";
 import {
   BASE_URL,
   IN_LANGUAGE,
@@ -14,8 +12,7 @@ import {
   localeAlternates,
   localeFromParams,
   localeUrl,
-  type Locale,
-} from "@/lib/i18n";
+  type Locale } from "@/lib/i18n";
 import { FAQ } from "@/i18n/faq";
 
 const HERO_URL =
@@ -38,9 +35,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       locale: OG_LOCALE[locale],
       url: localeUrl(locale, "/faq"),
       title: t.metaTitle,
-      description: t.ogDescription,
-    },
-  };
+      description: t.ogDescription } };
 }
 
 // Fixed order so categories don't jump around between renders.
@@ -130,10 +125,7 @@ function FaqJsonLd({ faqs, locale }: { faqs: Faq[]; locale: Locale }) {
           name: f.question,
           acceptedAnswer: {
             "@type": "Answer",
-            text: f.answer,
-          },
-        })),
-      },
+            text: f.answer } })) },
       {
         "@type": "BreadcrumbList",
         "@id": `${pageUrl}#breadcrumb`,
@@ -143,12 +135,9 @@ function FaqJsonLd({ faqs, locale }: { faqs: Faq[]; locale: Locale }) {
             "@type": "ListItem",
             position: 2,
             name: t.breadcrumbFaq,
-            item: pageUrl,
-          },
-        ],
-      },
-    ],
-  };
+            item: pageUrl },
+        ] },
+    ] };
   return (
     <script
       type="application/ld+json"
@@ -312,48 +301,7 @@ export default async function FaqPage({ params }: { params: Params }) {
       </section>
 
       {/* ─── FOOTER ─── */}
-      <footer className="border-t border-black/5 bg-foreground text-white">
-        <div className="mx-auto max-w-6xl px-6 py-12">
-          <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
-            <div className="flex items-center gap-4">
-              <Image
-                src={LOGO_WHITE_URL}
-                alt="Ruta Pacifico"
-                width={240}
-                height={100}
-                className="h-16 w-auto"
-                unoptimized
-              />
-            </div>
-            <div className="flex flex-col items-center gap-5 sm:flex-row sm:gap-8">
-              <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-white/50">
-                <Link href="/" className="transition hover:text-sunset-orange">
-                  {t.footer.home}
-                </Link>
-                <Link
-                  href="/private-shuttle"
-                  className="transition hover:text-sunset-orange"
-                >
-                  {t.footer.allRoutes}
-                </Link>
-                <Link href="/faq" className="transition hover:text-sunset-orange">
-                  {t.footer.faq}
-                </Link>
-                <a
-                  href="https://wa.me/50670805578"
-                  className="transition hover:text-sunset-orange"
-                >
-                  {t.footer.whatsapp}
-                </a>
-              </div>
-              <SocialLinks />
-            </div>
-          </div>
-          <div className="mt-8 border-t border-white/10 pt-6 text-center text-xs text-white/30">
-            &copy; {new Date().getFullYear()} Ruta Pacifico. {t.footer.rights}
-          </div>
-        </div>
-      </footer>
+      <SiteFooter locale={locale} />
     </main>
   );
 }
