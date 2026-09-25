@@ -103,7 +103,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
       {/* ─── HERO ─── */}
       <section className="relative flex min-h-screen items-center overflow-hidden">
-        <Image src={HERO_URL} alt={t.hero.imageAlt} fill className="object-cover" priority unoptimized />
+        <Image src={HERO_URL} alt={t.hero.imageAlt} fill className="object-cover" sizes="100vw" preload />
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/20" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30" />
 
@@ -131,7 +131,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
             </Link>
           </div>
           <div className="hidden lg:flex flex-col items-center justify-center gap-8">
-            <Image src={LOGO_URL} alt="Ruta Pacifico" width={480} height={200} className="w-full max-w-md drop-shadow-2xl" unoptimized />
+            <Image src={LOGO_URL} alt="Ruta Pacifico" width={480} height={200} className="w-full max-w-md drop-shadow-2xl" />
             <Link
               href="/private-shuttle"
               className="group relative overflow-hidden rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-14 py-5 text-lg font-bold text-white shadow-lg shadow-sunset-orange/25 transition-all duration-300 hover:shadow-2xl hover:shadow-sunset-orange/40 hover:scale-105"
@@ -247,7 +247,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                   className={`group relative overflow-hidden rounded-3xl shadow-lg transition hover:-translate-y-1 hover:shadow-2xl${media.wide ? " sm:col-span-2 lg:col-span-1" : ""}`}
                 >
                   <div className="relative aspect-[3/4]">
-                    <Image src={media.image} alt={card.alt} fill className="object-cover transition duration-500 group-hover:scale-105" unoptimized />
+                    <Image src={media.image} alt={card.alt} fill className="object-cover transition duration-500 group-hover:scale-105" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   </div>
                   <div className="absolute inset-x-0 bottom-0 p-6">
@@ -324,7 +324,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                     alt={t.fleet.imageAlt(tier.name)}
                     fill
                     className="object-contain"
-                    unoptimized
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   />
                 </div>
                 <div className="mt-4">
@@ -366,7 +366,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                 alt={t.airport.imageAlt}
                 fill
                 className="object-cover"
-                unoptimized
+                sizes="(min-width: 1024px) 50vw, 100vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               <div className="absolute bottom-4 left-4 flex items-center gap-2">
@@ -413,7 +413,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       >
         {/* Decorative beach backdrop */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[420px] opacity-[0.08]">
-          <Image src={HERO_URL} alt="" fill className="object-cover" unoptimized />
+          <Image src={HERO_URL} alt="" fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white" />
         </div>
         {/* Decorative blobs */}

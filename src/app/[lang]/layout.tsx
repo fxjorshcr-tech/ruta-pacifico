@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Lexend } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import FloatingCart from "@/components/FloatingCart";
 import {
@@ -26,6 +27,19 @@ import "../globals.css";
 import { LOGO_SQUARE_ABSOLUTE_URL, LOGO_SQUARE_SIZE } from "@/lib/brand";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+
+/**
+ * Brand typeface, self-hosted by next/font: the woff2 is downloaded at build
+ * time and served from our own origin with a preload tag, so there is no
+ * render-blocking Google Fonts stylesheet, no third-party connections and a
+ * metric-matched fallback font while it loads (no layout shift on swap).
+ * Lexend is a variable font, so one file covers every weight in use.
+ */
+const lexend = Lexend({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-lexend",
+});
 
 /**
  * Site-verification tokens. Both variables accept a comma-separated list so
@@ -456,25 +470,11 @@ export default async function RootLayout({
 }>) {
   const locale = await localeFromParams(params);
   return (
-    <html lang={HTML_LANG[locale]} className="h-full antialiased">
+    <html lang={HTML_LANG[locale]} className={`h-full antialiased ${lexend.variable}`}>
       <head>
-        {/* Performance: pre-warm the origins we always hit first. */}
-        <link
-          rel="preconnect"
-          href="https://mmlbslwljvmscbgsqkkq.supabase.co"
-          crossOrigin=""
-        />
-        <link rel="dns-prefetch" href="https://mmlbslwljvmscbgsqkkq.supabase.co" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin=""
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
+        {/* No preconnects on purpose: fonts are self-hosted and images go
+            through the same-origin optimizer, so the browser has nothing
+            cross-origin to warm up. */}
         {/* Pointer the LLM-facing docs — non-standard but harmless, and some
             crawlers honour it to find llms.txt without scanning robots.txt. */}
         <link

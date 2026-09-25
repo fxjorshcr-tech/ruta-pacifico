@@ -29,7 +29,7 @@ export default function GuanacasteGallery() {
             alt={images[current].alt}
             fill
             className="object-cover transition-opacity duration-500"
-            unoptimized
+            sizes="100vw"
           />
         </div>
         <div className="mt-4 flex items-center justify-center gap-3">
@@ -70,7 +70,7 @@ export default function GuanacasteGallery() {
       <div className="hidden lg:grid grid-cols-2 gap-4">
         {images.map((img, i) => (
           <div key={i} className="relative h-56 overflow-hidden rounded-2xl">
-            <Image src={img.src} alt={img.alt} fill className="object-cover" unoptimized />
+            <Image src={img.src} alt={img.alt} fill className="object-cover" sizes="25vw" />
           </div>
         ))}
       </div>

@@ -158,8 +158,8 @@ export default async function TransferPage({ params }: { params: Params }) {
           alt={t.heroAlt}
           fill
           className="object-cover"
-          priority
-          unoptimized
+          sizes="100vw"
+          preload
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-light-surface via-transparent to-transparent" />

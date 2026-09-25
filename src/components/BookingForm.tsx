@@ -194,7 +194,7 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
                       alt={v.name}
                       fill
                       className="object-contain"
-                      unoptimized
+                      sizes="(min-width: 640px) 33vw, 100vw"
                     />
                   </div>
                   <div className="mt-2 text-xs font-semibold text-foreground/50">

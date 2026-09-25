@@ -63,8 +63,7 @@ export default function SiteNav({ transparent = true }: Props) {
             width={360}
             height={150}
             className="h-12 w-auto sm:h-14 lg:h-16"
-            priority
-            unoptimized
+            loading="eager"
           />
         </Link>
 

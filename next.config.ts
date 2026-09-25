@@ -8,6 +8,14 @@ const nextConfig: NextConfig = {
     "/api/contact": ["./public/brand/logo-white.png"],
   },
   images: {
+    // Optimized variants are cached for 31 days (Supabase Storage only sends
+    // max-age=3600, which Lighthouse flags as a short cache lifetime). The
+    // source files never change in place: a new photo gets a new file name.
+    minimumCacheTTL: 2678400,
+    qualities: [75],
+    // The largest source (the hero) is 1920px wide: anything above that
+    // would only add srcset entries and cached variants that never win.
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     remotePatterns: [
       {
         protocol: "https",
