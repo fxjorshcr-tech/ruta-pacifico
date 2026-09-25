@@ -40,7 +40,6 @@ export default function SiteFooter({ locale = DEFAULT_LOCALE }: { locale?: Local
               width={480}
               height={200}
               className="h-24 w-auto"
-              unoptimized
             />
             <p className="mt-4 text-sm leading-relaxed text-white/50">{t.tagline}</p>
             <p className="mt-4 text-xs text-white/40">

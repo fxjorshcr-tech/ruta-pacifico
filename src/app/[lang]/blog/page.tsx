@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { isOptimizable } from "@/lib/images";
 import Link from "@/components/LocaleLink";
 import type { Metadata } from "next";
 import SiteNav from "@/components/SiteNav";
@@ -108,8 +109,8 @@ export default async function BlogIndexPage({ params }: { params: Params }) {
           alt={t.list.hero.imageAlt}
           fill
           className="object-cover"
-          priority
-          unoptimized
+          sizes="100vw"
+          preload
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-light-surface via-transparent to-transparent" />
@@ -167,7 +168,8 @@ export default async function BlogIndexPage({ params }: { params: Params }) {
                       alt={post.cover_image_alt ?? post.title}
                       fill
                       className="object-cover transition duration-500 group-hover:scale-105"
-                      unoptimized
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      unoptimized={!isOptimizable(post.cover_image_url)}
                     />
                   ) : (
                     <div className="flex h-full items-center justify-center">
@@ -177,7 +179,6 @@ export default async function BlogIndexPage({ params }: { params: Params }) {
                         width={160}
                         height={67}
                         className="h-10 w-auto opacity-70"
-                        unoptimized
                       />
                     </div>
                   )}

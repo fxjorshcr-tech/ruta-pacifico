@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { isOptimizable } from "@/lib/images";
 import Link from "@/components/LocaleLink";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -147,8 +148,9 @@ export default async function BlogPostPage({ params }: { params: Params }) {
           alt={post.cover_image_alt ?? post.title}
           fill
           className="object-cover"
-          priority
-          unoptimized
+          sizes="100vw"
+          preload
+          unoptimized={!isOptimizable(heroImage)}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/30" />
 

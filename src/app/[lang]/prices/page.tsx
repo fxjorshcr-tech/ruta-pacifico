@@ -306,7 +306,7 @@ export default async function PricesPage({ params }: { params: Params }) {
 
       {/* ─── HERO ─── */}
       <section className="relative flex min-h-[46vh] items-center overflow-hidden">
-        <Image src={HERO_URL} alt={t.hero.imageAlt} fill className="object-cover" priority unoptimized />
+        <Image src={HERO_URL} alt={t.hero.imageAlt} fill className="object-cover" sizes="100vw" preload />
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-light-surface via-transparent to-transparent" />
         <div className="relative z-10 mx-auto w-full max-w-5xl px-6 pt-24 pb-16 text-center">

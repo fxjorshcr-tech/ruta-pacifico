@@ -85,8 +85,8 @@ export default async function AboutContactPage({ params }: { params: Params }) {
           alt={t.heroAlt}
           fill
           className="object-cover"
-          priority
-          unoptimized
+          sizes="100vw"
+          preload
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-light-surface via-transparent to-transparent" />
@@ -162,7 +162,6 @@ export default async function AboutContactPage({ params }: { params: Params }) {
                 width={288}
                 height={120}
                 className="h-14 w-auto"
-                unoptimized
               />
               <div className="mt-5 space-y-4 text-sm">
                 <div className="flex items-start gap-3">
