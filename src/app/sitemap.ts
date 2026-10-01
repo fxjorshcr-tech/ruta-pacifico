@@ -9,8 +9,8 @@ import {
   selectIndexableRoutes,
 } from "@/lib/destinations";
 
-/** Re-generate at most hourly so new destinations/routes appear without a deploy. */
-export const revalidate = 3600;
+/** Re-generate daily; /api/revalidate publishes a change sooner. */
+export const revalidate = 86400;
 
 /**
  * Last real content change on the static pages. Google and Bing ignore

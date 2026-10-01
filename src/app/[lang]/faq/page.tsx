@@ -19,7 +19,7 @@ const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 
 /** FAQs change rarely; regenerate at most hourly instead of querying Supabase on every visit. */
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 type Params = Promise<{ lang: string }>;
 

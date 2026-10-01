@@ -23,7 +23,7 @@ const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/playa_tamarindo_kristen_brown.jpg";
 
 /** Regenerate at most hourly; a new post appears within the hour without a deploy. */
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 type Params = Promise<{ lang: string }>;
 

@@ -32,24 +32,35 @@ const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 
 /**
- * Cached for 7 days and regenerated in the background on the next visit
- * (ISR). Every regeneration is an ISR write on Vercel, and with ~1,400
- * route URLs in two languages, almost all of them visited only by crawlers,
- * a 12-hour window meant several thousand writes a day: the bulk of the
- * project's ISR write budget. Prices change rarely; /prices (1 h) and the
- * booking search always show the live figure, and this page catches up
- * within a week.
+ * Every route page is rendered at build time and shipped as static output.
+ * Before this, each of the ~1,400 slugs (x 2 languages) was rendered on its
+ * first visit and again after every deploy, and each render was an ISR
+ * write that Vercel bills per 8 KB; with crawlers visiting the whole long
+ * tail that was most of the project's ISR budget.
+ *
+ * `revalidate` keeps a safety net of one background regeneration a month;
+ * a price edit is published right away with
+ * /api/revalidate?token=…&path=/private-shuttle/<slug>.
  */
-export const revalidate = 604800;
+export const revalidate = 2592000;
 
 /**
- * No paths at build time: each slug is rendered on its first visit and then
- * served from the ISR cache until `revalidate` elapses. Next only treats a
- * dynamic segment as ISR when this function exists (an empty array is the
- * documented way to say "all paths at runtime").
+ * Only the slugs returned here exist. Anything else (/private-shuttle/foo,
+ * case variants, bot probes) is a static 404 from the CDN: no function, no
+ * ISR write. A route ADDED to the table gets its page on the next deploy;
+ * edits to existing routes do not need one.
  */
-export function generateStaticParams(): { slug: string }[] {
-  return [];
+export const dynamicParams = false;
+
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
+  const routes = await getRoutes();
+  if (routes.length === 0) {
+    // With dynamicParams off, an empty list would 404 every route page.
+    // Fail the build instead: Vercel keeps the previous deployment live.
+    throw new Error("generateStaticParams: the routes table came back empty");
+  }
+  const slugs = new Set(routes.map((r) => routeSlug(r.origen, r.destino)));
+  return Array.from(slugs, (slug) => ({ slug }));
 }
 
 type Params = Promise<{ lang: string; slug: string }>;

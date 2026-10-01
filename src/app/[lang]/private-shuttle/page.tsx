@@ -32,7 +32,7 @@ const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
 
 /** Routes and FAQs change rarely; regenerate at most hourly instead of querying Supabase on every visit. */
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export async function generateMetadata({
   params }: {
@@ -143,7 +143,6 @@ export default async function TransferPage({ params }: { params: Params }) {
   const indexable = selectIndexableRoutes(routes, destinations);
   const popular = popularAirportRoutes(routes, destinations, 12);
   const pricedCount = indexable.filter((r) => lowestPrice(r)).length;
-  const pairs = routes.map((r) => ({ origen: r.origen, destino: r.destino }));
 
   return (
     <main className="bg-light-surface min-h-screen">
@@ -202,8 +201,8 @@ export default async function TransferPage({ params }: { params: Params }) {
         </div>
       </section>
 
-      {/* ─── CLIENT-SIDE ROUTE SEARCH ─── */}
-      <RouteSearch routes={pairs} />
+      {/* ─── CLIENT-SIDE ROUTE SEARCH (loads /routes.json in the browser) ─── */}
+      <RouteSearch />
 
       {/* ─── POPULAR ROUTES WITH PRICES (server-rendered, crawlable) ─── */}
       <PopularRoutes routes={popular} totalPriced={pricedCount} locale={locale} />

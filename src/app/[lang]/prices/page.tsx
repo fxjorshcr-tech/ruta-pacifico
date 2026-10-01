@@ -38,10 +38,19 @@ const HERO_URL =
  * The public price list. One server-rendered HTML table per airport group,
  * every figure in the DOM (no client JS, no accordion), plus an ItemList of
  * Offers in JSON-LD — the page an answer engine lands on when someone asks
- * "how much is a shuttle from Liberia airport to X". Re-rendered hourly so a
- * price edit in the routes table shows up without a deploy.
+ * "how much is a shuttle from Liberia airport to X". Re-rendered daily (or
+ * on demand through /api/revalidate) so a price edit shows up without a
+ * deploy.
  */
-export const revalidate = 3600;
+export const revalidate = 86400;
+
+/**
+ * Offers listed in the OfferCatalog JSON-LD. The full catalogue (~1,400
+ * routes) made this page's HTML 1 MB, which Vercel bills on every ISR read
+ * and write; the visible price tables already carry every fare, so the
+ * structured data only needs a representative sample.
+ */
+const JSON_LD_OFFERS = 40;
 
 type Params = Promise<{ lang: string }>;
 
@@ -74,7 +83,7 @@ function PriceListJsonLd({ groups, locale }: { groups: PriceGroup[]; locale: Loc
   const pageUrl = localeUrl(locale, PRICE_LIST_PATH);
   const all = groups.flatMap((g) => g.routes);
   const range = priceRange(all);
-  const itemListElement = all.map((r, idx) => {
+  const itemListElement = all.slice(0, JSON_LD_OFFERS).map((r, idx) => {
     const prices = routePrices(r);
     const url = routeUrl(r, locale);
     return {
@@ -114,10 +123,10 @@ function PriceListJsonLd({ groups, locale }: { groups: PriceGroup[]; locale: Loc
         "@id": `${pageUrl}#catalog`,
         name: t.jsonLd.catalogName,
         url: pageUrl,
-        numberOfItems: itemListElement.length,
+        numberOfItems: all.length,
         ...(range
           ? {
-              description: t.jsonLd.catalogDescription(itemListElement.length, range.low, range.high) }
+              description: t.jsonLd.catalogDescription(all.length, range.low, range.high) }
           : {}),
         itemListElement },
       {

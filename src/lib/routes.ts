@@ -59,10 +59,29 @@ function normalizeRoute(row: RouteRow): Route {
 }
 
 /**
+ * The table is read once per process and reused for a few minutes: with
+ * every route page pre-rendered at build time, each render would otherwise
+ * re-download the whole table. Pages are regenerated far less often than
+ * this window, so it never makes a visitor see an older price.
+ */
+const TABLE_MEMO_MS = 5 * 60 * 1000;
+let tableMemo: { at: number; routes: Promise<Route[]> } | undefined;
+
+/**
  * Every route, paginated past Supabase's 1000-row response cap. Wrapped in
  * React `cache` so generateMetadata + page + related-routes share one fetch.
  */
 export const getRoutes = cache(async (): Promise<Route[]> => {
+  const now = Date.now();
+  if (!tableMemo || now - tableMemo.at > TABLE_MEMO_MS) {
+    tableMemo = { at: now, routes: fetchAllRoutes() };
+  }
+  const routes = await tableMemo.routes;
+  if (routes.length === 0) tableMemo = undefined; // retry next time
+  return routes;
+});
+
+async function fetchAllRoutes(): Promise<Route[]> {
   const allRoutes: Route[] = [];
   const pageSize = 1000;
   let from = 0;
@@ -96,7 +115,7 @@ export const getRoutes = cache(async (): Promise<Route[]> => {
   }
 
   return allRoutes;
-});
+}
 
 export async function findRouteBySlug(slug: string): Promise<Route | null> {
   const all = await getRoutes();

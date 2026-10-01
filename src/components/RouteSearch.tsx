@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import ComboBox, { type ComboOption } from "@/components/ComboBox";
 import { logHotelMiss } from "@/lib/hotelMiss";
@@ -15,13 +15,21 @@ export type { Route };
 
 /**
  * The search only needs the two names to build the slug it navigates to.
- * Passing the full rows (prices, duration, ids) for ~1,400 routes doubled
- * the page payload for nothing, so the booking page hands over this slice.
+ * Even as bare pairs, ~1,400 routes added 110 KB to the page HTML, which
+ * Vercel bills on every ISR read and write and which crawlers never use.
+ * The browser fetches the compact origin → destinations map from
+ * /routes.json (a static, CDN-cached file) once the component mounts.
  */
-export type RoutePair = Pick<Route, "origen" | "destino">;
+export type RouteMap = Record<string, string[]>;
 
-interface RouteSearchProps {
-  routes: RoutePair[];
+type RoutePair = Pick<Route, "origen" | "destino">;
+
+export const ROUTE_MAP_PATH = "/routes.json";
+
+function toPairs(map: RouteMap): RoutePair[] {
+  return Object.entries(map).flatMap(([origen, destinos]) =>
+    destinos.map((destino) => ({ origen, destino }))
+  );
 }
 
 const AIRPORT_PREFIXES = ["LIR", "SJO"];
@@ -69,11 +77,25 @@ const GUANACASTE_PRIORITY = [
   "Tamarindo (Guanacaste)",
 ];
 
-export default function RouteSearch({ routes }: RouteSearchProps) {
+export default function RouteSearch() {
   const router = useRouter();
   const locale = useLocale();
   const t = BOOKING[locale].search;
   const groups = t.groups;
+  const [routes, setRoutes] = useState<RoutePair[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(ROUTE_MAP_PATH)
+      .then((res) => (res.ok ? (res.json() as Promise<RouteMap>) : Promise.reject(res.status)))
+      .then((map) => {
+        if (!cancelled) setRoutes(toPairs(map));
+      })
+      .catch((err) => console.error("Failed to load routes:", err));
+    return () => {
+      cancelled = true;
+    };
+  }, []);
   const [selectedOrigin, setSelectedOrigin] = useState("");
   const [selectedDestination, setSelectedDestination] = useState("");
   const [navigating, setNavigating] = useState(false);
