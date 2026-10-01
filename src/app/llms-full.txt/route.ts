@@ -9,7 +9,7 @@ import { buildLlmsFullTxt } from "@/lib/llms";
  * this is the one place that lists all of them; the HTML /prices page keeps
  * to the index-able subset.
  */
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export async function GET() {
   const [routes, destinations, rating] = await Promise.all([
@@ -20,7 +20,7 @@ export async function GET() {
   return new Response(buildLlmsFullTxt(routes, destinations, rating), {
     headers: {
       "content-type": "text/plain; charset=utf-8",
-      "cache-control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
+      "cache-control": "public, max-age=0, s-maxage=86400, stale-while-revalidate=604800",
     },
   });
 }

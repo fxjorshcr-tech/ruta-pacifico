@@ -24,8 +24,8 @@ function lirRouteTo(routes: Route[], slug: string): Route | undefined {
   return routes.find((r) => /\bLIR\b/.test(r.origen) && toSlug(r.destino) === slug);
 }
 
-/** FAQs come from Supabase; re-render at most hourly instead of per request. */
-export const revalidate = 3600;
+/** FAQs and prices come from Supabase; re-render daily (or via /api/revalidate). */
+export const revalidate = 86400;
 
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
