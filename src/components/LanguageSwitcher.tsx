@@ -74,6 +74,7 @@ export default function LanguageSwitcher({ tone = "light", variant = "dropdown",
           const active = l === locale;
           return (
             <Link
+              prefetch={false}
               key={l}
               href={localePath(l, path)}
               hrefLang={l}
