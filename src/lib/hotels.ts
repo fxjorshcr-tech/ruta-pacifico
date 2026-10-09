@@ -58,6 +58,24 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Hotel San Bosco" },
       { name: "La Pradera del Arenal" },
       { name: "Selina La Fortuna", area: "Downtown" },
+      { name: "Hotel Arenal Paraíso Resort & Spa" },
+      { name: "Lost Iguana Resort & Spa" },
+      { name: "Arenal Lodge" },
+      { name: "Hotel Linda Vista", area: "El Castillo" },
+      { name: "Hotel Arenal Vista Lodge", area: "El Castillo" },
+      { name: "Hotel Arenal Montechiari" },
+      { name: "Hotel Campo Verde" },
+      { name: "Hotel Secreto La Fortuna" },
+      { name: "Chachagua Rainforest Hotel & Hot Springs", area: "Chachagua" },
+      { name: "Hotel Lavas Tacotal" },
+      { name: "Hotel Vista del Cerro" },
+      { name: "Hotel Roca Negra del Arenal" },
+      { name: "Hotel Arenal Rabfer" },
+      { name: "Hotel Kokoro Arenal" },
+      { name: "Tifakara Boutique Hotel & Birding Oasis" },
+      { name: "Hotel Arenal Bromelias" },
+      { name: "Sangregado Lodge" },
+      { name: "Hotel Las Colinas", area: "Downtown" },
     ],
   },
 
@@ -83,6 +101,18 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Hotel Villa Verde" },
       { name: "Camino Verde B&B" },
       { name: "Valle Escondido Lodge" },
+      { name: "Hotel Montaña Monteverde" },
+      { name: "Ocotea Boutique Hotel" },
+      { name: "Chira Glamping Monteverde" },
+      { name: "Hidden Canopy Treehouses Boutique Hotel" },
+      { name: "Monteverde Rustic Lodge" },
+      { name: "Arco Iris Lodge", area: "Santa Elena" },
+      { name: "Cala Lodge" },
+      { name: "Hotel El Bosque" },
+      { name: "Mar Inn B&B" },
+      { name: "Los Pinos Cabañas y Jardines" },
+      { name: "Hotel Claro de Luna" },
+      { name: "Selina Monteverde" },
     ],
   },
 
@@ -112,6 +142,16 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Hotel Mono Azul" },
       { name: "Best Western Kamuk Hotel", area: "Quepos" },
       { name: "Selina Manuel Antonio" },
+      { name: "Hotel La Mansión Inn" },
+      { name: "Byblos Resort & Casino" },
+      { name: "Hotel Playa Espadilla" },
+      { name: "Espadilla Gardens Hotel" },
+      { name: "Los Altos Resort" },
+      { name: "El Faro Beach Hotel" },
+      { name: "Hotel Villa Roca" },
+      { name: "Hotel Casitas Eclipse" },
+      { name: "Teva Hotel & Jungle Reserve" },
+      { name: "Hotel Villabosque" },
     ],
   },
 
@@ -124,10 +164,12 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Four Seasons Resort Costa Rica at Peninsula Papagayo" },
       { name: "Andaz Costa Rica Resort at Peninsula Papagayo" },
       { name: "Secrets Papagayo Costa Rica" },
-      { name: "Dreams Las Mareas", area: "Far north Guanacaste" },
       { name: "Planet Hollywood Costa Rica" },
       { name: "El Mangroove, Autograph Collection" },
       { name: "Occidental Papagayo" },
+      { name: "Nekajui, a Ritz-Carlton Reserve", area: "Peninsula Papagayo" },
+      { name: "Kasiiya Papagayo" },
+      { name: "Casa Conde Beach-Front Hotel", area: "Playa Panamá" },
     ],
   },
   // RIU resorts are their own route point in Guanacaste.
@@ -153,6 +195,13 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Bosque del Mar Hotel Playa Hermosa", area: "Playa Hermosa" },
       { name: "Condovac La Costa", area: "Playa Hermosa" },
       { name: "Hotel Casa del Mar", area: "Playa Hermosa" },
+      { name: "Bahía Pez Vela Resort", area: "Ocotal" },
+      { name: "Hotel El Velero", area: "Playa Hermosa" },
+      { name: "Hotel Mangaby", area: "Playa Hermosa" },
+      { name: "Hotel Villa del Sueño", area: "Playa Hermosa" },
+      { name: "Hotel Coco Palms", area: "Playas del Coco" },
+      { name: "Hotel Pato Loco Inn", area: "Playas del Coco" },
+      { name: "Hotel Chantel Suites & Villas", area: "Playas del Coco" },
     ],
   },
 
@@ -172,6 +221,7 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Margaritaville Beach Resort Playa Flamingo" },
       { name: "Flamingo Beach Resort & Spa" },
       { name: "Angel & Pearl Boutique Hotel" },
+      { name: "Mariner Inn Hotel", area: "Playa Flamingo" },
     ],
   },
   {
@@ -180,6 +230,7 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Hotel Sugar Beach", area: "Playa Potrero" },
       { name: "Bahía del Sol Beach Front Hotel", area: "Playa Potrero" },
       { name: "Las Brisas Resort & Villas", area: "Playa Potrero" },
+      { name: "Hotel Bahía Esmeralda", area: "Playa Potrero" },
     ],
   },
   {
@@ -202,6 +253,8 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Las Tortugas Hotel", area: "Playa Grande" },
       { name: "Rip Jack Inn", area: "Playa Grande" },
       { name: "Hotel Bula Bula", area: "Playa Grande" },
+      { name: "Hotel Cantarana", area: "Playa Grande" },
+      { name: "Playa Grande Inn", area: "Playa Grande" },
     ],
   },
 
@@ -222,6 +275,16 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Hotel Pasatiempo" },
       { name: "Sueño del Mar Beachfront Hotel", area: "Playa Langosta" },
       { name: "Hotel Arco Iris" },
+      { name: "Barceló Langosta Beach", area: "Playa Langosta" },
+      { name: "Ten North Tamarindo Beach Hotel" },
+      { name: "Hotel Tamarindo Bay Boutique" },
+      { name: "Hotel Luna Llena" },
+      { name: "Villas Macondo" },
+      { name: "Witch's Rock Surf Camp" },
+      { name: "Hotel Zullymar" },
+      { name: "Hotel Villa Alegre", area: "Playa Langosta" },
+      { name: "Hotel La Laguna del Cocodrilo" },
+      { name: "Pueblo Dorado Surf Hotel" },
     ],
   },
   {
@@ -229,11 +292,14 @@ export const CURATED_HOTELS: CuratedGroup[] = [
     hotels: [
       { name: "Las Avellanas Villas", area: "Playa Avellanas" },
       { name: "Mauna Loa Surf Resort", area: "Playa Avellanas" },
+      { name: "Cabinas Las Olas", area: "Playa Avellanas" },
+      { name: "Hotel Playa Negra", area: "Playa Negra" },
+      { name: "Café Playa Negra Hotel", area: "Playa Negra" },
     ],
   },
   {
     // JW Marriott has its own dedicated route point.
-    match: ["jw marriott"],
+    match: ["jw marriott guanacaste"], // not the Costa Elena JW Marriott (own group below)
     hotels: [
       { name: "JW Marriott Guanacaste Resort & Spa", area: "Hacienda Pinilla" },
     ],
@@ -257,6 +323,15 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Olas Verdes Resort" },
       { name: "Lagarta Lodge" },
       { name: "Nosara Beach Hotel" },
+      { name: "L'Acqua Viva Resort & Spa" },
+      { name: "Tierra Magnífica Boutique Hotel" },
+      { name: "Living Hotel Nosara" },
+      { name: "Silvestre Nosara Hotel & Restaurant" },
+      { name: "Nomadic Hotel Nosara" },
+      { name: "Hotel Casa Romantica", area: "Playa Guiones" },
+      { name: "Giardino Tropicale" },
+      { name: "Harbor Reef Beach & Surf Resort", area: "Playa Guiones" },
+      { name: "Hotel Luna Azul", area: "Ostional" },
     ],
   },
   {
@@ -266,6 +341,14 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Hotel Sámara Beach" },
       { name: "Fenix Beach Hotel" },
       { name: "Hotel Guanamar", area: "Playa Carrillo" },
+      { name: "Hotel Belvedere Sámara" },
+      { name: "Hotel Giada" },
+      { name: "Samara Tree House Inn" },
+      { name: "Locanda Samara Beach" },
+      { name: "Villas Kalimba" },
+      { name: "Hotel Mirador de Sámara" },
+      { name: "Hotel Nammbú Beachfront Bungalows", area: "Playa Carrillo" },
+      { name: "Hotel Leyenda", area: "Playa Carrillo" },
     ],
   },
   {
@@ -287,6 +370,12 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Hotel Nya Santa Teresa" },
       { name: "Latitude 10 Resort" },
       { name: "Selina Santa Teresa" },
+      { name: "Hotel Tropico Latino" },
+      { name: "Funky Monkey Lodge" },
+      { name: "Horizon Ocean View Hotel & Yoga Center" },
+      { name: "Blue Surf Sanctuary" },
+      { name: "Manala Hotel" },
+      { name: "Nautilus Boutique Hotel" },
     ],
   },
   {
@@ -295,6 +384,9 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Moana Boutique Hotel", area: "Malpaís" },
       { name: "Hotel Vista de Olas", area: "Malpaís" },
       { name: "Star Mountain Eco Lodge", area: "Malpaís" },
+      { name: "Hotel Casa Chameleon Mal País", area: "Malpaís" },
+      { name: "Mal Pais Surf Camp & Resort", area: "Malpaís" },
+      { name: "Beija Flor Resort", area: "Malpaís" },
     ],
   },
   {
@@ -304,6 +396,9 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Hotel Amor de Mar", area: "Montezuma" },
       { name: "Anamaya Resort", area: "Montezuma" },
       { name: "Hotel Los Mangos", area: "Montezuma" },
+      { name: "Hotel El Jardín", area: "Montezuma" },
+      { name: "Hotel Horizontes de Montezuma", area: "Montezuma" },
+      { name: "Luz de Mono Hotel", area: "Montezuma" },
     ],
   },
 
@@ -321,6 +416,15 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "DoceLunas Hotel" },
       { name: "Best Western Jacó Beach Resort" },
       { name: "Selina Jaco" },
+      { name: "Zephyr Palace", area: "Villa Caletas" },
+      { name: "Hotel Amapola" },
+      { name: "Hotel Poseidon" },
+      { name: "Hotel Mar de Luz" },
+      { name: "Hotel Balcón del Mar" },
+      { name: "Hotel Nine" },
+      { name: "Hotel Pochote Grande" },
+      { name: "Copacabana Hotel & Suites" },
+      { name: "Hotel Tangerí" },
     ],
   },
   {
@@ -328,6 +432,8 @@ export const CURATED_HOTELS: CuratedGroup[] = [
     hotels: [
       { name: "Alma del Pacifico Beach Hotel & Spa", area: "Esterillos" },
       { name: "Hotel Xandari Pacifico", area: "Esterillos" },
+      { name: "Monterey del Mar Hotel", area: "Esterillos Este" },
+      { name: "Encantada Ocean Cottages", area: "Esterillos Este" },
     ],
   },
 
@@ -347,6 +453,12 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Hotel Diuwak", area: "Dominical" },
       { name: "Física del Cielo", area: "Ojochal" },
       { name: "El Castillo Boutique Luxury Hotel", area: "Ojochal" },
+      { name: "Vista Celestial", area: "Uvita" },
+      { name: "Hotel Vista Ballena", area: "Uvita" },
+      { name: "Hotel Villas Río Mar", area: "Dominical" },
+      { name: "Hacienda Barú Lodge", area: "Dominical" },
+      { name: "Mavi Surf Hotel", area: "Dominical" },
+      { name: "Three Sixty Boutique Hotel", area: "Ojochal" },
     ],
   },
 
@@ -364,6 +476,18 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Cariblue Beach & Jungle Resort", area: "Playa Cocles" },
       { name: "Hotel La Diosa", area: "Cahuita" },
       { name: "Selina Puerto Viejo" },
+      { name: "Namuwoki Lodge", area: "Playa Chiquita" },
+      { name: "Azania Bungalows", area: "Playa Cocles" },
+      { name: "Hotel La Costa de Papito", area: "Playa Cocles" },
+      { name: "Physis Caribbean Bed & Breakfast", area: "Playa Cocles" },
+      { name: "Villas del Caribe", area: "Playa Cocles" },
+      { name: "Tree House Lodge", area: "Punta Uva" },
+      { name: "Umami Hotel" },
+      { name: "Blue Conga Hotel" },
+      { name: "Escape Caribeño" },
+      { name: "Congo Bongo EcoVillage", area: "Manzanillo" },
+      { name: "Atlántida Lodge", area: "Cahuita" },
+      { name: "Hotel Suizo Loco Lodge", area: "Cahuita" },
     ],
   },
 
@@ -387,6 +511,20 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Studio Hotel Boutique", area: "Escazú" },
       { name: "Hotel Villa Tournon" },
       { name: "Apartotel La Sabana", area: "La Sabana" },
+      { name: "Gran Hotel Costa Rica, Curio Collection by Hilton", area: "Downtown" },
+      { name: "Hilton Garden Inn San José La Sabana", area: "La Sabana" },
+      { name: "Tryp by Wyndham San José Sabana", area: "La Sabana" },
+      { name: "Sheraton San José Hotel", area: "Escazú" },
+      { name: "AC Hotel by Marriott San José Escazú", area: "Escazú" },
+      { name: "Aloft San José Costa Rica", area: "Escazú" },
+      { name: "Wyndham Garden San José Escazú", area: "Escazú" },
+      { name: "Hotel Alta Las Palomas", area: "Santa Ana" },
+      { name: "Best Western Irazú Hotel & Casino", area: "La Uruca" },
+      { name: "Hotel Don Carlos", area: "Downtown" },
+      { name: "Hotel Balmoral", area: "Downtown" },
+      { name: "Hotel Fleur de Lys", area: "Downtown" },
+      { name: "Hotel Bougainvillea", area: "Santo Domingo de Heredia" },
+      { name: "Finca Rosa Blanca Coffee Farm & Inn", area: "Santa Bárbara de Heredia" },
     ],
   },
 
@@ -406,6 +544,12 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Adventure Inn" },
       { name: "Hotel Buena Vista" },
       { name: "Hotel Robledal" },
+      { name: "Wyndham San José Herradura Hotel & Convention Center", area: "Belén" },
+      { name: "Hotel Aeropuerto" },
+      { name: "Pura Vida Hotel" },
+      { name: "Hotel La Rosa de America" },
+      { name: "Hotel Villa San Ignacio" },
+      { name: "Tacacori EcoLodge" },
     ],
   },
 
@@ -419,6 +563,160 @@ export const CURATED_HOTELS: CuratedGroup[] = [
       { name: "Hotel El Punto Boutique" },
       { name: "Hotel Boyeros", area: "Liberia downtown" },
       { name: "Best Western El Sitio Hotel & Casino" },
+      { name: "Hotel Liberia", area: "Liberia downtown" },
+      { name: "Hotel Javy", area: "Liberia" },
+      { name: "Hotel Las Espuelas", area: "Liberia" },
+    ],
+  },
+
+  // ===========================================================================
+  // GUANACASTE — LA CRUZ / COSTA ELENA (far north coast)
+  // JW Marriott Costa Elena is the former Dreams Las Mareas (Playa El
+  // Jobo). It has its own route point; the old name is kept in the
+  // display string so guests who still type "Dreams" find it.
+  // ===========================================================================
+  {
+    match: ["costa elena", "la cruz", "las mareas"],
+    hotels: [
+      { name: "JW Marriott Costa Elena (formerly Dreams Las Mareas)", area: "Playa El Jobo, La Cruz" },
+    ],
+  },
+  // ===========================================================================
+  // GUANACASTE — RINCÓN DE LA VIEJA (volcano lodges)
+  // ===========================================================================
+  {
+    match: ["rincon de la vieja"],
+    hotels: [
+      { name: "Hacienda Guachipelín", area: "Rincón de la Vieja" },
+      { name: "Borinquen Thermal Resort", area: "Rincón de la Vieja" },
+      { name: "Buena Vista del Rincón Eco Adventure Park Hotel & Spa", area: "Rincón de la Vieja" },
+      { name: "Rincón de la Vieja Lodge" },
+      { name: "Blue River Resort & Hot Springs", area: "Rincón de la Vieja" },
+      { name: "Rinconcito Lodge", area: "Rincón de la Vieja" },
+      { name: "Cañón de la Vieja Lodge", area: "Rincón de la Vieja" },
+    ],
+  },
+  // ===========================================================================
+  // NORTHERN ZONE — RÍO CELESTE / BIJAGUA (Tenorio)
+  // ===========================================================================
+  {
+    match: ["rio celeste", "bijagua", "tenorio"],
+    hotels: [
+      { name: "Rio Celeste Hideaway Hotel" },
+      { name: "Tenorio Lodge", area: "Bijagua" },
+      { name: "Celeste Mountain Lodge", area: "Bijagua" },
+      { name: "Origins Lodge", area: "Bijagua" },
+      { name: "Casitas Tenorio B&B", area: "Bijagua" },
+      { name: "Sueño Celeste B&B", area: "Bijagua" },
+    ],
+  },
+  // ===========================================================================
+  // CENTRAL PACIFIC — PUNTA LEONA (own route point)
+  // ===========================================================================
+  {
+    match: ["punta leona"],
+    hotels: [
+      { name: "Hotel Punta Leona", area: "Punta Leona" },
+    ],
+  },
+  // ===========================================================================
+  // CENTRAL PACIFIC — PUNTARENAS
+  // ===========================================================================
+  {
+    match: ["puntarenas"],
+    hotels: [
+      { name: "DoubleTree Resort by Hilton Costa Rica Central Pacific", area: "Puntarenas" },
+    ],
+  },
+  // ===========================================================================
+  // NICOYA PENINSULA — TAMBOR
+  // ===========================================================================
+  {
+    match: ["tambor"],
+    hotels: [
+      { name: "Tango Mar Beachfront Boutique Hotel & Villas", area: "Tambor" },
+      { name: "Barceló Tambor", area: "Tambor" },
+    ],
+  },
+  // ===========================================================================
+  // CENTRAL VALLEY HIGHLANDS — LA PAZ WATERFALL GARDENS / BAJOS DEL TORO
+  // ===========================================================================
+  {
+    match: ["la paz waterfall"],
+    hotels: [
+      { name: "Peace Lodge", area: "La Paz Waterfall Gardens" },
+    ],
+  },
+  // ===========================================================================
+  // CENTRAL VALLEY HIGHLANDS — BAJOS DEL TORO
+  // ===========================================================================
+  {
+    match: ["bajos del toro"],
+    hotels: [
+      { name: "El Silencio Lodge & Spa", area: "Bajos del Toro" },
+    ],
+  },
+  // ===========================================================================
+  // TALAMANCA — SAN GERARDO DE DOTA (quetzal cloud forest)
+  // ===========================================================================
+  {
+    match: ["san gerardo de dota"],
+    hotels: [
+      { name: "Savegre Hotel, Natural Reserve & Spa", area: "San Gerardo de Dota" },
+      { name: "Dantica Cloud Forest Lodge", area: "San Gerardo de Dota" },
+      { name: "Trogon Lodge", area: "San Gerardo de Dota" },
+    ],
+  },
+  // ===========================================================================
+  // CARIBBEAN LOWLANDS — SARAPIQUÍ
+  // ===========================================================================
+  {
+    match: ["sarapiqui"],
+    hotels: [
+      { name: "Selva Verde Lodge", area: "Sarapiquí" },
+      { name: "La Quinta de Sarapiquí Country Inn", area: "Sarapiquí" },
+      { name: "Tirimbina Rainforest Lodge", area: "Sarapiquí" },
+      { name: "Sueño Azul Resort", area: "Sarapiquí" },
+    ],
+  },
+  // ===========================================================================
+  // CARIBBEAN — TORTUGUERO (boat lodges, reached via La Pavona dock)
+  // ===========================================================================
+  {
+    match: ["la pavona", "tortuguero"],
+    hotels: [
+      { name: "Tortuga Lodge & Gardens", area: "Tortuguero (boat from La Pavona)" },
+      { name: "Mawamba Lodge", area: "Tortuguero (boat from La Pavona)" },
+      { name: "Pachira Lodge", area: "Tortuguero (boat from La Pavona)" },
+      { name: "Laguna Lodge", area: "Tortuguero (boat from La Pavona)" },
+      { name: "Evergreen Lodge", area: "Tortuguero (boat from La Pavona)" },
+      { name: "Manatus Hotel", area: "Tortuguero (boat from La Pavona)" },
+    ],
+  },
+  // ===========================================================================
+  // OSA PENINSULA — PUERTO JIMÉNEZ / GOLFO DULCE
+  // ===========================================================================
+  {
+    match: ["puerto jimenez"],
+    hotels: [
+      { name: "Lapa Rios Lodge", area: "Cabo Matapalo" },
+      { name: "Botánika Osa Peninsula, Curio Collection by Hilton", area: "Puerto Jiménez" },
+      { name: "Iguana Lodge", area: "Playa Platanares" },
+      { name: "El Remanso Rainforest Lodge", area: "Cabo Matapalo" },
+      { name: "Bosque del Cabo Rainforest Lodge", area: "Cabo Matapalo" },
+      { name: "Playa Nicuesa Rainforest Lodge", area: "Golfo Dulce" },
+    ],
+  },
+  // ===========================================================================
+  // OSA PENINSULA — DRAKE BAY (boat from Sierpe)
+  // ===========================================================================
+  {
+    match: ["sierpe", "drake"],
+    hotels: [
+      { name: "Aguila de Osa", area: "Drake Bay (boat from Sierpe)" },
+      { name: "Copa de Arbol Beach & Rainforest Resort", area: "Drake Bay (boat from Sierpe)" },
+      { name: "La Paloma Lodge", area: "Drake Bay (boat from Sierpe)" },
+      { name: "Casa Corcovado Jungle Lodge", area: "Drake Bay (boat from Sierpe)" },
     ],
   },
 ];

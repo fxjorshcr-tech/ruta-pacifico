@@ -33,6 +33,22 @@ const nextConfig: NextConfig = {
       { source: "/book/payment", destination: "/private-shuttle/checkout", permanent: true },
       { source: "/book/confirmation", destination: "/private-shuttle/confirmation", permanent: true },
       { source: "/routes/:slug", destination: "/private-shuttle/:slug", permanent: true },
+      // Dreams Las Mareas (Playa El Jobo, La Cruz) reopened as JW Marriott
+      // Costa Elena and its route point was renamed, so the old slugs are
+      // gone (dynamicParams = false). 301 them to the new pages, both
+      // languages. The regex absorbs whatever suffix the old name produced.
+      ...["", "/es"].flatMap((prefix) => [
+        {
+          source: `${prefix}/private-shuttle/:slug(lir-liberia-int-airport-to-dreams-las-mareas.*)`,
+          destination: `${prefix}/private-shuttle/lir-liberia-int-airport-to-jw-marriott-costa-elena-la-cruz`,
+          permanent: true,
+        },
+        {
+          source: `${prefix}/private-shuttle/:slug(dreams-las-mareas.*-to-lir-liberia-int-airport)`,
+          destination: `${prefix}/private-shuttle/jw-marriott-costa-elena-la-cruz-to-lir-liberia-int-airport`,
+          permanent: true,
+        },
+      ]),
       // English is canonical at the root: an explicit /en/... is sent to
       // /... so the same page never exists at two addresses.
       { source: "/en", destination: "/", permanent: true },

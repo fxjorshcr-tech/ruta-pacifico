@@ -268,6 +268,19 @@ La mayoría de los huéspedes llega en traslado privado desde el aeropuerto de L
 where slug = 'jw-marriott-guanacaste';
 
 update public.destinations_ruta_pacifico set
+  intro_md_es = $es$El JW Marriott Costa Elena está sobre Playa El Jobo, en La Cruz, en el extremo norte de Guanacaste, a 20 minutos de la frontera con Nicaragua. Es el resort que abrió como Dreams Las Mareas: una propiedad de servicio completo frente al mar con varias piscinas, restaurantes, spa y una playa amplia, tranquila y de arena dorada dentro de Bahía Salinas, rodeada del bosque seco del desarrollo Costa Elena.
+
+Es el más apartado de los grandes resorts de Guanacaste. Los huéspedes vienen por la playa y el resort en sí, con el Parque Nacional Santa Rosa, las playas de kitesurf de Bahía Salinas y Rincón de la Vieja como posibles paseos de un día.$es$,
+  arrival_md_es = $es$Desde el aeropuerto de Liberia el traslado toma aproximadamente 1 hora 30 minutos, todo por carretera asfaltada: la Interamericana al norte, pasando el Parque Nacional Santa Rosa hasta La Cruz, y luego la carretera costera que baja a Bahía Salinas y Playa El Jobo. El mirador de La Cruz, en lo alto sobre la bahía, vale una parada de dos minutos para fotos. El chofer te lleva hasta el lobby del resort; hay un solo portón y no se camina nada.$es$,
+  tips_md_es = $es$- El resort es el único hotel de su playa: compra snacks, bloqueador o cualquier cosa fuera del todo incluido en Liberia, de camino.
+- Las tardes en Bahía Salinas son ventosas de diciembre a abril, por eso las escuelas de kitesurf están aquí; las mañanas son tranquilas.
+- Lleva los pasaportes en el equipaje de mano; la frontera de Peñas Blancas queda cerca y los retenes policiales de la Ruta 1 a veces piden identificación.
+- Reserva la recogida hacia el aeropuerto 4,5 horas antes de un vuelo internacional: 1,5 horas de camino más 3 horas en LIR.$es$,
+  best_for_es = array['Estadía en resort','Todo incluido','Frente al mar'],
+  image_alt_es = null
+where slug = 'jw-marriott-costa-elena-la-cruz';
+
+update public.destinations_ruta_pacifico set
   intro_md_es = $es$El RIU Guanacaste y el vecino RIU Palace Costa Rica son los dos grandes resorts todo incluido de Playa Matapalo, al noroeste de Liberia y al sur del Golfo de Papagayo. Entre los dos ofrecen piscinas, bufés, entretenimiento y una playa amplia y sin multitudes; la mayoría de los huéspedes nunca sale, pero Playas del Coco y Liberia quedan cerca para paseos de un día.
 
 Las llegadas se concentran alrededor de los vuelos de la tarde a LIR, y por eso un traslado privado reservado con anticipación es la forma sin estrés de llegar al lobby.$es$,
@@ -502,6 +515,6 @@ update public.destinations_ruta_pacifico set
 where slug = 'sierpe';
 
 -- ============================================================
--- Rows updated: 54 (31 translated, 23 tier-4 stubs set to NULL).
+-- Rows updated: 55 (32 translated, 23 tier-4 stubs set to NULL).
 -- Matches the 54 destination rows in destinations_seed.sql.
 -- ============================================================
