@@ -266,6 +266,18 @@ Most guests arrive on private transfers from Liberia Airport and use the resort 
 - Sunset at the beachfront bar is the daily ritual.""",
     ),
     dict(
+        name="JW Marriott Costa Elena (La Cruz)", short_name="JW Marriott Costa Elena", region="Guanacaste (far north coast)", tier=3,
+        best_for=["Resort stay", "All-inclusive", "Beachfront"],
+        intro_md="""The JW Marriott Costa Elena stands on Playa El Jobo in La Cruz, the far north of Guanacaste, 20 minutes from the Nicaraguan border. It is the resort that opened as Dreams Las Mareas: a full-service beachfront property with several pools, restaurants, a spa and a wide, calm, golden-sand beach inside Bahía Salinas, backed by the dry forest of the Costa Elena development.
+
+It is the most secluded of the big Guanacaste resorts. Guests come for the beach and the resort itself, with Santa Rosa National Park, the Bahía Salinas kitesurfing beaches and Rincón de la Vieja all possible day trips.""",
+        arrival_md="""From Liberia Airport the transfer takes about 1 hour 30 minutes, all on paved road: the Pan-American Highway north past Santa Rosa National Park to La Cruz, then the coastal road down to Bahía Salinas and Playa El Jobo. The viewpoint at La Cruz, high above the bay, is worth a two-minute photo stop. Your driver takes you to the resort lobby; there is one gate and no walking involved.""",
+        tips_md="""- The resort is the only hotel on its beach: buy snacks, sunscreen or anything outside the all-inclusive in Liberia on the way in.
+- Afternoons in Bahía Salinas are windy from December to April, which is why the kitesurfing schools are here; mornings are calm.
+- Keep passports in your hand luggage; the border at Peñas Blancas is close and police checkpoints on Route 1 occasionally ask for ID.
+- Book the airport pickup for 4.5 hours before an international departure: 1.5 hours of driving plus 3 hours at LIR.""",
+    ),
+    dict(
         name="RIU Guanacaste Hotel / RIU Palace Hotel (Guanacaste)", short_name="RIU Guanacaste", region="Guanacaste", tier=3,
         best_for=["All-inclusive", "Matapalo beach", "Groups"],
         intro_md="""The RIU Guanacaste and the neighbouring RIU Palace Costa Rica are the two large all-inclusive resorts on Playa Matapalo, north-west of Liberia and south of the Papagayo Gulf. Together they offer pools, buffets, entertainment and a wide, uncrowded beach; most guests never leave, but Playas del Coco and Liberia are both close for day trips.
