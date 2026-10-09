@@ -15,6 +15,7 @@ const CATEGORY_ES: Record<string, string> = {
   "travel-tips": "Consejos de viaje",
   "travel-guide": "Guía de viaje",
   destinations: "Destinos",
+  news: "Noticias",
 };
 
 /** Copy for the blog index (/blog) and the article pages (/blog/[slug]). */

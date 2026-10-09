@@ -56,7 +56,7 @@ This is the zone closest to the airport, which matters more than it sounds after
 
 The peninsula is a private, gated enclave with three of the most expensive hotels in Central America. The Four Seasons is the original, with the golf course and two beaches. Nekajui, a Ritz-Carlton Reserve, opened in 2025 at the far tip and is the newest luxury address in the country. The Andaz is Hyatt's design-led resort on Culebra Bay, a step below the other two in price.
 
-Around the gulf, just outside the gate, are the all-inclusives: Secrets Papagayo, which is adults-only, Planet Hollywood, Occidental Papagayo, and El Mangroove, a smaller Autograph Collection hotel with the best restaurants in the zone. Further along, on Playa Matapalo, are the Riu Guanacaste and Riu Palace, about 35 minutes from LIR. Up near the Nicaraguan border is Dreams Las Mareas, about an hour and a quarter from the airport and really a trip of its own.
+Around the gulf, just outside the gate, are the all-inclusives: Secrets Papagayo, which is adults-only, Planet Hollywood, Occidental Papagayo, and El Mangroove, a smaller Autograph Collection hotel with the best restaurants in the zone. Further along, on Playa Matapalo, are the Riu Guanacaste and Riu Palace, about 35 minutes from LIR. Up near the Nicaraguan border is the JW Marriott Costa Elena, the former Dreams Las Mareas, reopened in September 2026 as the brand's first all-inclusive ([our guide to the new resort](/blog/jw-marriott-costa-elena-opens-guanacaste)); it is about an hour and a half from the airport and really a trip of its own.
 
 The thing to understand about the peninsula is that there is no town on it. You cannot walk to a soda for lunch or wander down to a beach bar. Dinner is at the resort, or a taxi ride of $30 to $40 to Coco. Guests who want seclusion love it. Guests who expected a beach town are surprised, so it is worth knowing which of the two you are before you book.
 
@@ -168,7 +168,7 @@ All fares are per vehicle rather than per person, for one to five passengers, an
 | Nosara and Playa Guiones | 2 – 2 h 30 | $235 | [Book](/private-shuttle/lir-liberia-int-airport-to-nosara-playa-guiones-area) |
 | Punta Islita | 2 h 45 – 3 h | $265 | [Book](/private-shuttle/lir-liberia-int-airport-to-punta-islita-hotel-beach) |
 
-These were the live fares when this was written, and the route page always shows the current one. Dreams Las Mareas and any hotel not listed here can be quoted on WhatsApp in a few minutes.
+These were the live fares when this was written, and the route page always shows the current one. The JW Marriott Costa Elena ($160 from LIR, [route page](/private-shuttle/lir-liberia-int-airport-to-jw-marriott-costa-elena-la-cruz)) and any hotel not listed here can be quoted on WhatsApp in a few minutes.
 
 ## Choosing, in short
 
@@ -228,7 +228,7 @@ Es la zona más cercana al aeropuerto, y eso importa más de lo que parece despu
 
 La península es un enclave privado con portón y tres de los hoteles más caros de Centroamérica. El Four Seasons es el original, con campo de golf y dos playas. Nekajui, un Ritz-Carlton Reserve, abrió en 2025 en la punta más lejana y es la dirección de lujo más nueva del país. El Andaz es el resort de diseño de Hyatt en Bahía Culebra, un escalón por debajo de los otros dos en precio.
 
-Alrededor del golfo, justo fuera del portón, están los todo incluido: Secrets Papagayo, que es solo para adultos, Planet Hollywood, Occidental Papagayo y El Mangroove, un hotel más pequeño de Autograph Collection con los mejores restaurantes de la zona. Más adelante, en Playa Matapalo, están el Riu Guanacaste y el Riu Palace, a unos 35 minutos de LIR. Cerca de la frontera con Nicaragua está Dreams Las Mareas, a una hora y cuarto del aeropuerto y en realidad un viaje aparte.
+Alrededor del golfo, justo fuera del portón, están los todo incluido: Secrets Papagayo, que es solo para adultos, Planet Hollywood, Occidental Papagayo y El Mangroove, un hotel más pequeño de Autograph Collection con los mejores restaurantes de la zona. Más adelante, en Playa Matapalo, están el Riu Guanacaste y el Riu Palace, a unos 35 minutos de LIR. Cerca de la frontera con Nicaragua está el JW Marriott Costa Elena, el antiguo Dreams Las Mareas, reabierto en septiembre de 2026 como el primer todo incluido de la marca ([nuestra guía del nuevo resort](/blog/jw-marriott-costa-elena-opens-guanacaste)); queda a una hora y media del aeropuerto y en realidad es un viaje aparte.
 
 Lo que hay que entender de la península es que no tiene pueblo. No puedes caminar a una soda a almorzar ni bajar a un bar de playa. La cena es en el resort, o un taxi de $30 a $40 hasta el Coco. A quien busca aislamiento le encanta. A quien esperaba un pueblo de playa lo sorprende, así que vale la pena saber cuál de los dos eres antes de reservar.
 
@@ -340,7 +340,7 @@ Todas las tarifas son por vehículo y no por persona, para uno a cinco pasajeros
 | Nosara y Playa Guiones | 2 – 2 h 30 | $235 | [Reservar](/private-shuttle/lir-liberia-int-airport-to-nosara-playa-guiones-area) |
 | Punta Islita | 2 h 45 – 3 h | $265 | [Reservar](/private-shuttle/lir-liberia-int-airport-to-punta-islita-hotel-beach) |
 
-Estas eran las tarifas vigentes cuando se escribió esto, y la página de cada ruta siempre muestra la actual. Dreams Las Mareas y cualquier hotel que no aparezca aquí se cotiza por WhatsApp en pocos minutos.
+Estas eran las tarifas vigentes cuando se escribió esto, y la página de cada ruta siempre muestra la actual. El JW Marriott Costa Elena ($160 desde LIR, [página de la ruta](/private-shuttle/lir-liberia-int-airport-to-jw-marriott-costa-elena-la-cruz)) y cualquier hotel que no aparezca aquí se cotiza por WhatsApp en pocos minutos.
 
 ## Cómo elegir, en resumen
 
