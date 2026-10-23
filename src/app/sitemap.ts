@@ -16,8 +16,8 @@ export const revalidate = 86400;
  * Last real content change on the static pages. Google and Bing ignore
  * <lastmod> entirely when it is stamped with "now" on every crawl, so this
  * is a fixed date — bump it when the copy on those pages actually changes.
- * Route pages omit lastmod (their price/duration edits are not tracked);
- * blog posts use the real updated_at from the database.
+ * Route pages and blog posts use the real `updated_at` from the database
+ * (the routes table stamps it on every price or duration edit).
  */
 const STATIC_LAST_MODIFIED = new Date("2026-09-17");
 const LEGAL_LAST_MODIFIED = new Date("2026-09-22");
@@ -66,6 +66,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const route of selectIndexableRoutes(routes, destinations)) {
       routePages.push(
         ...localized(`/private-shuttle/${routeSlug(route.origen, route.destino)}`, {
+          ...(route.updated_at ? { lastModified: new Date(route.updated_at) } : {}),
           changeFrequency: "monthly",
           priority: routeSitemapPriority(route, destinations),
         }),

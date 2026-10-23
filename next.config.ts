@@ -1,4 +1,13 @@
 import type { NextConfig } from "next";
+import { CONTENT_USAGE } from "./src/lib/aiPolicy";
+
+/**
+ * Content negotiation for AI agents: a client that asks for
+ * `Accept: text/markdown` gets the page as Markdown instead of HTML (the
+ * convention Cloudflare's "Markdown for Agents", Vercel and OpenAI's own
+ * docs follow). Matched with the same regex Next uses for `has` values.
+ */
+const WANTS_MARKDOWN = { type: "header", key: "accept", value: "(.*)text/markdown(.*)" } as const;
 
 const nextConfig: NextConfig = {
   // The email routes read the brand logo from disk to embed it inline;
@@ -55,8 +64,49 @@ const nextConfig: NextConfig = {
       { source: "/en/:path*", destination: "/:path*", permanent: true },
     ];
   },
+  async headers() {
+    return [
+      {
+        // IETF AI Preferences (draft-ietf-aipref-attach): the same statement
+        // robots.txt carries, attached to every response for clients that
+        // never read robots.txt. Static config: no function runs for it.
+        source: "/:path*",
+        headers: [{ key: "Content-Usage", value: CONTENT_USAGE }],
+      },
+    ];
+  },
   async rewrites() {
     return {
+      // beforeFiles: resolved before anything else, so these win over the
+      // /[lang] pages. Markdown versions of the route pages for AI agents:
+      //   - `Accept: text/markdown` on a route URL (RFC 9110 negotiation);
+      //   - or the same URL with `.md` appended, for clients that cannot set
+      //     headers. Both land on app/[lang]/md/private-shuttle/[slug]/route.ts.
+      // The home page negotiates to /llms.txt, which already is its Markdown
+      // summary. The rewritten paths start with /en or /es, so the afterFiles
+      // prefixing below leaves them alone.
+      beforeFiles: [
+        {
+          source: "/private-shuttle/:slug",
+          has: [WANTS_MARKDOWN],
+          destination: "/en/md/private-shuttle/:slug",
+        },
+        {
+          source: "/es/private-shuttle/:slug",
+          has: [WANTS_MARKDOWN],
+          destination: "/es/md/private-shuttle/:slug",
+        },
+        {
+          source: "/private-shuttle/:slug([a-z0-9-]+)\\.md",
+          destination: "/en/md/private-shuttle/:slug",
+        },
+        {
+          source: "/es/private-shuttle/:slug([a-z0-9-]+)\\.md",
+          destination: "/es/md/private-shuttle/:slug",
+        },
+        { source: "/", has: [WANTS_MARKDOWN], destination: "/llms.txt" },
+        { source: "/es", has: [WANTS_MARKDOWN], destination: "/llms.txt" },
+      ],
       // Locale routing lives here, in Vercel's routing layer, instead of in a
       // proxy.ts: a proxy runs as a Node function on EVERY request, cached
       // pages included, and after the site went bilingual that alone was
@@ -65,10 +115,12 @@ const nextConfig: NextConfig = {
       // afterFiles: real files, _next assets and non-dynamic routes
       // (sitemap.xml, robots.txt, llms.txt, /api/*) are served first; only
       // what is left is prefixed with /en so it lands in app/[lang].
-      // /es and /es/... are excluded and pass straight through.
+      // /es and /es/... are excluded and pass straight through, as are paths
+      // already under /en (the Markdown rewrites above produce those; a
+      // public /en URL never gets here because the redirect above wins).
       afterFiles: [
         { source: "/", destination: "/en" },
-        { source: "/:path((?!es(?:/|$)).*)", destination: "/en/:path" },
+        { source: "/:path((?!es(?:/|$)|en(?:/|$)).*)", destination: "/en/:path" },
       ],
     };
   },

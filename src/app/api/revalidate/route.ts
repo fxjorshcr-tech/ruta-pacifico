@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { timingSafeEqual } from "crypto";
-import { LOCALES } from "@/lib/i18n";
+import { LOCALES, localePath, type Locale } from "@/lib/i18n";
+import { pingIndexNow } from "@/lib/indexnow";
 
 /**
  * On-demand cache refresh. The marketing pages are regenerated once a day
@@ -18,6 +19,11 @@ import { LOCALES } from "@/lib/i18n";
  * sitemap, llms.txt and routes.json. There is deliberately no "all routes"
  * scope: purging ~1,400 route pages in both languages re-renders every one
  * of them on its next visit, and each render is an ISR write.
+ *
+ * Every public URL that was purged is also submitted to IndexNow in the
+ * same call (src/lib/indexnow.ts), so Bing — and through it ChatGPT search
+ * and Copilot — re-crawls the changed price the same day. The response
+ * reports how many URLs were submitted (`indexNowSubmitted`).
  *
  * Fail-closed: without REVALIDATE_TOKEN in the environment the endpoint
  * refuses to run.
@@ -41,6 +47,11 @@ function localized(path: string): string[] {
   return LOCALES.map((lang) => `/${lang}${suffix}`);
 }
 
+/** The public URLs of a site path, for IndexNow: /prices and /es/prices. */
+function publicUrls(path: string): string[] {
+  return LOCALES.map((lang: Locale) => localePath(lang, path));
+}
+
 export async function GET(req: NextRequest) {
   const expected = process.env.REVALIDATE_TOKEN?.trim();
   if (!expected) {
@@ -57,13 +68,25 @@ export async function GET(req: NextRequest) {
   const scope = req.nextUrl.searchParams.get("scope");
   const path = req.nextUrl.searchParams.get("path");
   const refreshed: string[] = [];
+  // Real public URLs (no /en prefix) handed to IndexNow.
+  const changed: string[] = [];
 
   if (scope === "content") {
-    for (const p of CONTENT_PATHS) refreshed.push(...localized(p));
+    for (const p of CONTENT_PATHS) {
+      refreshed.push(...localized(p));
+      changed.push(...publicUrls(p));
+    }
     refreshed.push(...SHARED_FILES);
+    changed.push("/llms.txt", "/llms-full.txt");
   } else if (path && path.startsWith("/")) {
-    if (SHARED_FILES.includes(path)) refreshed.push(path);
-    else refreshed.push(...localized(path.replace(/^\/(en|es)(?=\/|$)/, "")));
+    if (SHARED_FILES.includes(path)) {
+      refreshed.push(path);
+      if (path !== "/routes.json") changed.push(path);
+    } else {
+      const sitePath = path.replace(/^\/(en|es)(?=\/|$)/, "") || "/";
+      refreshed.push(...localized(sitePath));
+      changed.push(...publicUrls(sitePath));
+    }
   } else {
     return NextResponse.json(
       { ok: false, error: "pass ?path=/site-path or ?scope=content" },
@@ -72,5 +95,6 @@ export async function GET(req: NextRequest) {
   }
 
   for (const p of refreshed) revalidatePath(p);
-  return NextResponse.json({ ok: true, refreshed });
+  const indexNowSubmitted = await pingIndexNow(changed);
+  return NextResponse.json({ ok: true, refreshed, indexNowSubmitted });
 }

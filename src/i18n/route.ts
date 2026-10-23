@@ -9,8 +9,13 @@ import { defineCopy } from "@/lib/i18n";
 export const ROUTE = defineCopy({
   en: {
     notFoundTitle: "Route not found",
-    metaTitle: (origen: string, destino: string, price: number) =>
-      `${origen} to ${destino} Private Shuttle (from $${price})`,
+    /**
+     * Written to match the sub-questions answer engines generate for a route
+     * ("how much", "how long", "where is the pickup") and dated so the page
+     * reads as current. Short destination names where the guide has them.
+     */
+    metaTitle: (origen: string, destino: string, price: number, year: number) =>
+      `${origen} to ${destino} Private Shuttle: from $${price}, Duration & Pickup (${year})`,
     metaDescription: (origen: string, destino: string, duracion: string, price: number) =>
       `Private shuttle from ${origen} to ${destino}${
         duracion ? ` (${duracion})` : ""
@@ -72,15 +77,101 @@ export const ROUTE = defineCopy({
       privateServiceValue: (maxPax: number) => `Just your group — up to ${maxPax} pax`,
       includedLabel: "What's included",
       includedValue: "WiFi, water, child seats",
-      /** Split around the two <strong> route names. */
-      summary: {
-        before: "Direct, non-stop service from ",
-        between: " to ",
-        after:
-          ", operated by a professional bilingual driver in a modern air-conditioned private vehicle.",
-        airport:
-          " Arrival flights are monitored in real time and pickups are adjusted automatically to match your actual landing.",
-      },
+    },
+
+    /**
+     * The direct answer, first prose after the hero: price per vehicle and
+     * tier, drive time, pickup, what is included. Assembled in
+     * src/lib/routeAnswer.ts; the same text is served in the Markdown
+     * version so what an assistant quotes is what the visitor reads.
+     */
+    answer: {
+      intro: (origen: string, destino: string) =>
+        `A private shuttle from ${origen} to ${destino} with Ruta Pacifico costs `,
+      tier: (price: number, minPax: number, maxPax: number) =>
+        `$${price} per vehicle for ${minPax}–${maxPax} passengers`,
+      listSeparator: ", ",
+      lastSeparator: " and ",
+      priceSuffix: ", USD, 13% VAT included.",
+      duration: (time: string) => ` The drive takes ${time}, door to door.`,
+      pickupAirport: (origen: string) =>
+        ` Your driver meets you at the ${origen} arrivals exit holding a sign with your name and tracks your flight, so a delay never costs you the ride.`,
+      pickupToAirport: (origen: string, destino: string) =>
+        ` Pickup is at your hotel door in ${origen}, timed so you reach ${destino} about 3 hours before an international departure.`,
+      pickupHotel: (origen: string) =>
+        ` Pickup is at the door of your hotel, villa or rental in ${origen}, at the time you choose.`,
+      closing:
+        " The price is the same any day or hour of the year and includes the driver, fuel, tolls, WiFi, bottled water and child seats. Book online; nothing is paid at pickup.",
+      /** "Prices updated October 2026": visible freshness stamp. */
+      pricesUpdated: (date: string) => `Prices updated ${date}`,
+    },
+
+    /** Visible comparison table; qualitative on purpose (no invented competitor prices). */
+    compare: {
+      heading: (origen: string, destino: string) =>
+        `Private shuttle vs. shared shuttle, taxi and rental car: ${origen} to ${destino}`,
+      intro:
+        "How the four ways of making this trip compare. Only the private shuttle column is a price we publish and guarantee.",
+      columns: ["", "Private shuttle (this page)", "Shared shuttle", "Taxi / ride-hailing", "Rental car"],
+      rows: (price: number, minPax: number, maxPax: number) => [
+        [
+          "Price",
+          `$${price} per vehicle (${minPax}–${maxPax} passengers), fixed and published`,
+          "Per seat: the total grows with every passenger",
+          "Metered or negotiated at the curb; not fixed",
+          "Daily rate plus insurance, fuel, deposit and parking",
+        ],
+        [
+          "Departure time",
+          "Your time, 24/7, no night surcharge",
+          "Fixed timetable",
+          "On availability",
+          "Yours",
+        ],
+        [
+          "Route",
+          "Direct, door to door",
+          "Several hotel stops or a change of van at a hub",
+          "Direct",
+          "Self-drive: navigation and road conditions are on you",
+        ],
+        ["Who is on board", "Only your group", "Other travellers", "Only your group", "Only your group"],
+        ["Flight tracking", "Included", "Not usually", "No", "Not applicable"],
+        ["Child seats", "Free, installed before pickup", "Varies", "Rarely available", "Daily surcharge"],
+      ],
+    },
+
+    /** Headings of the Markdown version (app/[lang]/md/private-shuttle/[slug]). */
+    markdown: {
+      title: (origen: string, destino: string) => `Private shuttle from ${origen} to ${destino}`,
+      summary: "Summary",
+      htmlVersion: "This page as HTML",
+      otherLanguage: "Versión en español",
+      book: "Book online",
+      whatsapp: "WhatsApp",
+      travelTime: "Travel time",
+      prices: "Prices (USD per vehicle, all taxes included)",
+      priceColumns: ["Passengers", "Vehicle", "Price", "Book"],
+      bookLink: "Book this size",
+      included: "What is included in every ride",
+      includedItems: [
+        "Private vehicle: only your group on board, direct route, no detours",
+        "Door-to-door pickup and drop-off",
+        "Professional bilingual (English / Spanish) driver",
+        "Fuel, tolls and 13% VAT",
+        "Air conditioning, free WiFi, bottled water, phone chargers",
+        "Child and booster seats on request, free",
+        "Real-time flight tracking on airport pickups",
+        "Free changes and cancellation up to 48 hours before pickup",
+      ],
+      related: "Related routes",
+      returnTrip: "Return trip",
+      from: (price: number) => `from $${price}`,
+      about: "About Ruta Pacifico",
+      aboutText:
+        "Ruta Pacifico is a licensed and insured Costa Rican ground-transportation operator (ICT licence #4121-2025) based in Liberia, Guanacaste, specialised in private airport shuttles from Liberia International Airport (LIR) and private transfers across Costa Rica. Prices are per vehicle, fixed and published; nothing is paid at pickup.",
+      allPrices: "Every route and price",
+      generated: "Markdown version of the route page; identical content, generated from the same data.",
     },
 
     booking: {
@@ -98,8 +189,8 @@ export const ROUTE = defineCopy({
   },
   es: {
     notFoundTitle: "Ruta no encontrada",
-    metaTitle: (origen: string, destino: string, price: number) =>
-      `Shuttle privado de ${origen} a ${destino} (desde $${price})`,
+    metaTitle: (origen: string, destino: string, price: number, year: number) =>
+      `Shuttle privado de ${origen} a ${destino}: desde $${price}, duración y recogida (${year})`,
     metaDescription: (origen: string, destino: string, duracion: string, price: number) =>
       `Traslado privado de ${origen} a ${destino}${
         duracion ? ` (${duracion})` : ""
@@ -161,15 +252,92 @@ export const ROUTE = defineCopy({
       privateServiceValue: (maxPax: number) => `Solo tu grupo — hasta ${maxPax} pax`,
       includedLabel: "Qué incluye",
       includedValue: "WiFi, agua, sillas para niños",
-      /** Split around the two <strong> route names. */
-      summary: {
-        before: "Servicio directo y sin paradas de ",
-        between: " a ",
-        after:
-          ", con un chofer profesional bilingüe en un vehículo privado moderno con aire acondicionado.",
-        airport:
-          " Monitoreamos los vuelos de llegada en tiempo real y ajustamos la recogida automáticamente a la hora real de aterrizaje.",
-      },
+    },
+
+    answer: {
+      intro: (origen: string, destino: string) =>
+        `Un shuttle privado de ${origen} a ${destino} con Ruta Pacifico cuesta `,
+      tier: (price: number, minPax: number, maxPax: number) =>
+        `$${price} por vehículo para ${minPax}–${maxPax} pasajeros`,
+      listSeparator: ", ",
+      lastSeparator: " y ",
+      priceSuffix: ", en dólares, con el 13% de IVA incluido.",
+      duration: (time: string) => ` El viaje dura ${time}, de puerta a puerta.`,
+      pickupAirport: (origen: string) =>
+        ` Tu chofer te espera en la salida de llegadas de ${origen} con un rótulo con tu nombre y sigue tu vuelo, así que un atraso nunca te cuesta el viaje.`,
+      pickupToAirport: (origen: string, destino: string) =>
+        ` Te recogemos en la puerta de tu hotel en ${origen}, a una hora calculada para que llegues a ${destino} unas 3 horas antes de un vuelo internacional.`,
+      pickupHotel: (origen: string) =>
+        ` Te recogemos en la puerta de tu hotel, villa o alquiler en ${origen}, a la hora que elijas.`,
+      closing:
+        " El precio es el mismo cualquier día y hora del año e incluye el chofer, el combustible, los peajes, WiFi, agua embotellada y sillas para niños. Reserva en línea; no se paga nada en la recogida.",
+      pricesUpdated: (date: string) => `Precios actualizados: ${date}`,
+    },
+
+    compare: {
+      heading: (origen: string, destino: string) =>
+        `Shuttle privado vs. shuttle compartido, taxi y carro de alquiler: ${origen} a ${destino}`,
+      intro:
+        "Así se comparan las cuatro formas de hacer este trayecto. Solo la columna del shuttle privado es un precio que publicamos y garantizamos.",
+      columns: ["", "Shuttle privado (esta página)", "Shuttle compartido", "Taxi / app de transporte", "Carro de alquiler"],
+      rows: (price: number, minPax: number, maxPax: number) => [
+        [
+          "Precio",
+          `$${price} por vehículo (${minPax}–${maxPax} pasajeros), fijo y publicado`,
+          "Por asiento: el total sube con cada pasajero",
+          "Con taxímetro o negociado en la calle; no es fijo",
+          "Tarifa diaria más seguro, combustible, depósito y parqueo",
+        ],
+        [
+          "Hora de salida",
+          "La que elijas, 24/7, sin recargo nocturno",
+          "Horario fijo",
+          "Según disponibilidad",
+          "La tuya",
+        ],
+        [
+          "Recorrido",
+          "Directo, de puerta a puerta",
+          "Varias paradas en hoteles o cambio de buseta en un punto de conexión",
+          "Directo",
+          "Manejas tú: la navegación y el estado de la carretera corren por tu cuenta",
+        ],
+        ["Quién va a bordo", "Solo tu grupo", "Otros viajeros", "Solo tu grupo", "Solo tu grupo"],
+        ["Seguimiento de vuelo", "Incluido", "Normalmente no", "No", "No aplica"],
+        ["Sillas para niños", "Gratis, instaladas antes de la recogida", "Depende", "Rara vez disponibles", "Recargo diario"],
+      ],
+    },
+
+    markdown: {
+      title: (origen: string, destino: string) => `Shuttle privado de ${origen} a ${destino}`,
+      summary: "Resumen",
+      htmlVersion: "Esta página en HTML",
+      otherLanguage: "English version",
+      book: "Reservar en línea",
+      whatsapp: "WhatsApp",
+      travelTime: "Tiempo de viaje",
+      prices: "Precios (USD por vehículo, impuestos incluidos)",
+      priceColumns: ["Pasajeros", "Vehículo", "Precio", "Reservar"],
+      bookLink: "Reservar este tamaño",
+      included: "Qué incluye cada viaje",
+      includedItems: [
+        "Vehículo privado: solo tu grupo a bordo, ruta directa, sin desvíos",
+        "Recogida y entrega de puerta a puerta",
+        "Chofer profesional bilingüe (español / inglés)",
+        "Combustible, peajes y 13% de IVA",
+        "Aire acondicionado, WiFi gratis, agua embotellada, cargadores",
+        "Sillas de carro y boosters para niños a solicitud, gratis",
+        "Seguimiento del vuelo en tiempo real en recogidas de aeropuerto",
+        "Cambios y cancelación gratis hasta 48 horas antes de la recogida",
+      ],
+      related: "Rutas relacionadas",
+      returnTrip: "Viaje de regreso",
+      from: (price: number) => `desde $${price}`,
+      about: "Sobre Ruta Pacifico",
+      aboutText:
+        "Ruta Pacifico es un operador costarricense de transporte terrestre con licencia y seguro (licencia ICT #4121-2025), con base en Liberia, Guanacaste, especializado en shuttles privados desde el Aeropuerto Internacional de Liberia (LIR) y traslados privados en toda Costa Rica. Los precios son por vehículo, fijos y publicados; no se paga nada en la recogida.",
+      allPrices: "Todas las rutas y precios",
+      generated: "Versión en Markdown de la página de la ruta; mismo contenido, generado con los mismos datos.",
     },
 
     booking: {

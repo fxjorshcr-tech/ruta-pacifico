@@ -6,7 +6,14 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import DestinationGuide from "@/components/DestinationGuide";
 import RouteFaqSection from "@/components/RouteFaq";
+import RouteCompare from "@/components/RouteCompare";
 import { buildRouteFaqs, type RouteFaq } from "@/lib/routeFaqs";
+import {
+  buildCompareTable,
+  buildRouteAnswer,
+  pricesUpdatedLabel,
+  routeNames,
+} from "@/lib/routeAnswer";
 import { findRouteBySlug, getRoutes, type Route } from "@/lib/routes";
 import { isAirportOrigin, routeSlug } from "@/lib/slug";
 import {
@@ -24,6 +31,7 @@ import {
   OG_LOCALE,
   localeAlternates,
   localeFromParams,
+  localePath,
   localeUrl,
   type Locale } from "@/lib/i18n";
 import { ROUTE } from "@/i18n/route";
@@ -82,7 +90,11 @@ export async function generateMetadata({
       robots: { index: false, follow: false } };
   }
   const indexable = isRouteIndexable(route, destinations);
-  const title = t.metaTitle(route.origen, route.destino, route.precio1a5);
+  const { O, D } = routeNames(route, {
+    origin: destinationFor(route.origen, destinations),
+    destination: destinationFor(route.destino, destinations),
+  });
+  const title = t.metaTitle(O, D, route.precio1a5, new Date().getFullYear());
   const description = t.metaDescription(
     route.origen,
     route.destino,
@@ -93,7 +105,12 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: localeAlternates(canonical, locale),
+    alternates: {
+      ...localeAlternates(canonical, locale),
+      // The same page as Markdown, for agents that follow <link> hints
+      // instead of negotiating Accept (see next.config.ts rewrites).
+      types: { "text/markdown": localePath(locale, `${canonical}.md`) },
+    },
     // Long-tail pairs stay bookable but out of the index (see
     // src/lib/destinations.ts for the tier rule). `follow` keeps link equity
     // flowing to the routes that matter.
@@ -237,6 +254,21 @@ function RouteJsonLd({
                 acceptedAnswer: { "@type": "Answer", text: f.a } })) },
           ]
         : []),
+      // The page itself, with the row's last-edit date: answer engines weigh
+      // freshness heavily, and `dateModified` only belongs on a CreativeWork
+      // such as WebPage, not on the Service.
+      {
+        "@type": "WebPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: t.serviceName(route.origen, route.destino),
+        inLanguage: IN_LANGUAGE[locale],
+        isPartOf: { "@id": `${BASE_URL}/#website` },
+        about: { "@id": `${url}#service` },
+        mainEntity: { "@id": `${url}#service` },
+        breadcrumb: { "@id": `${url}#breadcrumb` },
+        ...(route.updated_at ? { dateModified: route.updated_at } : {}),
+      },
       {
         "@type": "BreadcrumbList",
         "@id": `${url}#breadcrumb`,
@@ -312,6 +344,10 @@ export default async function RoutePage({
     : [];
   const baseTier = VEHICLE_TIERS[0];
   const startingPrice = route.precio1a5;
+  // Answer-first copy, shared with the Markdown version of this page.
+  const answer = buildRouteAnswer(route, { origin, destination }, locale);
+  const pricesUpdated = pricesUpdatedLabel(route, locale);
+  const compare = buildCompareTable(route, { origin, destination }, locale);
 
   return (
     <main className="bg-light-surface min-h-screen">
@@ -505,16 +541,17 @@ export default async function RoutePage({
             </div>
           </div>
 
-          <div className="mt-6 border-t border-black/5 pt-6">
-            <p className="text-sm leading-relaxed text-foreground/70">
-              {t.info.summary.before}
-              <strong className="text-foreground">{route.origen}</strong>
-              {t.info.summary.between}
-              <strong className="text-foreground">{route.destino}</strong>
-              {t.info.summary.after}
-              {airportPickup ? t.info.summary.airport : ""}
-            </p>
-          </div>
+          {/* The direct answer: price per tier, drive time, pickup, what is
+              included. First prose after the H1, in plain server HTML, so a
+              visitor skimming and an assistant quoting get the same facts. */}
+          {answer ? (
+            <div className="mt-6 border-t border-black/5 pt-6">
+              <p className="text-sm leading-relaxed text-foreground/80">{answer}</p>
+              {pricesUpdated ? (
+                <p className="mt-3 text-xs text-foreground/50">{pricesUpdated}</p>
+              ) : null}
+            </div>
+          ) : null}
         </div>
       </section>
 
@@ -533,6 +570,10 @@ export default async function RoutePage({
         </div>
         <BookingSection route={route} isAirportPickup={airportPickup} />
       </section>
+
+      {/* ─── Private vs. shared vs. taxi vs. rental: visible table, after the
+          booking form so it informs without delaying the booking. ─── */}
+      <RouteCompare table={compare} />
 
       {/* ─── Destination guide — after the booking form, collapsed by default
           so it never interrupts the booking flow; the copy stays in the HTML
