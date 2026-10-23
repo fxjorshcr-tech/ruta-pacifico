@@ -24,6 +24,15 @@ export interface Route {
   precio10a12: number | null;
   duracion: string;
   alias: string | null;
+  /**
+   * ISO timestamp of the last edit to the row (price, duration, names),
+   * maintained by the table's BEFORE UPDATE trigger. Drives the visible
+   * "prices updated" line, `dateModified` in the JSON-LD and `lastmod` in
+   * the sitemap, so a price change reads as fresh content to search and
+   * answer engines. Null on rows that were never edited since the column
+   * was added.
+   */
+  updated_at: string | null;
 }
 
 /** A row exactly as the shared `routes` table stores it. */
@@ -36,10 +45,11 @@ interface RouteRow {
   precio10a12: number | null;
   duracion: string | null;
   alias: string | null;
+  updated_at: string | null;
 }
 
 const ROUTE_COLUMNS =
-  "id, origen, destino, precio1a6, precio7a9, precio10a12, duracion, alias";
+  "id, origen, destino, precio1a6, precio7a9, precio10a12, duracion, alias, updated_at";
 
 function toPrice(value: number | null): number | null {
   return typeof value === "number" && Number.isFinite(value) ? value : null;
@@ -55,6 +65,7 @@ function normalizeRoute(row: RouteRow): Route {
     precio10a12: toPrice(row.precio10a12),
     duracion: row.duracion ?? "",
     alias: row.alias,
+    updated_at: row.updated_at ?? null,
   };
 }
 
