@@ -40,7 +40,6 @@ export const LIBERIA_AIRPORT = defineCopy({
       introFallback:
         "Ruta Pacifico is a Liberia company: our vans and drivers start the day 15 minutes from the airport. Fixed price per vehicle with taxes included, and the driver is at the arrivals exit with your name when you walk out.",
       book: "Book a shuttle",
-      prices: "See all prices",
       whatsapp: "WhatsApp us",
       badges: {
         tracking: "Flight tracking",
@@ -208,7 +207,6 @@ export const LIBERIA_AIRPORT = defineCopy({
       introFallback:
         "Ruta Pacifico es una empresa de Liberia: nuestras vans y choferes empiezan el día a 15 minutos del aeropuerto. Precio fijo por vehículo con impuestos incluidos, y el chofer te espera a la salida de llegadas con tu nombre cuando sales.",
       book: "Reservar un shuttle",
-      prices: "Ver todos los precios",
       whatsapp: "Escríbenos por WhatsApp",
       badges: {
         tracking: "Seguimiento de vuelo",
