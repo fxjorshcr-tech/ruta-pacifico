@@ -175,6 +175,7 @@ ${BRAND_RELATIONSHIP}
 - Home: ${BASE_URL}
 - Price list (every route with prices): ${PRICES_URL}
 - Book / search routes: ${BOOK_URL}
+- Liberia Airport (LIR) hub (every route from and to the airport, drive times, pickup instructions): ${BASE_URL}/liberia-airport-shuttle
 - Individual route pages: ${BASE_URL}/private-shuttle/{origin-slug}-to-{destination-slug} (e.g. \`/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste\`)
 - Frequently asked questions: ${BASE_URL}/faq
 - Sitemap (every public URL): ${BASE_URL}/sitemap.xml

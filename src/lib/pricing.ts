@@ -28,6 +28,8 @@ import { defineCopy, localeUrl, type Locale } from "@/lib/i18n";
 
 export const BASE_URL = "https://rutapacifico.com";
 export const PRICE_LIST_PATH = "/prices";
+/** The Liberia Airport (LIR) hub page: every route from and to the airport on one URL. */
+export const LIR_HUB_PATH = "/liberia-airport-shuttle";
 
 /** Plain-language facts repeated wherever a price is shown. */
 export const PRICE_FACTS = [

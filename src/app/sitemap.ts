@@ -21,6 +21,7 @@ export const revalidate = 86400;
  */
 const STATIC_LAST_MODIFIED = new Date("2026-09-17");
 const LEGAL_LAST_MODIFIED = new Date("2026-09-22");
+const LIR_HUB_LAST_MODIFIED = new Date("2026-10-30");
 
 type Entry = Omit<MetadataRoute.Sitemap[number], "url" | "alternates">;
 
@@ -46,6 +47,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...localized("/", { lastModified: STATIC_LAST_MODIFIED, changeFrequency: "weekly", priority: 1 }),
     ...localized("/prices", { lastModified: STATIC_LAST_MODIFIED, changeFrequency: "weekly", priority: 0.9 }),
     ...localized("/private-shuttle", { lastModified: STATIC_LAST_MODIFIED, changeFrequency: "weekly", priority: 0.9 }),
+    ...localized("/liberia-airport-shuttle", { lastModified: LIR_HUB_LAST_MODIFIED, changeFrequency: "weekly", priority: 0.9 }),
     ...localized("/faq", { lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.7 }),
     ...localized("/blog", { lastModified: STATIC_LAST_MODIFIED, changeFrequency: "weekly", priority: 0.8 }),
     ...localized("/about-contact", { lastModified: STATIC_LAST_MODIFIED, changeFrequency: "monthly", priority: 0.7 }),

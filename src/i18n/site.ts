@@ -88,6 +88,7 @@ export const NAV = defineCopy({
     logoLabel: "Ruta Pacifico — Home",
     home: "Home",
     shuttles: "Private Shuttles",
+    liberiaAirport: "Liberia Airport (LIR)",
     prices: "Prices",
     blog: "Blog",
     faq: "FAQ",
@@ -99,6 +100,7 @@ export const NAV = defineCopy({
     logoLabel: "Ruta Pacifico — Inicio",
     home: "Inicio",
     shuttles: "Shuttles Privados",
+    liberiaAirport: "Aeropuerto de Liberia (LIR)",
     prices: "Precios",
     blog: "Blog",
     faq: "Preguntas Frecuentes",
@@ -150,6 +152,7 @@ export const FOOTER = defineCopy({
     quickLinks: "Quick links",
     links: {
       shuttles: "Private shuttles",
+      liberiaAirport: "Liberia Airport (LIR) shuttle",
       prices: "Prices",
       blog: "Travel guide",
       faq: "FAQ",
@@ -186,6 +189,7 @@ export const FOOTER = defineCopy({
     quickLinks: "Enlaces",
     links: {
       shuttles: "Shuttles privados",
+      liberiaAirport: "Shuttle Aeropuerto de Liberia (LIR)",
       prices: "Precios",
       blog: "Guía de viaje",
       faq: "Preguntas frecuentes",
