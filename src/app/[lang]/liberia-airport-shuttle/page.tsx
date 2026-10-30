@@ -17,7 +17,6 @@ import {
 } from "@/lib/destinations";
 import {
   LIR_HUB_PATH,
-  PRICE_LIST_PATH,
   lowestPrice,
   pairRoutesForPriceList,
   popularAirportRoutes,
@@ -422,12 +421,6 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
             >
               {t.hero.book}
               <ArrowIcon />
-            </Link>
-            <Link
-              href={PRICE_LIST_PATH}
-              className="inline-flex items-center rounded-full border border-white/30 bg-white/10 px-6 py-3 text-sm font-bold text-white backdrop-blur-sm transition hover:bg-white/20"
-            >
-              {t.hero.prices}
             </Link>
             <a
               href={WHATSAPP_URL}
