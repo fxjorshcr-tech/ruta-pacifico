@@ -54,6 +54,7 @@ export default function SiteFooter({ locale = DEFAULT_LOCALE }: { locale?: Local
             <h4 className={HEADING}>{t.quickLinks}</h4>
             <ul className="mt-4 space-y-3 text-sm text-white/50">
               <li><Link href="/private-shuttle" className={LINK}>{t.links.shuttles}</Link></li>
+              <li><Link href="/liberia-airport-shuttle" className={LINK}>{t.links.liberiaAirport}</Link></li>
               <li><Link href="/prices" className={LINK}>{t.links.prices}</Link></li>
               <li><Link href="/blog" className={LINK}>{t.links.blog}</Link></li>
               <li><Link href="/faq" className={LINK}>{t.links.faq}</Link></li>

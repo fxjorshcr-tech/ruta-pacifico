@@ -31,7 +31,7 @@ import { pingIndexNow } from "@/lib/indexnow";
 export const dynamic = "force-dynamic";
 
 /** Pages whose content comes from the database. */
-const CONTENT_PATHS = ["/", "/prices", "/private-shuttle", "/faq", "/blog"];
+const CONTENT_PATHS = ["/", "/prices", "/private-shuttle", "/liberia-airport-shuttle", "/faq", "/blog"];
 /** Language-less files that read the routes table. */
 const SHARED_FILES = ["/sitemap.xml", "/llms.txt", "/llms-full.txt", "/routes.json"];
 
