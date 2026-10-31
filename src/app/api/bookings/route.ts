@@ -29,7 +29,6 @@ interface BookingRequestBody {
   name: string;
   email: string;
   phone: string;
-  notes?: string;
   total: number;
   confirmationCode: string;
   createdAt: string;
@@ -127,6 +126,7 @@ function tripCardsHtml(trips: TripItem[], locale: Locale = "en"): string {
                 ${t_.flight ? detailRow(t.labels.flight, escapeHtml(t_.flight)) : ""}
                 ${detailRow(t.labels.pickup, escapeHtml(t_.pickup))}
                 ${detailRow(t.labels.dropoff, escapeHtml(t_.dropoff))}
+                ${t_.notes ? detailRow(t.labels.notes, escapeHtml(t_.notes)) : ""}
               </table>
             </td>
           </tr>
@@ -251,23 +251,6 @@ function customerEmailHtml(
                 ${tripCardsHtml(b.trips, locale)}
               </td>
             </tr>
-
-            ${
-              b.notes
-                ? `<tr>
-                    <td style="padding:14px 32px 0;">
-                      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf6ee;border:1px solid #f0e6d2;border-radius:14px;">
-                        <tr>
-                          <td style="padding:14px 18px;">
-                            <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#b07a3a;">${t.notesTitle}</div>
-                            <div style="margin-top:4px;font-size:14px;line-height:1.6;color:#444;">${escapeHtml(b.notes)}</div>
-                          </td>
-                        </tr>
-                      </table>
-                    </td>
-                  </tr>`
-                : ""
-            }
 
             <!-- Total -->
             <tr>
@@ -423,11 +406,6 @@ function adminEmailHtml(b: BookingRequestBody, logo: string, locale: Locale): st
                   <a href="https://wa.me/${escapeHtml(phoneDigits)}" style="color:#ffd9a8;text-decoration:none;">${escapeHtml(b.phone)}</a>
                 </div>
                 <div style="margin-top:6px;font-size:13px;font-weight:700;color:#ffd9a8;">${BOOKING_EMAIL[locale].customerLanguage}</div>
-                ${
-                  b.notes
-                    ? `<div style="margin-top:8px;padding:8px 10px;background:rgba(255,217,168,.12);border-left:3px solid #ffd9a8;border-radius:4px;font-size:13px;line-height:1.5;color:#fff;"><strong>Notes:</strong> ${escapeHtml(b.notes)}</div>`
-                    : ""
-                }
                 <div style="margin-top:8px;font-size:11px;color:rgba(255,255,255,.45);">Hit Reply to answer the customer directly. Booked ${escapeHtml(created)} (Costa Rica time)</div>
               </td>
             </tr>

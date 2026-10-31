@@ -48,7 +48,6 @@ interface BookingData {
   name: string;
   email: string;
   phone: string;
-  notes?: string;
   total: number;
   confirmationCode: string;
   createdAt: string;
@@ -234,18 +233,17 @@ export default function ConfirmationPage() {
                       <span className="text-foreground/40">{t.labels.dropoff} </span>
                       {trip.dropoff}
                     </div>
+                    {trip.notes && (
+                      <div className="sm:col-span-2">
+                        <span className="text-foreground/40">{t.labels.notes} </span>
+                        {trip.notes}
+                      </div>
+                    )}
                   </div>
                 </div>
               );
             })}
           </div>
-
-          {booking.notes && (
-            <div className="mt-4 rounded-2xl border border-black/5 bg-light-surface p-4">
-              <div className="text-xs font-semibold uppercase tracking-wider text-foreground/40">{t.notesTitle}</div>
-              <p className="mt-1 text-sm text-foreground/70">{booking.notes}</p>
-            </div>
-          )}
 
           {/* Total */}
           <div className="mt-6 flex items-center justify-between rounded-2xl bg-foreground p-5">

@@ -12,6 +12,8 @@ export interface TripItem {
   flight?: string;
   pickup: string;
   dropoff: string;
+  /** Per-shuttle special requests (child seats, extra stop, luggage…). */
+  notes?: string;
   vehicleKey: "staria" | "hiace" | "maxus";
   vehicleName: string;
   vehiclePax: string;
@@ -44,7 +46,6 @@ export interface Booking {
   name: string;
   email: string;
   phone: string;
-  notes?: string;
 
   // Meta
   isAirportPickup: boolean;
