@@ -74,6 +74,7 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
   const [flight, setFlight] = useState("");
   const [pickupAddr, setPickupAddr] = useState("");
   const [dropoffAddr, setDropoffAddr] = useState("");
+  const [notes, setNotes] = useState("");
 
   // Personal info is collected on the checkout page
 
@@ -138,6 +139,7 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
       flight: isAirportPickup ? flight : undefined,
       pickup: pickupAddr,
       dropoff: dropoffAddr,
+      notes: notes.trim() || undefined,
       vehicleKey: selectedVehicle.key,
       vehicleName: selectedVehicle.name,
       vehiclePax: selectedVehicle.paxLabel,
@@ -411,6 +413,27 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
               className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
             />
           </div>
+        </div>
+
+        {/* Notes / special requests (optional) */}
+        <div className="mt-6">
+          <label
+            htmlFor="booking-notes"
+            className="text-sm font-medium text-foreground/70"
+          >
+            {t.notes}{" "}
+            <span className="text-foreground/40">{t.optional}</span>
+          </label>
+          <textarea
+            id="booking-notes"
+            rows={3}
+            maxLength={500}
+            placeholder={t.notesPlaceholder}
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            className="mt-2 w-full resize-none rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20"
+          />
+          <p className="mt-1 text-xs text-foreground/40">{t.notesHint}</p>
         </div>
       </section>
 

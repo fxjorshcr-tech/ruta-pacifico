@@ -69,7 +69,6 @@ export default function CheckoutPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [notes, setNotes] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -94,7 +93,6 @@ export default function CheckoutPage() {
       name,
       email,
       phone,
-      notes: notes || undefined,
       total,
       confirmationCode: generateConfirmationCode(),
       createdAt: new Date().toISOString(),
@@ -220,6 +218,7 @@ export default function CheckoutPage() {
                         {trip.flight && <div><span className="text-foreground/40">{t.labels.flight}</span> {trip.flight}</div>}
                         <div><span className="text-foreground/40">{t.labels.pickup}</span> {trip.pickup}</div>
                         <div><span className="text-foreground/40">{t.labels.dropoff}</span> {trip.dropoff}</div>
+                        {trip.notes && <div className="sm:col-span-2"><span className="text-foreground/40">{t.labels.notes}</span> {trip.notes}</div>}
                       </div>
                     </div>
                   );
@@ -253,10 +252,6 @@ export default function CheckoutPage() {
                   <div>
                     <label htmlFor="checkout-phone" className="text-sm font-medium text-foreground/70">{t.details.phone}</label>
                     <div className="mt-2"><PhoneInput id="checkout-phone" value={phone} onChange={setPhone} required /></div>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <label htmlFor="checkout-notes" className="text-sm font-medium text-foreground/70">{t.details.notes} <span className="text-foreground/40">{t.details.optional}</span></label>
-                    <textarea id="checkout-notes" rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder={t.details.notesPlaceholder} className="mt-2 w-full resize-none rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20" />
                   </div>
                 </div>
               </div>
