@@ -129,9 +129,9 @@ export default function ConfirmationPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-light-surface via-transparent to-transparent" />
         <div className="relative z-10 mx-auto w-full max-w-3xl px-6 pt-24 pb-20 text-center">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-green-500 text-white shadow-xl shadow-green-500/30">
-            <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-amber-400 text-white shadow-xl shadow-amber-400/30">
+            <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2m6-2a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z" />
             </svg>
           </div>
           <h1 className="mt-6 text-3xl font-bold tracking-tight text-white sm:text-4xl">
@@ -173,6 +173,42 @@ export default function ConfirmationPage() {
                 <strong className="text-foreground">{booking.phone}</strong>
                 {t.payment.p5}
               </p>
+
+              {/* Where the customer is: received ✓ → pay (now) → confirmed */}
+              <ol className="mt-5 flex flex-col gap-2 text-sm sm:flex-row sm:gap-3">
+                {t.payment.steps.map((label, i) => (
+                  <li
+                    key={label}
+                    className={`flex items-center gap-2 rounded-xl px-3 py-2 sm:flex-1 ${
+                      i === 0
+                        ? "bg-green-100 text-green-800"
+                        : i === 1
+                          ? "border-2 border-sunset-orange bg-white font-semibold text-foreground"
+                          : "bg-foreground/5 text-foreground/50"
+                    }`}
+                  >
+                    <span
+                      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+                        i === 0
+                          ? "bg-green-600 text-white"
+                          : i === 1
+                            ? "bg-sunset-orange text-white"
+                            : "bg-foreground/15 text-foreground/70"
+                      }`}
+                    >
+                      {i === 0 ? "✓" : i + 1}
+                    </span>
+                    <span>
+                      {label}
+                      {i === 1 && (
+                        <span className="ml-1 whitespace-nowrap text-xs font-normal text-foreground/60">· {t.payment.youAreHere}</span>
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+
+              <p className="mt-4 text-sm text-foreground/60">{t.payment.noLink}</p>
             </div>
           </div>
         </div>
