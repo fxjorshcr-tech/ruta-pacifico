@@ -17,20 +17,20 @@ function paxEs(adults: number, children: number): string {
  */
 export const BOOKING_EMAIL = defineCopy({
   en: {
-    subject: (code: string) => `Your Ruta Pacifico reservation ${code}`,
-    title: (code: string) => `Reservation confirmed · ${code}`,
+    subject: (code: string) => `Booking ${code} received — payment pending (link on its way)`,
+    title: (code: string) => `Reservation received · ${code}`,
     preheader: (code: string, firstName: string) =>
-      `Reservation ${code} confirmed for ${firstName}. We&#39;ll send your secure payment link shortly.`,
-    badge: "Reservation confirmed",
+      `Booking ${code} received for ${firstName} — not paid yet. Your secure payment link arrives in a separate message.`,
+    badge: "Payment pending",
     greeting: (firstName: string) => `¡Pura vida, ${firstName}!`,
-    codeLabel: "Confirmation code",
+    codeLabel: "Booking code",
     intro1:
-      "Thank you so much for choosing <strong>Ruta Pacifico</strong>. Your seat is officially held — and we&rsquo;ve already added your trip to our schedule.",
+      "Thank you so much for choosing <strong>Ruta Pacifico</strong>. We&rsquo;re holding your seat — but your booking is <strong>not confirmed yet</strong>: nothing has been charged.",
     intro2:
-      "In a few minutes you&rsquo;ll get a separate message with your <strong>secure payment link</strong>. As soon as payment clears, the booking becomes final and we&rsquo;ll start monitoring your itinerary.",
-    paymentTitle: "Payment link on the way",
+      "This email is <strong>not</strong> your payment link. In a few minutes you&rsquo;ll get a separate message with your <strong>secure payment link</strong>. As soon as payment clears, the booking becomes final and we&rsquo;ll start monitoring your itinerary.",
+    paymentTitle: "Not paid yet — payment link on the way",
     paymentBody: (email: string, phone: string) =>
-      `Watch your inbox at <strong>${email}</strong> and your WhatsApp at <strong>${phone}</strong>. Your reservation is held in the meantime.`,
+      `Watch your inbox at <strong>${email}</strong> and your WhatsApp at <strong>${phone}</strong>. Haven&rsquo;t received it within the hour? Tap the WhatsApp button below and we&rsquo;ll send it right away.`,
     shuttles: (count: number) => (count === 1 ? "Your shuttle" : `Your ${count} shuttles`),
     pax: paxEn,
     labels: {
@@ -73,26 +73,26 @@ export const BOOKING_EMAIL = defineCopy({
       "1 large bag + 1 carry-on per traveler included",
     ],
     footerAddress: "Liberia, Guanacaste &middot; Costa Rica",
-    footerCode: "Confirmation code",
+    footerCode: "Booking code",
     footerKeep: "Keep this email for your records.",
     /** One line on the internal copy so staff reply in the customer's language. */
     customerLanguage: "Customer language: English",
   },
   es: {
-    subject: (code: string) => `Tu reserva con Ruta Pacifico ${code}`,
-    title: (code: string) => `Reserva confirmada · ${code}`,
+    subject: (code: string) => `Reserva ${code} recibida: pago pendiente (el enlace va en camino)`,
+    title: (code: string) => `Reserva recibida · ${code}`,
     preheader: (code: string, firstName: string) =>
-      `Reserva ${code} confirmada para ${firstName}. En breve te enviamos tu enlace de pago seguro.`,
-    badge: "Reserva confirmada",
+      `Reserva ${code} recibida para ${firstName}: aún sin pagar. Tu enlace de pago seguro llega en un mensaje aparte.`,
+    badge: "Pago pendiente",
     greeting: (firstName: string) => `¡Pura vida, ${firstName}!`,
-    codeLabel: "Código de confirmación",
+    codeLabel: "Código de reserva",
     intro1:
-      "¡Gracias por reservar con <strong>Ruta Pacifico</strong>! Tu lugar ya quedó apartado y tu viaje está en nuestra agenda.",
+      "¡Gracias por reservar con <strong>Ruta Pacifico</strong>! Estamos apartando tu lugar, pero tu reserva <strong>todavía no está confirmada</strong>: no se ha cobrado nada.",
     intro2:
-      "En unos minutos recibirás un mensaje aparte con tu <strong>enlace de pago seguro</strong>. En cuanto se acredite el pago, la reserva queda en firme y empezamos a dar seguimiento a tu itinerario.",
-    paymentTitle: "Tu enlace de pago va en camino",
+      "Este correo <strong>no</strong> es tu enlace de pago. En unos minutos recibirás un mensaje aparte con tu <strong>enlace de pago seguro</strong>. En cuanto se acredite el pago, la reserva queda en firme y empezamos a dar seguimiento a tu itinerario.",
+    paymentTitle: "Aún no has pagado: tu enlace de pago va en camino",
     paymentBody: (email: string, phone: string) =>
-      `Revisa tu correo <strong>${email}</strong> y tu WhatsApp <strong>${phone}</strong>. Mientras tanto, tu reserva queda apartada.`,
+      `Revisa tu correo <strong>${email}</strong> y tu WhatsApp <strong>${phone}</strong>. ¿No te llegó en una hora? Toca el botón de WhatsApp aquí abajo y te lo enviamos de inmediato.`,
     shuttles: (count: number) => (count === 1 ? "Tu shuttle" : `Tus ${count} shuttles`),
     pax: paxEs,
     labels: {
@@ -134,7 +134,7 @@ export const BOOKING_EMAIL = defineCopy({
       "1 maleta grande + 1 de mano por pasajero incluidas",
     ],
     footerAddress: "Liberia, Guanacaste &middot; Costa Rica",
-    footerCode: "Código de confirmación",
+    footerCode: "Código de reserva",
     footerKeep: "Guarda este correo para tus registros.",
     customerLanguage: "Idioma del cliente: Español",
   },
