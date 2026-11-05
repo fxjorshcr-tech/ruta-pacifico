@@ -39,6 +39,9 @@ export const GOOGLE_RATING_FALLBACK = {
  */
 export const FOUNDER = {
   name: "Jorge",
+  /** Full name, for every Person entity (founder, article author) so the
+   *  same real person is matched across both brands' sites. */
+  fullName: "Jorge Salas",
   inTourismSince: 2006,
 };
 export const BRAND_LAUNCH = "2026-05-01";

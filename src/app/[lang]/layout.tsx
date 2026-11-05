@@ -225,7 +225,8 @@ async function JsonLd({ locale }: { locale: Locale }) {
         founder: {
           "@type": "Person",
           "@id": `${BASE_URL}/#founder`,
-          name: FOUNDER.name,
+          name: FOUNDER.fullName,
+          givenName: FOUNDER.name,
           description: `Costa Rican tourism professional since ${FOUNDER.inTourismSince}. Founder of ${SISTER_BRAND.name} (launched ${SISTER_BRAND.launched}) and Ruta Pacifico (launched ${BRAND_LAUNCH}).`,
           worksFor: { "@id": `${BASE_URL}/#organization` },
         },
@@ -475,20 +476,10 @@ export default async function RootLayout({
         {/* No preconnects on purpose: fonts are self-hosted and images go
             through the same-origin optimizer, so the browser has nothing
             cross-origin to warm up. */}
-        {/* Pointer the LLM-facing docs — non-standard but harmless, and some
-            crawlers honour it to find llms.txt without scanning robots.txt. */}
-        <link
-          rel="alternate"
-          type="text/markdown"
-          href="/llms.txt"
-          title="llms.txt — summary for language models"
-        />
-        <link
-          rel="alternate"
-          type="text/markdown"
-          href="/llms-full.txt"
-          title="llms-full.txt — full context for language models"
-        />
+        {/* No site-wide rel="alternate" to llms.txt: an alternate must be the
+            same document in another format, and only the route pages have
+            one (their Markdown twin, declared per page in metadata). The
+            LLM files are discovered through robots.txt and the sitemap. */}
         <JsonLd locale={locale} />
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground overflow-x-hidden">

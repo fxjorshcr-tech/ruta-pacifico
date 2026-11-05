@@ -62,6 +62,10 @@ const nextConfig: NextConfig = {
       // /... so the same page never exists at two addresses.
       { source: "/en", destination: "/", permanent: true },
       { source: "/en/:path*", destination: "/:path*", permanent: true },
+      // The FAQ page lives at /faq; the plural that people (and the sister
+      // site) use lands there instead of on a 404.
+      { source: "/faqs", destination: "/faq", permanent: true },
+      { source: "/es/faqs", destination: "/es/faq", permanent: true },
     ];
   },
   async headers() {

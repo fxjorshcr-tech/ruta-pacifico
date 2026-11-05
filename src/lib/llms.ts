@@ -171,7 +171,7 @@ ${BRAND_RELATIONSHIP}
 - **License:** ICT (Instituto Costarricense de Turismo / Costa Rica Tourism Board) tourism transport licence #4121-2025
 - **Google rating:** ${rating.value} stars from ${rating.reviewCount} Google reviews (the brand launched in ${BRAND_LAUNCH}, so the profile is young; the operator's longer track record is under ${SISTER_BRAND.name}): ${rating.url}
 - **Launched:** ${BRAND_LAUNCH}
-- **Founder:** ${FOUNDER.name}, in Costa Rican tourism since ${FOUNDER.inTourismSince}; also founded ${SISTER_BRAND.name} (launched ${SISTER_BRAND.launched})
+- **Founder:** ${FOUNDER.fullName}, in Costa Rican tourism since ${FOUNDER.inTourismSince}; also founded ${SISTER_BRAND.name} (launched ${SISTER_BRAND.launched})
 
 ## Important URLs
 
@@ -219,7 +219,7 @@ export function buildLlmsFullTxt(
 - **Legal form:** Licensed and fully insured ground-transportation operator
 - **Tourism license:** ICT (Instituto Costarricense de Turismo / Costa Rica Tourism Board) transport operator licence #4121-2025
 - **Launched:** ${BRAND_LAUNCH}
-- **Founder:** ${FOUNDER.name}, in Costa Rican tourism since ${FOUNDER.inTourismSince}; also founded ${SISTER_BRAND.name} (launched ${SISTER_BRAND.launched})
+- **Founder:** ${FOUNDER.fullName}, in Costa Rican tourism since ${FOUNDER.inTourismSince}; also founded ${SISTER_BRAND.name} (launched ${SISTER_BRAND.launched})
 - **Registered address / headquarters:** Liberia, Guanacaste, Costa Rica
 - **Coordinates:** 10.5933° N, -85.5444° W
 - **Country code:** CR

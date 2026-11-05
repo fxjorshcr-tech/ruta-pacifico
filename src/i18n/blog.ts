@@ -68,6 +68,7 @@ export const BLOG = defineCopy({
       notFoundTitle: "Article not found | Ruta Pacifico",
       back: "← All guides",
       updated: (date: string) => `· Updated ${date}`,
+      by: "By",
       faqHeading: "Frequently asked questions",
       cta: {
         heading: "Book your private shuttle",
@@ -125,6 +126,7 @@ export const BLOG = defineCopy({
       notFoundTitle: "Artículo no encontrado | Ruta Pacifico",
       back: "← Todas las guías",
       updated: (date: string) => `· Actualizado ${date}`,
+      by: "Por",
       faqHeading: "Preguntas frecuentes",
       cta: {
         heading: "Reserva tu shuttle privado",

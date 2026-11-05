@@ -19,6 +19,7 @@ import {
   localeUrl,
   type Locale } from "@/lib/i18n";
 import { BLOG } from "@/i18n/blog";
+import { FOUNDER } from "@/lib/contact";
 
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
@@ -88,9 +89,11 @@ function ArticleJsonLd({ post, locale }: { post: BlogPost; locale: Locale }) {
       datePublished: post.published_at ?? undefined,
       dateModified: post.updated_at,
       author: {
-        "@type": "Organization",
-        name: post.author,
-        url: BASE_URL },
+        "@type": "Person",
+        "@id": `${BASE_URL}/#founder`,
+        name: FOUNDER.fullName,
+        url: localeUrl(locale, "/about-contact"),
+        worksFor: { "@id": `${BASE_URL}/#organization` } },
       publisher: { "@id": `${BASE_URL}/#organization` },
       mainEntityOfPage: { "@type": "WebPage", "@id": url },
       keywords: post.tags.join(", "),
@@ -161,6 +164,12 @@ export default async function BlogPostPage({ params }: { params: Params }) {
             </Link>
             {post.published_at && <span>· {formatPostDate(post.published_at, locale)}</span>}
             <span>{t.post.updated(formatPostDate(post.updated_at, locale))}</span>
+            <span>
+              · {t.post.by}{" "}
+              <Link href="/about-contact" className="font-semibold text-white hover:underline">
+                {FOUNDER.fullName}
+              </Link>
+            </span>
           </div>
           <h1 className="mt-4 text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-[2.6rem]">
             {post.title}
