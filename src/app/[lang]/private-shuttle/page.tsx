@@ -206,11 +206,13 @@ export default async function TransferPage({ params }: { params: Params }) {
         </div>
       </section>
 
-      {/* ─── HOLIDAY AVAILABILITY (renders only while the window is live) ─── */}
-      <PeakCapacityNotice locale={locale} showCta={false} className="-mt-16 relative z-10 pb-6" />
-
       {/* ─── CLIENT-SIDE ROUTE SEARCH (loads /routes.json in the browser) ─── */}
       <RouteSearch />
+
+      {/* ─── HOLIDAY AVAILABILITY (renders only while the window is live).
+          Below the search card, which overlaps the hero with a negative
+          margin and would cover anything placed between the two. ─── */}
+      <PeakCapacityNotice locale={locale} showCta={false} className="pt-10" />
 
       {/* ─── POPULAR ROUTES WITH PRICES (server-rendered, crawlable) ─── */}
       <PopularRoutes routes={popular} totalPriced={pricedCount} locale={locale} />
