@@ -22,7 +22,7 @@ export const GOOGLE_REVIEW_URL = `${GOOGLE_BUSINESS_PROFILE_URL}/review`;
  */
 export const GOOGLE_RATING_FALLBACK = {
   value: "5.0",
-  reviewCount: 2,
+  reviewCount: 6,
 };
 
 /**
