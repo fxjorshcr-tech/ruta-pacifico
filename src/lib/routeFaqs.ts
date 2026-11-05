@@ -3,6 +3,7 @@ import type { Destination } from "@/lib/destinations";
 import type { Locale } from "@/lib/i18n";
 import { isAirportOrigin } from "@/lib/slug";
 import { VEHICLE_TIERS } from "@/lib/vehicles";
+import { peakCapacityFaq } from "@/lib/peakCapacity";
 
 /**
  * Route-specific questions and answers, generated from the data we already
@@ -128,6 +129,10 @@ export function buildRouteFaqs(
       : `Prices are per vehicle, not per person, and include the driver, fuel, tolls and 13% VAT. Search the route on the booking page to see the exact figure for your group size.`,
   });
 
+  // 2b. Holiday availability, only while the window is live (src/lib/peakCapacity.ts).
+  const peak = peakCapacityFaq("en");
+  if (peak) faqs.push({ q: peak.question, a: peak.answer });
+
   // 3. Meeting point
   if (airportPickup) {
     faqs.push({
@@ -212,6 +217,10 @@ function buildRouteFaqsEs(route: Route, ctx: Context): RouteFaq[] {
       ? `${prices} El precio es por vehículo, no por persona, e incluye el chofer, el combustible, los peajes y el 13% de IVA. No tienes que pagar nada al momento de la recogida.`
       : `Los precios son por vehículo, no por persona, e incluyen el chofer, el combustible, los peajes y el 13% de IVA. Busca la ruta en la página de reservas para ver el monto exacto según el tamaño de tu grupo.`,
   });
+
+  // 2b. Disponibilidad en temporada alta, solo mientras la ventana esté activa.
+  const peak = peakCapacityFaq("es");
+  if (peak) faqs.push({ q: peak.question, a: peak.answer });
 
   // 3. Punto de encuentro
   if (airportPickup) {

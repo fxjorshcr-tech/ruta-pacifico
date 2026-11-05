@@ -4,6 +4,7 @@ import { getSupabase } from "@/lib/supabase";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import FaqAccordion, { type Faq } from "@/components/FaqAccordion";
+import { peakCapacityFaq } from "@/lib/peakCapacity";
 import { normalise } from "@/lib/faqs";
 import {
   BASE_URL,
@@ -149,7 +150,10 @@ function FaqJsonLd({ faqs, locale }: { faqs: Faq[]; locale: Locale }) {
 export default async function FaqPage({ params }: { params: Params }) {
   const locale = await localeFromParams(params);
   const t = FAQ[locale];
-  const faqs = await getFaqs(locale);
+  const dbFaqs = await getFaqs(locale);
+  // Holiday-availability question at the top of "booking" while it is live.
+  const peakFaq = peakCapacityFaq(locale);
+  const faqs = peakFaq ? [peakFaq, ...dbFaqs] : dbFaqs;
   const grouped = groupByCategory(faqs);
 
   // Respect CATEGORY_ORDER but also include any unknown categories at the end.

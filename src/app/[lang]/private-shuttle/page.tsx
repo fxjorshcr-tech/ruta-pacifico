@@ -5,6 +5,8 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import GoogleReviewBadge from "@/components/GoogleReviewBadge";
 import FaqAccordion from "@/components/FaqAccordion";
+import PeakCapacityNotice from "@/components/PeakCapacityNotice";
+import { peakCapacityFaq } from "@/lib/peakCapacity";
 import { getFeaturedFaqs } from "@/lib/faqs";
 import PopularRoutes from "@/components/PopularRoutes";
 import { getRoutes, type Route } from "@/lib/routes";
@@ -135,11 +137,14 @@ function TransferPageJsonLd({ routes, locale }: { routes: Route[]; locale: Local
 export default async function TransferPage({ params }: { params: Params }) {
   const locale = await localeFromParams(params);
   const t = SHUTTLE[locale];
-  const [routes, faqs, destinations] = await Promise.all([
+  const [routes, dbFaqs, destinations] = await Promise.all([
     getRoutes(),
     getFeaturedFaqs(6, locale),
     getDestinations(),
   ]);
+  // Holiday-availability question first while the window is live.
+  const peakFaq = peakCapacityFaq(locale);
+  const faqs = peakFaq ? [peakFaq, ...dbFaqs] : dbFaqs;
   const indexable = selectIndexableRoutes(routes, destinations);
   const popular = popularAirportRoutes(routes, destinations, 12);
   const pricedCount = indexable.filter((r) => lowestPrice(r)).length;
@@ -200,6 +205,9 @@ export default async function TransferPage({ params }: { params: Params }) {
           </div>
         </div>
       </section>
+
+      {/* ─── HOLIDAY AVAILABILITY (renders only while the window is live) ─── */}
+      <PeakCapacityNotice locale={locale} showCta={false} className="-mt-16 relative z-10 pb-6" />
 
       {/* ─── CLIENT-SIDE ROUTE SEARCH (loads /routes.json in the browser) ─── */}
       <RouteSearch />
