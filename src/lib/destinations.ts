@@ -68,6 +68,98 @@ export function localizeDestination(d: Destination, locale: Locale): Destination
 }
 
 /** All destinations keyed by slug. Deduplicated per request via React cache. */
+
+/**
+ * Photos for the destinations that have none in the table yet, keyed by
+ * slug. Applied when `image_url` is empty, so the hub pages, the index and
+ * the route guides show the place instead of one shared hero. Setting the
+ * columns in Supabase (supabase/destinations_images.sql) overrides this.
+ */
+const DESTINATION_IMAGE_FALLBACKS: Record<string, { image_url: string; image_alt: string; image_alt_es: string }> = {
+  "lir-liberia-int-airport": {
+    image_url: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/aeropuerto-LIR-guanacaste.webp",
+    image_alt: "Liberia International Airport (LIR), Guanacaste",
+    image_alt_es: "Aeropuerto Internacional de Liberia (LIR), Guanacaste",
+  },
+  "la-fortuna-arenal": {
+    image_url: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/arenal-view.webp",
+    image_alt: "Arenal Volcano, La Fortuna",
+    image_alt_es: "Volcán Arenal, La Fortuna",
+  },
+  "monteverde-cloud-forest": {
+    image_url: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/cloud-forest-monteverde-costa-rica-trees.webp",
+    image_alt: "Monteverde Cloud Forest",
+    image_alt_es: "Bosque Nuboso de Monteverde",
+  },
+  "manuel-antonio-quepos": {
+    image_url: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/capuchin-monkey-manuel-antonio-costa-rica.webp",
+    image_alt: "Capuchin monkey, Manuel Antonio National Park",
+    image_alt_es: "Mono capuchino, Parque Nacional Manuel Antonio",
+  },
+  "tamarindo-guanacaste": {
+    image_url: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/tamarindo-beach-costa-rica.webp",
+    image_alt: "Tamarindo Beach, Guanacaste",
+    image_alt_es: "Playa Tamarindo, Guanacaste",
+  },
+  "flamingo-guanacaste": {
+    image_url: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/guanacaste-beach-sunset-costa-rica.webp",
+    image_alt: "Sunset on the Flamingo coast, Guanacaste",
+    image_alt_es: "Atardecer en la costa de Flamingo, Guanacaste",
+  },
+  "conchal-guanacaste": {
+    image_url: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/aerial-view-conchal-beach.webp",
+    image_alt: "Playa Conchal from the air, Guanacaste",
+    image_alt_es: "Playa Conchal desde el aire, Guanacaste",
+  },
+  "playa-potrero-guanacaste": {
+    image_url: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/costa-rica-beach-travel.webp",
+    image_alt: "Beach near Playa Potrero, Guanacaste",
+    image_alt_es: "Playa cerca de Potrero, Guanacaste",
+  },
+  "las-catalinas-guanacaste": {
+    image_url: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/summer-time-beach-costarica.webp",
+    image_alt: "Beach at Las Catalinas, Guanacaste",
+    image_alt_es: "Playa en Las Catalinas, Guanacaste",
+  },
+  "playa-grande-guanacaste": {
+    image_url: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/playa_tamarindo_kristen_brown.jpg",
+    image_alt: "Surfer at sunset, Playa Grande",
+    image_alt_es: "Surfista al atardecer, Playa Grande",
+  },
+  "papagayo-peninsula-guanacaste": {
+    image_url: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/buseta-papagayo.webp",
+    image_alt: "Ruta Pacifico shuttle on the Papagayo Peninsula",
+    image_alt_es: "Shuttle de Ruta Pacifico en la Península de Papagayo",
+  },
+  "playas-del-coco-guanacaste": {
+    image_url: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/tamarindo-Costa-rica.jpg",
+    image_alt: "Cove near Playas del Coco, Guanacaste",
+    image_alt_es: "Ensenada cerca de Playas del Coco, Guanacaste",
+  },
+  "playa-hermosa-guanacaste": {
+    image_url: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp",
+    image_alt: "Playa Hermosa, Guanacaste",
+    image_alt_es: "Playa Hermosa, Guanacaste",
+  },
+  "nosara-playa-guiones-area": {
+    image_url: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/nosara-beach-surf-guanacaste.jpg",
+    image_alt: "Surf at Playa Guiones, Nosara",
+    image_alt_es: "Surf en Playa Guiones, Nosara",
+  },
+  "samara-playa-carrillo-guanacaste": {
+    image_url: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Fotos/Conchal-beach-guanacaste.webp",
+    image_alt: "Beach near Sámara, Guanacaste",
+    image_alt_es: "Playa cerca de Sámara, Guanacaste",
+  },
+};
+
+/** The row with a photo filled in from the fallback table when it has none. */
+function withImageFallback(d: Destination): Destination {
+  if (d.image_url) return d;
+  const fb = DESTINATION_IMAGE_FALLBACKS[d.slug];
+  return fb ? { ...d, image_url: fb.image_url, image_alt: d.image_alt ?? fb.image_alt, image_alt_es: d.image_alt_es ?? fb.image_alt_es } : d;
+}
+
 export const getDestinations = cache(async (): Promise<DestinationMap> => {
   const map: DestinationMap = new Map();
   try {
@@ -79,7 +171,7 @@ export const getDestinations = cache(async (): Promise<DestinationMap> => {
       return map;
     }
     for (const row of (data ?? []) as Destination[]) {
-      map.set(row.slug, { ...row, best_for: row.best_for ?? [] });
+      map.set(row.slug, withImageFallback({ ...row, best_for: row.best_for ?? [] }));
     }
   } catch (err) {
     console.error("Failed to fetch destinations:", err);
