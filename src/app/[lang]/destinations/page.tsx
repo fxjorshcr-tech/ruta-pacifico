@@ -5,7 +5,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import { localizeDestination } from "@/lib/destinations";
 import { getDestinationHubs } from "@/lib/destinationHubs";
-import { LIR_HUB_PATH } from "@/lib/pricing";
+import { LIR_HUB_PATH, lowestPrice } from "@/lib/pricing";
 import { isOptimizable } from "@/lib/images";
 import {
   IN_LANGUAGE,
@@ -62,6 +62,7 @@ export default async function DestinationsPage({ params }: { params: Params }) {
       image: HERO_URL,
       alt: t.heroAlt,
       from: null as number | null,
+      fromLir: false,
       routes: 0,
       tag: t.lirTag,
     },
@@ -73,7 +74,8 @@ export default async function DestinationsPage({ params }: { params: Params }) {
         path: hub.path,
         image: d.image_url || HERO_URL,
         alt: d.image_alt ?? `${d.short_name}, Costa Rica`,
-        from: hub.range?.low ?? null,
+        from: (hub.lirRoute ? lowestPrice(hub.lirRoute) : null) ?? hub.range?.low ?? null,
+        fromLir: Boolean(hub.lirRoute && lowestPrice(hub.lirRoute)),
         routes: hub.from.length + hub.to.length,
         tag: undefined as string | undefined,
       };
@@ -154,7 +156,7 @@ export default async function DestinationsPage({ params }: { params: Params }) {
                 <div className="p-6">
                   <h2 className="text-lg font-bold text-foreground">{card.name}</h2>
                   <p className="mt-1 text-sm text-foreground/60">
-                    {card.from !== null ? t.from(card.from) : ""}
+                    {card.from !== null ? (card.fromLir ? t.fromLir(card.from) : t.from(card.from)) : ""}
                     {card.from !== null && card.routes > 0 ? " · " : ""}
                     {card.routes > 0 ? t.routes(card.routes) : ""}
                   </p>
