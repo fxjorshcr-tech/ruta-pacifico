@@ -116,14 +116,15 @@ const nextConfig: NextConfig = {
         { source: "/", has: [WANTS_MARKDOWN], destination: "/llms.txt" },
         { source: "/es", has: [WANTS_MARKDOWN], destination: "/llms.txt" },
         // Destination hubs: /tamarindo-shuttle → app/[lang]/shuttle/tamarindo.
-        // The Liberia Airport hub is its own page and is excluded. Only the
-        // slugs generateStaticParams returns exist; the rest are static 404s.
+        // The Liberia Airport hub and the /private-shuttle booking page are
+        // their own pages and are excluded. Only the slugs generateStaticParams
+        // returns exist; the rest are static 404s.
         {
-          source: "/:destination((?!liberia-airport-shuttle$)[a-z0-9-]+)-shuttle",
+          source: "/:destination((?!liberia-airport-shuttle$|private-shuttle$)[a-z0-9-]+)-shuttle",
           destination: "/en/shuttle/:destination",
         },
         {
-          source: "/es/:destination((?!liberia-airport-shuttle$)[a-z0-9-]+)-shuttle",
+          source: "/es/:destination((?!liberia-airport-shuttle$|private-shuttle$)[a-z0-9-]+)-shuttle",
           destination: "/es/shuttle/:destination",
         },
       ],
