@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { timingSafeEqual } from "crypto";
 import { LOCALES, localePath, type Locale } from "@/lib/i18n";
 import { pingIndexNow } from "@/lib/indexnow";
+import { hubAppPath } from "@/lib/destinationHubs";
 
 /**
  * On-demand cache refresh. The marketing pages are regenerated once a day
@@ -76,14 +77,23 @@ export async function GET(req: NextRequest) {
       refreshed.push(...localized(p));
       changed.push(...publicUrls(p));
     }
+    // Every destination hub (app/[lang]/shuttle/[destination]) in one go.
+    revalidatePath("/[lang]/shuttle/[destination]", "page");
+    refreshed.push("/[lang]/shuttle/[destination]");
     refreshed.push(...SHARED_FILES);
     changed.push("/llms.txt", "/llms-full.txt");
   } else if (path && path.startsWith("/")) {
-    if (SHARED_FILES.includes(path)) {
+    const sitePath = path.replace(/^\/(en|es)(?=\/|$)/, "") || "/";
+    const hubMatch = sitePath.match(/^\/([a-z0-9-]+)-shuttle$/);
+    if (hubMatch && sitePath !== "/liberia-airport-shuttle") {
+      // A destination hub: its public path is a rewrite, so the app path is
+      // what the cache knows it by.
+      for (const lang of LOCALES) refreshed.push(hubAppPath(lang, hubMatch[1]));
+      changed.push(...publicUrls(sitePath));
+    } else if (SHARED_FILES.includes(path)) {
       refreshed.push(path);
       if (path !== "/routes.json") changed.push(path);
     } else {
-      const sitePath = path.replace(/^\/(en|es)(?=\/|$)/, "") || "/";
       refreshed.push(...localized(sitePath));
       changed.push(...publicUrls(sitePath));
     }

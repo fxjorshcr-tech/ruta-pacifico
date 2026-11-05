@@ -12,6 +12,8 @@ import {
 import { DEFAULT_LOCALE, type Locale } from "@/lib/i18n";
 import { FOOTER } from "@/i18n/site";
 import { LEGAL_PATHS } from "@/i18n/legal";
+import { getDestinationHubs } from "@/lib/destinationHubs";
+import { localizeDestination } from "@/lib/destinations";
 
 /**
  * Membership badges. Same public bucket as the rest of the site's images;
@@ -26,9 +28,15 @@ const ICT_LOGO = `${BADGES_DIR}/ICT%20LOGO.webp`;
 const LINK = "transition hover:text-sunset-orange";
 const HEADING = "text-sm font-semibold uppercase tracking-wider text-white/80";
 
+/** How many destination hubs the footer lists (the rest are one click away on any hub). */
+const FOOTER_HUBS = 8;
+
 /** The one footer every page renders: links, legal pages, contact and the ICT / Esencial badges. */
-export default function SiteFooter({ locale = DEFAULT_LOCALE }: { locale?: Locale }) {
+export default async function SiteFooter({ locale = DEFAULT_LOCALE }: { locale?: Locale }) {
   const t = FOOTER[locale];
+  // Destination hubs (/tamarindo-shuttle…): read from the cached routes and
+  // destinations, so the list only ever names pages that exist.
+  const hubs = (await getDestinationHubs()).slice(0, FOOTER_HUBS);
   return (
     <footer className="border-t border-black/5 bg-foreground text-white">
       <div className="mx-auto max-w-6xl px-6 py-16">
@@ -86,6 +94,18 @@ export default function SiteFooter({ locale = DEFAULT_LOCALE }: { locale?: Local
                 </li>
               ))}
             </ul>
+            {hubs.length > 0 && (
+              <>
+                <h4 className={`mt-8 ${HEADING}`}>{t.destinations}</h4>
+                <ul className="mt-4 space-y-3 text-sm text-white/50">
+                  {hubs.map((h) => (
+                    <li key={h.slug}>
+                      <Link href={h.path} className={LINK}>{localizeDestination(h.destination, locale).short_name}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
           </div>
         </div>
 

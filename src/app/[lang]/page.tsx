@@ -12,6 +12,8 @@ import PeakCapacityNotice from "@/components/PeakCapacityNotice";
 import { peakCapacityFaq } from "@/lib/peakCapacity";
 import { faqPageJsonLd, getFeaturedFaqs } from "@/lib/faqs";
 import { getRoutes, type Route } from "@/lib/routes";
+import { getDestinations } from "@/lib/destinations";
+import { buildDestinationHubs, hubForDestination } from "@/lib/destinationHubs";
 import { PRICE_LIST_PATH, lowestPrice } from "@/lib/pricing";
 import { routeSlug, toSlug } from "@/lib/slug";
 import { IN_LANGUAGE, localeFromParams, localeUrl } from "@/lib/i18n";
@@ -77,9 +79,9 @@ const SERVICE_CARD_STYLES = [
  * columns on tablet so the row stays balanced.
  */
 const PLAN_CARD_MEDIA = [
-  { image: TAMARINDO_BEACH_URL, wide: false },
-  { image: CONCHAL_BEACH_URL, wide: false },
-  { image: NOSARA_BEACH_URL, wide: true },
+  { image: TAMARINDO_BEACH_URL, wide: false, hub: "tamarindo-guanacaste" },
+  { image: CONCHAL_BEACH_URL, wide: false, hub: "conchal-guanacaste" },
+  { image: NOSARA_BEACH_URL, wide: true, hub: "nosara-playa-guiones-area" },
 ];
 
 function StarDivider() {
@@ -97,7 +99,10 @@ function StarDivider() {
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const locale = await localeFromParams(params);
   const t = HOME[locale];
-  const [dbFaqs, routes] = await Promise.all([getFeaturedFaqs(8, locale), getRoutes()]);
+  const [dbFaqs, routes, destinations] = await Promise.all([getFeaturedFaqs(8, locale), getRoutes(), getDestinations()]);
+  // Destination hubs: the plan cards link to /tamarindo-shuttle etc. when
+  // the hub exists, to the booking page otherwise.
+  const hubs = buildDestinationHubs(routes, destinations);
   // The holiday-availability question goes first while it is live: it is the
   // one travellers are asking right now, in the accordion and in the JSON-LD.
   const peakFaq = peakCapacityFaq(locale);
@@ -267,7 +272,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                     <p className="mt-2 text-sm leading-relaxed text-white/80">
                       {card.desc}
                     </p>
-                    <Link href="/private-shuttle" className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
+                    <Link href={hubForDestination(media.hub, hubs)?.path ?? "/private-shuttle"} className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
                       {t.plan.cta}
                       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />

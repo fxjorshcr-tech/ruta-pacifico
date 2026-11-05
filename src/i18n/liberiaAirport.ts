@@ -103,6 +103,7 @@ export const LIBERIA_AIRPORT = defineCopy({
       from: "from",
       perVehicle: "per vehicle",
       quote: "Ask us",
+      hubsLabel: "Every shuttle to and from each destination",
     },
     table: {
       heading: "All routes from and to Liberia Airport",
@@ -270,6 +271,7 @@ export const LIBERIA_AIRPORT = defineCopy({
       from: "desde",
       perVehicle: "por vehículo",
       quote: "Consúltanos",
+      hubsLabel: "Todos los shuttles desde y hacia cada destino",
     },
     table: {
       heading: "Todas las rutas desde y hacia el Aeropuerto de Liberia",
