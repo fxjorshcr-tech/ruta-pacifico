@@ -47,9 +47,9 @@ export default function SiteNav({ transparent = true }: Props) {
     ...(isHome ? [] : [{ href: "/", label: t.home }]),
     { href: "/private-shuttle", label: t.shuttles },
     { href: "/liberia-airport-shuttle", label: t.liberiaAirport },
+    { href: "/destinations", label: t.destinations },
     { href: "/prices", label: t.prices },
     { href: "/blog", label: t.blog },
-    { href: "/faq", label: t.faq },
     { href: "/about-contact", label: t.about },
   ];
 
