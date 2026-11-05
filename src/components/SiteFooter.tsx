@@ -96,7 +96,9 @@ export default async function SiteFooter({ locale = DEFAULT_LOCALE }: { locale?:
             </ul>
             {hubs.length > 0 && (
               <>
-                <h4 className={`mt-8 ${HEADING}`}>{t.destinations}</h4>
+                <h4 className={`mt-8 ${HEADING}`}>
+                  <Link href="/destinations" className="hover:text-white">{t.destinations}</Link>
+                </h4>
                 <ul className="mt-4 space-y-3 text-sm text-white/50">
                   {hubs.map((h) => (
                     <li key={h.slug}>

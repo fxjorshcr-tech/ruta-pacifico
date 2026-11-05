@@ -32,7 +32,7 @@ import { hubAppPath } from "@/lib/destinationHubs";
 export const dynamic = "force-dynamic";
 
 /** Pages whose content comes from the database. */
-const CONTENT_PATHS = ["/", "/prices", "/private-shuttle", "/liberia-airport-shuttle", "/faq", "/blog"];
+const CONTENT_PATHS = ["/", "/prices", "/private-shuttle", "/liberia-airport-shuttle", "/destinations", "/faq", "/blog"];
 /** Language-less files that read the routes table. */
 const SHARED_FILES = ["/sitemap.xml", "/llms.txt", "/llms-full.txt", "/routes.json"];
 

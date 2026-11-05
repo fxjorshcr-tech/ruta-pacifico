@@ -319,3 +319,39 @@ export const DESTINATION_HUB = defineCopy({
     },
   },
 });
+
+/** /destinations: the index of every destination hub. */
+export const DESTINATIONS_INDEX = defineCopy({
+  en: {
+    metaTitle: "Shuttle destinations in Guanacaste & Costa Rica | Ruta Pacifico",
+    metaDescription:
+      "Private shuttles to every main destination from Liberia Airport (LIR): Tamarindo, Flamingo, Conchal, Papagayo, Nosara, Sámara, La Fortuna, Monteverde and more. Fixed per-vehicle prices, book online.",
+    heroAlt: "Private shuttle on the Guanacaste coast, Costa Rica",
+    eyebrow: "Where are you headed?",
+    title: "Shuttle destinations",
+    intro:
+      "Pick your destination to see every private shuttle to and from it: fixed prices per vehicle with 13% VAT included, travel time from Liberia Airport, the destination guide and the questions travellers ask before booking.",
+    home: "Home",
+    lirName: "Liberia Airport (LIR)",
+    lirTag: "Every airport route",
+    from: (price: number) => `from $${price}`,
+    routes: (n: number) => `${n} route${n === 1 ? "" : "s"}`,
+    view: "See all shuttles",
+  },
+  es: {
+    metaTitle: "Destinos de shuttle en Guanacaste y Costa Rica | Ruta Pacifico",
+    metaDescription:
+      "Shuttles privados a los principales destinos desde el Aeropuerto de Liberia (LIR): Tamarindo, Flamingo, Conchal, Papagayo, Nosara, Sámara, La Fortuna, Monteverde y más. Precios fijos por vehículo, reserva en línea.",
+    heroAlt: "Shuttle privado en la costa de Guanacaste, Costa Rica",
+    eyebrow: "¿Hacia dónde vas?",
+    title: "Destinos de shuttle",
+    intro:
+      "Elige tu destino para ver todos los shuttles privados que llegan y salen de ahí: precios fijos por vehículo con el 13% de IVA incluido, tiempo de viaje desde el Aeropuerto de Liberia, la guía del destino y las preguntas que la gente hace antes de reservar.",
+    home: "Inicio",
+    lirName: "Aeropuerto de Liberia (LIR)",
+    lirTag: "Todas las rutas del aeropuerto",
+    from: (price: number) => `desde $${price}`,
+    routes: (n: number) => `${n} ruta${n === 1 ? "" : "s"}`,
+    view: "Ver todos los shuttles",
+  },
+});
