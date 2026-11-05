@@ -24,26 +24,61 @@ import { isAirportOrigin, toSlug } from "@/lib/slug";
  * with those properties gets its page on the next regeneration; one that
  * loses its routes drops out, so a hub can never be an empty page.
  *
- * Public URL: `/${destination.slug}-shuttle`. The page itself lives at
+ * Public URL: `/<short name as a slug>-shuttle` — /tamarindo-shuttle,
+ * /playa-conchal-shuttle, /samara-shuttle — because that is how people
+ * and answer engines phrase it ("shuttle to Tamarindo"), never the table
+ * slug with its region suffix. The page itself lives at
  * app/[lang]/shuttle/[destination]; next.config.ts rewrites the public
  * path onto it (and redirects the internal path back) so each hub exists
  * at exactly one address per language.
  */
 export const HUB_SUFFIX = "-shuttle";
 
-/** Public, language-less path of a destination's hub. */
-export function hubPath(destinationSlug: string): string {
-  return `/${destinationSlug}${HUB_SUFFIX}`;
+/**
+ * Top-level pages a hub URL must never shadow. The hub segment always ends
+ * in "-shuttle", so only names ending that way can collide; the airport hub
+ * is the one that exists today and it is excluded as an airport anyway.
+ */
+const RESERVED_SEGMENTS = new Set([
+  "liberia-airport-shuttle",
+  "private-shuttle",
+  "prices",
+  "faq",
+  "blog",
+  "about-contact",
+  "terms-and-conditions",
+  "privacy-policy",
+  "refund-policy",
+  "shuttle",
+  "md",
+]);
+
+/** Public, language-less path of a hub from its URL slug. */
+export function hubPath(hubSlug: string): string {
+  return `/${hubSlug}${HUB_SUFFIX}`;
 }
 
 /** App-router path of a hub in one language, for revalidatePath. */
-export function hubAppPath(lang: string, destinationSlug: string): string {
-  return `/${lang}/shuttle/${destinationSlug}`;
+export function hubAppPath(lang: string, hubSlug: string): string {
+  return `/${lang}/shuttle/${hubSlug}`;
+}
+
+/**
+ * URL slug of a destination's hub: its short name slugified, accents
+ * stripped (Sámara → samara). Falls back to the table slug only when the
+ * short name would collide with another hub or a reserved page.
+ */
+export function hubSlugFor(destination: Destination, taken: Set<string>): string {
+  const short = toSlug(destination.short_name);
+  const candidate = short && !taken.has(short) && !RESERVED_SEGMENTS.has(`${short}${HUB_SUFFIX}`)
+    ? short
+    : destination.slug;
+  return candidate;
 }
 
 export interface DestinationHub {
   destination: Destination;
-  /** `destination.slug`; the URL segment of the page. */
+  /** URL segment of the page: "tamarindo", "playa-conchal", "samara". */
   slug: string;
   /** Public path, e.g. "/tamarindo-shuttle". */
   path: string;
@@ -57,8 +92,8 @@ export interface DestinationHub {
   lirRoute: Route | undefined;
   /** destination → LIR, when sold. */
   lirReturn: Route | undefined;
-  /** Other hub destinations in the same region, for the "nearby" block. */
-  related: Destination[];
+  /** Other hubs in the same region, for the "nearby" block. */
+  related: Array<{ destination: Destination; path: string }>;
   /** Latest route edit touching the hub, for lastmod / dateModified. */
   updatedAt: string | null;
 }
@@ -92,18 +127,26 @@ function latest(routes: Route[]): string | null {
  */
 export function buildDestinationHubs(routes: Route[], map: DestinationMap): DestinationHub[] {
   const priced = routes.filter((r) => lowestPrice(r) && isRouteIndexable(r, map));
-  const candidates = [...map.values()].filter(isHubCandidate);
+  // Tier 1 first, then by name, so a slug collision (two "Playa Hermosa"s)
+  // is resolved the same way on every build: the more important one keeps
+  // the short slug.
+  const candidates = [...map.values()]
+    .filter(isHubCandidate)
+    .sort((a, b) => a.tier - b.tier || a.short_name.localeCompare(b.short_name));
   const hubs: DestinationHub[] = [];
+  const taken = new Set<string>();
 
   for (const destination of candidates) {
     const from = priced.filter((r) => toSlug(r.origen) === destination.slug).sort(byRank(map));
     const to = priced.filter((r) => toSlug(r.destino) === destination.slug).sort(byRank(map));
     if (from.length === 0 && to.length === 0) continue;
     const all = [...to, ...from];
+    const slug = hubSlugFor(destination, taken);
+    taken.add(slug);
     hubs.push({
       destination,
-      slug: destination.slug,
-      path: hubPath(destination.slug),
+      slug,
+      path: hubPath(slug),
       from,
       to,
       range: priceRange(all),
@@ -118,8 +161,12 @@ export function buildDestinationHubs(routes: Route[], map: DestinationMap): Dest
   for (const hub of hubs) {
     hub.related = hubs
       .filter((h) => h !== hub && h.destination.region === hub.destination.region)
-      .map((h) => h.destination)
-      .sort((a, b) => a.tier - b.tier || a.short_name.localeCompare(b.short_name));
+      .sort(
+        (a, b) =>
+          a.destination.tier - b.destination.tier ||
+          a.destination.short_name.localeCompare(b.destination.short_name),
+      )
+      .map((h) => ({ destination: h.destination, path: h.path }));
   }
 
   // Tier 1 hubs first, then the Guanacaste beaches in table order by name.
@@ -137,15 +184,20 @@ export const getDestinationHubs = cache(async (): Promise<DestinationHub[]> => {
   return buildDestinationHubs(routes, destinations);
 });
 
-/** The hub of a destination slug ("tamarindo-guanacaste"), or undefined. */
-export async function findDestinationHub(slug: string): Promise<DestinationHub | undefined> {
-  return (await getDestinationHubs()).find((h) => h.slug === slug);
+/** The hub behind a URL slug ("tamarindo"), or undefined. */
+export async function findDestinationHub(hubSlug: string): Promise<DestinationHub | undefined> {
+  return (await getDestinationHubs()).find((h) => h.slug === hubSlug);
 }
 
 /** Hub for a raw route place name ("Tamarindo (Guanacaste)"), or undefined. */
 export function hubForPlace(place: string, hubs: DestinationHub[]): DestinationHub | undefined {
   const slug = toSlug(place);
-  return hubs.find((h) => h.slug === slug);
+  return hubs.find((h) => h.destination.slug === slug);
+}
+
+/** Hub of a destinations-table slug ("tamarindo-guanacaste"), or undefined. */
+export function hubForDestination(destinationSlug: string, hubs: DestinationHub[]): DestinationHub | undefined {
+  return hubs.find((h) => h.destination.slug === destinationSlug);
 }
 
 /** First paragraph of a Markdown block as plain text, for descriptions. */

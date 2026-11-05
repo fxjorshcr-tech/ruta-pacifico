@@ -13,7 +13,7 @@ import { peakCapacityFaq } from "@/lib/peakCapacity";
 import { faqPageJsonLd, getFeaturedFaqs } from "@/lib/faqs";
 import { getRoutes, type Route } from "@/lib/routes";
 import { getDestinations } from "@/lib/destinations";
-import { buildDestinationHubs } from "@/lib/destinationHubs";
+import { buildDestinationHubs, hubForDestination } from "@/lib/destinationHubs";
 import { PRICE_LIST_PATH, lowestPrice } from "@/lib/pricing";
 import { routeSlug, toSlug } from "@/lib/slug";
 import { IN_LANGUAGE, localeFromParams, localeUrl } from "@/lib/i18n";
@@ -272,7 +272,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
                     <p className="mt-2 text-sm leading-relaxed text-white/80">
                       {card.desc}
                     </p>
-                    <Link href={hubs.find((h) => h.slug === media.hub)?.path ?? "/private-shuttle"} className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
+                    <Link href={hubForDestination(media.hub, hubs)?.path ?? "/private-shuttle"} className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sunset-gold transition hover:text-white">
                       {t.plan.cta}
                       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />

@@ -11,7 +11,6 @@ import { destinationFor, getDestinations, localizeDestination, type DestinationM
 import {
   findDestinationHub,
   getDestinationHubs,
-  hubPath,
   plainParagraph,
   type DestinationHub,
 } from "@/lib/destinationHubs";
@@ -84,7 +83,7 @@ function hubFacts(hub: DestinationHub, locale: Locale): HubFacts {
     lowest: hub.range?.low ?? null,
     fromCount: hub.from.length,
     toCount: hub.to.length,
-    nearby: hub.related.slice(0, 4).map((r) => r.short_name),
+    nearby: hub.related.slice(0, 4).map((r) => localizeDestination(r.destination, locale).short_name),
   };
 }
 
@@ -559,12 +558,12 @@ export default async function DestinationHubPage({ params }: { params: Params })
           <p className="mt-2 text-sm text-foreground/60">{t.nearby.body}</p>
           <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {hub.related.map((r) => (
-              <li key={r.slug}>
+              <li key={r.path}>
                 <Link
-                  href={hubPath(r.slug)}
+                  href={r.path}
                   className="flex items-center justify-between rounded-2xl border border-black/5 bg-white px-5 py-4 text-sm font-semibold text-foreground shadow-sm transition hover:border-sunset-orange/40 hover:text-sunset-orange"
                 >
-                  {t.nearby.cta(localizeDestination(r, locale).short_name)}
+                  {t.nearby.cta(localizeDestination(r.destination, locale).short_name)}
                   <ArrowIcon />
                 </Link>
               </li>
