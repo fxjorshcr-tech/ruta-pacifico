@@ -10,6 +10,8 @@ import { useLocale } from "@/components/LocaleProvider";
 import { localePath } from "@/lib/i18n";
 import { CHECKOUT } from "@/i18n/checkout";
 import { isPickupDateAllowed } from "@/lib/leadTime";
+import { isPeakCapacityBlocked, peakCapacityCopy } from "@/lib/peakCapacity";
+import { getTier, isVehicleKey } from "@/lib/vehicles";
 import {
   BOOKING_STORAGE_KEY,
   CART_STORAGE_KEY,
@@ -84,6 +86,25 @@ export default function CheckoutPage() {
     const tooSoon = cart.find((t) => !isPickupDateAllowed(t.date));
     if (tooSoon) {
       setSubmitError(t.errors.tooSoon(formatDate(tooSoon.date), tooSoon.from, tooSoon.to));
+      return;
+    }
+    // Same for the peak-season capacity rule: a trip added before the rule
+    // existed, or in another tab, must not reach the API.
+    const peakBlocked = cart.find((item) =>
+      isPeakCapacityBlocked(
+        item.date,
+        item.adults + item.children,
+        isVehicleKey(item.vehicleKey) ? getTier(item.vehicleKey).maxPax : item.adults + item.children,
+      ),
+    );
+    if (peakBlocked) {
+      setSubmitError(
+        peakCapacityCopy(locale).checkoutError(
+          formatDate(peakBlocked.date, locale),
+          peakBlocked.from,
+          peakBlocked.to,
+        ),
+      );
       return;
     }
     setSubmitting(true);

@@ -13,9 +13,18 @@ import {
 import TimePicker from "@/components/TimePicker";
 import {
   addToCart,
+  formatDate,
   generateTripId,
   type TripItem,
 } from "@/lib/booking";
+import {
+  PEAK_CAPACITY,
+  PEAK_OPEN_TIER,
+  isPeakCapacityBlocked,
+  isPeakCapacityDate,
+  isPeakCapacityNoticeActive,
+  peakCapacityCopy,
+} from "@/lib/peakCapacity";
 import {
   MAX_PAX,
   VEHICLE_TIERS,
@@ -95,6 +104,23 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
   // The group outgrew every vehicle we operate — a larger one won't help.
   const groupTooLarge = totalPax > MAX_PAX;
 
+  // Peak-season rule (src/lib/peakCapacity.ts): inside the window only the
+  // smallest vehicle exists. The hint shows while the window is upcoming;
+  // the hard stop only once the chosen date and group / vehicle conflict.
+  const pc = peakCapacityCopy(locale);
+  const peakNoticeActive = isPeakCapacityNoticeActive();
+  const peakDate = isPeakCapacityDate(date);
+  const peakBlocked = isPeakCapacityBlocked(date, totalPax, selectedVehicle.maxPax);
+  const peakErrorRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    if (!peakBlocked) return;
+    peakErrorRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }, [peakBlocked]);
+
   useEffect(() => {
     if (!showDateTimeError && !dateTooSoon) return;
     dateTimeErrorRef.current?.scrollIntoView({
@@ -113,7 +139,7 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (vehicleTooSmall) return;
+    if (vehicleTooSmall || peakBlocked) return;
     if (!date || !time) {
       setShowDateTimeError(true);
       return;
@@ -179,18 +205,27 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
           <div className="mt-3 grid gap-3 sm:grid-cols-3">
             {vehicles.map((v) => {
               const active = v.key === vehicleKey;
+              const soldOut = peakDate && v.maxPax > PEAK_CAPACITY.MAX_PAX;
               return (
                 <button
                   type="button"
                   key={v.key}
                   onClick={() => setVehicleKey(v.key)}
-                  className={`group rounded-2xl border-2 p-4 text-center transition ${
-                    active
-                      ? "border-sunset-orange bg-sunset-orange/5 shadow-md"
-                      : "border-black/5 bg-light-surface hover:border-sunset-orange/40"
+                  aria-disabled={soldOut}
+                  className={`group relative rounded-2xl border-2 p-4 text-center transition ${
+                    soldOut
+                      ? "border-dashed border-black/10 bg-light-surface opacity-60"
+                      : active
+                        ? "border-sunset-orange bg-sunset-orange/5 shadow-md"
+                        : "border-black/5 bg-light-surface hover:border-sunset-orange/40"
                   }`}
                 >
-                  <div className="relative mx-auto h-20 w-full">
+                  {soldOut && (
+                    <span className="absolute left-1/2 top-2 z-10 -translate-x-1/2 whitespace-nowrap rounded-full bg-foreground px-2.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide text-white">
+                      {pc.soldOut}
+                    </span>
+                  )}
+                  <div className={`relative mx-auto h-20 w-full ${soldOut ? "grayscale" : ""}`}>
                     <Image
                       src={v.image}
                       alt={v.name}
@@ -212,7 +247,7 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
               );
             })}
           </div>
-          {vehicleTooSmall && (
+          {vehicleTooSmall && !peakBlocked && (
             <p
               ref={vehicleErrorRef}
               className="mt-3 scroll-mt-24 text-xs font-medium text-red-600"
@@ -222,6 +257,22 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
                 : t.vehicleTooSmall(selectedVehicle.name, selectedVehicle.maxPax, totalPax)}
             </p>
           )}
+          {peakBlocked ? (
+            <p
+              ref={peakErrorRef}
+              role="alert"
+              className="mt-3 scroll-mt-24 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-xs font-medium text-red-700"
+            >
+              {pc.formError(formatDate(date, locale))}
+            </p>
+          ) : peakNoticeActive ? (
+            <p className="mt-3 flex items-start gap-2 rounded-xl border border-sunset-gold/40 bg-sunset-gold/10 px-4 py-3 text-xs text-foreground/80">
+              <span className="mt-0.5 shrink-0 rounded-full bg-sunset-orange px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide text-white">
+                {pc.tag}
+              </span>
+              <span>{pc.formHint}</span>
+            </p>
+          ) : null}
         </div>
 
         {/* When — Date + Time */}
@@ -238,6 +289,17 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
               onChange={(iso) => {
                 setDate(iso);
                 setDateTooSoon(false);
+                // A sold-out vehicle was selected before the date: move a
+                // group that fits onto the vehicle we do have, instead of
+                // showing an error for a choice the customer never made.
+                if (
+                  isPeakCapacityDate(iso) &&
+                  selectedVehicle.maxPax > PEAK_CAPACITY.MAX_PAX &&
+                  totalPax <= PEAK_CAPACITY.MAX_PAX &&
+                  vehicles.some((v) => v.key === PEAK_OPEN_TIER.key)
+                ) {
+                  setVehicleKey(PEAK_OPEN_TIER.key);
+                }
               }}
               minDate={new Date(minPickupDate + "T00:00:00")}
             />
@@ -486,7 +548,7 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
             </div>
             <button
               type="submit"
-              disabled={submitting || vehicleTooSmall}
+              disabled={submitting || vehicleTooSmall || peakBlocked}
               className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-10 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {submitting ? t.adding : t.addToTrip}

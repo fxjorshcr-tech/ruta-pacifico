@@ -23,6 +23,7 @@ import {
   WHATSAPP_URL,
 } from "@/lib/contact";
 import { VEHICLE_TIERS } from "@/lib/vehicles";
+import { peakCapacityLlmsSection } from "@/lib/peakCapacity";
 
 /**
  * llms.txt / llms-full.txt, generated at request time (cached hourly) so the
@@ -106,6 +107,8 @@ export function buildLlmsTxt(
   const popular = popularAirportRoutes(routes, destinations, 40);
   const range = priceRange(routes);
   const priced = routes.filter((r) => routePrices(r).length).length;
+  // Holiday-peak availability block; empty once the window has passed.
+  const peak = peakCapacityLlmsSection();
 
   return `# Ruta Pacifico
 
@@ -145,7 +148,7 @@ ${fleetTable()}
 
 All vehicles include: air conditioning, free WiFi, cold bottled water, phone chargers, complimentary child / booster seats on request, generous luggage space.
 
-## Booking lead time
+${peak ? `${peak}\n\n` : ""}## Booking lead time
 
 - Same-day pickups cannot be booked online. Book before 12:00 PM Costa Rica time to travel the next day; after 12:00 PM the earliest online pickup is the day after tomorrow.
 - For urgent same-day transfers, contact the team on WhatsApp and we will try to arrange it.
@@ -202,6 +205,7 @@ export function buildLlmsFullTxt(
     destinations,
   });
   const hubTotal = hubDestinations.reduce((n, g) => n + g.routes.length, 0);
+  const peak = peakCapacityLlmsSection();
 
   return `# Ruta Pacifico — Full Context for Language Models
 
@@ -312,7 +316,7 @@ Route changes may increase or decrease the price; the difference is either charg
 
 WhatsApp-only booking is also available: ${WHATSAPP_DISPLAY}.
 
-## 8. About Liberia International Airport (LIR)
+${peak ? `${peak.replace(/^## /, "### 7.1 ")}\n\n` : ""}## 8. About Liberia International Airport (LIR)
 
 - **Official name:** Daniel Oduber Quirós International Airport
 - **IATA:** LIR

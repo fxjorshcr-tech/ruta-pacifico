@@ -8,6 +8,8 @@ import { VEHICLE_TIERS, vehicleTierCopy } from "@/lib/vehicles";
 import { FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/contact";
 import { LOGO_URL } from "@/lib/brand";
 import FaqAccordion from "@/components/FaqAccordion";
+import PeakCapacityNotice from "@/components/PeakCapacityNotice";
+import { peakCapacityFaq } from "@/lib/peakCapacity";
 import { faqPageJsonLd, getFeaturedFaqs } from "@/lib/faqs";
 import { getRoutes, type Route } from "@/lib/routes";
 import { PRICE_LIST_PATH, lowestPrice } from "@/lib/pricing";
@@ -95,7 +97,11 @@ function StarDivider() {
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const locale = await localeFromParams(params);
   const t = HOME[locale];
-  const [faqs, routes] = await Promise.all([getFeaturedFaqs(8, locale), getRoutes()]);
+  const [dbFaqs, routes] = await Promise.all([getFeaturedFaqs(8, locale), getRoutes()]);
+  // The holiday-availability question goes first while it is live: it is the
+  // one travellers are asking right now, in the accordion and in the JSON-LD.
+  const peakFaq = peakCapacityFaq(locale);
+  const faqs = peakFaq ? [peakFaq, ...dbFaqs] : dbFaqs;
   return (
     <main>
       {/* ─── NAV ─── */}
@@ -163,6 +169,9 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
           {t.hero.photoCaption}
         </div>
       </section>
+
+      {/* ─── HOLIDAY AVAILABILITY (renders only while the window is live) ─── */}
+      <PeakCapacityNotice locale={locale} className="pt-10" />
 
       {/* ─── SERVICES ─── */}
       <section id="services" className="relative overflow-hidden bg-white py-16 sm:py-24">

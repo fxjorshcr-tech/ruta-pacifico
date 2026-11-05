@@ -13,6 +13,8 @@ import {
 import { HTML_LANG, INTL_LOCALE, type Locale } from "@/lib/i18n";
 import { BOOKING_EMAIL } from "@/i18n/emails";
 import { isPickupDateAllowed, LEAD_TIME_MESSAGE } from "@/lib/leadTime";
+import { PEAK_CAPACITY_API_MESSAGE, isPeakCapacityBlocked } from "@/lib/peakCapacity";
+import { getTier, isVehicleKey } from "@/lib/vehicles";
 
 export const runtime = "nodejs";
 
@@ -441,6 +443,25 @@ export async function POST(request: NextRequest) {
       {
         ok: false,
         error: `Pickup on ${tooSoon.date} is too soon. ${LEAD_TIME_MESSAGE}`,
+      },
+      { status: 422 },
+    );
+  }
+
+  // Peak-season capacity: no large vehicle exists for these travel dates, so
+  // a request for one is refused whatever the UI showed. The vehicle key is
+  // checked as well as the head count: a group of 4 in a Hiace is still a
+  // Hiace we do not have.
+  const peakBlocked = body.trips.find((t) => {
+    const pax = (Number(t.adults) || 0) + (Number(t.children) || 0);
+    const vehicleMax = isVehicleKey(t.vehicleKey) ? getTier(t.vehicleKey).maxPax : pax;
+    return isPeakCapacityBlocked(t.date, pax, vehicleMax);
+  });
+  if (peakBlocked) {
+    return Response.json(
+      {
+        ok: false,
+        error: `${peakBlocked.from} → ${peakBlocked.to} on ${peakBlocked.date}: ${PEAK_CAPACITY_API_MESSAGE}`,
       },
       { status: 422 },
     );

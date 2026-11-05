@@ -6,6 +6,7 @@ import { PRICE_LIST_PATH, lowestPrice, priceFacts, routePrices, routeUrl, travel
 import { WHATSAPP_DISPLAY, WHATSAPP_URL, withCurrentContact } from "@/lib/contact";
 import { routeSlug } from "@/lib/slug";
 import { vehicleTierCopy } from "@/lib/vehicles";
+import { isPeakCapacityNoticeActive, peakCapacityCopy } from "@/lib/peakCapacity";
 import {
   buildCompareTable,
   buildRouteAnswer,
@@ -73,6 +74,10 @@ export function buildRouteMarkdown(input: RouteMarkdownInput): string {
   const from = lowestPrice(route);
   if (from !== null) facts.push(`- **${m.prices.split(" (")[0]}:** ${m.from(from)} — ${prices.map((p) => `$${p.price} (${p.tier.minPax}–${p.tier.maxPax} pax)`).join(", ")}`);
   if (route.duracion) facts.push(`- **${m.travelTime}:** ${travelTime(route, locale)}`);
+  if (isPeakCapacityNoticeActive()) {
+    const pc = peakCapacityCopy(locale);
+    facts.push(`- **${pc.range}:** ${pc.headline} ${pc.body}`);
+  }
   facts.push(`- **${m.book}:** ${bookUrl}`);
   facts.push(`- **${m.whatsapp}:** ${WHATSAPP_DISPLAY} — ${WHATSAPP_URL}`);
   if (updated) facts.push(`- ${updated}`);
