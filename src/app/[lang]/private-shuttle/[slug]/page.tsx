@@ -5,6 +5,7 @@ import BookingSection from "@/components/BookingSection";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import DestinationGuide from "@/components/DestinationGuide";
+import { buildDestinationHubs, hubForPlace } from "@/lib/destinationHubs";
 import RouteFaqSection from "@/components/RouteFaq";
 import RouteCompare from "@/components/RouteCompare";
 import { buildRouteFaqs, type RouteFaq } from "@/lib/routeFaqs";
@@ -342,6 +343,8 @@ export default async function RoutePage({
         destinations
       ).slice(0, 8)
     : [];
+  // The destination's hub page (/tamarindo-shuttle), when it has one.
+  const hub = showGuide ? hubForPlace(route.destino, buildDestinationHubs(allRoutes, destinations)) : undefined;
   const baseTier = VEHICLE_TIERS[0];
   const startingPrice = route.precio1a5;
   // Answer-first copy, shared with the Markdown version of this page.
@@ -585,6 +588,7 @@ export default async function RoutePage({
           destination={destination}
           related={related}
           reverse={reverse}
+          hubHref={hub?.path}
           locale={locale}
         />
       ) : null}

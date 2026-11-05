@@ -66,6 +66,11 @@ const nextConfig: NextConfig = {
       // site) use lands there instead of on a 404.
       { source: "/faqs", destination: "/faq", permanent: true },
       { source: "/es/faqs", destination: "/es/faq", permanent: true },
+      // Destination hubs live at app/[lang]/shuttle/[destination] but are
+      // published as /<destination>-shuttle (see the rewrite below). The
+      // internal path 301s to the public one so each hub has one address.
+      { source: "/shuttle/:destination", destination: "/:destination-shuttle", permanent: true },
+      { source: "/es/shuttle/:destination", destination: "/es/:destination-shuttle", permanent: true },
     ];
   },
   async headers() {
@@ -110,6 +115,17 @@ const nextConfig: NextConfig = {
         },
         { source: "/", has: [WANTS_MARKDOWN], destination: "/llms.txt" },
         { source: "/es", has: [WANTS_MARKDOWN], destination: "/llms.txt" },
+        // Destination hubs: /tamarindo-shuttle → app/[lang]/shuttle/tamarindo.
+        // The Liberia Airport hub is its own page and is excluded. Only the
+        // slugs generateStaticParams returns exist; the rest are static 404s.
+        {
+          source: "/:destination((?!liberia-airport-shuttle$)[a-z0-9-]+)-shuttle",
+          destination: "/en/shuttle/:destination",
+        },
+        {
+          source: "/es/:destination((?!liberia-airport-shuttle$)[a-z0-9-]+)-shuttle",
+          destination: "/es/shuttle/:destination",
+        },
       ],
       // Locale routing lives here, in Vercel's routing layer, instead of in a
       // proxy.ts: a proxy runs as a Node function on EVERY request, cached

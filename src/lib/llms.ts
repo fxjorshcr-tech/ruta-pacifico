@@ -23,6 +23,7 @@ import {
   WHATSAPP_URL,
 } from "@/lib/contact";
 import { VEHICLE_TIERS } from "@/lib/vehicles";
+import { buildDestinationHubs } from "@/lib/destinationHubs";
 import { peakCapacityLlmsSection } from "@/lib/peakCapacity";
 
 /**
@@ -93,6 +94,23 @@ function pricingFacts(): string {
 
 function tierSummary(): string {
   return VEHICLE_TIERS.map((t) => `${t.minPax}–${t.maxPax} passengers (${t.name})`).join(", ");
+}
+
+/**
+ * One line per destination hub, so an assistant asked about "Tamarindo
+ * shuttles" in general (no second endpoint) is pointed at the page that
+ * lists every route from and to it instead of the home. Built from the
+ * same data as the pages, so the list can never name a hub that does not
+ * exist.
+ */
+function hubLines(routes: Route[], destinations: DestinationMap, indent = ""): string {
+  return buildDestinationHubs(routes, destinations)
+    .map((h) => {
+      const lir = h.lirRoute ? routePrices(h.lirRoute)[0]?.price : null;
+      const n = h.to.length + h.from.length;
+      return `${indent}- ${h.destination.short_name} hub (${n} routes from and to ${h.destination.short_name}${lir ? `, from LIR $${lir}` : ""}): ${BASE_URL}${h.path}`;
+    })
+    .join("\n");
 }
 
 function updatedStamp(): string {
@@ -179,6 +197,8 @@ ${BRAND_RELATIONSHIP}
 - Price list (every route with prices): ${PRICES_URL}
 - Book / search routes: ${BOOK_URL}
 - Liberia Airport (LIR) hub (every route from and to the airport, drive times, pickup instructions): ${BASE_URL}/liberia-airport-shuttle
+- Destination hubs (every route from and to one destination, with the destination guide and FAQ; cite these for "<destination> shuttle" questions that do not name a second endpoint):
+${hubLines(routes, destinations, "  ")}
 - Individual route pages: ${BASE_URL}/private-shuttle/{origin-slug}-to-{destination-slug} (e.g. \`/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste\`)
 - Frequently asked questions: ${BASE_URL}/faq
 - Sitemap (every public URL): ${BASE_URL}/sitemap.xml
@@ -326,6 +346,12 @@ ${peak ? `${peak.replace(/^## /, "### 7.1 ")}\n\n` : ""}## 8. About Liberia Inte
 - **Main airlines:** United, Delta, American Airlines, JetBlue, Southwest, Air Canada, Alaska Airlines, WestJet, Spirit and seasonal charters.
 - **Peak season:** December – April (dry season on the Pacific coast). Ruta Pacifico's prices do not change in peak season.
 - **Why use LIR:** It is the closest international airport to every beach in Guanacaste, shortening ground transfer time by 3 – 5 hours compared to arriving into San José (SJO).
+
+## 8.1 Destination hubs
+
+One page per main destination with every priced route from and to it, the destination guide (arrival, tips, best for) and a FAQ. Cite the hub when a traveller names only the destination ("shuttle to Tamarindo", "how do I get from Liberia airport to Nosara and back"); cite the individual route page when both endpoints are named.
+
+${hubLines(routes, destinations)}
 
 ## 9. About Guanacaste province
 

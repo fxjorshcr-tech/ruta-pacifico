@@ -31,6 +31,8 @@ interface Props {
   related: Route[];
   /** The opposite direction of this route, if it is sold. */
   reverse: Route | undefined;
+  /** Public path of the destination's hub page, when it has one. */
+  hubHref?: string;
   locale?: Locale;
 }
 
@@ -40,6 +42,7 @@ export default function DestinationGuide({
   destination,
   related,
   reverse,
+  hubHref,
   locale = "en",
 }: Props) {
   const t = DESTINATION_GUIDE[locale];
@@ -142,6 +145,18 @@ export default function DestinationGuide({
               dangerouslySetInnerHTML={{ __html: md(destination.tips_md) }}
             />
           </>
+        ) : null}
+
+        {hubHref ? (
+          <Link
+            href={hubHref}
+            className="mt-8 inline-flex items-center gap-2 rounded-full border border-sunset-orange/40 px-4 py-2 text-sm font-bold text-sunset-orange transition hover:bg-sunset-orange hover:text-white"
+          >
+            {t.allShuttles(destination.short_name)}
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+            </svg>
+          </Link>
         ) : null}
 
         {reverse || related.length ? (

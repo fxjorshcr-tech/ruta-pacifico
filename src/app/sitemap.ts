@@ -8,6 +8,7 @@ import {
   routeSitemapPriority,
   selectIndexableRoutes,
 } from "@/lib/destinations";
+import { buildDestinationHubs } from "@/lib/destinationHubs";
 
 /** Re-generate daily; /api/revalidate publishes a change sooner. */
 export const revalidate = 86400;
@@ -65,6 +66,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       getRoutes(),
       getDestinations(),
     ]);
+    // Destination hubs (/tamarindo-shuttle…): one per main destination,
+    // right behind the LIR hub in priority. lastmod is the latest route
+    // edit the hub shows, the same stamp the route pages use.
+    for (const hub of buildDestinationHubs(routes, destinations)) {
+      routePages.push(
+        ...localized(hub.path, {
+          lastModified: hub.updatedAt ? new Date(hub.updatedAt) : LIR_HUB_LAST_MODIFIED,
+          changeFrequency: "weekly",
+          priority: 0.85,
+        }),
+      );
+    }
     for (const route of selectIndexableRoutes(routes, destinations)) {
       routePages.push(
         ...localized(`/private-shuttle/${routeSlug(route.origen, route.destino)}`, {

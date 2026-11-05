@@ -26,6 +26,7 @@ import {
   type RoutePair,
 } from "@/lib/pricing";
 import { VEHICLE_TIERS, vehicleTierCopy } from "@/lib/vehicles";
+import { buildDestinationHubs } from "@/lib/destinationHubs";
 import { routeSlug, toSlug } from "@/lib/slug";
 import { WHATSAPP_DISPLAY, WHATSAPP_URL, withCurrentContact } from "@/lib/contact";
 import {
@@ -377,6 +378,9 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
     sjo: routeFromAirport(routes, SJO, slug),
   })).filter((row) => row.lir || row.sjo);
 
+  // Destination hubs, for the "every shuttle to/from X" links under the grid.
+  const hubs = buildDestinationHubs(routes, destinations);
+
   const lirGuideRaw = destinationFor(LIR_ORIGIN_NAME, destinations);
   const lirGuide = lirGuideRaw ? localizeDestination(lirGuideRaw, locale) : undefined;
   const arrivalHtml = lirGuide?.arrival_md?.trim() ? md(lirGuide.arrival_md) : "";
@@ -567,6 +571,23 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
                 );
               })}
             </ul>
+            {hubs.length > 0 && (
+              <nav aria-label={t.destinations.hubsLabel} className="mt-8 text-center">
+                <p className="text-xs font-semibold uppercase tracking-wider text-foreground/50">{t.destinations.hubsLabel}</p>
+                <ul className="mt-3 flex flex-wrap justify-center gap-2">
+                  {hubs.map((h) => (
+                    <li key={h.slug}>
+                      <Link
+                        href={h.path}
+                        className="inline-flex items-center rounded-full border border-black/10 bg-light-surface px-3.5 py-1.5 text-xs font-semibold text-foreground/70 transition hover:border-sunset-orange hover:text-sunset-orange"
+                      >
+                        {localizeDestination(h.destination, locale).short_name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
           </div>
         </section>
       )}

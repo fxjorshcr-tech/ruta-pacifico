@@ -165,6 +165,7 @@ export const FOOTER = defineCopy({
       refund: "Refund policy",
     },
     popularRoutes: "Popular routes",
+    destinations: "Destinations",
     routes: [
       { label: "LIR → Tamarindo", slug: "lir-liberia-int-airport-to-tamarindo-guanacaste" },
       { label: "LIR → Papagayo", slug: "lir-liberia-int-airport-to-papagayo-peninsula-guanacaste" },
@@ -202,6 +203,7 @@ export const FOOTER = defineCopy({
       refund: "Política de reembolso",
     },
     popularRoutes: "Rutas populares",
+    destinations: "Destinos",
     routes: [
       { label: "LIR → Tamarindo", slug: "lir-liberia-int-airport-to-tamarindo-guanacaste" },
       { label: "LIR → Papagayo", slug: "lir-liberia-int-airport-to-papagayo-peninsula-guanacaste" },

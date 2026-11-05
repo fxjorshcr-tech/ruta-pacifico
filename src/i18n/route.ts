@@ -367,6 +367,7 @@ export const DESTINATION_GUIDE = defineCopy({
     related: "Related private shuttles",
     returnTrip: (origen: string, destino: string) => `Return trip: ${origen} → ${destino}`,
     from: (price: number) => `from $${price}`,
+    allShuttles: (name: string) => `All private shuttles to and from ${name}`,
   },
   es: {
     about: (name: string) => `Sobre ${name}`,
@@ -378,6 +379,7 @@ export const DESTINATION_GUIDE = defineCopy({
     related: "Shuttles privados relacionados",
     returnTrip: (origen: string, destino: string) => `Viaje de regreso: ${origen} → ${destino}`,
     from: (price: number) => `desde $${price}`,
+    allShuttles: (name: string) => `Todos los shuttles privados desde y hacia ${name}`,
   },
 });
 
