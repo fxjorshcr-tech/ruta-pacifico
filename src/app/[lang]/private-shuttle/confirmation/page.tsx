@@ -170,8 +170,6 @@ export default function ConfirmationPage() {
                 {t.payment.p3}
                 <strong className="text-foreground">{booking.email}</strong>
                 {t.payment.p4}
-                <strong className="text-foreground">{booking.phone}</strong>
-                {t.payment.p5}
               </p>
 
               {/* Where the customer is: received ✓ → pay (now) → confirmed */}

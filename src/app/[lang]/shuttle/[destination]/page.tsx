@@ -8,7 +8,7 @@ import SiteFooter from "@/components/SiteFooter";
 import GoogleReviewBadge from "@/components/GoogleReviewBadge";
 import HubRoutePicker from "@/components/HubRoutePicker";
 import RouteCards from "@/components/RouteCards";
-import type { Route } from "@/lib/routes";
+import { getRoutes, type Route } from "@/lib/routes";
 import { destinationFor, getDestinations, localizeDestination, type DestinationMap } from "@/lib/destinations";
 import {
   findDestinationHub,
@@ -19,7 +19,7 @@ import {
 import { pickerRoutes } from "@/lib/hubPicker";
 import { LIR_HUB_PATH, PRICE_LIST_PATH, lowestPrice, routePrices, travelTime } from "@/lib/pricing";
 import { VEHICLE_TIERS, vehicleTierCopy } from "@/lib/vehicles";
-import { routeSlug } from "@/lib/slug";
+import { routeSlug, toSlug } from "@/lib/slug";
 import { WHATSAPP_DISPLAY, WHATSAPP_URL, withCurrentContact } from "@/lib/contact";
 import { isOptimizable } from "@/lib/images";
 import {
@@ -431,13 +431,27 @@ function Fold({ id, heading, children, tone = "white" }: {
 export default async function DestinationHubPage({ params }: { params: Params }) {
   const { destination: slug } = await params;
   const locale = await localeFromParams(params);
-  const [hub, destinations] = await Promise.all([findDestinationHub(slug), getDestinations()]);
+  const [hub, destinations, allRoutes] = await Promise.all([
+    findDestinationHub(slug),
+    getDestinations(),
+    getRoutes(),
+  ]);
   if (!hub) notFound();
 
   const t = DESTINATION_HUB[locale];
   const d = localizeDestination(hub.destination, locale);
   const name = d.short_name;
-  const facts = hubFacts(hub, locale);
+
+  // The page lists EVERY priced route touching the place, index-able or
+  // not: it is where people book, and a route left out of the index-able
+  // set for SEO reasons still has a page and can be sold. The hub's own
+  // `to` / `from` (index-able only) stay for the JSON-LD, llms.txt and the
+  // sitemap.
+  const placeSlug = hub.destination.slug;
+  const priced = allRoutes.filter((r) => lowestPrice(r) && r.origen !== r.destino);
+  const bookableFrom = priced.filter((r) => toSlug(r.origen) === placeSlug);
+  const bookableTo = priced.filter((r) => toSlug(r.destino) === placeSlug);
+  const facts = { ...hubFacts(hub, locale), fromCount: bookableFrom.length, toCount: bookableTo.length };
   const faqs = t.faqs(facts);
   const heroUrl = d.image_url || FALLBACK_HERO;
   const heroAlt = d.image_alt ?? t.heroAltFallback(name);
@@ -445,10 +459,9 @@ export default async function DestinationHubPage({ params }: { params: Params })
   const arrivalHtml = d.arrival_md?.trim() ? md(d.arrival_md) : "";
   const tipsHtml = d.tips_md?.trim() ? md(d.tips_md) : "";
   const shortIntro = firstSentences(plainParagraph(d.intro_md), 2);
-  // The picker opens on the airport pickup, or the top arrival when the
-  // airport route is not published.
-  const picker = pickerRoutes(hub.from, hub.to, destinations, locale);
-  const pickerDefault = hub.lirRoute ?? hub.to[0] ?? hub.from[0];
+  // The picker opens on the airport pickup, or the top arrival when that is not sold.
+  const picker = pickerRoutes(bookableFrom, bookableTo, destinations, locale);
+  const pickerDefault = hub.lirRoute ?? hub.to[0] ?? hub.from[0] ?? bookableTo[0] ?? bookableFrom[0];
 
   return (
     <main className="min-h-screen bg-light-surface pb-28 lg:pb-0">
@@ -506,14 +519,14 @@ export default async function DestinationHubPage({ params }: { params: Params })
             place={name}
             routes={picker}
             defaultId={pickerDefault.id}
-            allRoutesHref={hub.to.length ? "#to" : "#from"}
+            allRoutesHref={bookableTo.length ? "#to" : "#from"}
           />
         </section>
       )}
 
       {/* ─── TABLES: to, then from ─── */}
-      <RouteTable id="to" heading={t.to.heading(name)} body={t.to.body(name)} routes={hub.to} locale={locale} map={destinations} show="destino" />
-      <RouteTable id="from" heading={t.from.heading(name)} body={t.from.body(name)} routes={hub.from} locale={locale} map={destinations} show="origen" />
+      <RouteTable id="to" heading={t.to.heading(name)} body={t.to.body(name)} routes={bookableTo} locale={locale} map={destinations} show="destino" />
+      <RouteTable id="from" heading={t.from.heading(name)} body={t.from.body(name)} routes={bookableFrom} locale={locale} map={destinations} show="origen" />
 
       {/* ─── SHORT INTRO + everything else folded ─── */}
       <section className="mx-auto max-w-4xl space-y-3 px-4 py-8 sm:px-6 sm:py-12">

@@ -238,7 +238,7 @@ function customerEmailHtml(
                     <td style="padding:16px 18px;">
                       <div style="font-size:13px;font-weight:700;color:#92560f;">${t.paymentTitle}</div>
                       <div style="margin-top:4px;font-size:13px;line-height:1.6;color:#7a4a14;">
-                        ${t.paymentBody(escapeHtml(b.email), escapeHtml(b.phone))}
+                        ${t.paymentBody(escapeHtml(b.email))}
                       </div>
                     </td>
                   </tr>

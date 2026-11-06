@@ -13,7 +13,6 @@ import {
   getDestinations,
   localizeDestination,
   routeSeoRank,
-  selectIndexableRoutes,
   type DestinationMap,
 } from "@/lib/destinations";
 import {
@@ -362,13 +361,19 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
   const tp = PRICES[locale].table;
   const [routes, destinations] = await Promise.all([getRoutes(), getDestinations()]);
 
-  // Every priced, index-able route that touches LIR, most important first.
-  const lirRoutes = selectIndexableRoutes(routes, destinations).filter(
-    (r) => lowestPrice(r) && (LIR.test(r.origen) || LIR.test(r.destino)),
-  );
+  // Every priced route that touches LIR, index-able or not, most important
+  // first: the page is where people book, so it lists everything we sell.
+  const lirRoutes = routes
+    .filter((r) => lowestPrice(r) && r.origen !== r.destino && (LIR.test(r.origen) || LIR.test(r.destino)))
+    .sort(
+      (a, b) =>
+        routeSeoRank(a, destinations) - routeSeoRank(b, destinations) ||
+        a.origen.localeCompare(b.origen) ||
+        a.destino.localeCompare(b.destino),
+    );
   const range = priceRange(lirRoutes.filter((r) => LIR.test(r.origen)));
   const quick = popularAirportRoutes(routes, destinations, QUICK_ANSWERS);
-  const pairs = pairRoutesForPriceList(routes, { indexableOnly: true, destinations, locale }).find(
+  const pairs = pairRoutesForPriceList(routes, { indexableOnly: false, destinations, locale }).find(
     (g) => g.key === "lir",
   )?.pairs ?? [];
 
