@@ -29,8 +29,8 @@ export const BOOKING_EMAIL = defineCopy({
     intro2:
       "This email is <strong>not</strong> your payment link. In a few minutes you&rsquo;ll get a separate message with your <strong>secure payment link</strong>. As soon as payment clears, the booking becomes final and we&rsquo;ll start monitoring your itinerary.",
     paymentTitle: "Not paid yet — payment link on the way",
-    paymentBody: (email: string, phone: string) =>
-      `Watch your inbox at <strong>${email}</strong> and your WhatsApp at <strong>${phone}</strong>. Haven&rsquo;t received it within the hour? Tap the WhatsApp button below and we&rsquo;ll send it right away.`,
+    paymentBody: (email: string) =>
+      `Watch your inbox at <strong>${email}</strong> (and the spam folder). Haven&rsquo;t received it within the hour? Tap the WhatsApp button below and we&rsquo;ll resend it to your email.`,
     shuttles: (count: number) => (count === 1 ? "Your shuttle" : `Your ${count} shuttles`),
     pax: paxEn,
     labels: {
@@ -47,7 +47,7 @@ export const BOOKING_EMAIL = defineCopy({
     steps: [
       {
         title: "Pay with the secure link",
-        body: "We send it to your email + WhatsApp within minutes.",
+        body: "We email it to you within minutes.",
       },
       {
         title: "Driver assignment",
@@ -59,7 +59,7 @@ export const BOOKING_EMAIL = defineCopy({
       },
     ],
     /** Pre-filled WhatsApp message (plain text; the caller URL-encodes it). */
-    whatsappMessage: (code: string) => `Hi! Booking ${code} — could you send me the payment link?`,
+    whatsappMessage: (code: string) => `Hi! Booking ${code} — I haven't received the payment link by email yet. Could you check?`,
     whatsappCta: (display: string) => `Message us on WhatsApp &middot; ${display}`,
     trust: {
       insured: "Insured",
@@ -91,8 +91,8 @@ export const BOOKING_EMAIL = defineCopy({
     intro2:
       "Este correo <strong>no</strong> es tu enlace de pago. En unos minutos recibirás un mensaje aparte con tu <strong>enlace de pago seguro</strong>. En cuanto se acredite el pago, la reserva queda en firme y empezamos a dar seguimiento a tu itinerario.",
     paymentTitle: "Aún no has pagado: tu enlace de pago va en camino",
-    paymentBody: (email: string, phone: string) =>
-      `Revisa tu correo <strong>${email}</strong> y tu WhatsApp <strong>${phone}</strong>. ¿No te llegó en una hora? Toca el botón de WhatsApp aquí abajo y te lo enviamos de inmediato.`,
+    paymentBody: (email: string) =>
+      `Revisa tu correo <strong>${email}</strong> (también la carpeta de spam). ¿No te llegó en una hora? Toca el botón de WhatsApp aquí abajo y te lo reenviamos al correo.`,
     shuttles: (count: number) => (count === 1 ? "Tu shuttle" : `Tus ${count} shuttles`),
     pax: paxEs,
     labels: {
@@ -109,7 +109,7 @@ export const BOOKING_EMAIL = defineCopy({
     steps: [
       {
         title: "Paga con el enlace seguro",
-        body: "Te lo enviamos por correo y WhatsApp en cuestión de minutos.",
+        body: "Te lo enviamos por correo en cuestión de minutos.",
       },
       {
         title: "Asignación de chofer",
@@ -120,7 +120,7 @@ export const BOOKING_EMAIL = defineCopy({
         body: "Si te recogemos en el aeropuerto, damos seguimiento a tu vuelo en tiempo real. Solo busca el rótulo con tu nombre.",
       },
     ],
-    whatsappMessage: (code: string) => `¡Hola! Reserva ${code} — ¿me pueden enviar el enlace de pago?`,
+    whatsappMessage: (code: string) => `¡Hola! Reserva ${code}: todavía no me llega el enlace de pago al correo. ¿Me lo pueden revisar?`,
     whatsappCta: (display: string) => `Escríbenos por WhatsApp &middot; ${display}`,
     trust: {
       insured: "Asegurados",
