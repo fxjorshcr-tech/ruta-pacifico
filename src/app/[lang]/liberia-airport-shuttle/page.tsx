@@ -394,16 +394,18 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
 
   const routeHref = (r: Route) => `/private-shuttle/${routeSlug(r.origen, r.destino)}`;
 
-  // The picker: every LIR departure and arrival, opened on the most-booked
+  // The picker: EVERY priced LIR departure and arrival, index-able or not
+  // (it is a booking tool, not the SEO table), opened on the most-booked
   // airport pickup. One widget replaces the old destination grid, quick
   // answer list and phone bar, which all repeated the table's figures.
+  const pricedLir = routes.filter((r) => lowestPrice(r) && r.origen !== r.destino);
   const picker = pickerRoutes(
-    lirRoutes.filter((r) => LIR.test(r.origen)),
-    lirRoutes.filter((r) => LIR.test(r.destino)),
+    pricedLir.filter((r) => LIR.test(r.origen)),
+    pricedLir.filter((r) => LIR.test(r.destino)),
     destinations,
     locale,
   );
-  const pickerDefault = quick[0] ?? lirRoutes[0];
+  const pickerDefault = quick[0] ?? lirRoutes[0] ?? pricedLir[0];
 
   return (
     <main className="min-h-screen bg-light-surface pb-28 lg:pb-0">

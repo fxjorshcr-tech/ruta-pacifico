@@ -8,7 +8,7 @@ import SiteFooter from "@/components/SiteFooter";
 import GoogleReviewBadge from "@/components/GoogleReviewBadge";
 import HubRoutePicker from "@/components/HubRoutePicker";
 import RouteCards from "@/components/RouteCards";
-import type { Route } from "@/lib/routes";
+import { getRoutes, type Route } from "@/lib/routes";
 import { destinationFor, getDestinations, localizeDestination, type DestinationMap } from "@/lib/destinations";
 import {
   findDestinationHub,
@@ -19,7 +19,7 @@ import {
 import { pickerRoutes } from "@/lib/hubPicker";
 import { LIR_HUB_PATH, PRICE_LIST_PATH, lowestPrice, routePrices, travelTime } from "@/lib/pricing";
 import { VEHICLE_TIERS, vehicleTierCopy } from "@/lib/vehicles";
-import { routeSlug } from "@/lib/slug";
+import { routeSlug, toSlug } from "@/lib/slug";
 import { WHATSAPP_DISPLAY, WHATSAPP_URL, withCurrentContact } from "@/lib/contact";
 import { isOptimizable } from "@/lib/images";
 import {
@@ -431,7 +431,11 @@ function Fold({ id, heading, children, tone = "white" }: {
 export default async function DestinationHubPage({ params }: { params: Params }) {
   const { destination: slug } = await params;
   const locale = await localeFromParams(params);
-  const [hub, destinations] = await Promise.all([findDestinationHub(slug), getDestinations()]);
+  const [hub, destinations, allRoutes] = await Promise.all([
+    findDestinationHub(slug),
+    getDestinations(),
+    getRoutes(),
+  ]);
   if (!hub) notFound();
 
   const t = DESTINATION_HUB[locale];
@@ -445,10 +449,16 @@ export default async function DestinationHubPage({ params }: { params: Params })
   const arrivalHtml = d.arrival_md?.trim() ? md(d.arrival_md) : "";
   const tipsHtml = d.tips_md?.trim() ? md(d.tips_md) : "";
   const shortIntro = firstSentences(plainParagraph(d.intro_md), 2);
-  // The picker opens on the airport pickup, or the top arrival when the
-  // airport route is not published.
-  const picker = pickerRoutes(hub.from, hub.to, destinations, locale);
-  const pickerDefault = hub.lirRoute ?? hub.to[0] ?? hub.from[0];
+  // The picker is a booking tool, so it lists EVERY priced route touching
+  // the place, not only the index-able ones the tables show (a route left
+  // out of the tables for SEO reasons still has a page and can be booked).
+  // It opens on the airport pickup, or the top arrival when that is not sold.
+  const placeSlug = hub.destination.slug;
+  const priced = allRoutes.filter((r) => lowestPrice(r) && r.origen !== r.destino);
+  const bookableFrom = priced.filter((r) => toSlug(r.origen) === placeSlug);
+  const bookableTo = priced.filter((r) => toSlug(r.destino) === placeSlug);
+  const picker = pickerRoutes(bookableFrom, bookableTo, destinations, locale);
+  const pickerDefault = hub.lirRoute ?? hub.to[0] ?? hub.from[0] ?? bookableTo[0] ?? bookableFrom[0];
 
   return (
     <main className="min-h-screen bg-light-surface pb-28 lg:pb-0">
