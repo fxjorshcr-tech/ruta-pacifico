@@ -93,6 +93,14 @@ export const PEAK_CAPACITY_COPY = defineCopy({
       "December 20 – January 2: only the 1 – 5 passenger vehicle can be booked. The larger vehicles are fully reserved for those dates.",
     /** Tag on a sold-out vehicle card once a date inside the window is picked. */
     soldOut: "Fully booked for this date",
+    /** Pill on the alert below, when the form had to change the vehicle. */
+    switchedTag: "Vehicle changed",
+    /**
+     * The customer picked a sold-out vehicle, then a date in the window; the
+     * form moved them to the open vehicle and must say so.
+     */
+    formSwitched: (from: string, date: string, to: string, toMaxPax: number, price: number) =>
+      `The ${from} is fully booked on ${date}, so we changed your vehicle to the ${to} (1 – ${toMaxPax} passengers), $${price}. Your booking will be for the ${to}. If you need the ${from}, choose a date outside December 20 – January 2.`,
     /** Hard stop when date and group size conflict. */
     formError: (date: string) =>
       `Vehicles for 6 or more passengers are fully booked on ${date}. We never overbook, so we can't take this group on that date. Groups of up to 5 can still book the ${PEAK_OPEN_TIER.name}, and every vehicle size is available outside December 20 – January 2.`,
@@ -114,6 +122,9 @@ export const PEAK_CAPACITY_COPY = defineCopy({
     formHint:
       "Del 20 de diciembre al 2 de enero solo se puede reservar el vehículo de 1 a 5 pasajeros. Los vehículos más grandes ya están reservados para esas fechas.",
     soldOut: "Reservado para esta fecha",
+    switchedTag: "Vehículo cambiado",
+    formSwitched: (from: string, date: string, to: string, toMaxPax: number, price: number) =>
+      `La ${from} ya está reservada para el ${date}, así que cambiamos tu vehículo a la ${to} (1 – ${toMaxPax} pasajeros), $${price}. Tu reserva será en la ${to}. Si necesitas la ${from}, elige una fecha fuera del 20 de diciembre – 2 de enero.`,
     formError: (date: string) =>
       `Los vehículos para 6 o más pasajeros ya están reservados para el ${date}. Nunca sobrevendemos, así que no podemos llevar a este grupo en esa fecha. Los grupos de hasta 5 pasajeros aún pueden reservar el ${PEAK_OPEN_TIER.name}, y fuera del 20 de diciembre – 2 de enero todos los tamaños están disponibles.`,
     checkoutError: (date: string, from: string, to: string) =>

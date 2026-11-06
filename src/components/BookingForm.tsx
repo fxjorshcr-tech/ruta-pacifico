@@ -112,6 +112,22 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
   const peakDate = isPeakCapacityDate(date);
   const peakBlocked = isPeakCapacityBlocked(date, totalPax, selectedVehicle.maxPax);
   const peakErrorRef = useRef<HTMLParagraphElement>(null);
+  // The sold-out vehicle the customer had picked before choosing a date in
+  // the window. The form moves them to the open vehicle (the one we can
+  // actually sell) and says so out loud, so nobody reaches checkout
+  // believing they booked the large van.
+  const [peakSwitchedFrom, setPeakSwitchedFrom] = useState<VehicleOption | null>(null);
+  const peakSwitched =
+    peakSwitchedFrom !== null && peakDate && vehicleKey === PEAK_OPEN_TIER.key;
+  const peakSwitchRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    if (!peakSwitched) return;
+    peakSwitchRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }, [peakSwitched]);
 
   useEffect(() => {
     if (!peakBlocked) return;
@@ -210,7 +226,10 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
                 <button
                   type="button"
                   key={v.key}
-                  onClick={() => setVehicleKey(v.key)}
+                  onClick={() => {
+                    setVehicleKey(v.key);
+                    setPeakSwitchedFrom(null);
+                  }}
                   aria-disabled={soldOut}
                   className={`group relative rounded-2xl border-2 p-4 text-center transition ${
                     soldOut
@@ -265,6 +284,23 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
             >
               {pc.formError(formatDate(date, locale))}
             </p>
+          ) : peakSwitched && peakSwitchedFrom ? (
+            <p
+              ref={peakSwitchRef}
+              role="alert"
+              className="mt-3 scroll-mt-24 rounded-xl border-2 border-sunset-orange bg-sunset-orange/10 px-4 py-3 text-sm font-medium text-foreground"
+            >
+              <span className="mr-2 inline-block rounded-full bg-sunset-orange px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide text-white">
+                {pc.switchedTag}
+              </span>
+              {pc.formSwitched(
+                peakSwitchedFrom.name,
+                formatDate(date, locale),
+                selectedVehicle.name,
+                selectedVehicle.maxPax,
+                selectedVehicle.price,
+              )}
+            </p>
           ) : peakNoticeActive ? (
             <p className="mt-3 flex items-start gap-2 rounded-xl border border-sunset-gold/40 bg-sunset-gold/10 px-4 py-3 text-xs text-foreground/80">
               <span className="mt-0.5 shrink-0 rounded-full bg-sunset-orange px-2 py-0.5 text-[0.6rem] font-bold uppercase tracking-wide text-white">
@@ -290,15 +326,19 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
                 setDate(iso);
                 setDateTooSoon(false);
                 // A sold-out vehicle was selected before the date: move a
-                // group that fits onto the vehicle we do have, instead of
-                // showing an error for a choice the customer never made.
+                // group that fits onto the vehicle we do have, and tell the
+                // customer (the alert under the vehicle cards) instead of
+                // changing their choice behind their back.
                 if (
                   isPeakCapacityDate(iso) &&
                   selectedVehicle.maxPax > PEAK_CAPACITY.MAX_PAX &&
                   totalPax <= PEAK_CAPACITY.MAX_PAX &&
                   vehicles.some((v) => v.key === PEAK_OPEN_TIER.key)
                 ) {
+                  setPeakSwitchedFrom(selectedVehicle);
                   setVehicleKey(PEAK_OPEN_TIER.key);
+                } else if (!isPeakCapacityDate(iso)) {
+                  setPeakSwitchedFrom(null);
                 }
               }}
               minDate={new Date(minPickupDate + "T00:00:00")}
