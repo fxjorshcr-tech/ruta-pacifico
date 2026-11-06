@@ -3,9 +3,12 @@ import type { Metadata } from "next";
 import Link from "@/components/LocaleLink";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
-import { localizeDestination } from "@/lib/destinations";
-import { getDestinationHubs } from "@/lib/destinationHubs";
+import PlaceFinder, { type FinderPlace } from "@/components/PlaceFinder";
+import { destinationFor, getDestinations, localizeDestination } from "@/lib/destinations";
+import { getDestinationHubs, hubForPlace } from "@/lib/destinationHubs";
 import { LIR_HUB_PATH, lowestPrice } from "@/lib/pricing";
+import { getRoutes } from "@/lib/routes";
+import { isAirportOrigin } from "@/lib/slug";
 import { isOptimizable } from "@/lib/images";
 import {
   IN_LANGUAGE,
@@ -51,8 +54,27 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 export default async function DestinationsPage({ params }: { params: Params }) {
   const locale: Locale = await localeFromParams(params);
   const t = DESTINATIONS_INDEX[locale];
-  const hubs = await getDestinationHubs();
+  const [hubs, routes, destinations] = await Promise.all([getDestinationHubs(), getRoutes(), getDestinations()]);
   const pageUrl = localeUrl(locale, "/destinations");
+
+  // Every place of the routes table with at least one priced route, for the
+  // finder: hubs and non-hubs alike, so any origin a traveller stays at is
+  // on the page and bookable. Airports first, then by name.
+  const counts = new Map<string, number>();
+  for (const r of routes) {
+    if (r.origen === r.destino || !lowestPrice(r)) continue;
+    counts.set(r.origen, (counts.get(r.origen) ?? 0) + 1);
+    counts.set(r.destino, (counts.get(r.destino) ?? 0) + 1);
+  }
+  const places: FinderPlace[] = [...counts.entries()]
+    .map(([name, n]) => ({
+      name,
+      short: destinationFor(name, destinations)?.short_name ?? name,
+      path: /\bLIR\b/.test(name) ? LIR_HUB_PATH : hubForPlace(name, hubs)?.path ?? null,
+      routes: n,
+      airport: isAirportOrigin(name),
+    }))
+    .sort((a, b) => Number(b.airport) - Number(a.airport) || a.short.localeCompare(b.short));
 
   const cards = [
     {
@@ -130,8 +152,19 @@ export default async function DestinationsPage({ params }: { params: Params }) {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-14 sm:py-20">
-        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {/* ─── Every place, searchable, with the route picker ─── */}
+      <section aria-labelledby="finder-heading" className="mx-auto max-w-5xl px-6 pt-12 sm:pt-16">
+        <h2 id="finder-heading" className="text-2xl font-bold text-foreground sm:text-3xl">{t.finderHeading}</h2>
+        <p className="mt-2 max-w-2xl text-sm text-foreground/60 sm:text-base">{t.finderBody}</p>
+        <div className="mt-6">
+          <PlaceFinder places={places} />
+        </div>
+      </section>
+
+      <section aria-labelledby="hubs-heading" className="mx-auto max-w-7xl px-6 py-14 sm:py-20">
+        <h2 id="hubs-heading" className="text-2xl font-bold text-foreground sm:text-3xl">{t.hubsHeading}</h2>
+        <p className="mt-2 max-w-2xl text-sm text-foreground/60 sm:text-base">{t.hubsBody}</p>
+        <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((card) => (
             <li key={card.key}>
               <Link

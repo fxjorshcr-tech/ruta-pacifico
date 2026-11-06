@@ -4,7 +4,8 @@ import {
   routeSeoRank,
   type DestinationMap,
 } from "@/lib/destinations";
-import { durationMinutes, formatDuration } from "@/lib/routeFaqs";
+import { durationMinutes } from "@/lib/routeFaqs";
+import { formatTravelMinutes } from "@/lib/travelMinutes";
 import { routeSlug } from "@/lib/slug";
 import { VEHICLE_TIERS, type VehicleTier } from "@/lib/vehicles";
 import { defineCopy, localeUrl, type Locale } from "@/lib/i18n";
@@ -82,23 +83,14 @@ export function routeUrl(route: Route, locale: Locale = "en"): string {
   return localeUrl(locale, `/private-shuttle/${routeSlug(route.origen, route.destino)}`);
 }
 
-/** Spanish twin of `formatDuration`: "aprox. 1 hora 30 minutos", "aprox. 45 minutos". */
-function formatDurationEs(minutes: number): string {
-  const h = Math.floor(minutes / 60);
-  const min = minutes % 60;
-  if (h === 0) return `aprox. ${min} minutos`;
-  const hours = `${h} hora${h === 1 ? "" : "s"}`;
-  return min ? `aprox. ${hours} ${min} minutos` : `aprox. ${hours}`;
-}
-
 /**
  * "about 1 hour 15 minutes" from the free-form `duracion` column, or the raw
  * value. Pass a locale for the UI; llms.txt keeps the English default.
  */
 export function travelTime(route: Route, locale: Locale = "en"): string {
   const minutes = durationMinutes(route.duracion);
-  if (locale === "es") return minutes ? formatDurationEs(minutes) : route.duracion || "varía";
-  return minutes ? formatDuration(minutes) : route.duracion || "varies";
+  if (minutes) return formatTravelMinutes(minutes, locale);
+  return route.duracion || (locale === "es" ? "varía" : "varies");
 }
 
 const LIR = /\bLIR\b/;
