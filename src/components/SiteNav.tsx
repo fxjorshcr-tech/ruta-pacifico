@@ -57,8 +57,8 @@ export default function SiteNav({ transparent = true }: Props) {
     { href: "/liberia-airport-shuttle", label: t.liberiaAirport },
     { href: "/destinations", label: t.destinations },
     { href: "/prices", label: t.prices },
-    { href: "/blog", label: t.blog },
-    { href: "/about-contact", label: t.about },
+    // Blog and About & Contact live in the footer only, so the bar stays
+    // about the five things a traveller books with.
   ];
 
   return (
