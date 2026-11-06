@@ -13,7 +13,6 @@ import {
   getDestinations,
   localizeDestination,
   routeSeoRank,
-  selectIndexableRoutes,
   type DestinationMap,
 } from "@/lib/destinations";
 import {
@@ -362,13 +361,19 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
   const tp = PRICES[locale].table;
   const [routes, destinations] = await Promise.all([getRoutes(), getDestinations()]);
 
-  // Every priced, index-able route that touches LIR, most important first.
-  const lirRoutes = selectIndexableRoutes(routes, destinations).filter(
-    (r) => lowestPrice(r) && (LIR.test(r.origen) || LIR.test(r.destino)),
-  );
+  // Every priced route that touches LIR, index-able or not, most important
+  // first: the page is where people book, so it lists everything we sell.
+  const lirRoutes = routes
+    .filter((r) => lowestPrice(r) && r.origen !== r.destino && (LIR.test(r.origen) || LIR.test(r.destino)))
+    .sort(
+      (a, b) =>
+        routeSeoRank(a, destinations) - routeSeoRank(b, destinations) ||
+        a.origen.localeCompare(b.origen) ||
+        a.destino.localeCompare(b.destino),
+    );
   const range = priceRange(lirRoutes.filter((r) => LIR.test(r.origen)));
   const quick = popularAirportRoutes(routes, destinations, QUICK_ANSWERS);
-  const pairs = pairRoutesForPriceList(routes, { indexableOnly: true, destinations, locale }).find(
+  const pairs = pairRoutesForPriceList(routes, { indexableOnly: false, destinations, locale }).find(
     (g) => g.key === "lir",
   )?.pairs ?? [];
 
@@ -394,18 +399,16 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
 
   const routeHref = (r: Route) => `/private-shuttle/${routeSlug(r.origen, r.destino)}`;
 
-  // The picker: EVERY priced LIR departure and arrival, index-able or not
-  // (it is a booking tool, not the SEO table), opened on the most-booked
+  // The picker: every LIR departure and arrival, opened on the most-booked
   // airport pickup. One widget replaces the old destination grid, quick
   // answer list and phone bar, which all repeated the table's figures.
-  const pricedLir = routes.filter((r) => lowestPrice(r) && r.origen !== r.destino);
   const picker = pickerRoutes(
-    pricedLir.filter((r) => LIR.test(r.origen)),
-    pricedLir.filter((r) => LIR.test(r.destino)),
+    lirRoutes.filter((r) => LIR.test(r.origen)),
+    lirRoutes.filter((r) => LIR.test(r.destino)),
     destinations,
     locale,
   );
-  const pickerDefault = quick[0] ?? lirRoutes[0] ?? pricedLir[0];
+  const pickerDefault = quick[0] ?? lirRoutes[0];
 
   return (
     <main className="min-h-screen bg-light-surface pb-28 lg:pb-0">

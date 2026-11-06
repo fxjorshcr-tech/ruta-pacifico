@@ -441,7 +441,17 @@ export default async function DestinationHubPage({ params }: { params: Params })
   const t = DESTINATION_HUB[locale];
   const d = localizeDestination(hub.destination, locale);
   const name = d.short_name;
-  const facts = hubFacts(hub, locale);
+
+  // The page lists EVERY priced route touching the place, index-able or
+  // not: it is where people book, and a route left out of the index-able
+  // set for SEO reasons still has a page and can be sold. The hub's own
+  // `to` / `from` (index-able only) stay for the JSON-LD, llms.txt and the
+  // sitemap.
+  const placeSlug = hub.destination.slug;
+  const priced = allRoutes.filter((r) => lowestPrice(r) && r.origen !== r.destino);
+  const bookableFrom = priced.filter((r) => toSlug(r.origen) === placeSlug);
+  const bookableTo = priced.filter((r) => toSlug(r.destino) === placeSlug);
+  const facts = { ...hubFacts(hub, locale), fromCount: bookableFrom.length, toCount: bookableTo.length };
   const faqs = t.faqs(facts);
   const heroUrl = d.image_url || FALLBACK_HERO;
   const heroAlt = d.image_alt ?? t.heroAltFallback(name);
@@ -449,14 +459,7 @@ export default async function DestinationHubPage({ params }: { params: Params })
   const arrivalHtml = d.arrival_md?.trim() ? md(d.arrival_md) : "";
   const tipsHtml = d.tips_md?.trim() ? md(d.tips_md) : "";
   const shortIntro = firstSentences(plainParagraph(d.intro_md), 2);
-  // The picker is a booking tool, so it lists EVERY priced route touching
-  // the place, not only the index-able ones the tables show (a route left
-  // out of the tables for SEO reasons still has a page and can be booked).
-  // It opens on the airport pickup, or the top arrival when that is not sold.
-  const placeSlug = hub.destination.slug;
-  const priced = allRoutes.filter((r) => lowestPrice(r) && r.origen !== r.destino);
-  const bookableFrom = priced.filter((r) => toSlug(r.origen) === placeSlug);
-  const bookableTo = priced.filter((r) => toSlug(r.destino) === placeSlug);
+  // The picker opens on the airport pickup, or the top arrival when that is not sold.
   const picker = pickerRoutes(bookableFrom, bookableTo, destinations, locale);
   const pickerDefault = hub.lirRoute ?? hub.to[0] ?? hub.from[0] ?? bookableTo[0] ?? bookableFrom[0];
 
@@ -516,14 +519,14 @@ export default async function DestinationHubPage({ params }: { params: Params })
             place={name}
             routes={picker}
             defaultId={pickerDefault.id}
-            allRoutesHref={hub.to.length ? "#to" : "#from"}
+            allRoutesHref={bookableTo.length ? "#to" : "#from"}
           />
         </section>
       )}
 
       {/* ─── TABLES: to, then from ─── */}
-      <RouteTable id="to" heading={t.to.heading(name)} body={t.to.body(name)} routes={hub.to} locale={locale} map={destinations} show="destino" />
-      <RouteTable id="from" heading={t.from.heading(name)} body={t.from.body(name)} routes={hub.from} locale={locale} map={destinations} show="origen" />
+      <RouteTable id="to" heading={t.to.heading(name)} body={t.to.body(name)} routes={bookableTo} locale={locale} map={destinations} show="destino" />
+      <RouteTable id="from" heading={t.from.heading(name)} body={t.from.body(name)} routes={bookableFrom} locale={locale} map={destinations} show="origen" />
 
       {/* ─── SHORT INTRO + everything else folded ─── */}
       <section className="mx-auto max-w-4xl space-y-3 px-4 py-8 sm:px-6 sm:py-12">
