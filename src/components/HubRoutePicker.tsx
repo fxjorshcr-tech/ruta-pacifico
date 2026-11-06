@@ -97,7 +97,19 @@ export default function HubRoutePicker({ place, routes, defaultId, allRoutesHref
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-base font-bold text-foreground sm:text-lg">{t.heading}</h2>
           {departures.length > 0 && arrivals.length > 0 && (
-            <div className="inline-flex rounded-full bg-light-surface p-1 text-xs font-semibold" role="group" aria-label={t.directionLabel}>
+            <button
+              type="button"
+              onClick={() => setDirection(direction === "from" ? "to" : "from")}
+              aria-label={t.swap}
+              title={t.swap}
+              className="inline-flex h-10 items-center gap-2 rounded-full border border-black/10 bg-white px-3 text-xs font-semibold text-foreground shadow-sm transition hover:border-sunset-orange sm:hidden"
+            >
+              <SwapIcon />
+              {direction === "from" ? t.toPlace(place) : t.fromPlace(place)}
+            </button>
+          )}
+          {departures.length > 0 && arrivals.length > 0 && (
+            <div className="hidden rounded-full bg-light-surface p-1 text-xs font-semibold sm:inline-flex" role="group" aria-label={t.directionLabel}>
               {(["from", "to"] as const).map((dir) => (
                 <button
                   key={dir}
@@ -173,8 +185,12 @@ export default function HubRoutePicker({ place, routes, defaultId, allRoutesHref
           aria-label={t.label}
         >
           <div className="flex items-center gap-2">
-            <span className="max-w-[30%] shrink-0 truncate text-sm font-bold text-foreground">{fromName}</span>
-            <span className="shrink-0 text-foreground/30" aria-hidden="true">→</span>
+            {direction === "from" && (
+              <>
+                <span className="max-w-[30%] shrink-0 truncate text-sm font-bold text-foreground">{place}</span>
+                <span className="shrink-0 text-foreground/30" aria-hidden="true">→</span>
+              </>
+            )}
             <div className="min-w-0 flex-1">
               <label htmlFor={barSelectId} className="sr-only">{t.selectLabel}</label>
               <div className="relative">
@@ -202,6 +218,12 @@ export default function HubRoutePicker({ place, routes, defaultId, allRoutesHref
                 <ChevronIcon />
               </div>
             </div>
+            {direction === "to" && (
+              <>
+                <span className="shrink-0 text-foreground/30" aria-hidden="true">→</span>
+                <span className="max-w-[30%] shrink-0 truncate text-sm font-bold text-foreground">{place}</span>
+              </>
+            )}
             <Link
               href={selected.href}
               className="inline-flex h-11 shrink-0 items-center gap-1.5 rounded-full bg-sunset-orange px-4 text-sm font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:bg-sunset-red"
@@ -254,6 +276,14 @@ function RouteSelect({ id, label, value, onChange, options, optionLabel }: {
       </select>
       <ChevronIcon />
     </div>
+  );
+}
+
+function SwapIcon() {
+  return (
+    <svg className="h-4 w-4 text-sunset-orange" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+    </svg>
   );
 }
 
