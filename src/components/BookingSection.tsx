@@ -20,6 +20,9 @@ interface Props {
   route: Route;
   isAirportPickup: boolean;
   initialVehicle?: VehicleKey;
+  originShort?: string;
+  destinationShort?: string;
+  returnRoute?: { href: string; price: number } | null;
 }
 
 function subscribeCart(callback: () => void): () => void {
@@ -45,7 +48,14 @@ function getCartServerSnapshot(): string {
   return "[]";
 }
 
-export default function BookingSection({ route, isAirportPickup, initialVehicle }: Props) {
+export default function BookingSection({
+  route,
+  isAirportPickup,
+  initialVehicle,
+  originShort,
+  destinationShort,
+  returnRoute,
+}: Props) {
   const formRef = useRef<HTMLDivElement>(null);
 
   const raw = useSyncExternalStore(
@@ -83,6 +93,9 @@ export default function BookingSection({ route, isAirportPickup, initialVehicle 
         route={route}
         isAirportPickup={isAirportPickup}
         initialVehicle={initialVehicle}
+        originShort={originShort}
+        destinationShort={destinationShort}
+        returnRoute={returnRoute}
       />
     </div>
   );

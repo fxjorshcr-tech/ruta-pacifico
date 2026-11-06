@@ -36,6 +36,7 @@ import {
   localeUrl,
   type Locale } from "@/lib/i18n";
 import { ROUTE } from "@/i18n/route";
+import { lowestPrice } from "@/lib/pricing";
 
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
@@ -329,6 +330,14 @@ export default async function RoutePage({
           isRouteIndexable(r, destinations)
       )
     : undefined;
+  // The way back, when sold: the booking form offers it in one tap after
+  // this leg is added (index-able or not, it has a page and a price).
+  const returnRow = allRoutes.find(
+    (r) => routeSlug(r.origen, r.destino) === reverseSlug && lowestPrice(r),
+  );
+  const returnRoute = returnRow
+    ? { href: `/private-shuttle/${reverseSlug}`, price: lowestPrice(returnRow) as number }
+    : null;
   const faqs = indexable
     ? buildRouteFaqs(route, { origin, destination }, locale)
     : [];
@@ -571,7 +580,13 @@ export default async function RoutePage({
             {t.booking.intro}
           </p>
         </div>
-        <BookingSection route={route} isAirportPickup={airportPickup} />
+        <BookingSection
+          route={route}
+          isAirportPickup={airportPickup}
+          originShort={origin?.short_name ?? route.origen}
+          destinationShort={destination?.short_name ?? route.destino}
+          returnRoute={returnRoute}
+        />
       </section>
 
       {/* ─── Private vs. shared vs. taxi vs. rental: visible table, after the
