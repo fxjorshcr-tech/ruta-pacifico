@@ -187,7 +187,7 @@ export default function HubRoutePicker({ place, routes, defaultId, allRoutesHref
           <div className="flex items-center gap-2">
             {direction === "from" && (
               <>
-                <span className="max-w-[30%] shrink-0 truncate text-sm font-bold text-foreground">{place}</span>
+                <span className="max-w-[26%] shrink-0 truncate text-sm font-bold text-foreground">{place}</span>
                 <span className="shrink-0 text-foreground/30" aria-hidden="true">→</span>
               </>
             )}
@@ -198,7 +198,7 @@ export default function HubRoutePicker({ place, routes, defaultId, allRoutesHref
                   id={barSelectId}
                   value={selected.id}
                   onChange={(e) => setSelectedId(Number(e.target.value))}
-                  className="h-11 w-full appearance-none truncate rounded-xl border border-black/10 bg-light-surface pl-3 pr-9 text-sm font-bold text-foreground outline-none focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/30"
+                  className="h-11 w-full appearance-none truncate rounded-xl border border-black/10 bg-light-surface pl-2.5 pr-8 text-sm font-bold text-foreground outline-none focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/30"
                 >
                   {departures.length > 0 && (
                     <optgroup label={t.fromPlace(place)}>
@@ -221,7 +221,7 @@ export default function HubRoutePicker({ place, routes, defaultId, allRoutesHref
             {direction === "to" && (
               <>
                 <span className="shrink-0 text-foreground/30" aria-hidden="true">→</span>
-                <span className="max-w-[30%] shrink-0 truncate text-sm font-bold text-foreground">{place}</span>
+                <span className="max-w-[26%] shrink-0 truncate text-sm font-bold text-foreground">{place}</span>
               </>
             )}
             <Link
