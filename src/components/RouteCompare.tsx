@@ -17,7 +17,7 @@ export default function RouteCompare({ table }: { table: CompareTable | null }) 
           {table.heading}
         </h2>
         <p className="mt-2 text-sm text-foreground/60">{table.intro}</p>
-        <div className="mt-6 overflow-x-auto">
+        <div className="relative mt-6 overflow-x-auto">
           <table className="w-full min-w-[40rem] border-collapse text-left text-sm">
             <thead>
               <tr className="border-b border-black/10">

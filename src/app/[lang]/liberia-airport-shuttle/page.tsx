@@ -5,6 +5,8 @@ import Link from "@/components/LocaleLink";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import GoogleReviewBadge from "@/components/GoogleReviewBadge";
+import HubMobileBar from "@/components/HubMobileBar";
+import RouteCards from "@/components/RouteCards";
 import { getRoutes, type Route } from "@/lib/routes";
 import {
   destinationFor,
@@ -337,19 +339,44 @@ function PairRow({ pair, locale, map }: { pair: RoutePair; locale: Locale; map: 
   );
 }
 
-function CheckIcon() {
-  return (
-    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-    </svg>
-  );
-}
-
 function ArrowIcon() {
   return (
     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" aria-hidden="true">
       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
     </svg>
+  );
+}
+
+function ChevronIcon() {
+  return (
+    <svg
+      className="h-5 w-5 shrink-0 text-sunset-orange transition-transform group-open:rotate-180"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={2.5}
+      stroke="currentColor"
+      aria-hidden="true"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+  );
+}
+
+/**
+ * A folded section: the heading is the clickable summary, the content stays
+ * in the HTML (crawlers read it; the FAQPage JSON-LD still matches) and
+ * opens on tap. Closed by default so the page reads as routes and prices
+ * first, text second.
+ */
+function Fold({ id, heading, children }: { id: string; heading: string; children: React.ReactNode }) {
+  return (
+    <details id={id} className="group scroll-mt-24 rounded-2xl border border-black/5 bg-white shadow-sm">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 sm:px-6 [&::-webkit-details-marker]:hidden">
+        <h2 className="text-base font-bold text-foreground sm:text-lg">{heading}</h2>
+        <ChevronIcon />
+      </summary>
+      <div className="border-t border-black/5 px-5 py-5 sm:px-6">{children}</div>
+    </details>
   );
 }
 
@@ -392,33 +419,35 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
       (lowestPrice(a) ?? Infinity) - (lowestPrice(b) ?? Infinity),
   );
 
+  // The route the phone bar sells: the most-booked airport pickup.
+  const barRoute = quick[0] ?? cards[0];
+  const routeHref = (r: Route) => `/private-shuttle/${routeSlug(r.origen, r.destino)}`;
+
   return (
-    <main className="min-h-screen bg-light-surface">
+    <main className="min-h-screen bg-light-surface pb-28 lg:pb-0">
       <LirHubJsonLd routes={jsonLdRoutes} locale={locale} />
       <SiteNav transparent />
 
-      {/* ─── HERO ─── */}
-      <section className="relative flex min-h-[60vh] items-center overflow-hidden">
+      {/* ─── HERO: compact, the answer in one line ─── */}
+      <section className="relative flex min-h-[42vh] items-end overflow-hidden sm:min-h-[52vh] sm:items-center">
         <Image src={HERO_URL} alt={t.heroAlt} fill className="object-cover" sizes="100vw" preload />
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-light-surface via-transparent to-transparent" />
-        <div className="relative z-10 mx-auto w-full max-w-4xl px-6 pb-28 pt-28 text-center">
-          <div className="mb-6 flex justify-center">
-            <GoogleReviewBadge locale={locale} />
-          </div>
-          <span className="inline-block rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-sunset-gold backdrop-blur-sm">
+        <div className="relative z-10 mx-auto w-full max-w-4xl px-5 pb-10 pt-24 text-center sm:px-6 sm:pb-20 sm:pt-28">
+          <span className="inline-block rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-sunset-gold backdrop-blur-sm sm:px-4 sm:py-1.5 sm:text-xs">
             {t.hero.eyebrow}
           </span>
-          <h1 className="mt-5 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white sm:mt-5 sm:text-5xl lg:text-6xl">
             {t.hero.titleLead}{" "}
             <span className="bg-gradient-to-r from-sunset-gold via-sunset-orange to-sunset-red bg-clip-text text-transparent">
               {t.hero.titleAccent}
             </span>
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-base text-white/80 sm:text-lg">
-            {range ? t.hero.intro(lirRoutes.length, range.low) : t.hero.introFallback}
+          <p className="mx-auto mt-3 max-w-2xl text-sm font-semibold text-white sm:mt-5 sm:text-lg">
+            {range ? t.hero.dataLine(lirRoutes.length, range.low) : t.hero.dataLineFallback}
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          {/* Desktop only: phones get the sticky bar instead. */}
+          <div className="mt-8 hidden flex-wrap items-center justify-center gap-3 sm:flex">
             <Link
               href="/private-shuttle"
               className="inline-flex items-center gap-2 rounded-full bg-sunset-orange px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-sunset-red"
@@ -433,58 +462,100 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
               {t.hero.whatsapp}
             </a>
           </div>
-          <ul className="mx-auto mt-8 flex flex-wrap items-center justify-center gap-3">
-            {[t.hero.badges.tracking, t.hero.badges.sign, t.hero.badges.fixed].map((label) => (
-              <li
-                key={label}
-                className="flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm"
-              >
-                <span className="text-sunset-gold"><CheckIcon /></span>
-                {label}
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
-      {/* ─── WHY LIBERIA ─── */}
-      <section className="mx-auto max-w-6xl px-6 pb-16 pt-6">
-        <h2 className="text-center text-2xl font-bold text-foreground sm:text-3xl">{t.why.heading}</h2>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2">
-          {t.why.items.map((item, i) => (
-            <div key={item.title} className="rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
-              <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-sunset-orange/10 text-sm font-bold text-sunset-orange">
-                  {i + 1}
-                </span>
-                <h3 className="text-lg font-bold text-foreground">{item.title}</h3>
+      {/* ─── FULL TABLE: every pair that touches LIR, right under the hero ─── */}
+      <section id="all-routes" aria-labelledby="lir-table" className="scroll-mt-24 pt-4 pb-6 sm:pt-6 md:py-10">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="rounded-3xl border border-black/5 bg-white shadow-sm">
+            <div className="flex flex-wrap items-start justify-between gap-4 px-5 py-5 sm:px-8 sm:py-6">
+              <div className="min-w-0">
+                <h2 id="lir-table" className="text-xl font-bold text-foreground sm:text-2xl">{t.table.heading}</h2>
+                <p className="mt-1 hidden text-sm text-foreground/60 md:block">{t.table.body}</p>
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-foreground/70">{item.body}</p>
+              {pairs.length > 0 && (
+                <span className="rounded-full bg-light-surface px-3 py-1 text-xs font-semibold text-foreground/60">
+                  {t.table.count(pairs.length)}
+                </span>
+              )}
             </div>
-          ))}
+            {pairs.length > 0 ? (
+              <>
+                {/* Phones: one card per destination, return leg underneath. */}
+                <RouteCards
+                  className="border-t border-black/5 md:hidden"
+                  locale={locale}
+                  book={tp.book}
+                  onRequest={tp.onRequest}
+                  items={pairs.map((pair) => ({
+                    key: pair.out.id,
+                    href: routeHref(pair.out),
+                    from: "LIR",
+                    to: shortName(pair.out.destino, destinations),
+                    highlight: "to",
+                    route: pair.out,
+                    sub: pair.back
+                      ? {
+                          href: routeHref(pair.back),
+                          label: `${tp.returnLabel}: ${shortName(pair.back.origen, destinations)} → LIR`,
+                          price: lowestPrice(pair.back),
+                        }
+                      : undefined,
+                  }))}
+                />
+                {/* md+: the full table with every van size. */}
+                <div className="relative hidden overflow-x-auto border-t border-black/5 md:block">
+                  <table className="w-full min-w-[640px] text-left text-sm">
+                    <caption className="sr-only">{tp.caption(t.table.heading)}</caption>
+                    <thead className="bg-light-surface text-xs uppercase tracking-wider text-foreground/50">
+                      <tr>
+                        <th scope="col" className="px-4 py-3 font-semibold">{tp.route}</th>
+                        <th scope="col" className="px-4 py-3 font-semibold">{tp.travelTime}</th>
+                        {VEHICLE_TIERS.map((tier) => (
+                          <th key={tier.key} scope="col" className="whitespace-nowrap px-4 py-3 text-right font-semibold">
+                            {tp.pax(tier.minPax, tier.maxPax)}
+                          </th>
+                        ))}
+                        <th scope="col" className="px-4 py-3 font-semibold">
+                          <span className="sr-only">{tp.bookColumn}</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-black/5">
+                      {pairs.map((pair) => (
+                        <PairRow key={pair.out.id} pair={pair} locale={locale} map={destinations} />
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            ) : (
+              <p className="border-t border-black/5 px-6 py-6 text-sm text-foreground/70 sm:px-8">{t.table.unavailable}</p>
+            )}
+          </div>
         </div>
       </section>
 
       {/* ─── QUICK ANSWERS: one self-contained sentence per route, the shape
            answer engines quote verbatim ─── */}
       {quick.length > 0 && (
-        <section id="quick-answers" aria-labelledby="quick-answers-heading" className="scroll-mt-24 bg-white py-16">
-          <div className="mx-auto max-w-4xl px-6">
-            <h2 id="quick-answers-heading" className="text-2xl font-bold text-foreground sm:text-3xl">
+        <section id="quick-answers" aria-labelledby="quick-answers-heading" className="scroll-mt-24 bg-white py-10 sm:py-16">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6">
+            <h2 id="quick-answers-heading" className="text-xl font-bold text-foreground sm:text-3xl">
               {t.quick.heading}
             </h2>
             <p className="mt-2 text-sm text-foreground/60">{t.quick.body}</p>
-            <ul className="mt-8 divide-y divide-black/5 rounded-2xl border border-black/5 bg-light-surface">
+            <ul className="mt-6 divide-y divide-black/5 rounded-2xl border border-black/5 bg-light-surface sm:mt-8">
               {quick.map((r) => {
                 const price = lowestPrice(r);
                 if (!price) return null;
-                const href = `/private-shuttle/${routeSlug(r.origen, r.destino)}`;
                 return (
                   <li key={r.id} className="flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
                     <p className="text-sm text-foreground">
                       {t.quick.answer(shortName(r.destino, destinations), price, travelTime(r, locale))}
                     </p>
-                    <Link href={href} className="inline-flex shrink-0 items-center gap-1 text-sm font-bold text-sunset-orange hover:text-sunset-red">
+                    <Link href={routeHref(r)} className="inline-flex shrink-0 items-center gap-1 text-sm font-bold text-sunset-orange hover:text-sunset-red">
                       {t.quick.book}
                       <ArrowIcon />
                     </Link>
@@ -496,57 +567,25 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
         </section>
       )}
 
-      {/* ─── ARRIVAL: the three steps + the airport guide ─── */}
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <h2 className="text-center text-2xl font-bold text-foreground sm:text-3xl">{t.arrival.heading}</h2>
-        <ol className="mt-10 grid gap-6 md:grid-cols-3">
-          {t.arrival.steps.map((step, i) => (
-            <li key={step.title} className="rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-sunset-orange text-sm font-bold text-white">
-                {i + 1}
-              </span>
-              <h3 className="mt-4 text-base font-bold text-foreground">{step.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-foreground/70">{step.body}</p>
-            </li>
-          ))}
-        </ol>
-        {(arrivalHtml || tipsHtml) && (
-          <div className="mt-8 grid gap-6 lg:grid-cols-2">
-            {arrivalHtml && (
-              <div className="rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
-                <h3 className="text-base font-bold text-foreground">{t.arrival.guideHeading}</h3>
-                <div className={`mt-3 ${PROSE}`} dangerouslySetInnerHTML={{ __html: arrivalHtml }} />
-              </div>
-            )}
-            {tipsHtml && (
-              <div className="rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
-                <h3 className="text-base font-bold text-foreground">{t.arrival.tipsHeading}</h3>
-                <div className={`mt-3 ${PROSE}`} dangerouslySetInnerHTML={{ __html: tipsHtml }} />
-              </div>
-            )}
-          </div>
-        )}
-      </section>
-
       {/* ─── DESTINATIONS GRID ─── */}
       {cards.length > 0 && (
-        <section aria-labelledby="lir-destinations" className="bg-white py-16">
-          <div className="mx-auto max-w-6xl px-6">
+        <section aria-labelledby="lir-destinations" className="py-10 sm:py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <div className="text-center">
-              <h2 id="lir-destinations" className="text-2xl font-bold text-foreground sm:text-3xl">
+              <h2 id="lir-destinations" className="text-xl font-bold text-foreground sm:text-3xl">
                 {t.destinations.heading}
               </h2>
               <p className="mx-auto mt-2 max-w-2xl text-sm text-foreground/60">{t.destinations.body}</p>
             </div>
-            <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <ul className="mt-6 grid gap-3 sm:mt-10 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
               {cards.map((r) => {
                 const price = lowestPrice(r);
                 const d = destinationFor(r.destino, destinations);
                 return (
                   <li key={r.id}>
                     <Link
-                      href={`/private-shuttle/${routeSlug(r.origen, r.destino)}`}
-                      className="group flex h-full flex-col justify-between rounded-2xl border border-black/5 bg-light-surface p-5 transition hover:-translate-y-0.5 hover:border-sunset-orange/30 hover:shadow-lg"
+                      href={routeHref(r)}
+                      className="group flex h-full flex-col justify-between rounded-2xl border border-black/5 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-sunset-orange/30 hover:shadow-lg"
                     >
                       <div>
                         <div className="text-base font-bold text-foreground group-hover:text-sunset-orange">
@@ -560,7 +599,7 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
                           <span className="block text-[0.6rem] font-semibold uppercase tracking-wider text-foreground/40">
                             {t.destinations.from}
                           </span>
-                          <span className="mt-1 block text-xl font-extrabold text-foreground">
+                          <span className="mt-1 block text-xl font-extrabold text-sunset-orange">
                             {price ? `$${price}` : t.destinations.quote}
                           </span>
                           <span className="mt-1 block text-[0.65rem] text-foreground/40">{t.destinations.perVehicle}</span>
@@ -579,7 +618,7 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
                     <li key={h.slug}>
                       <Link
                         href={h.path}
-                        className="inline-flex items-center rounded-full border border-black/10 bg-light-surface px-3.5 py-1.5 text-xs font-semibold text-foreground/70 transition hover:border-sunset-orange hover:text-sunset-orange"
+                        className="inline-flex items-center rounded-full border border-black/10 bg-white px-3.5 py-1.5 text-xs font-semibold text-foreground/70 transition hover:border-sunset-orange hover:text-sunset-orange"
                       >
                         {localizeDestination(h.destination, locale).short_name}
                       </Link>
@@ -592,60 +631,58 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
         </section>
       )}
 
-      {/* ─── FULL TABLE: every pair that touches LIR ─── */}
-      <section id="all-routes" aria-labelledby="lir-table" className="scroll-mt-24 py-16">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="rounded-3xl border border-black/5 bg-white shadow-sm">
-            <div className="flex flex-wrap items-start justify-between gap-4 px-6 py-6 sm:px-8">
-              <div className="min-w-0">
-                <h2 id="lir-table" className="text-xl font-bold text-foreground sm:text-2xl">{t.table.heading}</h2>
-                <p className="mt-1 text-sm text-foreground/60">{t.table.body}</p>
+      {/* ─── Everything else, folded: why, arrival, airports, vehicles, FAQ ─── */}
+      <section className="mx-auto max-w-4xl space-y-3 px-4 pb-8 sm:px-6 sm:pb-12">
+        <Fold id="lir-why" heading={t.fold.why}>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {t.why.items.map((item, i) => (
+              <div key={item.title} className="rounded-2xl border border-black/5 bg-light-surface p-5">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-sunset-orange/10 text-sm font-bold text-sunset-orange">
+                    {i + 1}
+                  </span>
+                  <h3 className="text-base font-bold text-foreground">{item.title}</h3>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-foreground/70">{item.body}</p>
               </div>
-              {pairs.length > 0 && (
-                <span className="rounded-full bg-light-surface px-3 py-1 text-xs font-semibold text-foreground/60">
-                  {t.table.count(pairs.length)}
+            ))}
+          </div>
+        </Fold>
+
+        <Fold id="lir-arrival" heading={t.fold.arrival}>
+          <ol className="grid gap-4 md:grid-cols-3">
+            {t.arrival.steps.map((step, i) => (
+              <li key={step.title} className="rounded-2xl border border-black/5 bg-light-surface p-5">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-sunset-orange text-sm font-bold text-white">
+                  {i + 1}
                 </span>
+                <h3 className="mt-3 text-base font-bold text-foreground">{step.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-foreground/70">{step.body}</p>
+              </li>
+            ))}
+          </ol>
+          {(arrivalHtml || tipsHtml) && (
+            <div className="mt-6 grid gap-4 lg:grid-cols-2">
+              {arrivalHtml && (
+                <div>
+                  <h3 className="text-base font-bold text-foreground">{t.arrival.guideHeading}</h3>
+                  <div className={`mt-3 ${PROSE}`} dangerouslySetInnerHTML={{ __html: arrivalHtml }} />
+                </div>
+              )}
+              {tipsHtml && (
+                <div>
+                  <h3 className="text-base font-bold text-foreground">{t.arrival.tipsHeading}</h3>
+                  <div className={`mt-3 ${PROSE}`} dangerouslySetInnerHTML={{ __html: tipsHtml }} />
+                </div>
               )}
             </div>
-            {pairs.length > 0 ? (
-              <div className="overflow-x-auto border-t border-black/5">
-                <table className="w-full min-w-[640px] text-left text-sm">
-                  <caption className="sr-only">{tp.caption(t.table.heading)}</caption>
-                  <thead className="bg-light-surface text-xs uppercase tracking-wider text-foreground/50">
-                    <tr>
-                      <th scope="col" className="px-4 py-3 font-semibold">{tp.route}</th>
-                      <th scope="col" className="px-4 py-3 font-semibold">{tp.travelTime}</th>
-                      {VEHICLE_TIERS.map((tier) => (
-                        <th key={tier.key} scope="col" className="whitespace-nowrap px-4 py-3 text-right font-semibold">
-                          {tp.pax(tier.minPax, tier.maxPax)}
-                        </th>
-                      ))}
-                      <th scope="col" className="px-4 py-3 font-semibold">
-                        <span className="sr-only">{tp.bookColumn}</span>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-black/5">
-                    {pairs.map((pair) => (
-                      <PairRow key={pair.out.id} pair={pair} locale={locale} map={destinations} />
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <p className="border-t border-black/5 px-6 py-6 text-sm text-foreground/70 sm:px-8">{t.table.unavailable}</p>
-            )}
-          </div>
-        </div>
-      </section>
+          )}
+        </Fold>
 
-      {/* ─── LIR vs SJO ─── */}
-      {compare.length > 0 && (
-        <section aria-labelledby="airports-compared" className="bg-white py-16">
-          <div className="mx-auto max-w-5xl px-6">
-            <h2 id="airports-compared" className="text-2xl font-bold text-foreground sm:text-3xl">{t.airports.heading}</h2>
-            <p className="mt-3 text-sm leading-relaxed text-foreground/70">{t.airports.body}</p>
-            <div className="mt-8 overflow-x-auto rounded-2xl border border-black/5">
+        {compare.length > 0 && (
+          <Fold id="airports-compared" heading={t.fold.airports}>
+            <p className="text-sm leading-relaxed text-foreground/70">{t.airports.body}</p>
+            <div className="relative mt-5 overflow-x-auto rounded-2xl border border-black/5">
               <table className="w-full min-w-[560px] text-left text-sm">
                 <thead className="bg-light-surface text-xs uppercase tracking-wider text-foreground/50">
                   <tr>
@@ -661,7 +698,7 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
                       const price = r ? lowestPrice(r) : null;
                       if (!r || !price) return <span className="text-foreground/40">{t.airports.noRoute}</span>;
                       return (
-                        <Link href={`/private-shuttle/${routeSlug(r.origen, r.destino)}`} className="hover:text-sunset-orange">
+                        <Link href={routeHref(r)} className="hover:text-sunset-orange">
                           <span className="font-bold text-foreground">${price}</span>
                           <span className="ml-2 text-foreground/60">{travelTime(r, locale)}</span>
                         </Link>
@@ -679,76 +716,82 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
               </table>
             </div>
             <p className="mt-4 text-sm leading-relaxed text-foreground/70">{t.airports.verdict}</p>
-          </div>
-        </section>
-      )}
+          </Fold>
+        )}
 
-      {/* ─── VEHICLES ─── */}
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-foreground sm:text-3xl">{t.vehicles.heading}</h2>
-          <p className="mx-auto mt-2 max-w-2xl text-sm text-foreground/60">{t.vehicles.body}</p>
-        </div>
-        <ul className="mt-10 grid gap-6 md:grid-cols-3">
-          {VEHICLE_TIERS.map((tier) => {
-            const copy = vehicleTierCopy(tier.key, locale);
-            return (
-              <li key={tier.key} className="overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm">
-                <div className="relative aspect-[16/10] bg-light-surface">
-                  <Image src={tier.image} alt={tier.name} fill className="object-contain p-4" sizes="(min-width: 768px) 33vw, 100vw" />
-                </div>
-                <div className="p-5">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-sunset-orange">
-                    {t.vehicles.pax(tier.minPax, tier.maxPax)}
+        <Fold id="lir-vehicles" heading={t.fold.vehicles}>
+          <p className="text-sm text-foreground/60">{t.vehicles.body}</p>
+          <ul className="mt-4 grid gap-4 sm:grid-cols-3">
+            {VEHICLE_TIERS.map((tier) => {
+              const copy = vehicleTierCopy(tier.key, locale);
+              return (
+                <li key={tier.key} className="overflow-hidden rounded-2xl border border-black/5 bg-light-surface">
+                  <div className="relative aspect-[16/10] bg-white">
+                    <Image src={tier.image} alt={tier.name} fill loading="lazy" className="object-contain p-4" sizes="(min-width: 640px) 33vw, 100vw" />
                   </div>
-                  <h3 className="mt-1 text-lg font-bold text-foreground">{tier.name}</h3>
-                  <p className="mt-1 text-sm text-foreground/60">{copy.typicalUse}</p>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
+                  <div className="p-4">
+                    <div className="text-xs font-semibold uppercase tracking-wider text-sunset-orange">
+                      {t.vehicles.pax(tier.minPax, tier.maxPax)}
+                    </div>
+                    <h3 className="mt-1 text-base font-bold text-foreground">{tier.name}</h3>
+                    <p className="mt-1 text-sm text-foreground/60">{copy.typicalUse}</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </Fold>
 
-      {/* ─── FAQ (plain HTML, mirrors the FAQPage JSON-LD) ─── */}
-      <section aria-labelledby="lir-faq" className="bg-white py-16">
-        <div className="mx-auto max-w-4xl px-6">
-          <h2 id="lir-faq" className="text-center text-2xl font-bold text-foreground sm:text-3xl">{t.faqHeading}</h2>
-          <dl className="mt-10 divide-y divide-black/5 rounded-2xl border border-black/5 bg-light-surface px-6 sm:px-8">
+        {/* FAQ: plain HTML, mirrors the FAQPage JSON-LD word for word. */}
+        <Fold id="lir-faq" heading={t.faqHeading}>
+          <dl className="divide-y divide-black/5">
             {t.faqs.map((f) => (
-              <div key={f.q} className="py-5">
+              <div key={f.q} className="py-4 first:pt-0 last:pb-0">
                 <dt className="text-base font-semibold text-foreground">{f.q}</dt>
                 <dd className="mt-2 text-sm leading-relaxed text-foreground/75">{f.a}</dd>
               </div>
             ))}
           </dl>
-        </div>
+        </Fold>
       </section>
 
       {/* ─── CTA ─── */}
-      <section className="mx-auto max-w-5xl px-6 py-16">
-        <div className="rounded-3xl bg-foreground p-8 text-center text-white sm:p-12">
+      <section className="mx-auto max-w-5xl px-4 pb-12 sm:px-6 sm:pb-16">
+        <div className="rounded-3xl bg-foreground p-6 text-center text-white sm:p-12">
           <h2 className="text-2xl font-bold sm:text-3xl">{t.cta.heading}</h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-white/70 sm:text-base">{t.cta.body}</p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:mt-8">
             <Link
               href="/private-shuttle"
-              className="inline-flex items-center gap-2 rounded-full bg-sunset-orange px-6 py-3 text-sm font-bold text-white transition hover:bg-sunset-red"
+              className="inline-flex h-12 items-center gap-2 rounded-full bg-sunset-orange px-6 text-sm font-bold text-white transition hover:bg-sunset-red"
             >
               {t.cta.book}
               <ArrowIcon />
             </Link>
             <a
               href={WHATSAPP_URL}
-              className="inline-flex items-center rounded-full border border-white/30 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10"
+              className="inline-flex h-12 items-center rounded-full border border-white/30 px-6 text-sm font-bold text-white transition hover:bg-white/10"
             >
               {t.cta.whatsapp} · {WHATSAPP_DISPLAY}
             </a>
+          </div>
+          <div className="mt-8 flex justify-center">
+            <GoogleReviewBadge locale={locale} />
           </div>
         </div>
       </section>
 
       <SiteFooter locale={locale} />
+
+      {barRoute && (
+        <HubMobileBar
+          from="LIR"
+          to={shortName(barRoute.destino, destinations)}
+          price={lowestPrice(barRoute)}
+          href={routeHref(barRoute)}
+          allRoutesHref="#all-routes"
+        />
+      )}
     </main>
   );
 }

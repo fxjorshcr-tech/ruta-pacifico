@@ -6,6 +6,8 @@ import Link from "@/components/LocaleLink";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import GoogleReviewBadge from "@/components/GoogleReviewBadge";
+import HubMobileBar from "@/components/HubMobileBar";
+import RouteCards from "@/components/RouteCards";
 import type { Route } from "@/lib/routes";
 import { destinationFor, getDestinations, localizeDestination, type DestinationMap } from "@/lib/destinations";
 import {
@@ -283,14 +285,32 @@ function RouteTable({
   const t = DESTINATION_HUB[locale].table;
   if (routes.length === 0) return null;
   return (
-    <section id={id} aria-labelledby={`${id}-heading`} className="scroll-mt-24 py-12">
-      <div className="mx-auto max-w-6xl px-6">
+    <section id={id} aria-labelledby={`${id}-heading`} className="scroll-mt-24 py-6 md:py-10">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="rounded-3xl border border-black/5 bg-white shadow-sm">
-          <div className="px-6 py-6 sm:px-8">
+          <div className="px-5 py-5 sm:px-8 sm:py-6">
             <h2 id={`${id}-heading`} className="text-xl font-bold text-foreground sm:text-2xl">{heading}</h2>
-            <p className="mt-1 text-sm text-foreground/60">{body}</p>
+            <p className="mt-1 hidden text-sm text-foreground/60 md:block">{body}</p>
           </div>
-          <div className="overflow-x-auto border-t border-black/5">
+
+          {/* Phones: one card per route, price and Book button first. */}
+          <RouteCards
+            className="border-t border-black/5 md:hidden"
+            locale={locale}
+            book={t.book}
+            onRequest={t.onRequest}
+            items={routes.map((r) => ({
+              key: r.id,
+              href: `/private-shuttle/${routeSlug(r.origen, r.destino)}`,
+              from: shortName(r.origen, map),
+              to: shortName(r.destino, map),
+              highlight: show === "origen" ? "from" : "to",
+              route: r,
+            }))}
+          />
+
+          {/* md+: the full table with every van size. */}
+          <div className="relative hidden overflow-x-auto border-t border-black/5 md:block">
             <table className="w-full min-w-[640px] text-left text-sm">
               <caption className="sr-only">{t.caption(heading)}</caption>
               <thead className="bg-light-surface text-xs uppercase tracking-wider text-foreground/50">
@@ -337,7 +357,7 @@ function RouteTable({
                       <td className="px-4 py-3 text-right">
                         <Link
                           href={href}
-                          className="inline-flex items-center rounded-full bg-foreground px-3.5 py-1.5 text-xs font-bold text-white transition hover:bg-sunset-orange"
+                          className="inline-flex items-center rounded-full bg-sunset-orange px-4 py-2 text-xs font-bold text-white transition hover:bg-sunset-red"
                         >
                           {t.book}
                         </Link>
@@ -354,19 +374,56 @@ function RouteTable({
   );
 }
 
-function CheckIcon() {
-  return (
-    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" aria-hidden="true">
-      <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-    </svg>
-  );
-}
-
 function ArrowIcon() {
   return (
     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" aria-hidden="true">
       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
     </svg>
+  );
+}
+
+function ChevronIcon() {
+  return (
+    <svg
+      className="h-5 w-5 shrink-0 text-sunset-orange transition-transform group-open:rotate-180"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={2.5}
+      stroke="currentColor"
+      aria-hidden="true"
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+    </svg>
+  );
+}
+
+/** First `n` sentences of a plain-text paragraph. */
+function firstSentences(text: string, n: number): string {
+  const parts = text.match(/[^.!?]+[.!?]+(\s|$)/g);
+  if (!parts) return text;
+  return parts.slice(0, n).join("").trim();
+}
+
+/**
+ * A folded section: the heading is the clickable summary, the content stays
+ * in the HTML (crawlers read it; the FAQPage JSON-LD still matches) and
+ * opens on tap. Closed by default on every screen so the page reads as
+ * routes and prices first, text second.
+ */
+function Fold({ id, heading, children, tone = "white" }: {
+  id: string;
+  heading: string;
+  children: React.ReactNode;
+  tone?: "white" | "surface";
+}) {
+  return (
+    <details id={id} className={`group scroll-mt-24 rounded-2xl border border-black/5 shadow-sm ${tone === "white" ? "bg-white" : "bg-light-surface"}`}>
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 sm:px-6 [&::-webkit-details-marker]:hidden">
+        <h2 className="text-base font-bold text-foreground sm:text-lg">{heading}</h2>
+        <ChevronIcon />
+      </summary>
+      <div className="border-t border-black/5 px-5 py-5 sm:px-6">{children}</div>
+    </details>
   );
 }
 
@@ -386,17 +443,21 @@ export default async function DestinationHubPage({ params }: { params: Params })
   const introHtml = md(d.intro_md);
   const arrivalHtml = d.arrival_md?.trim() ? md(d.arrival_md) : "";
   const tipsHtml = d.tips_md?.trim() ? md(d.tips_md) : "";
+  const shortIntro = firstSentences(plainParagraph(d.intro_md), 2);
   const lirRoute = hub.lirRoute;
   const lirReturn = hub.lirReturn;
   const routeHref = (r: Route) => `/private-shuttle/${routeSlug(r.origen, r.destino)}`;
+  // The route the sticky bar sells: the airport pickup, or the cheapest
+  // arrival when the airport route is not published.
+  const barRoute = lirRoute ?? hub.to[0] ?? hub.from[0];
 
   return (
-    <main className="min-h-screen bg-light-surface">
+    <main className="min-h-screen bg-light-surface pb-28 lg:pb-0">
       <HubJsonLd hub={hub} locale={locale} facts={facts} faqs={faqs} image={heroUrl} />
       <SiteNav transparent />
 
-      {/* ─── HERO: the answer first ─── */}
-      <section className="relative flex min-h-[60vh] items-center overflow-hidden">
+      {/* ─── HERO: compact, the answer in one line ─── */}
+      <section className="relative flex min-h-[42vh] items-end overflow-hidden sm:min-h-[52vh] sm:items-center">
         <Image
           src={heroUrl}
           alt={heroAlt}
@@ -408,23 +469,21 @@ export default async function DestinationHubPage({ params }: { params: Params })
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-light-surface via-transparent to-transparent" />
-        <div className="relative z-10 mx-auto w-full max-w-4xl px-6 pb-28 pt-28 text-center">
-          <div className="mb-6 flex justify-center">
-            <GoogleReviewBadge locale={locale} />
-          </div>
-          <span className="inline-block rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-sunset-gold backdrop-blur-sm">
+        <div className="relative z-10 mx-auto w-full max-w-4xl px-5 pb-10 pt-24 text-center sm:px-6 sm:pb-20 sm:pt-28">
+          <span className="inline-block rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-wider text-sunset-gold backdrop-blur-sm sm:px-4 sm:py-1.5 sm:text-xs">
             {t.hero.eyebrow(d.region)}
           </span>
-          <h1 className="mt-5 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-white sm:mt-5 sm:text-5xl lg:text-6xl">
             {t.hero.titleLead}{" "}
             <span className="bg-gradient-to-r from-sunset-gold via-sunset-orange to-sunset-red bg-clip-text text-transparent">
               {name}
             </span>
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-base text-white/85 sm:text-lg">{t.hero.answer(facts)}</p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <p className="mx-auto mt-3 max-w-2xl text-sm font-semibold text-white sm:mt-5 sm:text-lg">{t.hero.dataLine(facts)}</p>
+          {/* Desktop only: phones get the sticky bar instead. */}
+          <div className="mt-8 hidden flex-wrap items-center justify-center gap-3 sm:flex">
             <Link
-              href={lirRoute ? routeHref(lirRoute) : "/private-shuttle"}
+              href={barRoute ? routeHref(barRoute) : "/private-shuttle"}
               className="inline-flex items-center gap-2 rounded-full bg-sunset-orange px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-sunset-red"
             >
               {t.hero.book}
@@ -437,105 +496,71 @@ export default async function DestinationHubPage({ params }: { params: Params })
               {t.hero.whatsapp}
             </a>
           </div>
-          <ul className="mx-auto mt-8 flex flex-wrap items-center justify-center gap-3">
-            {[t.hero.badges.private, t.hero.badges.fixed, t.hero.badges.tracking].map((label) => (
-              <li
-                key={label}
-                className="flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm"
-              >
-                <span className="text-sunset-gold"><CheckIcon /></span>
-                {label}
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
-      {/* ─── AT A GLANCE: the LIR route card + the counts ─── */}
-      <section aria-labelledby="hub-facts" className="mx-auto max-w-6xl px-6 pb-4 pt-6">
-        <h2 id="hub-facts" className="text-center text-2xl font-bold text-foreground sm:text-3xl">{t.facts.heading(name)}</h2>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {lirRoute && (
-            <Link
-              href={routeHref(lirRoute)}
-              className="group flex flex-col justify-between rounded-2xl border border-sunset-orange/30 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg md:col-span-1"
-            >
-              <div>
-                <div className="text-xs font-semibold uppercase tracking-wider text-sunset-orange">{t.facts.fromLir}</div>
-                <div className="mt-2 text-3xl font-extrabold text-foreground">${lowestPrice(lirRoute)}</div>
-                <div className="text-xs text-foreground/50">{t.facts.perVehicle}</div>
-                {lirRoute.duracion && (
-                  <div className="mt-3 text-sm text-foreground/70">
-                    {t.facts.driveTime}: <span className="font-semibold text-foreground">{travelTime(lirRoute, locale)}</span>
+      {/* ─── BOOK: the airport route first, right under the hero ─── */}
+      {(lirRoute || lirReturn) && (
+        <section aria-labelledby="hub-facts" className="mx-auto max-w-6xl px-4 pt-4 sm:px-6 sm:pt-6">
+          <h2 id="hub-facts" className="sr-only">{t.facts.heading(name)}</h2>
+          <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
+            {[
+              lirRoute ? { route: lirRoute, label: t.facts.fromLir, primary: true } : null,
+              lirReturn ? { route: lirReturn, label: t.facts.toLir, primary: false } : null,
+            ]
+              .filter((c): c is { route: Route; label: string; primary: boolean } => c !== null)
+              .map((c) => (
+                <div
+                  key={c.route.id}
+                  className={`flex items-center gap-4 rounded-2xl border bg-white p-4 shadow-sm sm:p-6 ${c.primary ? "border-sunset-orange/40" : "border-black/5"}`}
+                >
+                  <div className="min-w-0 flex-1">
+                    <div className={`text-[0.65rem] font-semibold uppercase tracking-wider sm:text-xs ${c.primary ? "text-sunset-orange" : "text-foreground/50"}`}>
+                      {c.label}
+                    </div>
+                    <div className="mt-1 flex items-baseline gap-2">
+                      <span className="text-3xl font-extrabold text-sunset-orange">${lowestPrice(c.route)}</span>
+                      <span className="text-xs text-foreground/50">{t.facts.perVehicle}</span>
+                    </div>
+                    {c.route.duracion && (
+                      <div className="mt-1 text-sm text-foreground/70">
+                        {t.facts.driveTime}: <span className="font-semibold text-foreground">{travelTime(c.route, locale)}</span>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              <span className="mt-5 inline-flex items-center gap-1 text-sm font-bold text-sunset-orange group-hover:text-sunset-red">
-                {t.facts.viewRoute}
-                <ArrowIcon />
-              </span>
-            </Link>
-          )}
-          {lirReturn && (
-            <Link
-              href={routeHref(lirReturn)}
-              className="group flex flex-col justify-between rounded-2xl border border-black/5 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
-            >
-              <div>
-                <div className="text-xs font-semibold uppercase tracking-wider text-foreground/50">{t.facts.toLir}</div>
-                <div className="mt-2 text-3xl font-extrabold text-foreground">${lowestPrice(lirReturn)}</div>
-                <div className="text-xs text-foreground/50">{t.facts.perVehicle}</div>
-                {lirReturn.duracion && (
-                  <div className="mt-3 text-sm text-foreground/70">
-                    {t.facts.driveTime}: <span className="font-semibold text-foreground">{travelTime(lirReturn, locale)}</span>
-                  </div>
-                )}
-              </div>
-              <span className="mt-5 inline-flex items-center gap-1 text-sm font-bold text-sunset-orange group-hover:text-sunset-red">
-                {t.facts.viewRoute}
-                <ArrowIcon />
-              </span>
-            </Link>
-          )}
-          <div className="flex flex-col justify-between rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
-            <div>
-              <div className="text-xs font-semibold uppercase tracking-wider text-foreground/50">{t.facts.routes(hub.from.length + hub.to.length)}</div>
-              <div className="mt-1 text-sm text-foreground/70">{t.facts.routesHint(name)}</div>
-              {hub.range && (
-                <>
-                  <div className="mt-4 text-xs font-semibold uppercase tracking-wider text-foreground/50">{t.facts.lowest}</div>
-                  <div className="text-2xl font-extrabold text-foreground">${hub.range.low}</div>
-                  <div className="text-xs text-foreground/50">{t.facts.lowestHint}</div>
-                </>
-              )}
-            </div>
-            <Link href={LIR_HUB_PATH} className="mt-5 inline-flex items-center gap-1 text-sm font-bold text-sunset-orange hover:text-sunset-red">
-              {t.facts.lirHub}
-              <ArrowIcon />
-            </Link>
+                  <Link
+                    href={routeHref(c.route)}
+                    className="inline-flex h-12 shrink-0 items-center gap-2 rounded-full bg-sunset-orange px-5 text-sm font-bold text-white shadow-md shadow-sunset-orange/25 transition hover:bg-sunset-red"
+                  >
+                    {t.facts.book}
+                    <ArrowIcon />
+                  </Link>
+                </div>
+              ))}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ─── TABLES: to, then from ─── */}
       <RouteTable id="to" heading={t.to.heading(name)} body={t.to.body(name)} routes={hub.to} locale={locale} map={destinations} show="destino" />
       <RouteTable id="from" heading={t.from.heading(name)} body={t.from.body(name)} routes={hub.from} locale={locale} map={destinations} show="origen" />
 
-      {/* ─── GUIDE ─── */}
-      <section aria-labelledby="hub-guide" className="bg-white py-16">
-        <div className="mx-auto max-w-4xl px-6">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center rounded-full bg-sunset-orange/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-sunset-orange">
-              {d.region}
+      {/* ─── SHORT INTRO + everything else folded ─── */}
+      <section className="mx-auto max-w-4xl space-y-3 px-4 py-8 sm:px-6 sm:py-12">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="inline-flex items-center rounded-full bg-sunset-orange/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-sunset-orange">
+            {d.region}
+          </span>
+          {d.best_for.map((tag) => (
+            <span key={tag} className="inline-flex items-center rounded-full border border-black/10 px-3 py-1 text-xs font-medium text-foreground/60">
+              {tag}
             </span>
-            {d.best_for.map((tag) => (
-              <span key={tag} className="inline-flex items-center rounded-full border border-black/10 px-3 py-1 text-xs font-medium text-foreground/60">
-                {tag}
-              </span>
-            ))}
-          </div>
-          <h2 id="hub-guide" className="mt-4 text-2xl font-bold text-foreground sm:text-3xl">{t.guide.about(name)}</h2>
-          <div className={`mt-4 ${PROSE}`} dangerouslySetInnerHTML={{ __html: introHtml }} />
+          ))}
+        </div>
+        {shortIntro && <p className="pb-2 text-sm leading-relaxed text-foreground/75 sm:text-base">{shortIntro}</p>}
+
+        <Fold id="hub-guide" heading={t.guide.about(name)}>
+          <div className={PROSE} dangerouslySetInnerHTML={{ __html: introHtml }} />
           {arrivalHtml && (
             <>
               <h3 className="mt-8 text-lg font-bold text-foreground">{t.guide.arrival(name)}</h3>
@@ -548,99 +573,104 @@ export default async function DestinationHubPage({ params }: { params: Params })
               <div className={`mt-3 ${PROSE}`} dangerouslySetInnerHTML={{ __html: tipsHtml }} />
             </>
           )}
-        </div>
-      </section>
+        </Fold>
 
-      {/* ─── NEARBY HUBS ─── */}
-      {hub.related.length > 0 && (
-        <section aria-labelledby="hub-nearby" className="mx-auto max-w-6xl px-6 py-16">
-          <h2 id="hub-nearby" className="text-2xl font-bold text-foreground sm:text-3xl">{t.nearby.heading(d.region)}</h2>
-          <p className="mt-2 text-sm text-foreground/60">{t.nearby.body}</p>
-          <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {hub.related.map((r) => (
-              <li key={r.path}>
-                <Link
-                  href={r.path}
-                  className="flex items-center justify-between rounded-2xl border border-black/5 bg-white px-5 py-4 text-sm font-semibold text-foreground shadow-sm transition hover:border-sunset-orange/40 hover:text-sunset-orange"
-                >
-                  {t.nearby.cta(localizeDestination(r.destination, locale).short_name)}
-                  <ArrowIcon />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+        {hub.related.length > 0 && (
+          <Fold id="hub-nearby" heading={t.nearby.heading(d.region)}>
+            <p className="text-sm text-foreground/60">{t.nearby.body}</p>
+            <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+              {hub.related.map((r) => (
+                <li key={r.path}>
+                  <Link
+                    href={r.path}
+                    className="flex items-center justify-between rounded-2xl border border-black/5 bg-light-surface px-5 py-4 text-sm font-semibold text-foreground transition hover:border-sunset-orange/40 hover:text-sunset-orange"
+                  >
+                    {t.nearby.cta(localizeDestination(r.destination, locale).short_name)}
+                    <ArrowIcon />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Fold>
+        )}
 
-      {/* ─── VEHICLES ─── */}
-      <section className="bg-white py-16">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-foreground sm:text-3xl">{t.vehicles.heading}</h2>
-            <p className="mx-auto mt-2 max-w-2xl text-sm text-foreground/60">{t.vehicles.body}</p>
-          </div>
-          <ul className="mt-10 grid gap-6 md:grid-cols-3">
+        <Fold id="hub-vehicles" heading={t.fold.vehicles}>
+          <p className="text-sm text-foreground/60">{t.vehicles.body}</p>
+          <ul className="mt-4 grid gap-4 sm:grid-cols-3">
             {VEHICLE_TIERS.map((tier) => {
               const copy = vehicleTierCopy(tier.key, locale);
               return (
                 <li key={tier.key} className="overflow-hidden rounded-2xl border border-black/5 bg-light-surface">
                   <div className="relative aspect-[16/10] bg-white">
-                    <Image src={tier.image} alt={tier.name} fill className="object-contain p-4" sizes="(min-width: 768px) 33vw, 100vw" />
+                    <Image src={tier.image} alt={tier.name} fill loading="lazy" className="object-contain p-4" sizes="(min-width: 640px) 33vw, 100vw" />
                   </div>
-                  <div className="p-5">
+                  <div className="p-4">
                     <div className="text-xs font-semibold uppercase tracking-wider text-sunset-orange">{t.vehicles.pax(tier.minPax, tier.maxPax)}</div>
-                    <h3 className="mt-1 text-lg font-bold text-foreground">{tier.name}</h3>
+                    <h3 className="mt-1 text-base font-bold text-foreground">{tier.name}</h3>
                     <p className="mt-1 text-sm text-foreground/60">{copy.typicalUse}</p>
                   </div>
                 </li>
               );
             })}
           </ul>
-        </div>
-      </section>
+        </Fold>
 
-      {/* ─── FAQ (plain HTML, mirrors the FAQPage JSON-LD) ─── */}
-      <section aria-labelledby="hub-faq" className="py-16">
-        <div className="mx-auto max-w-4xl px-6">
-          <h2 id="hub-faq" className="text-center text-2xl font-bold text-foreground sm:text-3xl">{t.faqHeading(name)}</h2>
-          <dl className="mt-10 divide-y divide-black/5 rounded-2xl border border-black/5 bg-white px-6 sm:px-8">
+        {/* FAQ: plain HTML, mirrors the FAQPage JSON-LD word for word. */}
+        <Fold id="hub-faq" heading={t.faqHeading(name)}>
+          <dl className="divide-y divide-black/5">
             {faqs.map((f) => (
-              <div key={f.q} className="py-5">
+              <div key={f.q} className="py-4 first:pt-0 last:pb-0">
                 <dt className="text-base font-semibold text-foreground">{f.q}</dt>
                 <dd className="mt-2 text-sm leading-relaxed text-foreground/75">{f.a}</dd>
               </div>
             ))}
           </dl>
-        </div>
+        </Fold>
       </section>
 
       {/* ─── CTA ─── */}
-      <section className="mx-auto max-w-5xl px-6 pb-16">
-        <div className="rounded-3xl bg-foreground p-8 text-center text-white sm:p-12">
+      <section className="mx-auto max-w-5xl px-4 pb-12 sm:px-6 sm:pb-16">
+        <div className="rounded-3xl bg-foreground p-6 text-center text-white sm:p-12">
           <h2 className="text-2xl font-bold sm:text-3xl">{t.cta.heading(name)}</h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-white/70 sm:text-base">{t.cta.body}</p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:mt-8">
             <Link
-              href={lirRoute ? routeHref(lirRoute) : "/private-shuttle"}
-              className="inline-flex items-center gap-2 rounded-full bg-sunset-orange px-6 py-3 text-sm font-bold text-white transition hover:bg-sunset-red"
+              href={barRoute ? routeHref(barRoute) : "/private-shuttle"}
+              className="inline-flex h-12 items-center gap-2 rounded-full bg-sunset-orange px-6 text-sm font-bold text-white transition hover:bg-sunset-red"
             >
               {t.cta.book}
               <ArrowIcon />
             </Link>
             <a
               href={WHATSAPP_URL}
-              className="inline-flex items-center rounded-full border border-white/30 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10"
+              className="inline-flex h-12 items-center rounded-full border border-white/30 px-6 text-sm font-bold text-white transition hover:bg-white/10"
             >
               {t.cta.whatsapp} · {WHATSAPP_DISPLAY}
             </a>
             <Link href={PRICE_LIST_PATH} className="inline-flex items-center text-sm font-semibold text-white/70 underline-offset-4 hover:text-white hover:underline">
               {t.cta.allPrices}
             </Link>
+            <Link href={LIR_HUB_PATH} className="inline-flex items-center text-sm font-semibold text-white/70 underline-offset-4 hover:text-white hover:underline">
+              {t.facts.lirHub}
+            </Link>
+          </div>
+          <div className="mt-8 flex justify-center">
+            <GoogleReviewBadge locale={locale} />
           </div>
         </div>
       </section>
 
       <SiteFooter locale={locale} />
+
+      {barRoute && (
+        <HubMobileBar
+          from={shortName(barRoute.origen, destinations)}
+          to={shortName(barRoute.destino, destinations)}
+          price={lowestPrice(barRoute)}
+          href={routeHref(barRoute)}
+          allRoutesHref={hub.to.length ? "#to" : "#from"}
+        />
+      )}
     </main>
   );
 }

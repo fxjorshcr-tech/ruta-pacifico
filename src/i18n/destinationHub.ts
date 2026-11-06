@@ -73,6 +73,13 @@ export const DESTINATION_HUB = defineCopy({
         f.lirPrice && f.lirTime
           ? `A private shuttle from Liberia Airport (LIR) to ${f.name} with Ruta Pacifico costs $${f.lirPrice} per vehicle for up to 5 passengers, USD, 13% VAT included, and takes ${f.lirTime} door to door. Your driver tracks the flight and waits at the arrivals exit with your name on a sign. We also run ${f.fromCount + f.toCount} other priced routes from and to ${f.name}, listed below.`
           : `Ruta Pacifico runs ${f.fromCount + f.toCount} priced private shuttle routes from and to ${f.name}${f.lowest ? `, from $${f.lowest} per vehicle with taxes included` : ""}. Door-to-door, your group only, driver and fuel included, nothing paid at pickup.`,
+      /** The one line under the title on phones: price, time, origin. */
+      dataLine: (f: HubFacts) =>
+        f.lirPrice && f.lirTime
+          ? `From $${f.lirPrice} per vehicle · ${f.lirTime} from Liberia Airport (LIR)`
+          : f.lowest
+            ? `From $${f.lowest} per vehicle · ${f.fromCount + f.toCount} routes from and to ${f.name}`
+            : `${f.fromCount + f.toCount} routes from and to ${f.name}`,
       book: "Book a shuttle",
       whatsapp: "WhatsApp us",
       badges: {
@@ -92,7 +99,16 @@ export const DESTINATION_HUB = defineCopy({
       lowest: "Lowest fare",
       lowestHint: "any route, 1–5 passengers",
       viewRoute: "See route and book",
+      book: "Book",
       lirHub: "Every Liberia Airport route",
+    },
+    intro: {
+      readMore: (name: string) => `Read the ${name} guide`,
+    },
+    fold: {
+      nearby: "Other destinations nearby",
+      vehicles: "The vehicles and prices by group size",
+      faq: (name: string) => `Questions about shuttles to ${name}`,
     },
     from: {
       heading: (name: string) => `Shuttles from ${name}`,
@@ -209,6 +225,12 @@ export const DESTINATION_HUB = defineCopy({
         f.lirPrice && f.lirTime
           ? `Un shuttle privado del Aeropuerto de Liberia (LIR) a ${f.name} con Ruta Pacifico cuesta $${f.lirPrice} por vehículo para hasta 5 pasajeros, en dólares, con el 13% de IVA incluido, y toma ${f.lirTime} de puerta a puerta. Tu chofer sigue el vuelo y te espera en la salida de llegadas con un rótulo con tu nombre. También operamos ${f.fromCount + f.toCount} rutas más con precio desde y hacia ${f.name}; están abajo.`
           : `Ruta Pacifico opera ${f.fromCount + f.toCount} rutas de shuttle privado con precio desde y hacia ${f.name}${f.lowest ? `, desde $${f.lowest} por vehículo con impuestos incluidos` : ""}. De puerta a puerta, solo tu grupo, chofer y combustible incluidos, sin pagar nada en la recogida.`,
+      dataLine: (f: HubFacts) =>
+        f.lirPrice && f.lirTime
+          ? `Desde $${f.lirPrice} por vehículo · ${f.lirTime} desde el Aeropuerto de Liberia (LIR)`
+          : f.lowest
+            ? `Desde $${f.lowest} por vehículo · ${f.fromCount + f.toCount} rutas desde y hacia ${f.name}`
+            : `${f.fromCount + f.toCount} rutas desde y hacia ${f.name}`,
       book: "Reservar un shuttle",
       whatsapp: "Escríbenos por WhatsApp",
       badges: {
@@ -228,7 +250,16 @@ export const DESTINATION_HUB = defineCopy({
       lowest: "Tarifa más baja",
       lowestHint: "cualquier ruta, 1–5 pasajeros",
       viewRoute: "Ver ruta y reservar",
+      book: "Reservar",
       lirHub: "Todas las rutas del Aeropuerto de Liberia",
+    },
+    intro: {
+      readMore: (name: string) => `Leer la guía de ${name}`,
+    },
+    fold: {
+      nearby: "Otros destinos cerca",
+      vehicles: "Los vehículos y precios por tamaño de grupo",
+      faq: (name: string) => `Preguntas sobre los shuttles a ${name}`,
     },
     from: {
       heading: (name: string) => `Shuttles desde ${name}`,
@@ -355,5 +386,23 @@ export const DESTINATIONS_INDEX = defineCopy({
     fromLir: (price: number) => `desde LIR $${price}`,
     routes: (n: number) => `${n} ruta${n === 1 ? "" : "s"}`,
     view: "Ver todos los shuttles",
+  },
+});
+
+/** The phone-only sticky booking bar on the hub pages (src/components/HubMobileBar.tsx). */
+export const HUB_MOBILE_BAR = defineCopy({
+  en: {
+    label: "Book this shuttle",
+    book: "Book",
+    allRoutes: "All routes",
+    perVehicle: "per vehicle, 1–5 pax",
+    onRequest: "price on request",
+  },
+  es: {
+    label: "Reservar este shuttle",
+    book: "Reservar",
+    allRoutes: "Todas las rutas",
+    perVehicle: "por vehículo, 1–5 pax",
+    onRequest: "precio a consultar",
   },
 });

@@ -42,6 +42,9 @@ export const LIBERIA_AIRPORT = defineCopy({
         `We are based in Liberia, fifteen minutes from the terminal. We run ${count} routes from and to LIR, starting at $${low} per vehicle with taxes included. Your driver tracks the flight and waits at the arrivals exit with your name on a sign.`,
       introFallback:
         "We are based in Liberia, fifteen minutes from the terminal. One price per vehicle with taxes included. Your driver tracks the flight and waits at the arrivals exit with your name on a sign.",
+      /** The one line under the title on phones. */
+      dataLine: (count: number, low: number) => `${count} routes from and to LIR · from $${low} per vehicle, taxes included`,
+      dataLineFallback: "One price per vehicle, taxes included · flight tracked",
       book: "Book a shuttle",
       whatsapp: "WhatsApp us",
       badges: {
@@ -111,6 +114,12 @@ export const LIBERIA_AIRPORT = defineCopy({
       count: (n: number) => `${n} route${n === 1 ? "" : "s"}`,
       unavailable:
         "The price list is not loading at the moment. Search your route on the booking page or send us a WhatsApp and we will reply with the price.",
+    },
+    fold: {
+      why: "Why book with a Liberia operator",
+      arrival: "Arriving at LIR: how the pickup works",
+      airports: "LIR or SJO: which airport to fly into",
+      vehicles: "The vehicles and prices by group size",
     },
     airports: {
       heading: "Liberia or San José: which airport to fly into",
@@ -210,6 +219,8 @@ export const LIBERIA_AIRPORT = defineCopy({
         `Estamos en Liberia, a quince minutos de la terminal. Manejamos ${count} rutas desde y hacia LIR, desde $${low} por vehículo con impuestos incluidos. Tu chofer sigue el vuelo y te espera a la salida de llegadas con tu nombre en un rótulo.`,
       introFallback:
         "Estamos en Liberia, a quince minutos de la terminal. Un solo precio por vehículo con impuestos incluidos. Tu chofer sigue el vuelo y te espera a la salida de llegadas con tu nombre en un rótulo.",
+      dataLine: (count: number, low: number) => `${count} rutas desde y hacia LIR · desde $${low} por vehículo, impuestos incluidos`,
+      dataLineFallback: "Un solo precio por vehículo, impuestos incluidos · seguimiento de vuelo",
       book: "Reservar un shuttle",
       whatsapp: "Escríbenos por WhatsApp",
       badges: {
@@ -279,6 +290,12 @@ export const LIBERIA_AIRPORT = defineCopy({
       count: (n: number) => `${n} ruta${n === 1 ? "" : "s"}`,
       unavailable:
         "La lista de precios no está cargando en este momento. Busca tu ruta en la página de reservas o mándanos un WhatsApp y te respondemos con el precio.",
+    },
+    fold: {
+      why: "Por qué reservar con un operador de Liberia",
+      arrival: "Llegar a LIR: cómo funciona la recogida",
+      airports: "LIR o SJO: a qué aeropuerto volar",
+      vehicles: "Los vehículos y precios por tamaño de grupo",
     },
     airports: {
       heading: "Liberia o San José: a qué aeropuerto llegar",
