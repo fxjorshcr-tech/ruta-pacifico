@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { LOGO_URL } from "@/lib/brand";
@@ -23,7 +23,15 @@ export default function SiteNav({ transparent = true }: Props) {
   const t = NAV[locale];
   const pathname = usePathname();
   const isHome = splitLocale(pathname ?? "/").path === "/";
-  const [open, setOpen] = useState(false);
+  // The phone menu is a native <details>: the burger is its <summary>, so
+  // it opens and its links work as soon as the HTML arrives, before the
+  // JavaScript has downloaded or React has hydrated. After hydration the
+  // ref closes it when a link is tapped (client-side navigation keeps the
+  // page, so the panel would otherwise stay open).
+  const menuRef = useRef<HTMLDetailsElement>(null);
+  const closeMenu = () => {
+    if (menuRef.current) menuRef.current.open = false;
+  };
 
   const containerClass = transparent
     ? "absolute top-0 z-50 w-full"
@@ -82,49 +90,49 @@ export default function SiteNav({ transparent = true }: Props) {
           <LanguageSwitcher tone={transparent ? "light" : "dark"} />
         </div>
 
-        {/* Mobile: language + hamburger */}
+        {/* Mobile: language + hamburger. The menu panel lives inside the
+            <details> and is positioned under the bar. */}
         <div className="flex items-center gap-3 lg:hidden">
           <LanguageSwitcher tone={transparent ? "light" : "dark"} />
-          <button
-            type="button"
-            onClick={() => setOpen(!open)}
-            className="flex h-10 w-10 flex-col items-center justify-center gap-1.5"
-            aria-label={t.toggleMenu}
-            aria-expanded={open}
-          >
-            <span className={`block h-0.5 w-7 transition-all duration-300 ${hamburgerBar} ${open ? "translate-y-2 rotate-45" : ""}`} />
-            <span className={`block h-0.5 w-7 transition-all duration-300 ${hamburgerBar} ${open ? "opacity-0" : ""}`} />
-            <span className={`block h-0.5 w-7 transition-all duration-300 ${hamburgerBar} ${open ? "-translate-y-2 -rotate-45" : ""}`} />
-          </button>
         </div>
+        <details ref={menuRef} className="group/menu flex items-center gap-3 lg:hidden">
+          <summary
+            className="flex list-none cursor-pointer items-center gap-3 [&::-webkit-details-marker]:hidden"
+            aria-label={t.toggleMenu}
+            role="button"
+          >
+            <span className="flex h-10 w-10 flex-col items-center justify-center gap-1.5">
+              <span className={`block h-0.5 w-7 transition-all duration-300 ${hamburgerBar} group-open/menu:translate-y-2 group-open/menu:rotate-45`} />
+              <span className={`block h-0.5 w-7 transition-all duration-300 ${hamburgerBar} group-open/menu:opacity-0`} />
+              <span className={`block h-0.5 w-7 transition-all duration-300 ${hamburgerBar} group-open/menu:-translate-y-2 group-open/menu:-rotate-45`} />
+            </span>
+          </summary>
+
+          {/* Mobile menu */}
+          <div className={`absolute left-0 right-0 top-full lg:hidden ${mobileMenuClass}`}>
+            <div className="flex flex-col gap-1 px-6 py-4">
+              {links.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={closeMenu}
+                  className={`rounded-xl px-4 py-3 text-base font-semibold transition ${mobileLinkClass}`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <div className="mt-2 px-4 pb-1">
+                <LanguageSwitcher
+                  variant="list"
+                  tone={transparent ? "light" : "dark"}
+                  onNavigate={closeMenu}
+                />
+              </div>
+            </div>
+          </div>
+        </details>
       </div>
 
-      {/* Mobile menu */}
-      <div
-        className={`lg:hidden overflow-hidden transition-all duration-300 ${
-          open ? "max-h-[32rem]" : "max-h-0"
-        } ${mobileMenuClass}`}
-      >
-        <div className="flex flex-col gap-1 px-6 py-4">
-          {links.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className={`rounded-xl px-4 py-3 text-base font-semibold transition ${mobileLinkClass}`}
-            >
-              {item.label}
-            </Link>
-          ))}
-          <div className="mt-2 px-4 pb-1">
-            <LanguageSwitcher
-              variant="list"
-              tone={transparent ? "light" : "dark"}
-              onNavigate={() => setOpen(false)}
-            />
-          </div>
-        </div>
-      </div>
     </nav>
   );
 }
