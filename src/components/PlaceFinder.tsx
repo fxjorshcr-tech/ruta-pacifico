@@ -27,8 +27,6 @@ export interface FinderPlace {
   airport: boolean;
 }
 
-type Direction = PickerRoute["direction"];
-
 const FARES_PATH = "/fares.json";
 let faresPromise: Promise<FareTuple[]> | null = null;
 
@@ -106,7 +104,6 @@ export default function PlaceFinder({ places }: { places: FinderPlace[] }) {
   const [selected, setSelected] = useState<FinderPlace | null>(
     () => (fromParam ? places.find((p) => p.name === fromParam) ?? null : null),
   );
-  const [direction, setDirection] = useState<Direction | null>(null);
   const [routeQuery, setRouteQuery] = useState("");
   const [fares, setFares] = useState<FareTuple[] | null>(null);
   const [failed, setFailed] = useState(false);
@@ -147,7 +144,7 @@ export default function PlaceFinder({ places }: { places: FinderPlace[] }) {
     const out: PickerRoute[] = [];
     const back: PickerRoute[] = [];
     fares.forEach(([origen, destino, p1, p2, p3, minutes], idx) => {
-      const dir: Direction | null = origen === selected.name ? "from" : destino === selected.name ? "to" : null;
+      const dir: PickerRoute["direction"] | null = origen === selected.name ? "from" : destino === selected.name ? "to" : null;
       if (!dir) return;
       const otherName = dir === "from" ? destino : origen;
       const item: PickerRoute = {
@@ -163,27 +160,17 @@ export default function PlaceFinder({ places }: { places: FinderPlace[] }) {
     return [...out.sort(byOther), ...back.sort(byOther)];
   }, [selected, fares, shortByName, locale]);
 
+  // The question is where the shuttle STARTS, so the place is the origin
+  // and only its departures are offered: the way back is booked from the
+  // destination's own page, or from here with that place as the origin.
   const departures = pickerRoutes.filter((r) => r.direction === "from");
-  const arrivals = pickerRoutes.filter((r) => r.direction === "to");
-
-  // The place is an ORIGIN by default (the question asked); when it sells
-  // no departures, show the arrivals. The airport pickup leads the phone
-  // picker when the place was reached without a direction in mind.
-  const activeDirection: Direction =
-    direction ?? (departures.length > 0 ? "from" : "to");
-  const directionRoutes = activeDirection === "from" ? departures : arrivals;
-  // The second search box: narrow the other end of the route as you type.
-  // It filters the laptop cards and the phone picker's options alike.
-  const gridRoutes = directionRoutes.filter((r) => matchesText(routeQuery, r.other));
-  const filteredPicker = routeQuery
-    ? pickerRoutes.filter((r) => matchesText(routeQuery, r.other))
-    : pickerRoutes;
-  const defaultRoute =
-    gridRoutes.find((r) => /\bLIR\b/.test(r.other)) ?? gridRoutes[0] ?? filteredPicker[0];
+  // The second search box: narrow the destination as you type. It filters
+  // the laptop cards and the phone picker's options alike.
+  const gridRoutes = departures.filter((r) => matchesText(routeQuery, r.other));
+  const defaultRoute = gridRoutes.find((r) => /\bLIR\b/.test(r.other)) ?? gridRoutes[0];
 
   function pick(place: FinderPlace) {
     setSelected(place);
-    setDirection(null);
     setRouteQuery("");
     setFailed(false);
   }
@@ -251,7 +238,7 @@ export default function PlaceFinder({ places }: { places: FinderPlace[] }) {
             <p role="alert" className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{t.error}</p>
           ) : !fares ? (
             <p className="rounded-2xl border border-black/5 bg-white px-4 py-6 text-center text-sm text-foreground/60">{t.loading}</p>
-          ) : pickerRoutes.length === 0 ? (
+          ) : departures.length === 0 ? (
             <p className="rounded-2xl border border-black/5 bg-white px-4 py-6 text-center text-sm text-foreground/60">{t.noRoutes(selected.short)}</p>
           ) : (
             <>
@@ -282,9 +269,9 @@ export default function PlaceFinder({ places }: { places: FinderPlace[] }) {
               {defaultRoute && (
                 <div className="mt-4 lg:hidden">
                   <HubRoutePicker
-                    key={`${selected.name}-${activeDirection}-${routeQuery}`}
+                    key={`${selected.name}-${routeQuery}`}
                     place={selected.short}
-                    routes={filteredPicker}
+                    routes={gridRoutes}
                     defaultId={defaultRoute.id}
                     allRoutesHref="#finder"
                   />
@@ -295,28 +282,11 @@ export default function PlaceFinder({ places }: { places: FinderPlace[] }) {
               <div className="mt-5 hidden lg:block">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <h3 className="text-lg font-bold text-foreground">
-                    {activeDirection === "from" ? t.gridFrom(selected.short) : t.gridTo(selected.short)}
+                    {t.gridFrom(selected.short)}
                     <span className="ml-2 text-sm font-medium text-foreground/50">
-                      {t.routeCount(gridRoutes.length, directionRoutes.length) || t.routesCount(directionRoutes.length)}
+                      {t.routeCount(gridRoutes.length, departures.length) || t.routesCount(departures.length)}
                     </span>
                   </h3>
-                  {departures.length > 0 && arrivals.length > 0 && (
-                    <div className="inline-flex rounded-full bg-white p-1 text-xs font-semibold shadow-sm" role="group" aria-label={t.directionLabel}>
-                      {(["from", "to"] as const).map((dir) => (
-                        <button
-                          key={dir}
-                          type="button"
-                          aria-pressed={activeDirection === dir}
-                          onClick={() => setDirection(dir)}
-                          className={`rounded-full px-3.5 py-1.5 transition ${
-                            activeDirection === dir ? "bg-foreground text-white shadow-sm" : "text-foreground/60 hover:text-foreground"
-                          }`}
-                        >
-                          {dir === "from" ? t.fromPlace(selected.short) : t.toPlace(selected.short)}
-                        </button>
-                      ))}
-                    </div>
-                  )}
                 </div>
                 <ul className="mt-4 grid gap-3 lg:grid-cols-3 xl:grid-cols-4">
                   {gridRoutes.map((r) => (
@@ -327,7 +297,7 @@ export default function PlaceFinder({ places }: { places: FinderPlace[] }) {
                       >
                         <div>
                           <div className="text-[0.65rem] font-semibold uppercase tracking-wider text-foreground/40">
-                            {activeDirection === "from" ? `${selected.short} →` : `→ ${selected.short}`}
+                            {selected.short} →
                           </div>
                           <div className="mt-0.5 text-base font-bold text-foreground group-hover:text-sunset-orange">{r.other}</div>
                           {r.time && <div className="mt-1 text-xs text-foreground/50">{r.time}</div>}

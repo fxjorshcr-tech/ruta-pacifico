@@ -27,6 +27,8 @@ import {
 } from "@/lib/pricing";
 import { VEHICLE_TIERS, vehicleTierCopy } from "@/lib/vehicles";
 import { buildDestinationHubs } from "@/lib/destinationHubs";
+import HubRouteGuide from "@/components/HubRouteGuide";
+import { buildHubGuide } from "@/lib/hubGuide";
 import { pickerRoutes } from "@/lib/hubPicker";
 import { routeSlug, toSlug } from "@/lib/slug";
 import { WHATSAPP_DISPLAY, WHATSAPP_URL, withCurrentContact } from "@/lib/contact";
@@ -142,6 +144,7 @@ function LirHubJsonLd({ routes, locale }: { routes: Route[]; locale: Locale }) {
         about: { "@id": `${pageUrl}#airport` },
         inLanguage: IN_LANGUAGE[locale],
         primaryImageOfPage: HERO_URL,
+        speakable: { "@type": "SpeakableSpecification", cssSelector: ["#route-guide-facts", "#quick-answers", "#lir-faq"] },
       },
       {
         "@type": "Airport",
@@ -409,6 +412,15 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
     locale,
   );
   const pickerDefault = quick[0] ?? lirRoutes[0];
+  // The route guide at the foot of the page: every LIR route as one
+  // sentence, the key facts and the rules, for readers and answer engines.
+  const guide = buildHubGuide({
+    place: t.hero.titleAccent,
+    from: lirRoutes.filter((r) => LIR.test(r.origen)),
+    to: lirRoutes.filter((r) => LIR.test(r.destino)),
+    map: destinations,
+    locale,
+  });
 
   return (
     <main className="min-h-screen bg-light-surface pb-28 lg:pb-0">
@@ -725,6 +737,9 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
           </div>
         </div>
       </section>
+
+      {/* ─── Route guide: the long tail, folded, at the very end ─── */}
+      <HubRouteGuide guide={guide} locale={locale} />
 
       <SiteFooter locale={locale} />
     </main>

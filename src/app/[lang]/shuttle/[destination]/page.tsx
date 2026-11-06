@@ -13,9 +13,12 @@ import { destinationFor, getDestinations, localizeDestination, type DestinationM
 import {
   findDestinationHub,
   getDestinationHubs,
+  hubFacts,
   plainParagraph,
   type DestinationHub,
 } from "@/lib/destinationHubs";
+import HubRouteGuide from "@/components/HubRouteGuide";
+import { buildHubGuide } from "@/lib/hubGuide";
 import { pickerRoutes } from "@/lib/hubPicker";
 import { LIR_HUB_PATH, PRICE_LIST_PATH, lowestPrice, routePrices, travelTime } from "@/lib/pricing";
 import { VEHICLE_TIERS, vehicleTierCopy } from "@/lib/vehicles";
@@ -73,21 +76,6 @@ export async function generateStaticParams(): Promise<{ destination: string }[]>
     throw new Error("generateStaticParams: no destination hubs (routes or destinations table empty)");
   }
   return hubs.map((h) => ({ destination: h.slug }));
-}
-
-/** The figures the copy is written around. */
-function hubFacts(hub: DestinationHub, locale: Locale): HubFacts {
-  const d = localizeDestination(hub.destination, locale);
-  return {
-    name: d.short_name,
-    region: d.region,
-    lirPrice: hub.lirRoute ? lowestPrice(hub.lirRoute) : null,
-    lirTime: hub.lirRoute?.duracion ? travelTime(hub.lirRoute, locale) : null,
-    lowest: hub.range?.low ?? null,
-    fromCount: hub.from.length,
-    toCount: hub.to.length,
-    nearby: hub.related.slice(0, 4).map((r) => localizeDestination(r.destination, locale).short_name),
-  };
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
@@ -156,6 +144,7 @@ function HubJsonLd({
         inLanguage: IN_LANGUAGE[locale],
         primaryImageOfPage: image,
         ...(hub.updatedAt ? { dateModified: hub.updatedAt } : {}),
+        speakable: { "@type": "SpeakableSpecification", cssSelector: ["#route-guide-facts", "#hub-faq"] },
       },
       {
         "@type": ["Place", "TouristDestination"],
@@ -452,6 +441,9 @@ export default async function DestinationHubPage({ params }: { params: Params })
   const bookableFrom = priced.filter((r) => toSlug(r.origen) === placeSlug);
   const bookableTo = priced.filter((r) => toSlug(r.destino) === placeSlug);
   const facts = { ...hubFacts(hub, locale), fromCount: bookableFrom.length, toCount: bookableTo.length };
+  // The route guide at the foot of the page: every route as one sentence,
+  // the key facts and the rules, for readers and answer engines alike.
+  const guide = buildHubGuide({ place: name, from: bookableFrom, to: bookableTo, map: destinations, locale });
   const faqs = t.faqs(facts);
   const heroUrl = d.image_url || FALLBACK_HERO;
   const heroAlt = d.image_alt ?? t.heroAltFallback(name);
@@ -642,6 +634,9 @@ export default async function DestinationHubPage({ params }: { params: Params })
           </div>
         </div>
       </section>
+
+      {/* ─── Route guide: the long tail, folded, at the very end ─── */}
+      <HubRouteGuide guide={guide} locale={locale} />
 
       <SiteFooter locale={locale} />
     </main>
