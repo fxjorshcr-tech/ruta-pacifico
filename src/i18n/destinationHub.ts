@@ -374,6 +374,10 @@ export const DESTINATIONS_INDEX = defineCopy({
       toPlace: (place: string) => `To ${place}`,
       book: "Book",
       onRequest: "on request",
+      routeLabel: "Filter by the other end of the route",
+      routePlaceholder: "e.g. Tamarindo, LIR, La Fortuna…",
+      routeCount: (n: number, total: number) => (n === total ? "" : `${n} of ${total} routes`),
+      routeNoMatch: "No route with that name from here. Clear the filter to see every route.",
       label: "Type where you are staying or where you want to go",
       placeholder: "e.g. Playa Hermosa, Nosara, LIR…",
       count: (n: number, total: number) =>
@@ -419,6 +423,10 @@ export const DESTINATIONS_INDEX = defineCopy({
       toPlace: (place: string) => `Hacia ${place}`,
       book: "Reservar",
       onRequest: "a consultar",
+      routeLabel: "Filtra por el otro extremo de la ruta",
+      routePlaceholder: "p. ej. Tamarindo, LIR, La Fortuna…",
+      routeCount: (n: number, total: number) => (n === total ? "" : `${n} de ${total} rutas`),
+      routeNoMatch: "No hay ruta con ese nombre desde aquí. Borra el filtro para ver todas las rutas.",
       label: "Escribe dónde te hospedas o adónde quieres ir",
       placeholder: "p. ej. Playa Hermosa, Nosara, LIR…",
       count: (n: number, total: number) =>

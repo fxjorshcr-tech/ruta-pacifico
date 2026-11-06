@@ -84,11 +84,16 @@ export default function BookingSection({
     removeFromCart(id);
   }
 
+  // Is the route of this page already in the trip? When it is not, the
+  // cart below the form says so, so nobody heads to checkout believing
+  // the shuttle they are looking at is included.
+  const thisRouteInCart = cart.some((i) => i.from === route.origen && i.to === route.destino);
+
   return (
     <div ref={formRef} className="space-y-8 scroll-mt-8">
-      {cart.length > 0 && (
-        <BookingCart items={cart} onRemove={handleRemove} />
-      )}
+      {/* The form first: the trip so far (and its checkout button) comes
+          after it, so a traveller who just arrived on this route is asked
+          for its details before being offered checkout. */}
       <BookingForm
         route={route}
         isAirportPickup={isAirportPickup}
@@ -97,6 +102,13 @@ export default function BookingSection({
         destinationShort={destinationShort}
         returnRoute={returnRoute}
       />
+      {cart.length > 0 && (
+        <BookingCart
+          items={cart}
+          onRemove={handleRemove}
+          pendingRoute={thisRouteInCart ? null : `${originShort ?? route.origen} → ${destinationShort ?? route.destino}`}
+        />
+      )}
     </div>
   );
 }

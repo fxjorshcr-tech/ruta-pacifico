@@ -58,15 +58,19 @@ function normalize(s: string): string {
     .trim();
 }
 
-/** Every typed word starts a word of the place name; falls back to a substring match. */
-function matches(query: string, place: FinderPlace): boolean {
+/** Every typed word starts a word of the text; falls back to a substring match. */
+function matchesText(query: string, text: string): boolean {
   const q = normalize(query);
   if (!q) return true;
-  const hay = normalize(`${place.short} ${place.name}`);
+  const hay = normalize(text);
   const words = hay.split(" ");
   const tokens = q.split(" ");
   if (tokens.every((tok) => words.some((w) => w.startsWith(tok)))) return true;
   return hay.includes(q);
+}
+
+function matches(query: string, place: FinderPlace): boolean {
+  return matchesText(query, `${place.short} ${place.name}`);
 }
 
 function subscribeCart(cb: () => void): () => void {
@@ -94,6 +98,7 @@ export default function PlaceFinder({ places }: { places: FinderPlace[] }) {
   const locale = useLocale();
   const t = DESTINATIONS_INDEX[locale].finder;
   const inputId = useId();
+  const routeInputId = useId();
   const fromParam = useSearchParams().get("from");
   const hasTrip = useSyncExternalStore(subscribeCart, cartHasItems, cartServerSnapshot);
 
@@ -102,6 +107,7 @@ export default function PlaceFinder({ places }: { places: FinderPlace[] }) {
     () => (fromParam ? places.find((p) => p.name === fromParam) ?? null : null),
   );
   const [direction, setDirection] = useState<Direction | null>(null);
+  const [routeQuery, setRouteQuery] = useState("");
   const [fares, setFares] = useState<FareTuple[] | null>(null);
   const [failed, setFailed] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -165,15 +171,20 @@ export default function PlaceFinder({ places }: { places: FinderPlace[] }) {
   // picker when the place was reached without a direction in mind.
   const activeDirection: Direction =
     direction ?? (departures.length > 0 ? "from" : "to");
-  const gridRoutes = activeDirection === "from" ? departures : arrivals;
+  const directionRoutes = activeDirection === "from" ? departures : arrivals;
+  // The second search box: narrow the other end of the route as you type.
+  // It filters the laptop cards and the phone picker's options alike.
+  const gridRoutes = directionRoutes.filter((r) => matchesText(routeQuery, r.other));
+  const filteredPicker = routeQuery
+    ? pickerRoutes.filter((r) => matchesText(routeQuery, r.other))
+    : pickerRoutes;
   const defaultRoute =
-    (activeDirection === "from"
-      ? departures.find((r) => /\bLIR\b/.test(r.other)) ?? departures[0]
-      : arrivals.find((r) => /\bLIR\b/.test(r.other)) ?? arrivals[0]) ?? pickerRoutes[0];
+    gridRoutes.find((r) => /\bLIR\b/.test(r.other)) ?? gridRoutes[0] ?? filteredPicker[0];
 
   function pick(place: FinderPlace) {
     setSelected(place);
     setDirection(null);
+    setRouteQuery("");
     setFailed(false);
   }
 
@@ -240,27 +251,54 @@ export default function PlaceFinder({ places }: { places: FinderPlace[] }) {
             <p role="alert" className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{t.error}</p>
           ) : !fares ? (
             <p className="rounded-2xl border border-black/5 bg-white px-4 py-6 text-center text-sm text-foreground/60">{t.loading}</p>
-          ) : !defaultRoute ? (
+          ) : pickerRoutes.length === 0 ? (
             <p className="rounded-2xl border border-black/5 bg-white px-4 py-6 text-center text-sm text-foreground/60">{t.noRoutes(selected.short)}</p>
           ) : (
             <>
-              {/* Phones: the compact picker (fixed place, native select, sticky bar). */}
-              <div className="lg:hidden">
-                <HubRoutePicker
-                  key={`${selected.name}-${activeDirection}`}
-                  place={selected.short}
-                  routes={pickerRoutes}
-                  defaultId={defaultRoute.id}
-                  allRoutesHref="#finder"
+              {/* Second search: the other end of the route. */}
+              <label htmlFor={routeInputId} className="block text-sm font-semibold text-foreground/70">
+                {t.routeLabel}
+              </label>
+              <div className="relative mt-2">
+                <svg className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-foreground/40" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+                <input
+                  id={routeInputId}
+                  type="search"
+                  value={routeQuery}
+                  onChange={(e) => setRouteQuery(e.target.value)}
+                  placeholder={t.routePlaceholder}
+                  autoComplete="off"
+                  enterKeyHint="search"
+                  className="h-12 w-full rounded-2xl border border-black/10 bg-white pl-12 pr-4 text-base font-medium text-foreground shadow-sm outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/30"
                 />
               </div>
+              {routeQuery && gridRoutes.length === 0 && (
+                <p className="mt-2 text-xs text-foreground/50">{t.routeNoMatch}</p>
+              )}
+
+              {/* Phones: the compact picker (fixed place, native select, sticky bar). */}
+              {defaultRoute && (
+                <div className="mt-4 lg:hidden">
+                  <HubRoutePicker
+                    key={`${selected.name}-${activeDirection}-${routeQuery}`}
+                    place={selected.short}
+                    routes={filteredPicker}
+                    defaultId={defaultRoute.id}
+                    allRoutesHref="#finder"
+                  />
+                </div>
+              )}
 
               {/* Laptops: every route of the chosen direction open as cards. */}
-              <div className="hidden lg:block">
+              <div className="mt-5 hidden lg:block">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <h3 className="text-lg font-bold text-foreground">
                     {activeDirection === "from" ? t.gridFrom(selected.short) : t.gridTo(selected.short)}
-                    <span className="ml-2 text-sm font-medium text-foreground/50">{t.routesCount(gridRoutes.length)}</span>
+                    <span className="ml-2 text-sm font-medium text-foreground/50">
+                      {t.routeCount(gridRoutes.length, directionRoutes.length) || t.routesCount(directionRoutes.length)}
+                    </span>
                   </h3>
                   {departures.length > 0 && arrivals.length > 0 && (
                     <div className="inline-flex rounded-full bg-white p-1 text-xs font-semibold shadow-sm" role="group" aria-label={t.directionLabel}>

@@ -8,9 +8,11 @@ import { formatDate, formatTime, getCartTotal, type TripItem } from "@/lib/booki
 interface Props {
   items: TripItem[];
   onRemove: (id: string) => void;
+  /** "LIR → Tamarindo" when the route of the page is not in the trip yet. */
+  pendingRoute?: string | null;
 }
 
-export default function BookingCart({ items, onRemove }: Props) {
+export default function BookingCart({ items, onRemove, pendingRoute = null }: Props) {
   const locale = useLocale();
   const t = BOOKING[locale].cart;
   if (items.length === 0) return null;
@@ -61,6 +63,15 @@ export default function BookingCart({ items, onRemove }: Props) {
           </div>
         ))}
       </div>
+
+      {pendingRoute && (
+        <p className="mt-4 flex items-start gap-2 rounded-xl border border-sunset-gold/40 bg-sunset-gold/10 px-4 py-3 text-sm text-foreground/80">
+          <svg className="mt-0.5 h-4 w-4 shrink-0 text-sunset-orange" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+          </svg>
+          <span>{t.notAddedYet(pendingRoute)}</span>
+        </p>
+      )}
 
       <div className="mt-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>

@@ -162,6 +162,8 @@ export const BOOKING = defineCopy({
       total: "Total",
       vatIncluded: "13% VAT included",
       continueCheckout: "Continue to Checkout",
+      notAddedYet: (route: string) =>
+        `${route} is not in your trip yet. Fill in its date and passengers above and tap "Add to Trip" before you continue to checkout.`,
     },
     floating: {
       myTrip: (count: number) => `My Trip (${count})`,
@@ -293,6 +295,8 @@ export const BOOKING = defineCopy({
       total: "Total",
       vatIncluded: "13% de IVA incluido",
       continueCheckout: "Continuar al pago",
+      notAddedYet: (route: string) =>
+        `${route} todavía no está en tu viaje. Completa arriba la fecha y los pasajeros y toca "Agregar al viaje" antes de continuar al pago.`,
     },
     floating: {
       myTrip: (count: number) => `Mi viaje (${count})`,
