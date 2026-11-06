@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Link from "@/components/LocaleLink";
 import type { Route } from "@/lib/routes";
 import DatePicker from "@/components/DatePicker";
 import {
@@ -41,13 +42,26 @@ interface Props {
   isAirportPickup: boolean;
   initialVehicle?: VehicleKey;
   onCartUpdate?: (cart: TripItem[]) => void;
+  /** Short names of both ends ("LIR", "Tamarindo") for the next-step buttons. */
+  originShort?: string;
+  destinationShort?: string;
+  /** The reverse route, when sold: one tap to add the way back. */
+  returnRoute?: { href: string; price: number } | null;
 }
 
 interface VehicleOption extends VehicleTier {
   price: number;
 }
 
-export default function BookingForm({ route, isAirportPickup, initialVehicle, onCartUpdate }: Props) {
+export default function BookingForm({
+  route,
+  isAirportPickup,
+  initialVehicle,
+  onCartUpdate,
+  originShort,
+  destinationShort,
+  returnRoute,
+}: Props) {
   const router = useRouter();
   const locale = useLocale();
   const t = BOOKING[locale].form;
@@ -551,17 +565,29 @@ export default function BookingForm({ route, isAirportPickup, initialVehicle, on
           <p className="mt-2 text-sm text-foreground/60">
             {t.addedTo(route.origen, route.destino)}
           </p>
-          <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <button
-              type="button"
-              onClick={() => router.push(localePath(locale, "/private-shuttle"))}
-              className="inline-flex items-center gap-2 rounded-full border-2 border-sunset-orange px-6 py-3 text-sm font-bold text-sunset-orange transition hover:bg-sunset-orange/5"
+          {/* Next step: the way back in one tap, the next leg from where this
+              one ends (the finder opens on that origin), or checkout. */}
+          <div className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
+            {returnRoute && (
+              <Link
+                href={returnRoute.href}
+                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-sunset-orange px-6 py-3 text-sm font-bold text-sunset-orange transition hover:bg-sunset-orange/5"
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182" />
+                </svg>
+                {t.bookReturn(destinationShort ?? route.destino, originShort ?? route.origen, returnRoute.price)}
+              </Link>
+            )}
+            <Link
+              href={`/destinations?from=${encodeURIComponent(route.destino)}#finder`}
+              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-sunset-orange px-6 py-3 text-sm font-bold text-sunset-orange transition hover:bg-sunset-orange/5"
             >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
-              {t.addAnother}
-            </button>
+              {t.bookNextFrom(destinationShort ?? route.destino)}
+            </Link>
             <button
               type="button"
               onClick={() => router.push(localePath(locale, "/private-shuttle/checkout"))}

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "@/components/LocaleLink";
 import SiteNav from "@/components/SiteNav";
@@ -153,12 +154,11 @@ export default async function DestinationsPage({ params }: { params: Params }) {
       </section>
 
       {/* ─── Every place, searchable, with the route picker ─── */}
-      <section aria-labelledby="finder-heading" className="mx-auto max-w-5xl px-6 pt-12 sm:pt-16">
-        <h2 id="finder-heading" className="text-2xl font-bold text-foreground sm:text-3xl">{t.finderHeading}</h2>
-        <p className="mt-2 max-w-2xl text-sm text-foreground/60 sm:text-base">{t.finderBody}</p>
-        <div className="mt-6">
+      <section aria-labelledby="finder-heading" className="mx-auto max-w-6xl px-6 pt-12 sm:pt-16">
+        {/* useSearchParams (?from=) needs a Suspense boundary on a static page. */}
+        <Suspense fallback={<div className="h-40" aria-hidden="true" />}>
           <PlaceFinder places={places} />
-        </div>
+        </Suspense>
       </section>
 
       <section aria-labelledby="hubs-heading" className="mx-auto max-w-7xl px-6 py-14 sm:py-20">
