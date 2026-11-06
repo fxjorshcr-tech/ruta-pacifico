@@ -173,7 +173,7 @@ export default function HubRoutePicker({ place, routes, defaultId, allRoutesHref
           aria-label={t.label}
         >
           <div className="flex items-center gap-2">
-            <span className="shrink-0 text-sm font-bold text-foreground">{fromName}</span>
+            <span className="max-w-[30%] shrink-0 truncate text-sm font-bold text-foreground">{fromName}</span>
             <span className="shrink-0 text-foreground/30" aria-hidden="true">→</span>
             <div className="min-w-0 flex-1">
               <label htmlFor={barSelectId} className="sr-only">{t.selectLabel}</label>
