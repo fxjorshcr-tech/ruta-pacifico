@@ -101,11 +101,6 @@ export const LIBERIA_AIRPORT = defineCopy({
       tipsHeading: "From our drivers",
     },
     destinations: {
-      heading: "Where we drive from LIR",
-      body: "The beaches and towns we take people to most often, with the drive time and the current price for up to five passengers. Open any of them for the details and to book.",
-      from: "from",
-      perVehicle: "per vehicle",
-      quote: "Ask us",
       hubsLabel: "Every shuttle to and from each destination",
     },
     table: {
@@ -277,11 +272,6 @@ export const LIBERIA_AIRPORT = defineCopy({
       tipsHeading: "De parte de nuestros choferes",
     },
     destinations: {
-      heading: "Adónde manejamos desde LIR",
-      body: "Las playas y pueblos a los que más llevamos gente, con el tiempo de viaje y el precio actual para hasta cinco pasajeros. Abre cualquiera para ver los detalles y reservar.",
-      from: "desde",
-      perVehicle: "por vehículo",
-      quote: "Consúltanos",
       hubsLabel: "Todos los shuttles desde y hacia cada destino",
     },
     table: {

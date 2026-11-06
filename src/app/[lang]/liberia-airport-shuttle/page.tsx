@@ -5,13 +5,12 @@ import Link from "@/components/LocaleLink";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import GoogleReviewBadge from "@/components/GoogleReviewBadge";
-import HubMobileBar from "@/components/HubMobileBar";
+import HubRoutePicker from "@/components/HubRoutePicker";
 import RouteCards from "@/components/RouteCards";
 import { getRoutes, type Route } from "@/lib/routes";
 import {
   destinationFor,
   getDestinations,
-  isRouteIndexable,
   localizeDestination,
   routeSeoRank,
   selectIndexableRoutes,
@@ -29,6 +28,7 @@ import {
 } from "@/lib/pricing";
 import { VEHICLE_TIERS, vehicleTierCopy } from "@/lib/vehicles";
 import { buildDestinationHubs } from "@/lib/destinationHubs";
+import { pickerRoutes } from "@/lib/hubPicker";
 import { routeSlug, toSlug } from "@/lib/slug";
 import { WHATSAPP_DISPLAY, WHATSAPP_URL, withCurrentContact } from "@/lib/contact";
 import {
@@ -66,30 +66,6 @@ const QUICK_ANSWERS = 8;
 
 /** Routes declared in the ItemList JSON-LD (the table carries all of them). */
 const JSON_LD_ROUTES = 40;
-
-/**
- * Destinations on the "Where LIR takes you" grid, by `routes.destino` slug,
- * in the order travellers ask about them. A destination with no priced LIR
- * route is simply skipped, so a table edit never breaks the page.
- */
-const DESTINATION_SLUGS = [
-  "playas-del-coco-guanacaste",
-  "papagayo-peninsula-guanacaste",
-  "playa-hermosa-guanacaste",
-  "tamarindo-guanacaste",
-  "flamingo-guanacaste",
-  "conchal-guanacaste",
-  "las-catalinas-guanacaste",
-  "playa-grande-guanacaste",
-  "nosara-playa-guiones-area",
-  "samara-playa-carrillo-guanacaste",
-  "rincon-de-la-vieja-national-park",
-  "la-fortuna-arenal",
-  "monteverde-cloud-forest",
-  "santa-teresa-nicoya-peninsula",
-  "manuel-antonio-quepos",
-  "san-jose-downtown",
-];
 
 /** Destinations compared from both airports in the LIR vs SJO table. */
 const COMPARE_SLUGS = [
@@ -396,9 +372,6 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
     (g) => g.key === "lir",
   )?.pairs ?? [];
 
-  const cards = DESTINATION_SLUGS.map((slug) => routeFromAirport(routes, LIR, slug))
-    .filter((r): r is Route => Boolean(r && lowestPrice(r) && isRouteIndexable(r, destinations)));
-
   const compare = COMPARE_SLUGS.map((slug) => ({
     slug,
     lir: routeFromAirport(routes, LIR, slug),
@@ -419,9 +392,18 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
       (lowestPrice(a) ?? Infinity) - (lowestPrice(b) ?? Infinity),
   );
 
-  // The route the phone bar sells: the most-booked airport pickup.
-  const barRoute = quick[0] ?? cards[0];
   const routeHref = (r: Route) => `/private-shuttle/${routeSlug(r.origen, r.destino)}`;
+
+  // The picker: every LIR departure and arrival, opened on the most-booked
+  // airport pickup. One widget replaces the old destination grid, quick
+  // answer list and phone bar, which all repeated the table's figures.
+  const picker = pickerRoutes(
+    lirRoutes.filter((r) => LIR.test(r.origen)),
+    lirRoutes.filter((r) => LIR.test(r.destino)),
+    destinations,
+    locale,
+  );
+  const pickerDefault = quick[0] ?? lirRoutes[0];
 
   return (
     <main className="min-h-screen bg-light-surface pb-28 lg:pb-0">
@@ -449,7 +431,7 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
           {/* Desktop only: phones get the sticky bar instead. */}
           <div className="mt-8 hidden flex-wrap items-center justify-center gap-3 sm:flex">
             <Link
-              href="/private-shuttle"
+              href="#book"
               className="inline-flex items-center gap-2 rounded-full bg-sunset-orange px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-sunset-red"
             >
               {t.hero.book}
@@ -465,7 +447,16 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
         </div>
       </section>
 
-      {/* ─── FULL TABLE: every pair that touches LIR, right under the hero ─── */}
+      {/* ─── PICK & BOOK: LIR on one side, every other end on the wheel ─── */}
+      {picker.length > 0 && pickerDefault && (
+        <section id="book" className="scroll-mt-24 pt-4 sm:pt-6">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6">
+            <HubRoutePicker place="LIR" routes={picker} defaultId={pickerDefault.id} allRoutesHref="#all-routes" />
+          </div>
+        </section>
+      )}
+
+      {/* ─── FULL TABLE: every pair that touches LIR ─── */}
       <section id="all-routes" aria-labelledby="lir-table" className="scroll-mt-24 pt-4 pb-6 sm:pt-6 md:py-10">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="rounded-3xl border border-black/5 bg-white shadow-sm">
@@ -537,21 +528,37 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
         </div>
       </section>
 
-      {/* ─── QUICK ANSWERS: one self-contained sentence per route, the shape
-           answer engines quote verbatim ─── */}
-      {quick.length > 0 && (
-        <section id="quick-answers" aria-labelledby="quick-answers-heading" className="scroll-mt-24 bg-white py-10 sm:py-16">
-          <div className="mx-auto max-w-4xl px-4 sm:px-6">
-            <h2 id="quick-answers-heading" className="text-xl font-bold text-foreground sm:text-3xl">
-              {t.quick.heading}
-            </h2>
-            <p className="mt-2 text-sm text-foreground/60">{t.quick.body}</p>
-            <ul className="mt-6 divide-y divide-black/5 rounded-2xl border border-black/5 bg-light-surface sm:mt-8">
+      {/* ─── DESTINATION HUBS: one link per destination page, no figures
+           (the table above already has every price) ─── */}
+      {hubs.length > 0 && (
+        <nav aria-label={t.destinations.hubsLabel} className="mx-auto max-w-6xl px-4 pb-8 sm:px-6 sm:pb-12">
+          <p className="text-center text-xs font-semibold uppercase tracking-wider text-foreground/50">{t.destinations.hubsLabel}</p>
+          <ul className="mt-3 flex flex-wrap justify-center gap-2">
+            {hubs.map((h) => (
+              <li key={h.slug}>
+                <Link
+                  href={h.path}
+                  className="inline-flex items-center rounded-full border border-black/10 bg-white px-3.5 py-1.5 text-xs font-semibold text-foreground/70 transition hover:border-sunset-orange hover:text-sunset-orange"
+                >
+                  {localizeDestination(h.destination, locale).short_name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+
+      {/* ─── Everything else, folded: why, arrival, airports, vehicles, FAQ ─── */}
+      <section className="mx-auto max-w-4xl space-y-3 px-4 pb-8 sm:px-6 sm:pb-12">
+        {quick.length > 0 && (
+          <Fold id="quick-answers" heading={t.quick.heading}>
+            <p className="text-sm text-foreground/60">{t.quick.body}</p>
+            <ul className="mt-4 divide-y divide-black/5">
               {quick.map((r) => {
                 const price = lowestPrice(r);
                 if (!price) return null;
                 return (
-                  <li key={r.id} className="flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+                  <li key={r.id} className="flex flex-col gap-2 py-3 first:pt-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between">
                     <p className="text-sm text-foreground">
                       {t.quick.answer(shortName(r.destino, destinations), price, travelTime(r, locale))}
                     </p>
@@ -563,76 +570,9 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
                 );
               })}
             </ul>
-          </div>
-        </section>
-      )}
+          </Fold>
+        )}
 
-      {/* ─── DESTINATIONS GRID ─── */}
-      {cards.length > 0 && (
-        <section aria-labelledby="lir-destinations" className="py-10 sm:py-16">
-          <div className="mx-auto max-w-6xl px-4 sm:px-6">
-            <div className="text-center">
-              <h2 id="lir-destinations" className="text-xl font-bold text-foreground sm:text-3xl">
-                {t.destinations.heading}
-              </h2>
-              <p className="mx-auto mt-2 max-w-2xl text-sm text-foreground/60">{t.destinations.body}</p>
-            </div>
-            <ul className="mt-6 grid gap-3 sm:mt-10 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
-              {cards.map((r) => {
-                const price = lowestPrice(r);
-                const d = destinationFor(r.destino, destinations);
-                return (
-                  <li key={r.id}>
-                    <Link
-                      href={routeHref(r)}
-                      className="group flex h-full flex-col justify-between rounded-2xl border border-black/5 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-sunset-orange/30 hover:shadow-lg"
-                    >
-                      <div>
-                        <div className="text-base font-bold text-foreground group-hover:text-sunset-orange">
-                          {d?.short_name ?? r.destino}
-                        </div>
-                        <div className="mt-1 text-xs text-foreground/50">{d?.region ?? ""}</div>
-                      </div>
-                      <div className="mt-4 flex items-end justify-between gap-3">
-                        <span className="text-xs text-foreground/60">{travelTime(r, locale)}</span>
-                        <span className="text-right leading-none">
-                          <span className="block text-[0.6rem] font-semibold uppercase tracking-wider text-foreground/40">
-                            {t.destinations.from}
-                          </span>
-                          <span className="mt-1 block text-xl font-extrabold text-sunset-orange">
-                            {price ? `$${price}` : t.destinations.quote}
-                          </span>
-                          <span className="mt-1 block text-[0.65rem] text-foreground/40">{t.destinations.perVehicle}</span>
-                        </span>
-                      </div>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-            {hubs.length > 0 && (
-              <nav aria-label={t.destinations.hubsLabel} className="mt-8 text-center">
-                <p className="text-xs font-semibold uppercase tracking-wider text-foreground/50">{t.destinations.hubsLabel}</p>
-                <ul className="mt-3 flex flex-wrap justify-center gap-2">
-                  {hubs.map((h) => (
-                    <li key={h.slug}>
-                      <Link
-                        href={h.path}
-                        className="inline-flex items-center rounded-full border border-black/10 bg-white px-3.5 py-1.5 text-xs font-semibold text-foreground/70 transition hover:border-sunset-orange hover:text-sunset-orange"
-                      >
-                        {localizeDestination(h.destination, locale).short_name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            )}
-          </div>
-        </section>
-      )}
-
-      {/* ─── Everything else, folded: why, arrival, airports, vehicles, FAQ ─── */}
-      <section className="mx-auto max-w-4xl space-y-3 px-4 pb-8 sm:px-6 sm:pb-12">
         <Fold id="lir-why" heading={t.fold.why}>
           <div className="grid gap-4 sm:grid-cols-2">
             {t.why.items.map((item, i) => (
@@ -762,7 +702,7 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
           <p className="mx-auto mt-3 max-w-2xl text-sm text-white/70 sm:text-base">{t.cta.body}</p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:mt-8">
             <Link
-              href="/private-shuttle"
+              href="#book"
               className="inline-flex h-12 items-center gap-2 rounded-full bg-sunset-orange px-6 text-sm font-bold text-white transition hover:bg-sunset-red"
             >
               {t.cta.book}
@@ -782,16 +722,6 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
       </section>
 
       <SiteFooter locale={locale} />
-
-      {barRoute && (
-        <HubMobileBar
-          from="LIR"
-          to={shortName(barRoute.destino, destinations)}
-          price={lowestPrice(barRoute)}
-          href={routeHref(barRoute)}
-          allRoutesHref="#all-routes"
-        />
-      )}
     </main>
   );
 }

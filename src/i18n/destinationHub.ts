@@ -90,16 +90,10 @@ export const DESTINATION_HUB = defineCopy({
     },
     facts: {
       heading: (name: string) => `${name} shuttle at a glance`,
-      fromLir: "From Liberia Airport (LIR)",
-      toLir: "To Liberia Airport (LIR)",
-      driveTime: "Drive time",
-      perVehicle: "per vehicle, up to 5 passengers",
       routes: (n: number) => `${n} priced routes`,
       routesHint: (name: string) => `from and to ${name}, every one bookable online`,
       lowest: "Lowest fare",
       lowestHint: "any route, 1–5 passengers",
-      viewRoute: "See route and book",
-      book: "Book",
       lirHub: "Every Liberia Airport route",
     },
     intro: {
@@ -241,16 +235,10 @@ export const DESTINATION_HUB = defineCopy({
     },
     facts: {
       heading: (name: string) => `Shuttle a ${name} en un vistazo`,
-      fromLir: "Desde el Aeropuerto de Liberia (LIR)",
-      toLir: "Hacia el Aeropuerto de Liberia (LIR)",
-      driveTime: "Tiempo de viaje",
-      perVehicle: "por vehículo, hasta 5 pasajeros",
       routes: (n: number) => `${n} rutas con precio`,
       routesHint: (name: string) => `desde y hacia ${name}, todas reservables en línea`,
       lowest: "Tarifa más baja",
       lowestHint: "cualquier ruta, 1–5 pasajeros",
-      viewRoute: "Ver ruta y reservar",
-      book: "Reservar",
       lirHub: "Todas las rutas del Aeropuerto de Liberia",
     },
     intro: {
@@ -389,20 +377,40 @@ export const DESTINATIONS_INDEX = defineCopy({
   },
 });
 
-/** The phone-only sticky booking bar on the hub pages (src/components/HubMobileBar.tsx). */
-export const HUB_MOBILE_BAR = defineCopy({
+/** The route picker on the hub pages (src/components/HubRoutePicker.tsx). */
+export const HUB_ROUTE_PICKER = defineCopy({
   en: {
-    label: "Book this shuttle",
+    label: "Pick your route and book",
+    heading: "Pick your route",
+    directionLabel: "Direction",
+    fromPlace: (place: string) => `From ${place}`,
+    toPlace: (place: string) => `To ${place}`,
+    from: "From",
+    to: "To",
+    selectLabel: "Choose the other end of the route",
     book: "Book",
-    allRoutes: "All routes",
+    bookRoute: "Book this route",
     perVehicle: "per vehicle, 1–5 pax",
+    perVehicleShort: "per vehicle",
     onRequest: "price on request",
+    pax: (min: number, max: number) => `${min}–${max} pax`,
+    allRoutes: "All routes",
   },
   es: {
-    label: "Reservar este shuttle",
+    label: "Elige tu ruta y reserva",
+    heading: "Elige tu ruta",
+    directionLabel: "Sentido",
+    fromPlace: (place: string) => `Desde ${place}`,
+    toPlace: (place: string) => `Hacia ${place}`,
+    from: "Desde",
+    to: "Hacia",
+    selectLabel: "Elige el otro extremo de la ruta",
     book: "Reservar",
-    allRoutes: "Todas las rutas",
+    bookRoute: "Reservar esta ruta",
     perVehicle: "por vehículo, 1–5 pax",
+    perVehicleShort: "por vehículo",
     onRequest: "precio a consultar",
+    pax: (min: number, max: number) => `${min}–${max} pax`,
+    allRoutes: "Todas las rutas",
   },
 });

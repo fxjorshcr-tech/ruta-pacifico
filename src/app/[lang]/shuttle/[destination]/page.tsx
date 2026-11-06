@@ -6,7 +6,7 @@ import Link from "@/components/LocaleLink";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import GoogleReviewBadge from "@/components/GoogleReviewBadge";
-import HubMobileBar from "@/components/HubMobileBar";
+import HubRoutePicker from "@/components/HubRoutePicker";
 import RouteCards from "@/components/RouteCards";
 import type { Route } from "@/lib/routes";
 import { destinationFor, getDestinations, localizeDestination, type DestinationMap } from "@/lib/destinations";
@@ -16,6 +16,7 @@ import {
   plainParagraph,
   type DestinationHub,
 } from "@/lib/destinationHubs";
+import { pickerRoutes } from "@/lib/hubPicker";
 import { LIR_HUB_PATH, PRICE_LIST_PATH, lowestPrice, routePrices, travelTime } from "@/lib/pricing";
 import { VEHICLE_TIERS, vehicleTierCopy } from "@/lib/vehicles";
 import { routeSlug } from "@/lib/slug";
@@ -444,12 +445,10 @@ export default async function DestinationHubPage({ params }: { params: Params })
   const arrivalHtml = d.arrival_md?.trim() ? md(d.arrival_md) : "";
   const tipsHtml = d.tips_md?.trim() ? md(d.tips_md) : "";
   const shortIntro = firstSentences(plainParagraph(d.intro_md), 2);
-  const lirRoute = hub.lirRoute;
-  const lirReturn = hub.lirReturn;
-  const routeHref = (r: Route) => `/private-shuttle/${routeSlug(r.origen, r.destino)}`;
-  // The route the sticky bar sells: the airport pickup, or the cheapest
-  // arrival when the airport route is not published.
-  const barRoute = lirRoute ?? hub.to[0] ?? hub.from[0];
+  // The picker opens on the airport pickup, or the top arrival when the
+  // airport route is not published.
+  const picker = pickerRoutes(hub.from, hub.to, destinations, locale);
+  const pickerDefault = hub.lirRoute ?? hub.to[0] ?? hub.from[0];
 
   return (
     <main className="min-h-screen bg-light-surface pb-28 lg:pb-0">
@@ -483,7 +482,7 @@ export default async function DestinationHubPage({ params }: { params: Params })
           {/* Desktop only: phones get the sticky bar instead. */}
           <div className="mt-8 hidden flex-wrap items-center justify-center gap-3 sm:flex">
             <Link
-              href={barRoute ? routeHref(barRoute) : "/private-shuttle"}
+              href="#book"
               className="inline-flex items-center gap-2 rounded-full bg-sunset-orange px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-sunset-red"
             >
               {t.hero.book}
@@ -499,45 +498,16 @@ export default async function DestinationHubPage({ params }: { params: Params })
         </div>
       </section>
 
-      {/* ─── BOOK: the airport route first, right under the hero ─── */}
-      {(lirRoute || lirReturn) && (
-        <section aria-labelledby="hub-facts" className="mx-auto max-w-6xl px-4 pt-4 sm:px-6 sm:pt-6">
+      {/* ─── PICK & BOOK: the destination on one side, every other end on the wheel ─── */}
+      {pickerDefault && (
+        <section id="book" aria-labelledby="hub-facts" className="mx-auto max-w-6xl scroll-mt-24 px-4 pt-4 sm:px-6 sm:pt-6">
           <h2 id="hub-facts" className="sr-only">{t.facts.heading(name)}</h2>
-          <div className="grid gap-3 sm:gap-4 md:grid-cols-2">
-            {[
-              lirRoute ? { route: lirRoute, label: t.facts.fromLir, primary: true } : null,
-              lirReturn ? { route: lirReturn, label: t.facts.toLir, primary: false } : null,
-            ]
-              .filter((c): c is { route: Route; label: string; primary: boolean } => c !== null)
-              .map((c) => (
-                <div
-                  key={c.route.id}
-                  className={`flex items-center gap-4 rounded-2xl border bg-white p-4 shadow-sm sm:p-6 ${c.primary ? "border-sunset-orange/40" : "border-black/5"}`}
-                >
-                  <div className="min-w-0 flex-1">
-                    <div className={`text-[0.65rem] font-semibold uppercase tracking-wider sm:text-xs ${c.primary ? "text-sunset-orange" : "text-foreground/50"}`}>
-                      {c.label}
-                    </div>
-                    <div className="mt-1 flex items-baseline gap-2">
-                      <span className="text-3xl font-extrabold text-sunset-orange">${lowestPrice(c.route)}</span>
-                      <span className="text-xs text-foreground/50">{t.facts.perVehicle}</span>
-                    </div>
-                    {c.route.duracion && (
-                      <div className="mt-1 text-sm text-foreground/70">
-                        {t.facts.driveTime}: <span className="font-semibold text-foreground">{travelTime(c.route, locale)}</span>
-                      </div>
-                    )}
-                  </div>
-                  <Link
-                    href={routeHref(c.route)}
-                    className="inline-flex h-12 shrink-0 items-center gap-2 rounded-full bg-sunset-orange px-5 text-sm font-bold text-white shadow-md shadow-sunset-orange/25 transition hover:bg-sunset-red"
-                  >
-                    {t.facts.book}
-                    <ArrowIcon />
-                  </Link>
-                </div>
-              ))}
-          </div>
+          <HubRoutePicker
+            place={name}
+            routes={picker}
+            defaultId={pickerDefault.id}
+            allRoutesHref={hub.to.length ? "#to" : "#from"}
+          />
         </section>
       )}
 
@@ -635,7 +605,7 @@ export default async function DestinationHubPage({ params }: { params: Params })
           <p className="mx-auto mt-3 max-w-2xl text-sm text-white/70 sm:text-base">{t.cta.body}</p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3 sm:mt-8">
             <Link
-              href={barRoute ? routeHref(barRoute) : "/private-shuttle"}
+              href="#book"
               className="inline-flex h-12 items-center gap-2 rounded-full bg-sunset-orange px-6 text-sm font-bold text-white transition hover:bg-sunset-red"
             >
               {t.cta.book}
@@ -661,16 +631,6 @@ export default async function DestinationHubPage({ params }: { params: Params })
       </section>
 
       <SiteFooter locale={locale} />
-
-      {barRoute && (
-        <HubMobileBar
-          from={shortName(barRoute.origen, destinations)}
-          to={shortName(barRoute.destino, destinations)}
-          price={lowestPrice(barRoute)}
-          href={routeHref(barRoute)}
-          allRoutesHref={hub.to.length ? "#to" : "#from"}
-        />
-      )}
     </main>
   );
 }
