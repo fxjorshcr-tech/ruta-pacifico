@@ -505,7 +505,7 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
                   }))}
                 />
                 {/* md+: the full table with every van size. */}
-                <div className="hidden overflow-x-auto border-t border-black/5 md:block">
+                <div className="relative hidden overflow-x-auto border-t border-black/5 md:block">
                   <table className="w-full min-w-[640px] text-left text-sm">
                     <caption className="sr-only">{tp.caption(t.table.heading)}</caption>
                     <thead className="bg-light-surface text-xs uppercase tracking-wider text-foreground/50">
@@ -682,7 +682,7 @@ export default async function LiberiaAirportPage({ params }: { params: Params })
         {compare.length > 0 && (
           <Fold id="airports-compared" heading={t.fold.airports}>
             <p className="text-sm leading-relaxed text-foreground/70">{t.airports.body}</p>
-            <div className="mt-5 overflow-x-auto rounded-2xl border border-black/5">
+            <div className="relative mt-5 overflow-x-auto rounded-2xl border border-black/5">
               <table className="w-full min-w-[560px] text-left text-sm">
                 <thead className="bg-light-surface text-xs uppercase tracking-wider text-foreground/50">
                   <tr>

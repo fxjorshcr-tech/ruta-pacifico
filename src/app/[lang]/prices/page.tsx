@@ -267,7 +267,7 @@ function GroupTable({ group, locale, defaultOpen }: { group: PairGroup; locale: 
           </svg>
         </span>
       </summary>
-      <div className="overflow-x-auto border-t border-black/5">
+      <div className="relative overflow-x-auto border-t border-black/5">
         <table className="w-full min-w-[640px] text-left text-sm">
           <caption className="sr-only">{t.caption(group.title)}</caption>
           <thead className="bg-light-surface text-xs uppercase tracking-wider text-foreground/50">

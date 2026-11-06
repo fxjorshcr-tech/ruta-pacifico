@@ -310,7 +310,7 @@ function RouteTable({
           />
 
           {/* md+: the full table with every van size. */}
-          <div className="hidden overflow-x-auto border-t border-black/5 md:block">
+          <div className="relative hidden overflow-x-auto border-t border-black/5 md:block">
             <table className="w-full min-w-[640px] text-left text-sm">
               <caption className="sr-only">{t.caption(heading)}</caption>
               <thead className="bg-light-surface text-xs uppercase tracking-wider text-foreground/50">

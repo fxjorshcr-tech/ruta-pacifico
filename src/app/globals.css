@@ -190,3 +190,14 @@ html {
 .article-prose tbody tr:nth-child(even) td {
   background: rgb(0 0 0 / 0.02);
 }
+
+/*
+ * A horizontally scrolling table wrapper must be the containing block of
+ * its own absolutely positioned descendants. Without this, the visually
+ * hidden <caption class="sr-only"> (position: absolute) escaped the
+ * wrapper, landed past the right edge of the phone screen and widened the
+ * document: pinch-zooming then showed the page shrunk to that phantom width.
+ */
+.overflow-x-auto {
+  position: relative;
+}

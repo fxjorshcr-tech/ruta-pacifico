@@ -51,7 +51,7 @@ export default function PopularRoutes({
         {routes.map((r) => {
           const price = lowestPrice(r);
           return (
-            <li key={r.id}>
+            <li key={r.id} className="min-w-0">
               <Link
                 href={`/private-shuttle/${routeSlug(r.origen, r.destino)}`}
                 className="group flex h-full items-center justify-between gap-4 rounded-2xl border border-black/5 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-sunset-orange/30 hover:shadow-lg"
