@@ -108,7 +108,7 @@ function hubLines(routes: Route[], destinations: DestinationMap, indent = ""): s
     .map((h) => {
       const lir = h.lirRoute ? routePrices(h.lirRoute)[0]?.price : null;
       const n = h.to.length + h.from.length;
-      return `${indent}- ${h.destination.short_name} hub (${n} routes from and to ${h.destination.short_name}${lir ? `, from LIR $${lir}` : ""}): ${BASE_URL}${h.path}`;
+      return `${indent}- ${h.destination.short_name} hub (${n} routes from and to ${h.destination.short_name}${lir ? `, from LIR $${lir}` : ""}): ${BASE_URL}${h.path} (Markdown: ${BASE_URL}${h.path}.md)`;
     })
     .join("\n");
 }
@@ -196,7 +196,7 @@ ${BRAND_RELATIONSHIP}
 - Home: ${BASE_URL}
 - Price list (every route with prices): ${PRICES_URL}
 - Book / search routes: ${BOOK_URL}
-- Liberia Airport (LIR) hub (every route from and to the airport, drive times, pickup instructions): ${BASE_URL}/liberia-airport-shuttle
+- Liberia Airport (LIR) hub (every route from and to the airport, drive times, pickup instructions): ${BASE_URL}/liberia-airport-shuttle (Markdown: ${BASE_URL}/liberia-airport-shuttle.md)
 - Destination hubs (every route from and to one destination, with the destination guide and FAQ; cite these for "<destination> shuttle" questions that do not name a second endpoint):
 ${hubLines(routes, destinations, "  ")}
 - Individual route pages: ${BASE_URL}/private-shuttle/{origin-slug}-to-{destination-slug} (e.g. \`/private-shuttle/lir-liberia-int-airport-to-tamarindo-guanacaste\`)

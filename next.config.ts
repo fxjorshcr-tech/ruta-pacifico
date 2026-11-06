@@ -115,6 +115,32 @@ const nextConfig: NextConfig = {
         },
         { source: "/", has: [WANTS_MARKDOWN], destination: "/llms.txt" },
         { source: "/es", has: [WANTS_MARKDOWN], destination: "/llms.txt" },
+        // Markdown twins of the hubs for AI agents, same two doors as the
+        // route pages: `Accept: text/markdown` on the hub URL, or `.md`
+        // appended. The airport hub first, so the generic pattern below
+        // never swallows it.
+        { source: "/liberia-airport-shuttle", has: [WANTS_MARKDOWN], destination: "/en/md/liberia-airport-shuttle" },
+        { source: "/es/liberia-airport-shuttle", has: [WANTS_MARKDOWN], destination: "/es/md/liberia-airport-shuttle" },
+        { source: "/liberia-airport-shuttle.md", destination: "/en/md/liberia-airport-shuttle" },
+        { source: "/es/liberia-airport-shuttle.md", destination: "/es/md/liberia-airport-shuttle" },
+        {
+          source: "/:destination((?!liberia-airport-shuttle$|private-shuttle$)[a-z0-9-]+)-shuttle",
+          has: [WANTS_MARKDOWN],
+          destination: "/en/md/shuttle/:destination",
+        },
+        {
+          source: "/es/:destination((?!liberia-airport-shuttle$|private-shuttle$)[a-z0-9-]+)-shuttle",
+          has: [WANTS_MARKDOWN],
+          destination: "/es/md/shuttle/:destination",
+        },
+        {
+          source: "/:destination((?!liberia-airport-shuttle\\.md$|private-shuttle\\.md$)[a-z0-9-]+)-shuttle\\.md",
+          destination: "/en/md/shuttle/:destination",
+        },
+        {
+          source: "/es/:destination((?!liberia-airport-shuttle\\.md$|private-shuttle\\.md$)[a-z0-9-]+)-shuttle\\.md",
+          destination: "/es/md/shuttle/:destination",
+        },
         // Destination hubs: /tamarindo-shuttle → app/[lang]/shuttle/tamarindo.
         // The Liberia Airport hub and the /private-shuttle booking page are
         // their own pages and are excluded. Only the slugs generateStaticParams

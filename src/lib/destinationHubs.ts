@@ -5,12 +5,15 @@ import {
   getDestinations,
   hasGuide,
   isRouteIndexable,
+  localizeDestination,
   routeSeoRank,
   type Destination,
   type DestinationMap,
 } from "@/lib/destinations";
-import { lowestPrice, priceRange } from "@/lib/pricing";
+import { lowestPrice, priceRange, travelTime } from "@/lib/pricing";
 import { isAirportOrigin, toSlug } from "@/lib/slug";
+import type { Locale } from "@/lib/i18n";
+import type { HubFacts } from "@/i18n/destinationHub";
 
 /**
  * Destination hubs: one page per main destination (/tamarindo-shuttle,
@@ -198,6 +201,21 @@ export function hubForPlace(place: string, hubs: DestinationHub[]): DestinationH
 /** Hub of a destinations-table slug ("tamarindo-guanacaste"), or undefined. */
 export function hubForDestination(destinationSlug: string, hubs: DestinationHub[]): DestinationHub | undefined {
   return hubs.find((h) => h.destination.slug === destinationSlug);
+}
+
+/** The figures the hub copy (meta, FAQ, answer line) is written around. */
+export function hubFacts(hub: DestinationHub, locale: Locale): HubFacts {
+  const d = localizeDestination(hub.destination, locale);
+  return {
+    name: d.short_name,
+    region: d.region,
+    lirPrice: hub.lirRoute ? lowestPrice(hub.lirRoute) : null,
+    lirTime: hub.lirRoute?.duracion ? travelTime(hub.lirRoute, locale) : null,
+    lowest: hub.range?.low ?? null,
+    fromCount: hub.from.length,
+    toCount: hub.to.length,
+    nearby: hub.related.slice(0, 4).map((r) => localizeDestination(r.destination, locale).short_name),
+  };
 }
 
 /** First paragraph of a Markdown block as plain text, for descriptions. */
