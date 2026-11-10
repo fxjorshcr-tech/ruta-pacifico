@@ -29,6 +29,11 @@ function shortName(place: string, map: DestinationMap): string {
   return destinationFor(place, map)?.short_name ?? place;
 }
 
+/** One route reduced to the strings and numbers the hub widgets show. */
+export function toPickerRoute(route: Route, direction: "from" | "to", map: DestinationMap, locale: Locale): PickerRoute {
+  return toPicker(route, direction, map, locale);
+}
+
 function toPicker(route: Route, direction: "from" | "to", map: DestinationMap, locale: Locale): PickerRoute {
   return {
     id: route.id,

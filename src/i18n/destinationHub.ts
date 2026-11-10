@@ -441,6 +441,42 @@ export const DESTINATIONS_INDEX = defineCopy({
   },
 });
 
+/** The single route list on the hub pages (src/components/HubRouteList.tsx). */
+export const HUB_ROUTE_LIST = defineCopy({
+  en: {
+    directionLabel: "Direction",
+    toPlace: (place: string) => `To ${place}`,
+    fromPlace: (place: string) => `From ${place}`,
+    groupSize: "How many travel?",
+    pax: (min: number, max: number) => `${min}–${max}`,
+    tierNote: (min: number, max: number, vehicle: string) =>
+      `Price per vehicle for ${min}–${max} passengers · ${vehicle}`,
+    perVehicle: "per vehicle",
+    onRequest: "on request",
+    book: "Book",
+    showMore: (n: number) => `See the other ${n} routes`,
+    showLess: "Show fewer routes",
+    topNote: (n: number) => `The ${n} most-booked routes first.`,
+    priceNote: "US dollars, 13% VAT included, the same price on any date of the year.",
+  },
+  es: {
+    directionLabel: "Sentido",
+    toPlace: (place: string) => `Hacia ${place}`,
+    fromPlace: (place: string) => `Desde ${place}`,
+    groupSize: "¿Cuántos viajan?",
+    pax: (min: number, max: number) => `${min}–${max}`,
+    tierNote: (min: number, max: number, vehicle: string) =>
+      `Precio por vehículo para ${min}–${max} pasajeros · ${vehicle}`,
+    perVehicle: "por vehículo",
+    onRequest: "a consultar",
+    book: "Reservar",
+    showMore: (n: number) => `Ver las otras ${n} rutas`,
+    showLess: "Ver menos rutas",
+    topNote: (n: number) => `Primero las ${n} rutas más reservadas.`,
+    priceNote: "Dólares estadounidenses, 13% de IVA incluido, el mismo precio cualquier fecha del año.",
+  },
+});
+
 /** The route picker on the hub pages (src/components/HubRoutePicker.tsx). */
 export const HUB_ROUTE_PICKER = defineCopy({
   en: {
