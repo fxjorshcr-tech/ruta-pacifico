@@ -7,20 +7,21 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import GoogleReviewBadge from "@/components/GoogleReviewBadge";
 import HubRoutePicker from "@/components/HubRoutePicker";
-import RouteCards from "@/components/RouteCards";
-import { getRoutes, type Route } from "@/lib/routes";
-import { destinationFor, getDestinations, localizeDestination, type DestinationMap } from "@/lib/destinations";
+import HubRouteList from "@/components/HubRouteList";
+import { getRoutes } from "@/lib/routes";
+import { getDestinations, localizeDestination } from "@/lib/destinations";
 import {
   findDestinationHub,
   getDestinationHubs,
   hubFacts,
   plainParagraph,
+  rankRoutes,
   type DestinationHub,
 } from "@/lib/destinationHubs";
 import HubRouteGuide from "@/components/HubRouteGuide";
 import { buildHubGuide } from "@/lib/hubGuide";
-import { pickerRoutes } from "@/lib/hubPicker";
-import { LIR_HUB_PATH, PRICE_LIST_PATH, lowestPrice, routePrices, travelTime } from "@/lib/pricing";
+import { pickerRoutes, toPickerRoute } from "@/lib/hubPicker";
+import { LIR_HUB_PATH, PRICE_LIST_PATH, lowestPrice, priceFacts, routePrices } from "@/lib/pricing";
 import { VEHICLE_TIERS, vehicleTierCopy } from "@/lib/vehicles";
 import { routeSlug, toSlug } from "@/lib/slug";
 import { WHATSAPP_DISPLAY, WHATSAPP_URL, withCurrentContact } from "@/lib/contact";
@@ -104,10 +105,6 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     },
     twitter: { card: "summary_large_image", title, description, images: [image] },
   };
-}
-
-function shortName(place: string, map: DestinationMap): string {
-  return destinationFor(place, map)?.short_name ?? place;
 }
 
 function HubJsonLd({
@@ -242,125 +239,11 @@ function HubJsonLd({
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }} />;
 }
 
-function PriceCell({ route, field, onRequest }: {
-  route: Route;
-  field: (typeof VEHICLE_TIERS)[number]["priceField"];
-  onRequest: string;
-}) {
-  const price = route[field];
-  if (typeof price === "number" && price > 0) {
-    return <span className="font-bold text-foreground">{`$${price}`}</span>;
-  }
-  return <span className="text-xs text-foreground/40">{onRequest}</span>;
-}
-
-function RouteTable({
-  id,
-  heading,
-  body,
-  routes,
-  locale,
-  map,
-  /** Which end of the route the table is about, so the other end is the label. */
-  show,
-}: {
-  id: string;
-  heading: string;
-  body: string;
-  routes: Route[];
-  locale: Locale;
-  map: DestinationMap;
-  show: "origen" | "destino";
-}) {
-  const t = DESTINATION_HUB[locale].table;
-  if (routes.length === 0) return null;
+function CheckIcon() {
   return (
-    <section id={id} aria-labelledby={`${id}-heading`} className="scroll-mt-24 py-6 md:py-10">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="rounded-3xl border border-black/5 bg-white shadow-sm">
-          <div className="px-5 py-5 sm:px-8 sm:py-6">
-            <h2 id={`${id}-heading`} className="text-xl font-bold text-foreground sm:text-2xl">{heading}</h2>
-            <p className="mt-1 hidden text-sm text-foreground/60 md:block">{body}</p>
-          </div>
-
-          {/* Phones: one card per route, price and Book button first. */}
-          <RouteCards
-            className="border-t border-black/5 md:hidden"
-            locale={locale}
-            book={t.book}
-            onRequest={t.onRequest}
-            items={routes.map((r) => ({
-              key: r.id,
-              href: `/private-shuttle/${routeSlug(r.origen, r.destino)}`,
-              from: shortName(r.origen, map),
-              to: shortName(r.destino, map),
-              highlight: show === "origen" ? "from" : "to",
-              route: r,
-            }))}
-          />
-
-          {/* md+: the full table with every van size. */}
-          <div className="relative hidden overflow-x-auto border-t border-black/5 md:block">
-            <table className="w-full min-w-[640px] text-left text-sm">
-              <caption className="sr-only">{t.caption(heading)}</caption>
-              <thead className="bg-light-surface text-xs uppercase tracking-wider text-foreground/50">
-                <tr>
-                  <th scope="col" className="px-4 py-3 font-semibold">{t.route}</th>
-                  <th scope="col" className="px-4 py-3 font-semibold">{t.travelTime}</th>
-                  {VEHICLE_TIERS.map((tier) => (
-                    <th key={tier.key} scope="col" className="whitespace-nowrap px-4 py-3 text-right font-semibold">
-                      {t.pax(tier.minPax, tier.maxPax)}
-                    </th>
-                  ))}
-                  <th scope="col" className="px-4 py-3 font-semibold"><span className="sr-only">{t.bookColumn}</span></th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-black/5">
-                {routes.map((r) => {
-                  const href = `/private-shuttle/${routeSlug(r.origen, r.destino)}`;
-                  const other = show === "origen" ? r.origen : r.destino;
-                  return (
-                    <tr key={r.id} className="transition hover:bg-sunset-orange/5">
-                      <th scope="row" className="px-4 py-3 font-medium text-foreground">
-                        <Link href={href} className="hover:text-sunset-orange">
-                          {show === "origen" ? (
-                            <>
-                              {shortName(other, map)}
-                              <span className="mx-1.5 text-foreground/30">→</span>
-                              <span className="text-foreground/50">{shortName(r.destino, map)}</span>
-                            </>
-                          ) : (
-                            <>
-                              <span className="text-foreground/50">{shortName(r.origen, map)}</span>
-                              <span className="mx-1.5 text-foreground/30">→</span>
-                              {shortName(other, map)}
-                            </>
-                          )}
-                        </Link>
-                      </th>
-                      <td className="whitespace-nowrap px-4 py-3 text-foreground/70">{travelTime(r, locale)}</td>
-                      {VEHICLE_TIERS.map((tier) => (
-                        <td key={tier.key} className="whitespace-nowrap px-4 py-3 text-right">
-                          <PriceCell route={r} field={tier.priceField} onRequest={t.onRequest} />
-                        </td>
-                      ))}
-                      <td className="px-4 py-3 text-right">
-                        <Link
-                          href={href}
-                          className="inline-flex items-center rounded-full bg-sunset-orange px-4 py-2 text-xs font-bold text-white transition hover:bg-sunset-red"
-                        >
-                          {t.book}
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
+    <svg className="mt-0.5 h-4 w-4 shrink-0 text-sunset-orange" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+    </svg>
   );
 }
 
@@ -436,10 +319,13 @@ export default async function DestinationHubPage({ params }: { params: Params })
   // set for SEO reasons still has a page and can be sold. The hub's own
   // `to` / `from` (index-able only) stay for the JSON-LD, llms.txt and the
   // sitemap.
+  // Most-booked first (airport legs, then the main destinations), so the
+  // list, the picker and the route guide all open on the routes people buy.
   const placeSlug = hub.destination.slug;
+  const rank = rankRoutes(destinations);
   const priced = allRoutes.filter((r) => lowestPrice(r) && r.origen !== r.destino);
-  const bookableFrom = priced.filter((r) => toSlug(r.origen) === placeSlug);
-  const bookableTo = priced.filter((r) => toSlug(r.destino) === placeSlug);
+  const bookableFrom = priced.filter((r) => toSlug(r.origen) === placeSlug).sort(rank);
+  const bookableTo = priced.filter((r) => toSlug(r.destino) === placeSlug).sort(rank);
   const facts = { ...hubFacts(hub, locale), fromCount: bookableFrom.length, toCount: bookableTo.length };
   // The route guide at the foot of the page: every route as one sentence,
   // the key facts and the rules, for readers and answer engines alike.
@@ -511,14 +397,35 @@ export default async function DestinationHubPage({ params }: { params: Params })
             place={name}
             routes={picker}
             defaultId={pickerDefault.id}
-            allRoutesHref={bookableTo.length ? "#to" : "#from"}
+            allRoutesHref="#routes"
           />
         </section>
       )}
 
-      {/* ─── TABLES: to, then from ─── */}
-      <RouteTable id="to" heading={t.to.heading(name)} body={t.to.body(name)} routes={bookableTo} locale={locale} map={destinations} show="destino" />
-      <RouteTable id="from" heading={t.from.heading(name)} body={t.from.body(name)} routes={bookableFrom} locale={locale} map={destinations} show="origen" />
+      {/* ─── ROUTES: one list, one direction at a time, one price per route ─── */}
+      <HubRouteList
+        id="routes"
+        place={name}
+        arrivals={bookableTo.map((r) => toPickerRoute(r, "to", destinations, locale))}
+        departures={bookableFrom.map((r) => toPickerRoute(r, "from", destinations, locale))}
+      />
+
+      {/* ─── What the price includes, right where the prices were read ─── */}
+      <section aria-label={t.facts.heading(name)} className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="flex flex-col gap-4 rounded-3xl border border-black/5 bg-white px-5 py-5 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:px-8">
+          <ul className="grid gap-2.5 text-sm text-foreground/75 sm:grid-cols-3 sm:gap-5">
+            {priceFacts(locale).slice(0, 3).map((fact) => (
+              <li key={fact} className="flex gap-2 leading-snug">
+                <CheckIcon />
+                <span>{fact}</span>
+              </li>
+            ))}
+          </ul>
+          <div className="shrink-0">
+            <GoogleReviewBadge tone="light" locale={locale} />
+          </div>
+        </div>
+      </section>
 
       {/* ─── SHORT INTRO + everything else folded ─── */}
       <section className="mx-auto max-w-4xl space-y-3 px-4 py-8 sm:px-6 sm:py-12">
@@ -533,6 +440,40 @@ export default async function DestinationHubPage({ params }: { params: Params })
           ))}
         </div>
         {shortIntro && <p className="pb-2 text-sm leading-relaxed text-foreground/75 sm:text-base">{shortIntro}</p>}
+
+        {/* What convinces a buyer first (vehicles, questions), the reading matter after. */}
+        <Fold id="hub-vehicles" heading={t.fold.vehicles}>
+          <p className="text-sm text-foreground/60">{t.vehicles.body}</p>
+          <ul className="mt-4 grid gap-4 sm:grid-cols-3">
+            {VEHICLE_TIERS.map((tier) => {
+              const copy = vehicleTierCopy(tier.key, locale);
+              return (
+                <li key={tier.key} className="overflow-hidden rounded-2xl border border-black/5 bg-light-surface">
+                  <div className="relative aspect-[16/10] bg-white">
+                    <Image src={tier.image} alt={tier.name} fill loading="lazy" className="object-contain p-4" sizes="(min-width: 640px) 33vw, 100vw" />
+                  </div>
+                  <div className="p-4">
+                    <div className="text-xs font-semibold uppercase tracking-wider text-sunset-orange">{t.vehicles.pax(tier.minPax, tier.maxPax)}</div>
+                    <h3 className="mt-1 text-base font-bold text-foreground">{tier.name}</h3>
+                    <p className="mt-1 text-sm text-foreground/60">{copy.typicalUse}</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </Fold>
+
+        {/* FAQ: plain HTML, mirrors the FAQPage JSON-LD word for word. */}
+        <Fold id="hub-faq" heading={t.faqHeading(name)}>
+          <dl className="divide-y divide-black/5">
+            {faqs.map((f) => (
+              <div key={f.q} className="py-4 first:pt-0 last:pb-0">
+                <dt className="text-base font-semibold text-foreground">{f.q}</dt>
+                <dd className="mt-2 text-sm leading-relaxed text-foreground/75">{f.a}</dd>
+              </div>
+            ))}
+          </dl>
+        </Fold>
 
         <Fold id="hub-guide" heading={t.guide.about(name)}>
           <div className={PROSE} dangerouslySetInnerHTML={{ __html: introHtml }} />
@@ -568,39 +509,6 @@ export default async function DestinationHubPage({ params }: { params: Params })
             </ul>
           </Fold>
         )}
-
-        <Fold id="hub-vehicles" heading={t.fold.vehicles}>
-          <p className="text-sm text-foreground/60">{t.vehicles.body}</p>
-          <ul className="mt-4 grid gap-4 sm:grid-cols-3">
-            {VEHICLE_TIERS.map((tier) => {
-              const copy = vehicleTierCopy(tier.key, locale);
-              return (
-                <li key={tier.key} className="overflow-hidden rounded-2xl border border-black/5 bg-light-surface">
-                  <div className="relative aspect-[16/10] bg-white">
-                    <Image src={tier.image} alt={tier.name} fill loading="lazy" className="object-contain p-4" sizes="(min-width: 640px) 33vw, 100vw" />
-                  </div>
-                  <div className="p-4">
-                    <div className="text-xs font-semibold uppercase tracking-wider text-sunset-orange">{t.vehicles.pax(tier.minPax, tier.maxPax)}</div>
-                    <h3 className="mt-1 text-base font-bold text-foreground">{tier.name}</h3>
-                    <p className="mt-1 text-sm text-foreground/60">{copy.typicalUse}</p>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        </Fold>
-
-        {/* FAQ: plain HTML, mirrors the FAQPage JSON-LD word for word. */}
-        <Fold id="hub-faq" heading={t.faqHeading(name)}>
-          <dl className="divide-y divide-black/5">
-            {faqs.map((f) => (
-              <div key={f.q} className="py-4 first:pt-0 last:pb-0">
-                <dt className="text-base font-semibold text-foreground">{f.q}</dt>
-                <dd className="mt-2 text-sm leading-relaxed text-foreground/75">{f.a}</dd>
-              </div>
-            ))}
-          </dl>
-        </Fold>
       </section>
 
       {/* ─── CTA ─── */}

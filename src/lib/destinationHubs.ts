@@ -107,13 +107,22 @@ function isHubCandidate(d: Destination): boolean {
   return d.tier <= 2 && hasGuide(d) && !isAirportOrigin(d.name);
 }
 
-function byRank(map: DestinationMap) {
+/**
+ * Most-booked first: airport legs, then the routes between the main
+ * destinations, then the rest, cheapest first within a rank. The hub
+ * lists, the picker default and the route guide all share this order so
+ * a traveller meets the airport transfer at the top instead of under
+ * "Alajuela" and "Bijagua".
+ */
+export function rankRoutes(map: DestinationMap) {
   return (a: Route, b: Route) =>
     routeSeoRank(a, map) - routeSeoRank(b, map) ||
     (lowestPrice(a) ?? Infinity) - (lowestPrice(b) ?? Infinity) ||
     a.origen.localeCompare(b.origen) ||
     a.destino.localeCompare(b.destino);
 }
+
+const byRank = rankRoutes;
 
 function latest(routes: Route[]): string | null {
   let out: string | null = null;
