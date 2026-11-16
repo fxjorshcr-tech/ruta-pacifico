@@ -304,8 +304,9 @@ export default async function PricesPage({ params }: { params: Params }) {
   const all = groups.flatMap((g) => g.routes);
   const lir = groups.find((g) => g.key === "from-lir");
   // The hero quotes the cheapest airport transfer from Liberia, which is what
-  // almost every visitor is here for; the cheapest route overall is a $75
-  // SJO hop to downtown San José and only confused people.
+  // almost every visitor is here for. A range over every route would lead
+  // with whatever short hop happens to be cheapest (the SJO to downtown San
+  // José transfer was, for a while) and only confused people.
   const range = priceRange(lir?.routes ?? all);
 
   return (
