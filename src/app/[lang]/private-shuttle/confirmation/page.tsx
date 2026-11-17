@@ -51,6 +51,8 @@ interface BookingData {
   total: number;
   confirmationCode: string;
   createdAt: string;
+  /** Set by the checkout once the card payment was approved (Powertranz). */
+  paid?: boolean;
 }
 
 function subscribeSessionStorage(callback: () => void): () => void {
@@ -72,6 +74,22 @@ function getServerSnapshot(): string | null {
   return null;
 }
 
+// ?paid=1 — set when the Powertranz callback had to navigate here itself
+// (the checkout normally flags the stored booking instead).
+function subscribeNoop(): () => void {
+  return () => {};
+}
+function getPaidSnapshot(): boolean {
+  try {
+    return new URLSearchParams(window.location.search).get("paid") === "1";
+  } catch {
+    return false;
+  }
+}
+function getPaidServerSnapshot(): boolean {
+  return false;
+}
+
 export default function ConfirmationPage() {
   const locale = useLocale();
   const t = CONFIRMATION[locale];
@@ -81,6 +99,9 @@ export default function ConfirmationPage() {
     getBookingSnapshot,
     getServerSnapshot,
   );
+
+  // Paid by card: flagged in the stored booking by the checkout, or by ?paid=1.
+  const paidFromUrl = useSyncExternalStore(subscribeNoop, getPaidSnapshot, getPaidServerSnapshot);
 
   let booking: BookingData | null = null;
   if (raw) {
@@ -114,10 +135,11 @@ export default function ConfirmationPage() {
     );
   }
 
-  const whatsappText = t.whatsappText(
-    booking.confirmationCode,
-    booking.trips.map((trip) => `${trip.from} → ${trip.to}`).join(", "),
-  );
+  const isPaid = paidFromUrl || booking.paid === true;
+  const routesLabel = booking.trips.map((trip) => `${trip.from} → ${trip.to}`).join(", ");
+  const whatsappText = isPaid
+    ? t.paid.whatsappText(booking.confirmationCode, routesLabel)
+    : t.whatsappText(booking.confirmationCode, routesLabel);
 
   return (
     <main className="min-h-screen bg-light-surface">
@@ -129,16 +151,20 @@ export default function ConfirmationPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-light-surface via-transparent to-transparent" />
         <div className="relative z-10 mx-auto w-full max-w-3xl px-6 pt-24 pb-20 text-center">
-          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-amber-400 text-white shadow-xl shadow-amber-400/30">
+          <div className={`mx-auto flex h-20 w-20 items-center justify-center rounded-full text-white shadow-xl ${isPaid ? "bg-green-500 shadow-green-500/30" : "bg-amber-400 shadow-amber-400/30"}`}>
             <svg className="h-10 w-10" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2m6-2a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z" />
+              {isPaid ? (
+                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2m6-2a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z" />
+              )}
             </svg>
           </div>
           <h1 className="mt-6 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            {t.title}
+            {isPaid ? t.paid.title : t.title}
           </h1>
           <p className="mt-3 text-white/70">
-            {t.thanks(booking.name)}
+            {isPaid ? t.paid.thanks(booking.name) : t.thanks(booking.name)}
           </p>
           <div className="mt-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2.5 text-sm backdrop-blur-sm border border-white/10">
             <span className="text-white/60">{t.codeLabel}</span>
@@ -150,7 +176,36 @@ export default function ConfirmationPage() {
       </section>
 
       <div className="mx-auto max-w-3xl px-6 pb-20 pt-10">
-        {/* Payment notice */}
+        {/* Payment notice: paid receipt, or "link on its way" */}
+        {isPaid ? (
+        <div className="rounded-3xl border border-green-200 bg-green-50 p-6 sm:p-8">
+          <div className="flex items-start gap-4">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green-600 text-white">
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+              </svg>
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-foreground">{t.paid.paymentTitle}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-foreground/70">
+                {t.paid.p1}
+                <strong className="text-foreground">${booking.total} USD</strong>
+                {t.paid.p2}
+                <strong className="text-foreground">{booking.email}</strong>
+                {t.paid.p3}
+              </p>
+              <ol className="mt-5 flex flex-col gap-2 text-sm sm:flex-row sm:gap-3">
+                {t.paid.steps.map((label) => (
+                  <li key={label} className="flex items-center gap-2 rounded-xl bg-green-100 px-3 py-2 text-green-800 sm:flex-1">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-600 text-xs font-bold text-white">✓</span>
+                    <span>{label}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </div>
+        ) : (
         <div className="rounded-3xl border border-sunset-orange/20 bg-sunset-orange/5 p-6 sm:p-8">
           <div className="flex items-start gap-4">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-sunset-orange text-white">
@@ -210,6 +265,7 @@ export default function ConfirmationPage() {
             </div>
           </div>
         </div>
+        )}
 
         {/* Shuttles */}
         <div className="mt-8 rounded-3xl border border-black/5 bg-white p-6 shadow-sm sm:p-8">
@@ -368,7 +424,7 @@ export default function ConfirmationPage() {
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
               <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.553 4.116 1.519 5.848L.058 23.306a.5.5 0 00.636.636l5.458-1.461A11.948 11.948 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.94 0-3.753-.563-5.28-1.532l-.368-.224-3.821 1.023 1.023-3.821-.224-.368A9.935 9.935 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z" />
             </svg>
-            {t.whatsappCta}
+            {isPaid ? t.paid.whatsappCta : t.whatsappCta}
           </a>
           <Link
             href="/"

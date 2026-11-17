@@ -10,3 +10,17 @@ English is served at the root and Spanish under `/es`; every page lives in
 `src/app/[lang]/`. Read `src/i18n/README.md` before adding or changing any
 user-visible text: copy lives in `src/i18n/*.ts` dictionaries, links go
 through `@/components/LocaleLink`, and database copy has `*_es` columns.
+
+# Card payments (Powertranz / BAC Credomatic)
+
+Behind `NEXT_PUBLIC_PAYMENT_PROVIDER=powertranz`; without it the checkout
+keeps the "confirm now, we email the payment link" flow. With it,
+`/api/bookings` (`payWithCard: true`) re-prices the cart from the shared
+`routes` table, saves the booking in `rp_bookings` and holds the emails;
+`/api/powertranz/start` opens the SPI + 3-D Secure hosted-page session,
+`/api/powertranz/callback` (the MerchantResponseUrl, posted from inside the
+checkout iframe) finalises the charge, marks the booking paid and sends the
+paid emails from `src/lib/bookingEmails.ts`. Schema in
+`supabase/payments_schema.sql` (the Supabase project is shared with
+cant-wait-travel; `powertranz_transactions.site = 'ruta'`). Env vars are
+documented in `.env.local.example`; the service-role key is required.

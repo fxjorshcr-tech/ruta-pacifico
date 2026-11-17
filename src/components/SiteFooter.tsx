@@ -3,6 +3,7 @@ import Link from "@/components/LocaleLink";
 import SocialLinks from "@/components/SocialLinks";
 import GoogleReviewBadge from "@/components/GoogleReviewBadge";
 import PoweredByMaxDigital from "@/components/PoweredByMaxDigital";
+import PaymentBadges from "@/components/PaymentBadges";
 import { LOGO_WHITE_URL } from "@/lib/brand";
 import {
   ICT_LICENSE_NUMBER,
@@ -131,6 +132,9 @@ export default async function SiteFooter({ locale = DEFAULT_LOCALE }: { locale?:
           </div>
           <p className="mx-auto mt-4 max-w-xl text-xs leading-relaxed text-white/40">{t.membersLine}</p>
         </div>
+
+        {/* Card-scheme / gateway marks required by Powertranz on the home page */}
+        <PaymentBadges locale={locale} variant="footer" className="mt-8 border-t border-white/10 pt-8" />
 
         <PoweredByMaxDigital className="mt-8 border-t border-white/10 pt-8" />
       </div>

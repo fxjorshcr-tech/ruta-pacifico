@@ -87,6 +87,22 @@ export const CHECKOUT = defineCopy({
       secure: "Secure Payment Link",
       ict: "ICT Licensed",
     },
+    /** Card-payment flow (NEXT_PUBLIC_PAYMENT_PROVIDER=powertranz). */
+    card: {
+      continue: (total: number) => `Continue to secure payment — $${total}`,
+      paymentTitle: "How does payment work?",
+      paymentBefore: "On the next step you pay by card on a ",
+      paymentStrong: "secure page by BAC Credomatic (Powertranz)",
+      paymentAfter:
+        ", protected with 3-D Secure. Your booking is confirmed the moment the payment is approved, and your voucher is emailed right away.",
+      bankTitle: "A heads-up about your bank",
+      bankBody:
+        "Some banks block the first online or international charge on a card. If that happens, approve it in your banking app or give them a quick call, then try again — your spot stays held.",
+      secureBadge: "Secure card payment",
+      sidebarNote: "Pay securely by card on the next step — your booking is confirmed instantly.",
+      stepTitle: "Payment",
+      stepSub: (code: string) => `Booking ${code} held — pay now to confirm it`,
+    },
     back: "Back to Trip Details",
     ict: { title: "ICT Licensed #4121-2025", sub: "Costa Rica Tourism Board" },
     total: (count: number) => `Total (${count} shuttle${count !== 1 ? "s" : ""})`,
@@ -142,6 +158,21 @@ export const CHECKOUT = defineCopy({
       guaranteed: "Reserva garantizada",
       secure: "Enlace de pago seguro",
       ict: "Licencia ICT",
+    },
+    card: {
+      continue: (total: number) => `Continuar al pago seguro — $${total}`,
+      paymentTitle: "¿Cómo funciona el pago?",
+      paymentBefore: "En el siguiente paso pagas con tarjeta en una ",
+      paymentStrong: "página segura de BAC Credomatic (Powertranz)",
+      paymentAfter:
+        ", protegida con 3-D Secure. Tu reserva queda confirmada en cuanto se aprueba el pago y recibes tu voucher por correo al instante.",
+      bankTitle: "Un aviso sobre tu banco",
+      bankBody:
+        "Algunos bancos bloquean el primer cobro en línea o internacional de una tarjeta. Si pasa, apruébalo en la app de tu banco o llámalos, y vuelve a intentar: tu lugar sigue apartado.",
+      secureBadge: "Pago seguro con tarjeta",
+      sidebarNote: "Paga con tarjeta de forma segura en el siguiente paso: tu reserva queda confirmada al instante.",
+      stepTitle: "Pago",
+      stepSub: (code: string) => `Reserva ${code} apartada — paga ahora para confirmarla`,
     },
     back: "Volver a los detalles del viaje",
     ict: { title: "Licencia ICT #4121-2025", sub: "Instituto Costarricense de Turismo" },
@@ -214,6 +245,19 @@ export const CONFIRMATION = defineCopy({
     whatsappCta: "Haven't received it? Message us on WhatsApp",
     backHome: "Back to home",
     footer: "Free changes up to 48 hours before pickup. Contact us via WhatsApp or email.",
+    /** Paid-by-card variant (Powertranz): the booking is final. */
+    paid: {
+      title: "Booking confirmed — paid",
+      thanks: (name: string) => `Thank you, ${name}! Your payment went through and your shuttle is confirmed.`,
+      paymentTitle: "Payment received — you're all set",
+      p1: "We charged ",
+      p2: " to your card via BAC Credomatic (Powertranz). Your receipt and voucher were emailed to ",
+      p3: ". Nothing is paid at pickup.",
+      steps: ["Booking received", "Payment received", "Booking confirmed"],
+      whatsappText: (code: string, routes: string) =>
+        `Hi! Booking ${code} (${routes}) is paid — I have a question about my pickup.`,
+      whatsappCta: "Questions? Message us on WhatsApp",
+    },
   },
   es: {
     notFound: {
@@ -268,5 +312,17 @@ export const CONFIRMATION = defineCopy({
     whatsappCta: "¿No te llegó? Escríbenos por WhatsApp",
     backHome: "Volver al inicio",
     footer: "Cambios gratis hasta 48 horas antes de la recogida. Contáctanos por WhatsApp o correo.",
+    paid: {
+      title: "Reserva confirmada: pagada",
+      thanks: (name: string) => `¡Gracias, ${name}! Tu pago se procesó y tu shuttle queda confirmado.`,
+      paymentTitle: "Pago recibido: todo listo",
+      p1: "Cobramos ",
+      p2: " a tu tarjeta a través de BAC Credomatic (Powertranz). Tu recibo y voucher van en camino a ",
+      p3: ". No se paga nada en la recogida.",
+      steps: ["Reserva recibida", "Pago recibido", "Reserva confirmada"],
+      whatsappText: (code: string, routes: string) =>
+        `¡Hola! La reserva ${code} (${routes}) ya está pagada; tengo una consulta sobre mi recogida.`,
+      whatsappCta: "¿Dudas? Escríbenos por WhatsApp",
+    },
   },
 });
