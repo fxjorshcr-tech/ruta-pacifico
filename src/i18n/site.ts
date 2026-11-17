@@ -179,6 +179,8 @@ export const FOOTER = defineCopy({
     location: "Liberia, Guanacaste, Costa Rica",
     follow: "Follow us",
     rights: "All rights reserved.",
+    // Merchant's registered establishment (card-scheme website requirement).
+    legalLine: "Ruta Pacifico is a brand of Cant Wait Travel Costa Rica · Jorge Arturo Salas Oviedo · La Abundancia, Ciudad Quesada, San Carlos, Alajuela, Costa Rica",
     membersOf: "Proud members of",
     membersLine:
       "Member of Marca País Costa Rica (Esencial Costa Rica) · Licensed by the ICT, Instituto Costarricense de Turismo",
@@ -217,6 +219,7 @@ export const FOOTER = defineCopy({
     location: "Liberia, Guanacaste, Costa Rica",
     follow: "Síguenos",
     rights: "Todos los derechos reservados.",
+    legalLine: "Ruta Pacifico es una marca de Cant Wait Travel Costa Rica · Jorge Arturo Salas Oviedo · La Abundancia, Ciudad Quesada, San Carlos, Alajuela, Costa Rica",
     membersOf: "Miembros de",
     membersLine:
       "Miembro de Marca País Costa Rica (Esencial Costa Rica) · Con licencia del ICT, Instituto Costarricense de Turismo",

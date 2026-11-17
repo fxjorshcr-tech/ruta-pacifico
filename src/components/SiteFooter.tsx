@@ -116,6 +116,8 @@ export default async function SiteFooter({ locale = DEFAULT_LOCALE }: { locale?:
         <div className="mt-12 flex flex-col items-center gap-4 border-t border-white/10 pt-8 sm:flex-row sm:justify-between">
           <p className="text-xs text-white/30">
             &copy; {new Date().getFullYear()} Ruta Pacifico. {t.rights}
+            <br />
+            <span className="text-white/25">{t.legalLine}</span>
           </p>
           <GoogleReviewBadge tone="light" locale={locale} />
         </div>
