@@ -153,6 +153,8 @@ export async function POST(request: NextRequest) {
     ok: true,
     transactionId: transactionIdentifier,
     redirectData: gw.redirectData,
+    // The amount actually sent to the gateway (rp_bookings.total_amount).
+    amount,
     environment: getPowertranzEnvironment(),
   });
 }

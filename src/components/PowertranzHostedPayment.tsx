@@ -54,6 +54,8 @@ export default function PowertranzHostedPayment({ bookingId, amount, onSuccess, 
 
   const [stage, setStage] = useState<Stage>({ kind: "loading" });
   const [payLaterState, setPayLaterState] = useState<"idle" | "sending" | "sent" | "failed">("idle");
+  // What the server actually sent to the gateway; the prop is the estimate until then.
+  const [serverAmount, setServerAmount] = useState<number | null>(null);
   const currentTx = useRef<string | null>(null);
   const onSuccessRef = useRef(onSuccess);
   onSuccessRef.current = onSuccess;
@@ -79,6 +81,7 @@ export default function PowertranzHostedPayment({ bookingId, amount, onSuccess, 
         return;
       }
       currentTx.current = data.transactionId;
+      if (typeof data.amount === "number") setServerAmount(data.amount);
       setStage({ kind: "iframe", tx: data.transactionId, html: data.redirectData });
     } catch {
       setStage({ kind: "failed", message: unavailableCopy.current, canRetry: true });
@@ -169,7 +172,7 @@ export default function PowertranzHostedPayment({ bookingId, amount, onSuccess, 
           </svg>
           <span>{t.trustHeader}</span>
         </div>
-        <span className="font-semibold text-foreground">{t.amount(amount.toFixed(2))}</span>
+        <span className="font-semibold text-foreground">{t.amount((serverAmount ?? amount).toFixed(2))}</span>
       </div>
 
       {(stage.kind === "loading" || stage.kind === "checking") && (
