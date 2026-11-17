@@ -22,7 +22,8 @@ export const dynamic = "force-dynamic";
 function callbackBaseUrl(request: NextRequest): string {
   const override = process.env.POWERTRANZ_CALLBACK_BASE_URL?.trim();
   if (override) return override.replace(/\/$/, "");
-  const proto = request.headers.get("x-forwarded-proto") || "https";
+  // Behind Vercel the proxy says https; on localhost fall back to the request's own protocol (http).
+  const proto = request.headers.get("x-forwarded-proto") || request.nextUrl.protocol.replace(":", "") || "https";
   const host = request.headers.get("x-forwarded-host") || request.headers.get("host") || "";
   return host ? `${proto}://${host}` : request.nextUrl.origin;
 }
