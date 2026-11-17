@@ -27,20 +27,6 @@ function callbackBaseUrl(request: NextRequest): string {
   return host ? `${proto}://${host}` : request.nextUrl.origin;
 }
 
-/**
- * The hosted page picks its language from the browser-info form Powertranz
- * auto-submits (field `browserLanguage`, read from navigator.language). We
- * know which site the customer is on, so pin that field to the site's
- * language; an English-site visitor with a Spanish browser gets the form in
- * English. Falls back to the untouched HTML if the markup ever changes.
- */
-function localizeRedirectData(html: string, locale: "en" | "es"): string {
-  const needle = "document.getElementById('browserLanguage').value=e.language";
-  if (!html.includes(needle)) return html;
-  const lang = locale === "es" ? "es-CR" : "en-US";
-  return html.replace(needle, `document.getElementById('browserLanguage').value='${lang}'`);
-}
-
 function splitName(full: string): { first: string; last: string } {
   const parts = full.trim().split(/\s+/);
   return { first: parts[0] ?? "", last: parts.slice(1).join(" ") };
@@ -166,7 +152,7 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({
     ok: true,
     transactionId: transactionIdentifier,
-    redirectData: localizeRedirectData(gw.redirectData, locale),
+    redirectData: gw.redirectData,
     // The amount actually sent to the gateway (rp_bookings.total_amount).
     amount,
     environment: getPowertranzEnvironment(),
