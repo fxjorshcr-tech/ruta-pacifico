@@ -103,11 +103,12 @@ export async function POST(request: NextRequest) {
     console.warn(LOG, "not finalising", { tx, booking: row.booking_number, code: cb.isoResponseCode, auth: cb.threeDS?.authenticationStatus, reason: decision.reason });
     await setTx(db, row.id, { ...threeDsCols, status: decision.reason === "error" ? "error" : "declined", error_message: decision.reason });
     const issuerNote = cb.threeDS?.cardholderInfo ? ` ${cb.threeDS.cardholderInfo}` : "";
-    return htmlResponse(
-      { ok: false, status: decision.reason === "error" ? "error" : "declined", message: friendlyMessage(cb.isoResponseCode, cb.responseMessage, cb.threeDS?.authenticationStatus, locale) + issuerNote },
-      tx,
-      locale,
-    );
+    // decideFromCallback already picked the right wording (a gateway
+    // configuration error is "temporary problem", never "your bank declined").
+    const message = decision.reason === "error"
+      ? friendlyMessage("", "", undefined, locale)
+      : friendlyMessage(cb.isoResponseCode, cb.responseMessage, cb.threeDS?.authenticationStatus, locale) + issuerNote;
+    return htmlResponse({ ok: false, status: decision.reason === "error" ? "error" : "declined", message }, tx, locale);
   }
 
   const booking = row.order_id ? await loadRpBooking(db, String(row.order_id)) : null;
