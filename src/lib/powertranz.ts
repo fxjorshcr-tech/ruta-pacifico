@@ -355,7 +355,12 @@ export function decideFromCallback(cb: PowertranzResponse): CallbackDecision {
   // fields) arrive with an Errors[] block and a generic ISO code such as
   // "12 Invalid transaction". They are configuration problems on our side,
   // never a decline by the cardholder's bank — say so instead of blaming the card.
-  if (cb.errors && cb.errors.length > 0) {
+  // Exception: a failed 3-D Secure authentication (status N/U/R) can arrive
+  // together with an Errors[] block (e.g. 510 "3DS invalid parameter:
+  // authenticationValue"); the bank's verification failed, so tell the
+  // traveller that rather than blaming the processor.
+  const authFailed = code === '3D0' && (auth === 'N' || auth === 'U' || auth === 'R');
+  if (cb.errors && cb.errors.length > 0 && !authFailed) {
     return { proceed: false, reason: 'error', message: friendlyMessage('', '', undefined) };
   }
 
