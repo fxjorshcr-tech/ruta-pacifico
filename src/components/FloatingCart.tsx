@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "@/components/LocaleLink";
 import { useLocale } from "@/components/LocaleProvider";
 import { BOOKING } from "@/i18n/booking";
@@ -16,6 +17,10 @@ export default function FloatingCart() {
   const t = BOOKING[locale].floating;
   const [cart, setCart] = useState<TripItem[]>([]);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  // The checkout IS the cart's destination and the confirmation is past it:
+  // a floating "Proceed to Checkout" there only competes with the payment.
+  const onCheckoutFlow = /\/private-shuttle\/(checkout|confirmation)(\/|$)/.test(pathname ?? "");
 
   useEffect(() => {
     // Poll sessionStorage for changes (cross-component updates)
@@ -27,7 +32,7 @@ export default function FloatingCart() {
     return () => clearInterval(interval);
   }, []);
 
-  if (cart.length === 0) return null;
+  if (cart.length === 0 || onCheckoutFlow) return null;
 
   const total = getCartTotal(cart);
 
