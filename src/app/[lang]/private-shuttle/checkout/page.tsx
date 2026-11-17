@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "@/components/LocaleLink";
@@ -88,6 +88,22 @@ export default function CheckoutPage() {
   const [cardStep, setCardStep] = useState<CardStep | null>(null);
 
   const total = getCartTotal(cart);
+
+  // Back button after a card payment: the cart is gone (it was cleared on
+  // success) but the paid booking is still in sessionStorage — go to its
+  // confirmation instead of showing an empty trip.
+  useEffect(() => {
+    if (raw === null || cart.length !== 0) return;
+    try {
+      const stored = sessionStorage.getItem(BOOKING_STORAGE_KEY);
+      const booking = stored ? (JSON.parse(stored) as { paid?: boolean }) : null;
+      if (booking?.paid === true) {
+        router.replace(localePath(locale, "/private-shuttle/confirmation?paid=1"));
+      }
+    } catch {
+      // sessionStorage disabled
+    }
+  }, [raw, cart.length, locale, router]);
 
   function updateStoredBooking(patch: Record<string, unknown>) {
     try {
