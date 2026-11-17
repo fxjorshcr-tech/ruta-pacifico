@@ -23,4 +23,6 @@ checkout iframe) finalises the charge, marks the booking paid and sends the
 paid emails from `src/lib/bookingEmails.ts`. Schema in
 `supabase/payments_schema.sql` (the Supabase project is shared with
 cant-wait-travel; `powertranz_transactions.site = 'ruta'`). Env vars are
-documented in `.env.local.example`; the service-role key is required.
+documented in `.env.local.example`; the service-role key is required. The
+hosted page set carries the `PTZ/` prefix (`PTZ/RUTA`), or the gateway
+answers 757 "Hosted page not found".
