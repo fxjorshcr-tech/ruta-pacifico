@@ -12,7 +12,7 @@ import { localePath } from "@/lib/i18n";
 import { CHECKOUT } from "@/i18n/checkout";
 import { isPickupDateAllowed } from "@/lib/leadTime";
 import { isPeakCapacityBlocked, peakCapacityCopy } from "@/lib/peakCapacity";
-import { getTier, isVehicleKey } from "@/lib/vehicles";
+import { getTier, isVehicleKey, vehicleTierCopy } from "@/lib/vehicles";
 import {
   BOOKING_STORAGE_KEY,
   CART_STORAGE_KEY,
@@ -131,7 +131,7 @@ export default function CheckoutPage() {
     // rule with the current time before sending anything.
     const tooSoon = cart.find((t) => !isPickupDateAllowed(t.date));
     if (tooSoon) {
-      setSubmitError(t.errors.tooSoon(formatDate(tooSoon.date), tooSoon.from, tooSoon.to));
+      setSubmitError(t.errors.tooSoon(formatDate(tooSoon.date, locale), tooSoon.from, tooSoon.to));
       return;
     }
     // Same for the peak-season capacity rule: a trip added before the rule
@@ -304,7 +304,7 @@ export default function CheckoutPage() {
                           <div>
                             <div className="font-bold text-foreground">{trip.from} → {trip.to}</div>
                             <div className="mt-0.5 text-xs text-foreground/50">
-                              {formatDate(trip.date)} · {formatTime(trip.time)}
+                              {formatDate(trip.date, locale)} · {formatTime(trip.time, locale)}
                               {trip.duracion && <> · ~{trip.duracion}</>}
                             </div>
                           </div>
@@ -312,7 +312,7 @@ export default function CheckoutPage() {
                         <div className="text-xl font-bold text-sunset-orange">${trip.price}</div>
                       </div>
                       <div className="mt-4 grid gap-x-6 gap-y-2 text-sm text-foreground/70 sm:grid-cols-2">
-                        <div><span className="text-foreground/40">{t.labels.vehicle}</span> {trip.vehicleName} ({trip.vehiclePax})</div>
+                        <div><span className="text-foreground/40">{t.labels.vehicle}</span> {trip.vehicleName} ({isVehicleKey(trip.vehicleKey) ? vehicleTierCopy(trip.vehicleKey, locale).paxLabel : trip.vehiclePax})</div>
                         <div><span className="text-foreground/40">{t.labels.travelers}</span> {pax}</div>
                         {trip.flight && <div><span className="text-foreground/40">{t.labels.flight}</span> {trip.flight}</div>}
                         <div><span className="text-foreground/40">{t.labels.pickup}</span> {trip.pickup}</div>

@@ -12,6 +12,7 @@ import {
   formatTime,
   type TripItem,
 } from "@/lib/booking";
+import { isVehicleKey, vehicleTierCopy } from "@/lib/vehicles";
 
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
@@ -299,11 +300,11 @@ export default function ConfirmationPage() {
                   <div className="mt-3 grid gap-2 text-xs text-foreground/60 sm:grid-cols-2">
                     <div>
                       <span className="text-foreground/40">{t.labels.date} </span>
-                      {t.dateAt(formatDate(trip.date), formatTime(trip.time))}
+                      {t.dateAt(formatDate(trip.date, locale), formatTime(trip.time, locale))}
                     </div>
                     <div>
                       <span className="text-foreground/40">{t.labels.vehicle} </span>
-                      {trip.vehicleName} ({trip.vehiclePax})
+                      {trip.vehicleName} ({isVehicleKey(trip.vehicleKey) ? vehicleTierCopy(trip.vehicleKey, locale).paxLabel : trip.vehiclePax})
                     </div>
                     <div>
                       <span className="text-foreground/40">{t.labels.travelers} </span>

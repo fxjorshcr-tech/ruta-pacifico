@@ -83,6 +83,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Card payments are not available right now.", code: "not_configured" }, { status: 503 });
   }
 
+  // Earlier unfinished sessions of this booking are dead now (their SpiToken
+  // lived 5 minutes); mark them so the table reads cleanly.
+  await db
+    .from("powertranz_transactions")
+    .update({ status: "abandoned", spi_token: null, updated_at: new Date().toISOString() })
+    .eq("order_id", booking.id)
+    .eq("status", "initiated");
+
   const { data: txRow, error: insertErr } = await db
     .from("powertranz_transactions")
     .insert({

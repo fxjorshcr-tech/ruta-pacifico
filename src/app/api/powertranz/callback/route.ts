@@ -102,12 +102,14 @@ export async function POST(request: NextRequest) {
   if (!decision.proceed) {
     console.warn(LOG, "not finalising", { tx, booking: row.booking_number, code: cb.isoResponseCode, auth: cb.threeDS?.authenticationStatus, reason: decision.reason });
     await setTx(db, row.id, { ...threeDsCols, status: decision.reason === "error" ? "error" : "declined", error_message: decision.reason });
-    const issuerNote = cb.threeDS?.cardholderInfo ? ` ${cb.threeDS.cardholderInfo}` : "";
     // decideFromCallback already picked the right wording (a gateway
     // configuration error is "temporary problem", never "your bank declined").
+    // The issuer's CardholderInfo is logged, not shown: in the sandbox it is a
+    // raw placeholder, and real issuers phrase it for their own apps.
+    if (cb.threeDS?.cardholderInfo) console.warn(LOG, "issuer CardholderInfo:", cb.threeDS.cardholderInfo);
     const message = decision.reason === "error"
       ? friendlyMessage("", "", undefined, locale)
-      : friendlyMessage(cb.isoResponseCode, cb.responseMessage, cb.threeDS?.authenticationStatus, locale) + issuerNote;
+      : friendlyMessage(cb.isoResponseCode, cb.responseMessage, cb.threeDS?.authenticationStatus, locale);
     return htmlResponse({ ok: false, status: decision.reason === "error" ? "error" : "declined", message }, tx, locale);
   }
 
