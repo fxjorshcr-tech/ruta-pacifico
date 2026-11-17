@@ -376,6 +376,7 @@ export default function CheckoutPage() {
                     bookingId={cardStep.bookingId}
                     amount={cardStep.total}
                     onSuccess={handlePaid}
+                    onAlreadyPaid={handlePaid}
                     onPayLater={handlePayLater}
                   />
                 </div>

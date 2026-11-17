@@ -25,7 +25,12 @@ interface Props {
   amount: number;
   onSuccess: (result: { redirectUrl?: string }) => void;
   onPayLater?: () => void;
+  /** The server says this booking is already paid (back button after a payment). */
+  onAlreadyPaid?: () => void;
 }
+
+/** Powertranz's SPI token lives 5 minutes; stop the customer a little earlier than the gateway does. */
+const SESSION_MS = 5 * 60 * 1000 - 15 * 1000;
 
 type Stage =
   | { kind: "loading" }
@@ -33,6 +38,7 @@ type Stage =
   | { kind: "checking"; tx: string }
   | { kind: "approved" }
   | { kind: "failed"; message: string; canRetry: boolean }
+  | { kind: "expired" }
   | { kind: "unavailable" };
 
 interface ResultMessage {
@@ -48,7 +54,7 @@ const Spinner = () => (
   <div className="h-8 w-8 animate-spin rounded-full border-4 border-sunset-orange/20 border-t-sunset-orange" />
 );
 
-export default function PowertranzHostedPayment({ bookingId, amount, onSuccess, onPayLater }: Props) {
+export default function PowertranzHostedPayment({ bookingId, amount, onSuccess, onPayLater, onAlreadyPaid }: Props) {
   const locale = useLocale();
   const t = PAYMENT[locale];
 
@@ -59,6 +65,10 @@ export default function PowertranzHostedPayment({ bookingId, amount, onSuccess, 
   const currentTx = useRef<string | null>(null);
   const onSuccessRef = useRef(onSuccess);
   onSuccessRef.current = onSuccess;
+  const onAlreadyPaidRef = useRef(onAlreadyPaid);
+  onAlreadyPaidRef.current = onAlreadyPaid;
+  const [expiresAt, setExpiresAt] = useState<number | null>(null);
+  const [now, setNow] = useState(() => Date.now());
   const unavailableCopy = useRef(t.unavailable);
   unavailableCopy.current = t.unavailable;
 
@@ -76,12 +86,18 @@ export default function PowertranzHostedPayment({ bookingId, amount, onSuccess, 
         setStage({ kind: "unavailable" });
         return;
       }
+      if (res.status === 409) {
+        setStage({ kind: "approved" });
+        onAlreadyPaidRef.current?.();
+        return;
+      }
       if (!res.ok || !data?.redirectData || !data?.transactionId) {
-        setStage({ kind: "failed", message: data?.error || unavailableCopy.current, canRetry: res.status !== 409 });
+        setStage({ kind: "failed", message: data?.error || unavailableCopy.current, canRetry: true });
         return;
       }
       currentTx.current = data.transactionId;
       if (typeof data.amount === "number") setServerAmount(data.amount);
+      setExpiresAt(Date.now() + SESSION_MS);
       setStage({ kind: "iframe", tx: data.transactionId, html: data.redirectData });
     } catch {
       setStage({ kind: "failed", message: unavailableCopy.current, canRetry: true });
@@ -91,6 +107,20 @@ export default function PowertranzHostedPayment({ bookingId, amount, onSuccess, 
   useEffect(() => {
     start();
   }, [start]);
+
+  // Session clock: swap the frame for an "expired" notice before the
+  // gateway's token dies (which otherwise leaves a blank frame).
+  useEffect(() => {
+    if (stage.kind !== "iframe" || !expiresAt) return;
+    const tick = () => {
+      const t = Date.now();
+      setNow(t);
+      if (t >= expiresAt) setStage({ kind: "expired" });
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [stage.kind, expiresAt]);
 
   // Outcome posted by the callback page rendered inside the iframe (same origin).
   useEffect(() => {
@@ -175,6 +205,26 @@ export default function PowertranzHostedPayment({ bookingId, amount, onSuccess, 
         <span className="font-semibold text-foreground">{t.amount((serverAmount ?? amount).toFixed(2))}</span>
       </div>
 
+      {stage.kind === "iframe" && expiresAt !== null && expiresAt - now <= 120_000 && (
+        <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-medium text-amber-700">
+          ⏱ {t.expiresIn(`${Math.floor(Math.max(0, expiresAt - now) / 60000)}:${String(Math.floor((Math.max(0, expiresAt - now) % 60000) / 1000)).padStart(2, "0")}`)}
+        </p>
+      )}
+
+      {stage.kind === "expired" && (
+        <div className="space-y-3 rounded-2xl border border-amber-200 bg-amber-50 p-4">
+          <p className="text-sm font-semibold text-amber-900">{t.expiredTitle}</p>
+          <p className="text-sm text-amber-800">{t.expiredBody}</p>
+          <button
+            type="button"
+            onClick={start}
+            className="w-full rounded-xl bg-sunset-orange px-4 py-3 text-sm font-semibold text-white transition hover:bg-sunset-gold"
+          >
+            {t.reopen}
+          </button>
+        </div>
+      )}
+
       {(stage.kind === "loading" || stage.kind === "checking") && (
         <div className="flex flex-col items-center justify-center gap-3 py-16 text-foreground/60">
           <Spinner />
@@ -208,7 +258,9 @@ export default function PowertranzHostedPayment({ bookingId, amount, onSuccess, 
         <div className="space-y-3 rounded-2xl border border-red-200 bg-red-50 p-4">
           <p className="text-sm font-semibold text-red-900">{t.failedTitle}</p>
           <p className="text-sm text-red-800">{stage.message}</p>
-          <p className="rounded-md border border-red-100 bg-white/60 p-2.5 text-xs text-red-800/90">{t.bankTip}</p>
+          {stage.canRetry && (
+            <p className="rounded-md border border-red-100 bg-white/60 p-2.5 text-xs text-red-800/90">{t.bankTip}</p>
+          )}
           {stage.canRetry && (
             <button
               type="button"

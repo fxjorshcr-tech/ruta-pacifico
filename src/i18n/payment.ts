@@ -21,6 +21,10 @@ export const PAYMENT = defineCopy({
     amount: (amt: string) => `Amount to pay: $${amt} USD`,
     approved: "Payment approved — taking you to your confirmation…",
     checking: "Checking the result of your payment…",
+    expiredTitle: "Your secure payment session expired",
+    expiredBody: "For your protection the card page is only valid for 5 minutes. Nothing was charged. Open a new session to continue.",
+    reopen: "Open a new payment session",
+    expiresIn: (mmss: string) => `This secure session expires in ${mmss}`,
     badges: { caption: "Secure card payments · 3-D Secure", visa: "Visa Secure", mc: "Mastercard ID Check", ptz: "Powered by Powertranz" },
   },
   es: {
@@ -42,6 +46,10 @@ export const PAYMENT = defineCopy({
     amount: (amt: string) => `Monto a pagar: $${amt} USD`,
     approved: "Pago aprobado, te llevamos a tu confirmación…",
     checking: "Verificando el resultado de tu pago…",
+    expiredTitle: "Tu sesión de pago segura venció",
+    expiredBody: "Por tu seguridad, la página de tarjeta solo vale 5 minutos. No se cobró nada. Abre una sesión nueva para continuar.",
+    reopen: "Abrir una nueva sesión de pago",
+    expiresIn: (mmss: string) => `Esta sesión segura vence en ${mmss}`,
     badges: { caption: "Pagos seguros con tarjeta · 3-D Secure", visa: "Visa Secure", mc: "Mastercard ID Check", ptz: "Powered by Powertranz" },
   },
 });
