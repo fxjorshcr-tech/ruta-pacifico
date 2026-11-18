@@ -86,8 +86,59 @@ export default function CheckoutPage() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   // Card flow: set once the booking is saved server-side; shows the Powertranz step.
   const [cardStep, setCardStep] = useState<CardStep | null>(null);
+  // Pay-by-link: /private-shuttle/checkout?pay=<booking id> reopens a saved
+  // booking (payment reminder, "pay later" follow-up) straight at the card
+  // step, with the trips the server has instead of the browser's cart.
+  const [resume, setResume] = useState<{ loading: boolean; trips: TripItem[] } | null>(null);
 
-  const total = getCartTotal(cart);
+  const trips = resume ? resume.trips : cart;
+  const total = resume ? getCartTotal(resume.trips) : getCartTotal(cart);
+
+  useEffect(() => {
+    let payId: string | null = null;
+    try {
+      payId = new URLSearchParams(window.location.search).get("pay");
+    } catch {
+      payId = null;
+    }
+    if (!payId) return;
+    let cancelled = false;
+    setResume({ loading: true, trips: [] });
+    (async () => {
+      try {
+        const res = await fetch(`/api/bookings/resume?id=${encodeURIComponent(payId as string)}`);
+        if (!res.ok) throw new Error(String(res.status));
+        const data = (await res.json()) as {
+          bookingId: string; confirmationCode: string; name: string; email: string; phone: string | null;
+          trips: TripItem[]; total: number; createdAt: string; paid: boolean;
+        };
+        if (cancelled) return;
+        const stored = {
+          trips: data.trips, name: data.name, email: data.email, phone: data.phone ?? "",
+          total: data.total, confirmationCode: data.confirmationCode, createdAt: data.createdAt,
+        };
+        try {
+          sessionStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify({ ...stored, paid: data.paid }));
+        } catch {
+          // sessionStorage disabled
+        }
+        if (data.paid) {
+          router.replace(localePath(locale, "/private-shuttle/confirmation?paid=1"));
+          return;
+        }
+        setName(data.name);
+        setEmail(data.email);
+        setPhone(data.phone ?? "");
+        setResume({ loading: false, trips: data.trips });
+        setCardStep({ bookingId: data.bookingId, total: data.total, confirmationCode: data.confirmationCode });
+      } catch {
+        if (!cancelled) setResume(null);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [locale, router]);
 
   // Back button after a card payment: the cart is gone (it was cleared on
   // success) but the paid booking is still in sessionStorage — go to its
@@ -95,6 +146,8 @@ export default function CheckoutPage() {
   useEffect(() => {
     if (raw === null || cart.length !== 0) return;
     try {
+      // A pay-by-link visit decides on its own where to go.
+      if (new URLSearchParams(window.location.search).get("pay")) return;
       const stored = sessionStorage.getItem(BOOKING_STORAGE_KEY);
       const booking = stored ? (JSON.parse(stored) as { paid?: boolean }) : null;
       if (booking?.paid === true) {
@@ -255,7 +308,15 @@ export default function CheckoutPage() {
     );
   }
 
-  if (cart.length === 0) {
+  if (resume?.loading) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-light-surface">
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-sunset-orange/20 border-t-sunset-orange" />
+      </main>
+    );
+  }
+
+  if (trips.length === 0) {
     return (
       <main className="bg-light-surface min-h-screen">
         <SiteNav transparent={false} />
@@ -294,7 +355,7 @@ export default function CheckoutPage() {
             {t.title}
           </h1>
           <p className="mt-3 text-white/70">
-            {t.intro(cart.length)}
+            {t.intro(trips.length)}
           </p>
         </div>
       </section>
@@ -306,13 +367,13 @@ export default function CheckoutPage() {
             <div className="space-y-6 lg:col-span-2">
               {/* Shuttle cards */}
               <div className="space-y-4">
-                {cart.map((trip, idx) => {
+                {trips.map((trip, idx) => {
                   const pax = t.pax(trip.adults, trip.children);
                   return (
                     <div key={trip.id} className="rounded-2xl border border-black/5 bg-white p-5 shadow-sm sm:p-6">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          {cart.length > 1 && (
+                          {trips.length > 1 && (
                             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-sunset-orange text-xs font-bold text-white">
                               {idx + 1}
                             </span>
@@ -338,11 +399,13 @@ export default function CheckoutPage() {
                     </div>
                   );
                 })}
+                {!resume && (
                 <div className="text-right">
                   <Link href="/private-shuttle" className="text-sm font-semibold text-sunset-orange transition hover:text-sunset-red">
                     {t.addAnother}
                   </Link>
                 </div>
+                )}
               </div>
 
               {/* Your Information */}
@@ -585,7 +648,7 @@ export default function CheckoutPage() {
               <div className="sticky top-24 space-y-6">
                 <div className="rounded-2xl border border-sunset-orange/20 bg-sunset-orange/5 p-6">
                   <div className="text-sm text-foreground/60">
-                    {t.total(cart.length)}
+                    {t.total(trips.length)}
                   </div>
                   <div className="mt-1 text-3xl font-bold text-sunset-orange">${total}</div>
                   <div className="text-xs text-foreground/40">{t.vat}</div>
