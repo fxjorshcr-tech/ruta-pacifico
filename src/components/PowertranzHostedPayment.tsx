@@ -229,6 +229,7 @@ export default function PowertranzHostedPayment({ bookingId, amount, onSuccess, 
         <div className="flex flex-col items-center justify-center gap-3 py-16 text-foreground/60">
           <Spinner />
           <p className="text-sm">{stage.kind === "loading" ? t.loading : t.checking}</p>
+          {stage.kind === "checking" && <p className="text-xs text-amber-700">{t.dontRefresh}</p>}
         </div>
       )}
 
@@ -236,6 +237,10 @@ export default function PowertranzHostedPayment({ bookingId, amount, onSuccess, 
         <div className="flex flex-col items-center justify-center gap-3 py-16 text-green-700">
           <p className="text-sm font-semibold">{t.approved}</p>
         </div>
+      )}
+
+      {stage.kind === "iframe" && (
+        <p className="rounded-xl border border-black/5 bg-white px-3 py-2 text-xs text-foreground/60">⏳ {t.afterSubmit}</p>
       )}
 
       {stage.kind === "iframe" && (
