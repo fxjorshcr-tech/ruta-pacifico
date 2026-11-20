@@ -31,7 +31,9 @@ const PRODUCTION_BASE = 'https://gateway.ptranz.com/api';
 export const CURRENCY_USD = '840';
 
 export function getPowertranzEnvironment(): PowertranzEnvironment {
-  return process.env.POWERTRANZ_ENVIRONMENT === 'production' ? 'production' : 'staging';
+  // Tolerate "Production", "prod", stray spaces: anything else is staging.
+  const v = (process.env.POWERTRANZ_ENVIRONMENT || '').trim().toLowerCase();
+  return v === 'production' || v === 'prod' || v === 'live' ? 'production' : 'staging';
 }
 
 export function getPowertranzBaseUrl(): string {
