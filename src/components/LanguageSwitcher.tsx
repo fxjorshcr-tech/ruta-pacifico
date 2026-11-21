@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LOCALES, localePath, splitLocale, type Locale } from "@/lib/i18n";
@@ -44,10 +44,18 @@ type Props = {
  * visitor never loses their place; the locale rewrites and hreflang tags handle the
  * rest (see src/lib/i18n.ts).
  */
+const noop = () => () => {};
+const readSearch = () => (typeof window === "undefined" ? "" : window.location.search);
+const readSearchServer = () => "";
+
 export default function LanguageSwitcher({ tone = "light", variant = "dropdown", onNavigate }: Props) {
   const locale = useLocale();
   const pathname = usePathname();
-  const { path } = splitLocale(pathname ?? "/");
+  const { path: bare } = splitLocale(pathname ?? "/");
+  // Keep the query string (e.g. /private-shuttle/checkout?pay=…) so switching
+  // language mid-checkout never drops the booking.
+  const search = useSyncExternalStore(noop, readSearch, readSearchServer);
+  const path = bare + search;
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
