@@ -11,6 +11,7 @@ import {
 } from "@/lib/email";
 import { HTML_LANG, INTL_LOCALE, type Locale } from "@/lib/i18n";
 import { BOOKING_EMAIL } from "@/i18n/emails";
+import { scheduleHowItWorksEmail } from "@/lib/howItWorksEmail";
 
 /**
  * The two booking emails (customer + internal copy), shared by
@@ -478,5 +479,7 @@ export async function sendBookingEmails(b: BookingEmailInput): Promise<SendBooki
         })
       : Promise.resolve({ ok: false, error: "EMAIL_NOTIFICATIONS_TO not configured" }),
   ]);
+  // "Your trip, step by step" follows ~20 minutes later (customer only).
+  if (customer.ok) void scheduleHowItWorksEmail(b);
   return { customer, admin };
 }
