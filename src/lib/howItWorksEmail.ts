@@ -75,8 +75,8 @@ const COPY = {
     arrivalLirTitle: "Arriving at Liberia (LIR)",
     arrivalLirSteps: [
       "Pick up your luggage and clear customs.",
-      "Follow the exit; just past the restrooms you reach the drivers’ waiting area.",
-      "Your driver is there with a <strong>sign with your name</strong>.",
+      "Walking out you will see a <strong>Grab and Go</strong> shop with an exit next to it: don’t take that one. Turn <strong>right</strong> and use the exit by the restrooms.",
+      "Right there your driver is waiting with a <strong>sign with your name</strong>.",
     ],
     arrivalSjoTitle: "Arriving at San José (SJO)",
     arrivalSjoSteps: [
@@ -131,8 +131,8 @@ const COPY = {
     arrivalLirTitle: "Llegada a Liberia (LIR)",
     arrivalLirSteps: [
       "Recoge tu equipaje y pasa aduanas.",
-      "Sigue hacia la salida; pasando los baños llegas al área donde esperan los conductores.",
-      "Ahí está tu conductor con un <strong>rótulo con tu nombre</strong>.",
+      "Al caminar hacia la salida verás una tienda <strong>Grab and Go</strong> con una salida al lado: no tomes esa. Gira a la <strong>derecha</strong> y sal por la puerta que está junto a los baños.",
+      "Ahí mismo te espera tu conductor con un <strong>rótulo con tu nombre</strong>.",
     ],
     arrivalSjoTitle: "Llegada a San José (SJO)",
     arrivalSjoSteps: [
