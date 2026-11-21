@@ -17,6 +17,7 @@ import {
   confirmationPath,
 } from "@/lib/rpBookings";
 import { sendBookingEmails } from "@/lib/bookingEmails";
+import { notifyPaymentFailed } from "@/lib/paymentFailedEmails";
 
 /**
  * MerchantResponseUrl for the Powertranz SPI flow.
@@ -110,6 +111,19 @@ export async function POST(request: NextRequest) {
     const message = decision.reason === "error"
       ? friendlyMessage("", "", undefined, locale)
       : friendlyMessage(cb.isoResponseCode, cb.responseMessage, cb.threeDS?.authenticationStatus, locale);
+    if (row.order_id) {
+      after(async () => {
+        await notifyPaymentFailed(db, {
+          bookingId: String(row.order_id),
+          kind: decision.reason === "error" ? "error" : "declined",
+          isoCode: cb.isoResponseCode,
+          gatewayMessage: cb.responseMessage,
+          threeDsStatus: cb.threeDS?.authenticationStatus,
+          cardBrand: cb.cardBrand,
+          locale,
+        });
+      });
+    }
     return htmlResponse({ ok: false, status: decision.reason === "error" ? "error" : "declined", message }, tx, locale);
   }
 
@@ -157,6 +171,17 @@ export async function POST(request: NextRequest) {
       response_message: pay.responseMessage || null,
       error_message: pay.errors?.map((e) => `${e.code}: ${e.message}`).join(" | ") || null,
       payment_payload: pay.raw,
+    });
+    after(async () => {
+      await notifyPaymentFailed(db, {
+        bookingId: booking.id,
+        kind: transient ? "error" : "declined",
+        isoCode: pay.isoResponseCode,
+        gatewayMessage: pay.responseMessage,
+        threeDsStatus: cb.threeDS?.authenticationStatus,
+        cardBrand: pay.cardBrand || cb.cardBrand,
+        locale,
+      });
     });
     return htmlResponse(
       { ok: false, status: transient ? "error" : "declined", message: friendlyMessage(pay.isoResponseCode, pay.responseMessage, undefined, locale) },
