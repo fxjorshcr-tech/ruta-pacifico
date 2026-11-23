@@ -94,16 +94,18 @@ const COPY = {
     addrPickup: "Pickup",
     addrDropoff: "Drop-off",
     includedTitle: "What’s included",
+    includedNote: "Everything listed in your booking confirmation is included exactly as booked. On every trip you also have:",
+    noted: "Noted for this trip",
     included: [
       "A private van just for your group, with a bilingual professional driver.",
       "Air conditioning, WiFi and bottled water on board.",
-      "One complimentary 15-minute stop to stretch, use the restroom or take a photo.",
+      "One complimentary 15-minute stop to stretch, use the restroom or take a photo. Any longer stop listed in your booking is included as booked.",
       "Luggage: 1 large suitcase + 1 carry-on per person. Surfboards or extra bags? Tell us in advance.",
-      "Child seats and boosters free of charge, on request.",
+      "Child seats and boosters free of charge. The ones in your booking are already reserved; tell us if you need another.",
       "Flight tracking on every airport pickup. No surcharge for night or holiday pickups.",
     ],
     driverTitle: "Your driver’s details",
-    driverBody: "A few hours before pickup we send you the <strong>driver’s name, the type of vehicle and the licence plate</strong>, by email and WhatsApp, so you know exactly who is coming for you.",
+    driverBody: "The day before your pickup we send you the <strong>driver’s name, the type of vehicle and the licence plate</strong>, by email and WhatsApp, so you know exactly who is coming for you.",
     changesTitle: "Want to move the pickup time?",
     changesBody: "Earlier or later is usually possible. Write to us on WhatsApp with your booking code; changes are free up to 48 hours before pickup, and after that we still do our best.",
     cancelTitle: "Cancellations",
@@ -150,16 +152,18 @@ const COPY = {
     addrPickup: "Recogida",
     addrDropoff: "Destino",
     includedTitle: "Qué incluye",
+    includedNote: "Todo lo que figura en la confirmación de tu reserva va incluido tal como lo reservaste. En todos los viajes tienes además:",
+    noted: "Anotado para este viaje",
     included: [
       "Una van privada solo para tu grupo, con conductor profesional bilingüe.",
       "Aire acondicionado, WiFi y agua embotellada a bordo.",
-      "Una parada de cortesía de 15 minutos para estirar las piernas, ir al baño o tomar una foto.",
+      "Una parada de cortesía de 15 minutos para estirar las piernas, ir al baño o tomar una foto. Cualquier parada más larga que figure en tu reserva va incluida tal como la reservaste.",
       "Equipaje: 1 maleta grande + 1 de mano por persona. ¿Tablas de surf o maletas extra? Avísanos con tiempo.",
-      "Sillas para niños y boosters gratis, bajo solicitud.",
+      "Sillas para niños y boosters gratis. Las de tu reserva ya están apartadas; dinos si necesitas otra.",
       "Seguimiento de vuelo en todas las recogidas de aeropuerto. Sin recargo nocturno ni por feriados.",
     ],
     driverTitle: "Los datos de tu conductor",
-    driverBody: "Unas horas antes de la recogida te enviamos el <strong>nombre del conductor, el tipo de vehículo y el número de placa</strong>, por correo y WhatsApp, para que sepas exactamente quién llega por ti.",
+    driverBody: "El día anterior a la recogida te enviamos el <strong>nombre del conductor, el tipo de vehículo y el número de placa</strong>, por correo y WhatsApp, para que sepas exactamente quién llega por ti.",
     changesTitle: "¿Quieres adelantar o atrasar la hora?",
     changesBody: "Casi siempre es posible. Escríbenos por WhatsApp con tu código de reserva; los cambios son gratis hasta 48 horas antes de la recogida, y después igual hacemos lo posible.",
     cancelTitle: "Cancelaciones",
@@ -219,6 +223,7 @@ function legCard(trip: TripItem, index: number, total: number, t: Copy, locale: 
       <div style="font-size:16px;font-weight:700;color:${DARK};margin-top:2px;">${escapeHtml(trip.from)} → ${escapeHtml(trip.to)}</div>
       <div style="font-size:13px;color:#888;margin-top:4px;">${escapeHtml(fmtDate(trip.date, locale))} · ${escapeHtml(time)} · ${t.pax(trip.adults, trip.children)}${duration ? ` · ${t.duration(escapeHtml(duration))}` : ""}</div>
       ${trip.flight ? `<div style="font-size:13px;color:#888;margin-top:2px;">${t.flight}: ${escapeHtml(trip.flight)}</div>` : ""}
+      ${trip.notes ? `<div style="font-size:13px;color:#222;margin-top:8px;padding:8px 10px;background:#fff7ed;border-radius:8px;"><strong>${t.noted}:</strong> ${escapeHtml(trip.notes)}</div>` : ""}
       ${how}
       <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;margin-top:12px;font-size:13px;">
         <tr><td style="color:#888;padding:2px 10px 2px 0;white-space:nowrap;">${t.addrPickup}:</td><td style="color:#222;">${escapeHtml(trip.pickup)}</td></tr>
@@ -251,7 +256,7 @@ export function renderHowItWorksHtml(b: BookingEmailInput): { subject: string; h
     </td></tr>
     ${section(`🧭 ${t.teamTitle}`, `<p style="margin:0 0 8px;">${t.teamBody}</p><p style="margin:0;font-size:13px;color:#777;">${t.teamWhy}</p>`)}
     ${section(`📍 ${t.legsTitle(b.trips.length)}`, b.trips.map((tr, i) => legCard(tr, i, b.trips.length, t, locale)).join(""))}
-    ${section(`✅ ${t.includedTitle}`, `<ul style="margin:0;padding-left:18px;">${t.included.map((i) => `<li style="margin:0 0 6px;">${i}</li>`).join("")}</ul>`)}
+    ${section(`✅ ${t.includedTitle}`, `<p style="margin:0 0 8px;">${t.includedNote}</p><ul style="margin:0;padding-left:18px;">${t.included.map((i) => `<li style="margin:0 0 6px;">${i}</li>`).join("")}</ul>`)}
     ${section(`🪪 ${t.driverTitle}`, `<p style="margin:0;">${t.driverBody}</p>`)}
     ${section(`🕒 ${t.changesTitle}`, `<p style="margin:0 0 10px;">${t.changesBody}</p><p style="margin:0;font-size:13px;color:#777;"><strong style="color:#444;">${t.cancelTitle}:</strong> ${t.cancelBody}</p>`)}
     <tr><td style="padding:4px 28px 30px;text-align:center;">
