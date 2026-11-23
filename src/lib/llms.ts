@@ -332,7 +332,7 @@ Route changes may increase or decrease the price; the difference is either charg
 4. Fills in trip details: date, pickup time, passenger count, accommodation address, flight number (for LIR pickups), lead passenger name, email, phone.
 5. Reviews the cart and proceeds to checkout at ${BASE_URL}/private-shuttle/checkout.
 6. Pays securely online or requests WhatsApp confirmation.
-7. Receives email + WhatsApp confirmation with driver details 24 hours before pickup.
+7. Receives email + WhatsApp confirmation with driver details a few hours before pickup.
 
 WhatsApp-only booking is also available: ${WHATSAPP_DISPLAY}.
 

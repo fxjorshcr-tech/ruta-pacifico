@@ -51,7 +51,7 @@ export const BOOKING_EMAIL = defineCopy({
       },
       {
         title: "Driver assignment",
-        body: "We&rsquo;ll share your driver&rsquo;s name the day before your pickup.",
+        body: "We&rsquo;ll share your driver&rsquo;s name a few hours before your pickup.",
       },
       {
         title: "Meet &amp; greet, on time",
@@ -130,7 +130,7 @@ export const BOOKING_EMAIL = defineCopy({
       },
       {
         title: "Asignación de chofer",
-        body: "Te compartimos el nombre de tu chofer el día antes de la recogida.",
+        body: "Te compartimos el nombre de tu chofer unas horas antes de la recogida.",
       },
       {
         title: "Recibimiento puntual",
