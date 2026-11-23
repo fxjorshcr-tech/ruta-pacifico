@@ -26,3 +26,12 @@ cant-wait-travel; `powertranz_transactions.site = 'ruta'`). Env vars are
 documented in `.env.local.example`; the service-role key is required. The
 hosted page set carries the `PTZ/` prefix (`PTZ/RUTA`), or the gateway
 answers 757 "Hosted page not found".
+
+# Cómo escribimos a los clientes
+
+Todo texto dirigido a un cliente (correos automáticos, cotizaciones,
+enlaces de pago, respuestas a reseñas, mensajes que el asistente proponga)
+sigue los principios de persuasión de Cialdini, con honestidad primero. La
+guía completa vive en el repositorio de Cant Wait Travel:
+`cwt-web/reservas-app/docs/ESTILO_MENSAJES_CIALDINI.md`; aplica igual aquí,
+con la voz de Ruta Pacífico.
