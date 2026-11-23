@@ -75,6 +75,8 @@ export interface SendEmailInput {
   cc?: string | string[];
   bcc?: string | string[];
   attachments?: EmailAttachment[];
+  /** Resend delayed delivery: natural language ("in 20 min") or an ISO timestamp. */
+  scheduledAt?: string;
 }
 
 export interface SendEmailResult {
@@ -146,6 +148,7 @@ export async function sendEmail(input: SendEmailInput): Promise<SendEmailResult>
   if (input.cc) payload.cc = Array.isArray(input.cc) ? input.cc : [input.cc];
   if (input.bcc) payload.bcc = Array.isArray(input.bcc) ? input.bcc : [input.bcc];
   if (input.attachments?.length) payload.attachments = input.attachments;
+  if (input.scheduledAt) payload.scheduled_at = input.scheduledAt;
 
   const replyTo = input.replyTo ?? process.env.EMAIL_REPLY_TO;
   if (replyTo) payload.reply_to = replyTo;

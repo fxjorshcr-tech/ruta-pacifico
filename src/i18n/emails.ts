@@ -77,6 +77,23 @@ export const BOOKING_EMAIL = defineCopy({
     footerKeep: "Keep this email for your records.",
     /** One line on the internal copy so staff reply in the customer's language. */
     customerLanguage: "Customer language: English",
+    /** Paid-by-card variant (Powertranz). Keys not listed here fall back to the pending copy above. */
+    paid: {
+      subject: (code: string) => `Booking ${code} confirmed — paid`,
+      title: (code: string) => `Booking confirmed · ${code}`,
+      preheader: (code: string, firstName: string) =>
+        `Booking ${code} is paid and confirmed, ${firstName}. Your receipt and trip details are inside.`,
+      badge: "Paid &amp; confirmed",
+      intro1:
+        "Thank you so much for choosing <strong>Ruta Pacifico</strong>. Your payment went through and your booking is <strong>confirmed</strong>.",
+      intro2:
+        "This email is your receipt and your voucher. Keep it handy: it has your booking code, your pickup details and how to reach us.",
+      paymentTitle: "Payment received",
+      paymentBody: (amount: string, auth: string, txId: string, date: string) =>
+        `Charged <strong>${amount}</strong> to your card on ${date} via BAC Credomatic (Powertranz). Authorization <strong>${auth}</strong> &middot; Transaction <strong>${txId}</strong>. Nothing is paid at pickup.`,
+      step1: { title: "Payment received", body: "Your booking is final. No further action is needed." },
+      whatsappMessage: (code: string) => `Hi! Booking ${code} is paid — I have a question about my pickup.`,
+    },
   },
   es: {
     subject: (code: string) => `Reserva ${code} recibida: pago pendiente (el enlace va en camino)`,
@@ -137,5 +154,21 @@ export const BOOKING_EMAIL = defineCopy({
     footerCode: "Código de reserva",
     footerKeep: "Guarda este correo para tus registros.",
     customerLanguage: "Idioma del cliente: Español",
+    paid: {
+      subject: (code: string) => `Reserva ${code} confirmada: pagada`,
+      title: (code: string) => `Reserva confirmada · ${code}`,
+      preheader: (code: string, firstName: string) =>
+        `Reserva ${code} pagada y confirmada, ${firstName}. Adentro van tu recibo y los detalles del viaje.`,
+      badge: "Pagada y confirmada",
+      intro1:
+        "¡Gracias por reservar con <strong>Ruta Pacifico</strong>! Tu pago se procesó correctamente y tu reserva queda <strong>confirmada</strong>.",
+      intro2:
+        "Este correo es tu recibo y tu voucher. Guárdalo a mano: tiene tu código de reserva, los detalles de la recogida y cómo contactarnos.",
+      paymentTitle: "Pago recibido",
+      paymentBody: (amount: string, auth: string, txId: string, date: string) =>
+        `Cobramos <strong>${amount}</strong> a tu tarjeta el ${date} a través de BAC Credomatic (Powertranz). Autorización <strong>${auth}</strong> &middot; Transacción <strong>${txId}</strong>. No se paga nada en la recogida.`,
+      step1: { title: "Pago recibido", body: "Tu reserva está en firme. No tienes que hacer nada más." },
+      whatsappMessage: (code: string) => `¡Hola! La reserva ${code} ya está pagada; tengo una consulta sobre mi recogida.`,
+    },
   },
 });

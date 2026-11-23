@@ -1,17 +1,18 @@
 "use client";
 
-import { useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "@/components/LocaleLink";
 import SiteNav from "@/components/SiteNav";
 import PhoneInput from "@/components/PhoneInput";
+import PowertranzHostedPayment from "@/components/PowertranzHostedPayment";
 import { useLocale } from "@/components/LocaleProvider";
 import { localePath } from "@/lib/i18n";
 import { CHECKOUT } from "@/i18n/checkout";
 import { isPickupDateAllowed } from "@/lib/leadTime";
 import { isPeakCapacityBlocked, peakCapacityCopy } from "@/lib/peakCapacity";
-import { getTier, isVehicleKey } from "@/lib/vehicles";
+import { getTier, isVehicleKey, vehicleTierCopy } from "@/lib/vehicles";
 import {
   BOOKING_STORAGE_KEY,
   CART_STORAGE_KEY,
@@ -24,6 +25,16 @@ import {
 
 const HERO_URL =
   "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/public/Ruta%20Pacifico/hero-ruta-pacifico.webp";
+
+// Card payments at checkout (BAC Credomatic via Powertranz). Off → the site
+// keeps the "confirm now, we email the payment link" flow untouched.
+const CARD_PAYMENTS_ENABLED = process.env.NEXT_PUBLIC_PAYMENT_PROVIDER === "powertranz";
+
+interface CardStep {
+  bookingId: string;
+  total: number;
+  confirmationCode: string;
+}
 
 function subscribeCart(callback: () => void): () => void {
   if (typeof window === "undefined") return () => {};
@@ -73,8 +84,112 @@ export default function CheckoutPage() {
   const [phone, setPhone] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  // Card flow: set once the booking is saved server-side; shows the Powertranz step.
+  const [cardStep, setCardStep] = useState<CardStep | null>(null);
+  // Pay-by-link: /private-shuttle/checkout?pay=<booking id> reopens a saved
+  // booking (payment reminder, "pay later" follow-up) straight at the card
+  // step, with the trips the server has instead of the browser's cart.
+  const [resume, setResume] = useState<{ loading: boolean; trips: TripItem[] } | null>(null);
 
-  const total = getCartTotal(cart);
+  const trips = resume ? resume.trips : cart;
+  const total = resume ? getCartTotal(resume.trips) : getCartTotal(cart);
+
+  useEffect(() => {
+    let payId: string | null = null;
+    try {
+      payId = new URLSearchParams(window.location.search).get("pay");
+    } catch {
+      payId = null;
+    }
+    if (!payId) return;
+    let cancelled = false;
+    setResume({ loading: true, trips: [] });
+    (async () => {
+      try {
+        const res = await fetch(`/api/bookings/resume?id=${encodeURIComponent(payId as string)}`);
+        if (!res.ok) throw new Error(String(res.status));
+        const data = (await res.json()) as {
+          bookingId: string; confirmationCode: string; name: string; email: string; phone: string | null;
+          trips: TripItem[]; total: number; createdAt: string; paid: boolean;
+        };
+        if (cancelled) return;
+        const stored = {
+          trips: data.trips, name: data.name, email: data.email, phone: data.phone ?? "",
+          total: data.total, confirmationCode: data.confirmationCode, createdAt: data.createdAt,
+        };
+        try {
+          sessionStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify({ ...stored, paid: data.paid }));
+        } catch {
+          // sessionStorage disabled
+        }
+        if (data.paid) {
+          router.replace(localePath(locale, "/private-shuttle/confirmation?paid=1"));
+          return;
+        }
+        setName(data.name);
+        setEmail(data.email);
+        setPhone(data.phone ?? "");
+        setResume({ loading: false, trips: data.trips });
+        setCardStep({ bookingId: data.bookingId, total: data.total, confirmationCode: data.confirmationCode });
+      } catch {
+        if (!cancelled) setResume(null);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [locale, router]);
+
+  // Back button after a card payment: the cart is gone (it was cleared on
+  // success) but the paid booking is still in sessionStorage — go to its
+  // confirmation instead of showing an empty trip.
+  useEffect(() => {
+    if (raw === null || cart.length !== 0) return;
+    try {
+      // A pay-by-link visit decides on its own where to go.
+      if (new URLSearchParams(window.location.search).get("pay")) return;
+      const stored = sessionStorage.getItem(BOOKING_STORAGE_KEY);
+      const booking = stored ? (JSON.parse(stored) as { paid?: boolean }) : null;
+      if (booking?.paid === true) {
+        router.replace(localePath(locale, "/private-shuttle/confirmation?paid=1"));
+      }
+    } catch {
+      // sessionStorage disabled
+    }
+  }, [raw, cart.length, locale, router]);
+
+  function updateStoredBooking(patch: Record<string, unknown>) {
+    try {
+      const raw = sessionStorage.getItem(BOOKING_STORAGE_KEY);
+      const current = raw ? (JSON.parse(raw) as Record<string, unknown>) : {};
+      sessionStorage.setItem(BOOKING_STORAGE_KEY, JSON.stringify({ ...current, ...patch }));
+    } catch {
+      // sessionStorage disabled
+    }
+  }
+
+  // Card approved: the booking is final. Record the receipt for the
+  // confirmation page, drop the cart and go.
+  function handlePaid() {
+    updateStoredBooking({ paid: true });
+    try {
+      sessionStorage.removeItem(CART_STORAGE_KEY);
+    } catch {
+      // sessionStorage disabled
+    }
+    router.push(localePath(locale, "/private-shuttle/confirmation?paid=1"));
+  }
+
+  // Customer asked for the payment link instead (only offered after a failed
+  // card): same outcome as the link flow.
+  function handlePayLater() {
+    try {
+      sessionStorage.removeItem(CART_STORAGE_KEY);
+    } catch {
+      // sessionStorage disabled
+    }
+    setTimeout(() => router.push(localePath(locale, "/private-shuttle/confirmation")), 1200);
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -85,7 +200,7 @@ export default function CheckoutPage() {
     // rule with the current time before sending anything.
     const tooSoon = cart.find((t) => !isPickupDateAllowed(t.date));
     if (tooSoon) {
-      setSubmitError(t.errors.tooSoon(formatDate(tooSoon.date), tooSoon.from, tooSoon.to));
+      setSubmitError(t.errors.tooSoon(formatDate(tooSoon.date, locale), tooSoon.from, tooSoon.to));
       return;
     }
     // Same for the peak-season capacity rule: a trip added before the rule
@@ -119,19 +234,32 @@ export default function CheckoutPage() {
       createdAt: new Date().toISOString(),
     };
 
+    let saved: { bookingId: string; total: number; trips: TripItem[] } | null = null;
     try {
       const res = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         // `locale` only picks the language of the customer email; the stored
-        // booking (sessionStorage) keeps its original shape.
-        body: JSON.stringify({ ...booking, locale }),
+        // booking (sessionStorage) keeps its original shape. `payWithCard`
+        // asks the server to price + persist the booking and hold the emails
+        // until the card step settles.
+        body: JSON.stringify({ ...booking, locale, payWithCard: CARD_PAYMENTS_ENABLED }),
       });
       if (!res.ok) {
         const data = (await res.json().catch(() => null)) as
           | { error?: string }
           | null;
         throw new Error(data?.error ?? t.errors.failed);
+      }
+      const data = (await res.json().catch(() => null)) as
+        | { bookingId?: string; total?: number; trips?: TripItem[] }
+        | null;
+      if (CARD_PAYMENTS_ENABLED && data?.bookingId) {
+        saved = {
+          bookingId: data.bookingId,
+          total: typeof data.total === "number" ? data.total : total,
+          trips: Array.isArray(data.trips) && data.trips.length ? data.trips : cart,
+        };
       }
     } catch (err) {
       setSubmitting(false);
@@ -140,6 +268,25 @@ export default function CheckoutPage() {
           ? err.message
           : t.errors.failedRetry,
       );
+      return;
+    }
+
+    if (saved) {
+      // Card flow: keep the cart (the customer may still back out), store the
+      // server-priced booking for the confirmation page and open the card step.
+      try {
+        sessionStorage.setItem(
+          BOOKING_STORAGE_KEY,
+          JSON.stringify({ ...booking, trips: saved.trips, total: saved.total }),
+        );
+      } catch {
+        // sessionStorage disabled
+      }
+      setCardStep({ bookingId: saved.bookingId, total: saved.total, confirmationCode: booking.confirmationCode });
+      setSubmitting(false);
+      setTimeout(() => {
+        document.getElementById("payment-step")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
       return;
     }
 
@@ -161,7 +308,15 @@ export default function CheckoutPage() {
     );
   }
 
-  if (cart.length === 0) {
+  if (resume?.loading) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-light-surface">
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-sunset-orange/20 border-t-sunset-orange" />
+      </main>
+    );
+  }
+
+  if (trips.length === 0) {
     return (
       <main className="bg-light-surface min-h-screen">
         <SiteNav transparent={false} />
@@ -200,7 +355,7 @@ export default function CheckoutPage() {
             {t.title}
           </h1>
           <p className="mt-3 text-white/70">
-            {t.intro(cart.length)}
+            {t.intro(trips.length)}
           </p>
         </div>
       </section>
@@ -212,13 +367,13 @@ export default function CheckoutPage() {
             <div className="space-y-6 lg:col-span-2">
               {/* Shuttle cards */}
               <div className="space-y-4">
-                {cart.map((trip, idx) => {
+                {trips.map((trip, idx) => {
                   const pax = t.pax(trip.adults, trip.children);
                   return (
                     <div key={trip.id} className="rounded-2xl border border-black/5 bg-white p-5 shadow-sm sm:p-6">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          {cart.length > 1 && (
+                          {trips.length > 1 && (
                             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-sunset-orange text-xs font-bold text-white">
                               {idx + 1}
                             </span>
@@ -226,7 +381,7 @@ export default function CheckoutPage() {
                           <div>
                             <div className="font-bold text-foreground">{trip.from} → {trip.to}</div>
                             <div className="mt-0.5 text-xs text-foreground/50">
-                              {formatDate(trip.date)} · {formatTime(trip.time)}
+                              {formatDate(trip.date, locale)} · {formatTime(trip.time, locale)}
                               {trip.duracion && <> · ~{trip.duracion}</>}
                             </div>
                           </div>
@@ -234,7 +389,7 @@ export default function CheckoutPage() {
                         <div className="text-xl font-bold text-sunset-orange">${trip.price}</div>
                       </div>
                       <div className="mt-4 grid gap-x-6 gap-y-2 text-sm text-foreground/70 sm:grid-cols-2">
-                        <div><span className="text-foreground/40">{t.labels.vehicle}</span> {trip.vehicleName} ({trip.vehiclePax})</div>
+                        <div><span className="text-foreground/40">{t.labels.vehicle}</span> {trip.vehicleName} ({isVehicleKey(trip.vehicleKey) ? vehicleTierCopy(trip.vehicleKey, locale).paxLabel : trip.vehiclePax})</div>
                         <div><span className="text-foreground/40">{t.labels.travelers}</span> {pax}</div>
                         {trip.flight && <div><span className="text-foreground/40">{t.labels.flight}</span> {trip.flight}</div>}
                         <div><span className="text-foreground/40">{t.labels.pickup}</span> {trip.pickup}</div>
@@ -244,11 +399,13 @@ export default function CheckoutPage() {
                     </div>
                   );
                 })}
+                {!resume && (
                 <div className="text-right">
                   <Link href="/private-shuttle" className="text-sm font-semibold text-sunset-orange transition hover:text-sunset-red">
                     {t.addAnother}
                   </Link>
                 </div>
+                )}
               </div>
 
               {/* Your Information */}
@@ -264,11 +421,11 @@ export default function CheckoutPage() {
                 <div className="mt-5 grid gap-4 sm:grid-cols-2">
                   <div className="sm:col-span-2">
                     <label htmlFor="checkout-name" className="text-sm font-medium text-foreground/70">{t.details.name}</label>
-                    <input id="checkout-name" type="text" required value={name} onChange={(e) => setName(e.target.value)} className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20" />
+                    <input id="checkout-name" type="text" required disabled={!!cardStep} value={name} onChange={(e) => setName(e.target.value)} className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20" />
                   </div>
                   <div>
                     <label htmlFor="checkout-email" className="text-sm font-medium text-foreground/70">{t.details.email}</label>
-                    <input id="checkout-email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20" />
+                    <input id="checkout-email" type="email" required disabled={!!cardStep} value={email} onChange={(e) => setEmail(e.target.value)} className="mt-2 w-full rounded-xl border border-black/10 bg-light-surface px-4 py-3 text-sm text-foreground outline-none transition focus:border-sunset-orange focus:ring-2 focus:ring-sunset-orange/20" />
                   </div>
                   <div>
                     <label htmlFor="checkout-phone" className="text-sm font-medium text-foreground/70">{t.details.phone}</label>
@@ -277,7 +434,33 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              {/* ── CONFIRM BOOKING BLOCK ── */}
+              {/* ── CARD STEP (Powertranz) or CONFIRM BOOKING BLOCK ── */}
+              {cardStep ? (
+              <div id="payment-step" className="scroll-mt-24 overflow-hidden rounded-2xl border border-black/5 bg-white shadow-sm">
+                <div className="bg-foreground px-5 py-4 text-white sm:px-6">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 bg-white/10">
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.8} stroke="currentColor" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                      </svg>
+                    </span>
+                    <div>
+                      <div className="text-lg font-bold">{t.card.stepTitle}</div>
+                      <div className="text-xs text-white/60">{t.card.stepSub(cardStep.confirmationCode)}</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-light-surface p-4 sm:p-6">
+                  <PowertranzHostedPayment
+                    bookingId={cardStep.bookingId}
+                    amount={cardStep.total}
+                    onSuccess={handlePaid}
+                    onAlreadyPaid={handlePaid}
+                    onPayLater={handlePayLater}
+                  />
+                </div>
+              </div>
+              ) : (
               <div className="rounded-2xl border border-black/5 bg-white p-5 shadow-sm sm:p-6">
                 {submitError && (
                   <div className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
@@ -307,7 +490,7 @@ export default function CheckoutPage() {
                           d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
                         />
                       </svg>
-                      {t.confirm(total)}
+                      {CARD_PAYMENTS_ENABLED ? t.card.continue(total) : t.confirm(total)}
                     </>
                   )}
                 </button>
@@ -332,13 +515,28 @@ export default function CheckoutPage() {
                     </div>
                     <div>
                       <div className="text-sm font-bold text-amber-900">
-                        {t.payment.title}
+                        {CARD_PAYMENTS_ENABLED ? t.card.paymentTitle : t.payment.title}
                       </div>
                       <p className="mt-1 text-sm leading-relaxed text-amber-900/80">
-                        {t.payment.before}
-                        <strong>{t.payment.strong}</strong>
-                        {t.payment.after}
+                        {CARD_PAYMENTS_ENABLED ? (
+                          <>
+                            {t.card.paymentBefore}
+                            <strong>{t.card.paymentStrong}</strong>
+                            {t.card.paymentAfter}
+                          </>
+                        ) : (
+                          <>
+                            {t.payment.before}
+                            <strong>{t.payment.strong}</strong>
+                            {t.payment.after}
+                          </>
+                        )}
                       </p>
+                      {CARD_PAYMENTS_ENABLED && (
+                        <p className="mt-3 text-xs leading-relaxed text-amber-900/70">
+                          <strong>{t.card.bankTitle}:</strong> {t.card.bankBody}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -375,7 +573,7 @@ export default function CheckoutPage() {
                         d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
                       />
                     </svg>
-                    {t.badges.secure}
+                    {CARD_PAYMENTS_ENABLED ? t.card.secureBadge : t.badges.secure}
                   </div>
                   <div className="flex items-center gap-2 text-foreground/70">
                     <svg
@@ -395,6 +593,7 @@ export default function CheckoutPage() {
                   </div>
                 </div>
               </div>
+              )}
 
               {/* Back + ICT footer */}
               <div className="flex flex-col-reverse items-start justify-between gap-4 pt-2 sm:flex-row sm:items-center">
@@ -449,12 +648,12 @@ export default function CheckoutPage() {
               <div className="sticky top-24 space-y-6">
                 <div className="rounded-2xl border border-sunset-orange/20 bg-sunset-orange/5 p-6">
                   <div className="text-sm text-foreground/60">
-                    {t.total(cart.length)}
+                    {t.total(trips.length)}
                   </div>
                   <div className="mt-1 text-3xl font-bold text-sunset-orange">${total}</div>
                   <div className="text-xs text-foreground/40">{t.vat}</div>
                   <p className="mt-3 text-xs text-foreground/40">
-                    {t.sidebarNote}
+                    {CARD_PAYMENTS_ENABLED ? t.card.sidebarNote : t.sidebarNote}
                   </p>
                 </div>
 

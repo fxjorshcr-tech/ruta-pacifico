@@ -179,6 +179,8 @@ export const FOOTER = defineCopy({
     location: "Liberia, Guanacaste, Costa Rica",
     follow: "Follow us",
     rights: "All rights reserved.",
+    // Merchant's registered establishment (card-scheme website requirement).
+    legalLine: "Ruta Pacífico · Liberia, Guanacaste, Costa Rica · Operated by Cant Wait Travel Costa Rica, San Carlos, Alajuela",
     membersOf: "Proud members of",
     membersLine:
       "Member of Marca País Costa Rica (Esencial Costa Rica) · Licensed by the ICT, Instituto Costarricense de Turismo",
@@ -217,6 +219,7 @@ export const FOOTER = defineCopy({
     location: "Liberia, Guanacaste, Costa Rica",
     follow: "Síguenos",
     rights: "Todos los derechos reservados.",
+    legalLine: "Ruta Pacífico · Liberia, Guanacaste, Costa Rica · Operado por Cant Wait Travel Costa Rica, San Carlos, Alajuela",
     membersOf: "Miembros de",
     membersLine:
       "Miembro de Marca País Costa Rica (Esencial Costa Rica) · Con licencia del ICT, Instituto Costarricense de Turismo",
