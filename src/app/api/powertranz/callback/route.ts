@@ -17,6 +17,7 @@ import {
   confirmationPath,
 } from "@/lib/rpBookings";
 import { sendBookingEmails } from "@/lib/bookingEmails";
+import { registerBookingInPanel, markPanelBookingPaid } from "@/lib/panelRegistry";
 import { notifyPaymentFailed } from "@/lib/paymentFailedEmails";
 
 /**
@@ -221,6 +222,9 @@ export async function POST(request: NextRequest) {
       amount: Number(booking.total_amount),
       paidAt,
     });
+    // Operations panel: make sure the booking is there, then mark it paid.
+    await registerBookingInPanel(input, { status: "confirmed", paidAt, cardAuth: payment.authCode }, db);
+    await markPanelBookingPaid(booking.confirmation_code, { paidAt, authCode: payment.authCode }, db);
     let sent = false;
     for (let attempt = 1; attempt <= 3 && !sent; attempt++) {
       try {

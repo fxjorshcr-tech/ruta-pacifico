@@ -9,6 +9,7 @@ import { isPickupDateAllowed, LEAD_TIME_MESSAGE } from "@/lib/leadTime";
 import { PEAK_CAPACITY_API_MESSAGE, isPeakCapacityBlocked } from "@/lib/peakCapacity";
 import { getTier, isVehicleKey } from "@/lib/vehicles";
 import { repriceTrips } from "@/lib/serverPricing";
+import { registerBookingInPanel } from "@/lib/panelRegistry";
 import { getSupabaseAdmin, isSupabaseAdminConfigured } from "@/lib/supabaseAdmin";
 import { getClientIP } from "@/lib/rateLimit";
 
@@ -136,6 +137,8 @@ export async function POST(request: NextRequest) {
         console.error("[bookings] rp_bookings insert failed:", error);
         return Response.json({ ok: false, error: "Could not save your booking. Please try again." }, { status: 500 });
       }
+      // Operations panel: the leg(s) appear as pending until the card goes through.
+      void registerBookingInPanel({ ...body, trips: priced.trips, total: priced.total }, { status: "pending" }, getSupabaseAdmin());
       return Response.json({
         ok: true,
         confirmationCode: body.confirmationCode,
@@ -147,6 +150,7 @@ export async function POST(request: NextRequest) {
   }
 
   // ── Payment-link flow (unchanged): email the customer + the team ─────────
+  void registerBookingInPanel(body, { status: "pending" });
   const { customer, admin } = await sendBookingEmails(body);
   if (!customer.ok) {
     console.error("[bookings] customer email failed:", customer.error);
