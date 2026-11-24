@@ -225,20 +225,28 @@ export async function POST(request: NextRequest) {
     // Operations panel: make sure the booking is there, then mark it paid.
     await registerBookingInPanel(input, { status: "confirmed", paidAt, cardAuth: payment.authCode }, db);
     await markPanelBookingPaid(booking.confirmation_code, { paidAt, authCode: payment.authCode }, db);
+    // A booking created from the operations panel can have no customer
+    // email (WhatsApp customers): the internal copy still goes out, once.
+    const hasCustomerEmail = /\S+@\S+\.\S+/.test(booking.customer_email || "");
     let sent = false;
+    let adminSent = false;
     for (let attempt = 1; attempt <= 3 && !sent; attempt++) {
       try {
-        const r = await sendBookingEmails(input);
+        const r = await sendBookingEmails(input, { skipAdmin: adminSent });
         if (!r.customer.ok) console.error(LOG, "customer email failed:", r.customer.error);
         if (!r.admin.ok) console.error(LOG, "admin email failed:", r.admin.error);
+        adminSent = adminSent || r.admin.ok;
         sent = r.customer.ok;
       } catch (err) {
         console.error(LOG, `paid emails attempt ${attempt} threw:`, err);
       }
+      if (!hasCustomerEmail) break; // nothing to retry: there is no address
       if (!sent && attempt < 3) await new Promise((r) => setTimeout(r, attempt * 1500));
     }
     if (sent) {
       await db.from("rp_bookings").update({ paid_emails_sent_at: new Date().toISOString() }).eq("id", booking.id);
+    } else if (!hasCustomerEmail) {
+      console.warn(LOG, `no customer email on ${booking.confirmation_code}; only the internal copy was sent`);
     } else {
       console.error(LOG, `paid emails permanently failed for ${booking.confirmation_code} — manual resend needed`);
     }

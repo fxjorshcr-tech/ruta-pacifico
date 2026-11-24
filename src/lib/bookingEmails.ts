@@ -444,10 +444,20 @@ export interface SendBookingEmailsResult {
   admin: { ok: boolean; error?: string };
 }
 
-/** Customer email + internal copy. Never throws; failures are returned and logged by the caller. */
-export async function sendBookingEmails(b: BookingEmailInput): Promise<SendBookingEmailsResult> {
+/**
+ * Customer email + internal copy. Never throws; failures are returned and
+ * logged by the caller. `skipAdmin` lets a retry resend only the customer
+ * email once the internal copy already went out (otherwise every retry
+ * would alert the team again). With no customer address the customer send
+ * is reported as failed without calling the provider.
+ */
+export async function sendBookingEmails(
+  b: BookingEmailInput,
+  opts: { skipAdmin?: boolean } = {},
+): Promise<SendBookingEmailsResult> {
   const locale = customerLocale(b);
   const adminRecipients = getAdminRecipients();
+  const hasCustomerEmail = /\S+@\S+\.\S+/.test(b.email || "");
   const subjectSuffix = `${b.confirmationCode} — ${b.name}`;
   const inlineLogo = await getInlineLogo();
   const logo = logoSrc(inlineLogo);
@@ -455,14 +465,18 @@ export async function sendBookingEmails(b: BookingEmailInput): Promise<SendBooki
   const t = BOOKING_EMAIL[locale];
 
   const [customer, admin] = await Promise.all([
-    sendEmail({
-      to: b.email,
-      subject: (b.paid ? t.paid : t).subject(b.confirmationCode),
-      html: customerEmailHtml(b, { logo, locale }),
-      replyTo: adminRecipients[0],
-      attachments,
-    }),
-    adminRecipients.length > 0
+    hasCustomerEmail
+      ? sendEmail({
+          to: b.email,
+          subject: (b.paid ? t.paid : t).subject(b.confirmationCode),
+          html: customerEmailHtml(b, { logo, locale }),
+          replyTo: adminRecipients[0],
+          attachments,
+        })
+      : Promise.resolve({ ok: false, error: "No customer email on the booking" }),
+    opts.skipAdmin
+      ? Promise.resolve({ ok: true })
+      : adminRecipients.length > 0
       ? sendEmail({
           to: adminRecipients,
           // Send from a distinct address (not the reservations@ inbox) so the
