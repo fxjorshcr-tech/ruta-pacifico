@@ -54,9 +54,19 @@ export function placeLabel(
   return `${z}, ${a}`;
 }
 
+/**
+ * Calendar day in Costa Rica (UTC-6, no daylight saving) of an instant. The
+ * panel's dates are local: a payment at 9 pm must not land on the next day,
+ * which is what the UTC day gave.
+ */
+export function costaRicaDate(iso: string | undefined): string | null {
+  const d = iso ? new Date(iso) : new Date();
+  if (isNaN(d.getTime())) return null;
+  return new Date(d.getTime() - 6 * 60 * 60 * 1000).toISOString().slice(0, 10);
+}
+
 function bookedDate(createdAt: string | undefined): string | null {
-  const d = createdAt ? new Date(createdAt) : new Date();
-  return isNaN(d.getTime()) ? null : d.toISOString().slice(0, 10);
+  return costaRicaDate(createdAt);
 }
 
 export async function registerBookingInPanel(
@@ -93,7 +103,7 @@ export async function registerBookingInPanel(
       bank_fee_pct: 2.5,
       operated_by: "propio",
       status: opts.status,
-      paid_at: opts.paidAt ? opts.paidAt.slice(0, 10) : null,
+      paid_at: opts.paidAt ? costaRicaDate(opts.paidAt) : null,
       card_auth: opts.cardAuth || null,
       booked_at: bookedDate(b.createdAt),
     }));
@@ -119,7 +129,7 @@ export async function markPanelBookingPaid(
       .from("admin_bookings")
       .update({
         status: "confirmed",
-        paid_at: payment.paidAt.slice(0, 10),
+        paid_at: costaRicaDate(payment.paidAt),
         card_auth: payment.authCode || null,
         payment_method: "link",
         updated_at: new Date().toISOString(),
