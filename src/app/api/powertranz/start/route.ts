@@ -19,6 +19,9 @@ import { loadRpBooking, isRpBookingPaid } from "@/lib/rpBookings";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
+/** A session this old cannot finish any more: twice the SpiToken's 5 minutes. */
+const STALE_SESSION_MS = 10 * 60 * 1000;
+
 function callbackBaseUrl(request: NextRequest): string {
   const override = process.env.POWERTRANZ_CALLBACK_BASE_URL?.trim();
   if (override) return override.replace(/\/$/, "");
@@ -84,13 +87,19 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Card payments are not available right now.", code: "not_configured" }, { status: 503 });
   }
 
-  // Earlier unfinished sessions of this booking are dead now (their SpiToken
-  // lived 5 minutes); mark them so the table reads cleanly.
+  // Unfinished sessions of this booking whose SpiToken is long dead (it lives
+  // 5 minutes) are marked so the table reads cleanly. Live ones are left
+  // alone: the same link is often open twice at once (phone and computer, a
+  // refresh, or a link scanner that loads the page seconds after the
+  // customer), and closing the session where the card is being typed made
+  // the payment come back as "duplicate" and fail. A double charge is not
+  // possible either way: the callback claims the booking before charging.
   await db
     .from("powertranz_transactions")
     .update({ status: "abandoned", spi_token: null, updated_at: new Date().toISOString() })
     .eq("order_id", booking.id)
-    .eq("status", "initiated");
+    .eq("status", "initiated")
+    .lt("created_at", new Date(Date.now() - STALE_SESSION_MS).toISOString());
 
   const { data: txRow, error: insertErr } = await db
     .from("powertranz_transactions")
