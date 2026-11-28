@@ -387,7 +387,7 @@ export default function BookingForm({
               role="alert"
               className="mt-3 scroll-mt-24 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-xs font-medium text-red-700"
             >
-              {closedDayCopy(locale).formError}
+              {closedDayCopy(locale).formError(date)}
             </p>
           )}
         </div>

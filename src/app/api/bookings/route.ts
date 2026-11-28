@@ -7,7 +7,7 @@ import {
 } from "@/lib/bookingEmails";
 import { isPickupDateAllowed, LEAD_TIME_MESSAGE } from "@/lib/leadTime";
 import { PEAK_CAPACITY_API_MESSAGE, isPeakCapacityBlocked } from "@/lib/peakCapacity";
-import { CLOSED_DAY_API_MESSAGE, isClosedDayBlocked } from "@/lib/closedDay";
+import { closedDayApiMessage, isClosedDayBlocked } from "@/lib/closedDay";
 import { getTier, isVehicleKey } from "@/lib/vehicles";
 import { repriceTrips } from "@/lib/serverPricing";
 import { registerBookingInPanel } from "@/lib/panelRegistry";
@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
     return Response.json(
       {
         ok: false,
-        error: `${closedDay.from} → ${closedDay.to}: ${CLOSED_DAY_API_MESSAGE}`,
+        error: `${closedDay.from} → ${closedDay.to}: ${closedDayApiMessage(closedDay.date)}`,
       },
       { status: 422 },
     );

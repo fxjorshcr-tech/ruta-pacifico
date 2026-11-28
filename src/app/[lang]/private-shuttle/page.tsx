@@ -215,7 +215,7 @@ export default async function TransferPage({ params }: { params: Params }) {
           margin and would cover anything placed between the two. ─── */}
       <PeakCapacityNotice locale={locale} showCta={false} className="pt-10" />
 
-      {/* ─── DAY CLOSED FOR NEW BOOKINGS, EXCEPT LIR (renders until that day) ─── */}
+      {/* ─── DAYS CLOSED FOR NEW BOOKINGS, EXCEPT LIR (renders until they pass) ─── */}
       <ClosedDayNotice locale={locale} className="pt-6" />
 
       {/* ─── POPULAR ROUTES WITH PRICES (server-rendered, crawlable) ─── */}
