@@ -6,6 +6,7 @@ import SiteFooter from "@/components/SiteFooter";
 import GoogleReviewBadge from "@/components/GoogleReviewBadge";
 import FaqAccordion from "@/components/FaqAccordion";
 import PeakCapacityNotice from "@/components/PeakCapacityNotice";
+import ClosedDayNotice from "@/components/ClosedDayNotice";
 import { peakCapacityFaq } from "@/lib/peakCapacity";
 import { getFeaturedFaqs } from "@/lib/faqs";
 import PopularRoutes from "@/components/PopularRoutes";
@@ -213,6 +214,9 @@ export default async function TransferPage({ params }: { params: Params }) {
           Below the search card, which overlaps the hero with a negative
           margin and would cover anything placed between the two. ─── */}
       <PeakCapacityNotice locale={locale} showCta={false} className="pt-10" />
+
+      {/* ─── DAY CLOSED FOR NEW BOOKINGS, EXCEPT LIR (renders until that day) ─── */}
+      <ClosedDayNotice locale={locale} className="pt-6" />
 
       {/* ─── POPULAR ROUTES WITH PRICES (server-rendered, crawlable) ─── */}
       <PopularRoutes routes={popular} totalPriced={pricedCount} locale={locale} />

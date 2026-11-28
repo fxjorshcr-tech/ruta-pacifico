@@ -9,6 +9,7 @@ import { FACEBOOK_URL, INSTAGRAM_URL } from "@/lib/contact";
 import { LOGO_URL } from "@/lib/brand";
 import FaqAccordion from "@/components/FaqAccordion";
 import PeakCapacityNotice from "@/components/PeakCapacityNotice";
+import ClosedDayNotice from "@/components/ClosedDayNotice";
 import { peakCapacityFaq } from "@/lib/peakCapacity";
 import { faqPageJsonLd, getFeaturedFaqs } from "@/lib/faqs";
 import { getRoutes, type Route } from "@/lib/routes";
@@ -177,6 +178,9 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
       {/* ─── HOLIDAY AVAILABILITY (renders only while the window is live) ─── */}
       <PeakCapacityNotice locale={locale} className="pt-10" />
+
+      {/* ─── DAY CLOSED FOR NEW BOOKINGS, EXCEPT LIR (renders until that day) ─── */}
+      <ClosedDayNotice locale={locale} className="pt-6" />
 
       {/* ─── SERVICES ─── */}
       <section id="services" className="relative overflow-hidden bg-white py-16 sm:py-24">
