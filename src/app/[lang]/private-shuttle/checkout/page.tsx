@@ -208,7 +208,7 @@ export default function CheckoutPage() {
     // be booked on that date.
     const closedDay = cart.find((item) => isClosedDayBlocked(item.date, item.from, item.to));
     if (closedDay) {
-      setSubmitError(closedDayCopy(locale).checkoutError(closedDay.from, closedDay.to));
+      setSubmitError(closedDayCopy(locale).checkoutError(closedDay.from, closedDay.to, closedDay.date));
       return;
     }
     // Same for the peak-season capacity rule: a trip added before the rule

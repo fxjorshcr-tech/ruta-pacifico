@@ -179,7 +179,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
       {/* ─── HOLIDAY AVAILABILITY (renders only while the window is live) ─── */}
       <PeakCapacityNotice locale={locale} className="pt-10" />
 
-      {/* ─── DAY CLOSED FOR NEW BOOKINGS, EXCEPT LIR (renders until that day) ─── */}
+      {/* ─── DAYS CLOSED FOR NEW BOOKINGS, EXCEPT LIR (renders until they pass) ─── */}
       <ClosedDayNotice locale={locale} className="pt-6" />
 
       {/* ─── SERVICES ─── */}
