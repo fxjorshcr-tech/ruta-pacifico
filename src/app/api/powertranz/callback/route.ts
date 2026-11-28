@@ -4,6 +4,7 @@ import {
   parsePowertranzBody,
   completeSpiPayment,
   decideFromCallback,
+  missingCvvMessage,
   friendlyMessage,
   type PowertranzResponse,
 } from "@/lib/powertranz";
@@ -111,8 +112,11 @@ export async function POST(request: NextRequest) {
     if (cb.threeDS?.cardholderInfo) console.warn(LOG, "issuer CardholderInfo:", cb.threeDS.cardholderInfo);
     const message = decision.reason === "error"
       ? friendlyMessage("", "", undefined, locale)
-      : friendlyMessage(cb.isoResponseCode, cb.responseMessage, cb.threeDS?.authenticationStatus, locale);
-    if (row.order_id) {
+      : decision.reason === "card-data"
+        ? missingCvvMessage(locale)
+        : friendlyMessage(cb.isoResponseCode, cb.responseMessage, cb.threeDS?.authenticationStatus, locale);
+    // A missing CVV is fixed on the spot by the traveller: no email to anyone.
+    if (row.order_id && decision.reason !== "card-data") {
       after(async () => {
         await notifyPaymentFailed(db, {
           bookingId: String(row.order_id),

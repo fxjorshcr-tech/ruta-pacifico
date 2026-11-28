@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 import { checkRateLimit, getClientIP } from "@/lib/rateLimit";
-import { friendlyMessage } from "@/lib/powertranz";
+import { friendlyMessage, missingCvvMessage } from "@/lib/powertranz";
 import { confirmationPath } from "@/lib/rpBookings";
 
 /** Recovery for the checkout when the iframe's postMessage never arrived. Non-sensitive data only. */
@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
 
   const { data: row } = await getSupabaseAdmin()
     .from("powertranz_transactions")
-    .select("status, iso_response_code, response_message, three_ds_authentication_status")
+    .select("status, iso_response_code, response_message, three_ds_authentication_status, error_message")
     .eq("transaction_identifier", tx)
     .maybeSingle();
   if (!row) return NextResponse.json({ error: "Not found" }, { status: 404 });
@@ -31,7 +31,9 @@ export async function GET(request: NextRequest) {
       ? "Payment approved"
       : pending
         ? null
-        : friendlyMessage(row.iso_response_code || undefined, row.response_message || undefined, row.three_ds_authentication_status || undefined, locale),
+        : row.error_message === "card-data"
+          ? missingCvvMessage(locale)
+          : friendlyMessage(row.iso_response_code || undefined, row.response_message || undefined, row.three_ds_authentication_status || undefined, locale),
     redirectUrl: row.status === "approved" ? confirmationPath(true) : undefined,
   });
 }
