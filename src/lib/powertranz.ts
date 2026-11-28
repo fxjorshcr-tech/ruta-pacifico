@@ -451,8 +451,12 @@ export function friendlyMessage(
       ? 'Tu banco bloqueó esta tarjeta. Por favor usa otra o contacta a tu banco.'
       : 'Your bank blocked this card. Please use a different card or contact your bank.';
   }
-  // Generic issuer decline
-  if (c === '05' || c === '01' || c === '02' || c === '12' || c === '57' || c === '58' || c === '59') {
+  // Generic issuer decline. Code 25 arrives as "Issuer Decline (Refer to
+  // Issuer)": the bank holds the charge until the cardholder approves it.
+  if (
+    c === '05' || c === '01' || c === '02' || c === '12' || c === '25' || c === '57' || c === '58' || c === '59' ||
+    t.includes('ISSUER DECLINE') || t.includes('REFER TO ISSUER')
+  ) {
     return es
       ? 'Tu banco rechazó este pago. Prueba con otra tarjeta o contacta a tu banco.'
       : 'Your bank declined this payment. Please try a different card or contact your bank.';
