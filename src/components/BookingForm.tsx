@@ -26,6 +26,7 @@ import {
   isPeakCapacityNoticeActive,
   peakCapacityCopy,
 } from "@/lib/peakCapacity";
+import { closedDayCopy, isClosedDayBlocked } from "@/lib/closedDay";
 import {
   MAX_PAX,
   VEHICLE_TIERS,
@@ -126,6 +127,10 @@ export default function BookingForm({
   const peakDate = isPeakCapacityDate(date);
   const peakBlocked = isPeakCapacityBlocked(date, totalPax, selectedVehicle.maxPax);
   const peakErrorRef = useRef<HTMLParagraphElement>(null);
+  // Closed day (src/lib/closedDay.ts): no new bookings on that date unless
+  // the route starts or ends at Liberia Airport.
+  const closedDayBlocked = isClosedDayBlocked(date, route.origen, route.destino);
+  const closedDayErrorRef = useRef<HTMLParagraphElement>(null);
   // The sold-out vehicle the customer had picked before choosing a date in
   // the window. The form moves them to the open vehicle (the one we can
   // actually sell) and says so out loud, so nobody reaches checkout
@@ -152,6 +157,14 @@ export default function BookingForm({
   }, [peakBlocked]);
 
   useEffect(() => {
+    if (!closedDayBlocked) return;
+    closedDayErrorRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }, [closedDayBlocked]);
+
+  useEffect(() => {
     if (!showDateTimeError && !dateTooSoon) return;
     dateTimeErrorRef.current?.scrollIntoView({
       behavior: "smooth",
@@ -169,7 +182,7 @@ export default function BookingForm({
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (vehicleTooSmall || peakBlocked) return;
+    if (vehicleTooSmall || peakBlocked || closedDayBlocked) return;
     if (!date || !time) {
       setShowDateTimeError(true);
       return;
@@ -366,6 +379,15 @@ export default function BookingForm({
               className="mt-3 scroll-mt-24 text-xs font-medium text-red-600"
             >
               {dateTooSoon ? leadTimeMessage(locale) : t.chooseDateTime}
+            </p>
+          )}
+          {closedDayBlocked && (
+            <p
+              ref={closedDayErrorRef}
+              role="alert"
+              className="mt-3 scroll-mt-24 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-xs font-medium text-red-700"
+            >
+              {closedDayCopy(locale).formError}
             </p>
           )}
         </div>
@@ -614,7 +636,7 @@ export default function BookingForm({
             </div>
             <button
               type="submit"
-              disabled={submitting || vehicleTooSmall || peakBlocked}
+              disabled={submitting || vehicleTooSmall || peakBlocked || closedDayBlocked}
               className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gradient-to-r from-sunset-red via-sunset-orange to-sunset-gold px-10 py-4 text-base font-bold text-white shadow-lg shadow-sunset-orange/25 transition hover:shadow-xl hover:shadow-sunset-orange/40 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {submitting ? t.adding : t.addToTrip}

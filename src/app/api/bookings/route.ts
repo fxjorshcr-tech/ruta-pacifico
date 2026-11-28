@@ -7,6 +7,7 @@ import {
 } from "@/lib/bookingEmails";
 import { isPickupDateAllowed, LEAD_TIME_MESSAGE } from "@/lib/leadTime";
 import { PEAK_CAPACITY_API_MESSAGE, isPeakCapacityBlocked } from "@/lib/peakCapacity";
+import { CLOSED_DAY_API_MESSAGE, isClosedDayBlocked } from "@/lib/closedDay";
 import { getTier, isVehicleKey } from "@/lib/vehicles";
 import { repriceTrips } from "@/lib/serverPricing";
 import { registerBookingInPanel } from "@/lib/panelRegistry";
@@ -71,6 +72,19 @@ export async function POST(request: NextRequest) {
       {
         ok: false,
         error: `Pickup on ${tooSoon.date} is too soon. ${LEAD_TIME_MESSAGE}`,
+      },
+      { status: 422 },
+    );
+  }
+
+  // Closed day (src/lib/closedDay.ts): no new bookings on that date unless
+  // the trip starts or ends at Liberia Airport, whatever the UI showed.
+  const closedDay = body.trips.find((t) => isClosedDayBlocked(t.date, t.from, t.to));
+  if (closedDay) {
+    return Response.json(
+      {
+        ok: false,
+        error: `${closedDay.from} → ${closedDay.to}: ${CLOSED_DAY_API_MESSAGE}`,
       },
       { status: 422 },
     );

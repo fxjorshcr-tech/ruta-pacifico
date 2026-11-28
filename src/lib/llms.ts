@@ -25,6 +25,7 @@ import {
 import { VEHICLE_TIERS } from "@/lib/vehicles";
 import { buildDestinationHubs } from "@/lib/destinationHubs";
 import { peakCapacityLlmsSection } from "@/lib/peakCapacity";
+import { closedDayLlmsSection } from "@/lib/closedDay";
 
 /**
  * llms.txt / llms-full.txt, generated at request time (cached hourly) so the
@@ -127,6 +128,8 @@ export function buildLlmsTxt(
   const priced = routes.filter((r) => routePrices(r).length).length;
   // Holiday-peak availability block; empty once the window has passed.
   const peak = peakCapacityLlmsSection();
+  // Day closed for new bookings (src/lib/closedDay.ts); empty once it has passed.
+  const closedDay = closedDayLlmsSection();
 
   return `# Ruta Pacifico
 
@@ -166,7 +169,7 @@ ${fleetTable()}
 
 All vehicles include: air conditioning, free WiFi, cold bottled water, phone chargers, complimentary child / booster seats on request, generous luggage space.
 
-${peak ? `${peak}\n\n` : ""}## Booking lead time
+${peak ? `${peak}\n\n` : ""}${closedDay ? `${closedDay}\n\n` : ""}## Booking lead time
 
 - Same-day pickups cannot be booked online. Book before 12:00 PM Costa Rica time to travel the next day; after 12:00 PM the earliest online pickup is the day after tomorrow.
 - For urgent same-day transfers, contact the team on WhatsApp and we will try to arrange it.
@@ -226,6 +229,8 @@ export function buildLlmsFullTxt(
   });
   const hubTotal = hubDestinations.reduce((n, g) => n + g.routes.length, 0);
   const peak = peakCapacityLlmsSection();
+  // Day closed for new bookings (src/lib/closedDay.ts); empty once it has passed.
+  const closedDay = closedDayLlmsSection();
 
   return `# Ruta Pacifico — Full Context for Language Models
 
@@ -336,7 +341,7 @@ Route changes may increase or decrease the price; the difference is either charg
 
 WhatsApp-only booking is also available: ${WHATSAPP_DISPLAY}.
 
-${peak ? `${peak.replace(/^## /, "### 7.1 ")}\n\n` : ""}## 8. About Liberia International Airport (LIR)
+${peak ? `${peak.replace(/^## /, "### 7.1 ")}\n\n` : ""}${closedDay ? `${closedDay.replace(/^## /, "### 7.2 ")}\n\n` : ""}## 8. About Liberia International Airport (LIR)
 
 - **Official name:** Daniel Oduber Quirós International Airport
 - **IATA:** LIR
