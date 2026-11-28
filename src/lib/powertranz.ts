@@ -346,7 +346,24 @@ export function allowNon3DSCards(): boolean {
 
 export type CallbackDecision =
   | { proceed: true; reason: 'authenticated' | 'attempted' | 'hosted-page' | 'non-3ds-allowed' }
-  | { proceed: false; reason: 'not-authenticated' | 'not-eligible' | 'error'; message: string };
+  | { proceed: false; reason: 'not-authenticated' | 'not-eligible' | 'card-data' | 'error'; message: string };
+
+/**
+ * The hosted page was submitted without the card's security code. The gateway
+ * answers "12 Invalid transaction" with Errors 330 "Not permitted
+ * [RequireCvvForEcom]": nothing reached the bank and nothing is wrong on our
+ * side, the traveller only has to type the CVV and try again.
+ */
+export function isMissingCvvError(cb: Pick<PowertranzResponse, 'errors'>): boolean {
+  return !!cb.errors?.some((e) => /cvv/i.test(e.message));
+}
+
+/** What the traveller reads when the card went in without its CVV. */
+export function missingCvvMessage(locale: FriendlyLocale = 'en'): string {
+  return locale === 'es'
+    ? 'Falta el código de seguridad (CVV) de tu tarjeta. Ingrésalo e inténtalo de nuevo.'
+    : "Your card's security code (CVV) is missing. Please enter it and try again.";
+}
 
 /** Decide, from the MerchantResponseUrl payload, whether to call /spi/payment. */
 export function decideFromCallback(cb: PowertranzResponse): CallbackDecision {
@@ -362,6 +379,11 @@ export function decideFromCallback(cb: PowertranzResponse): CallbackDecision {
   // authenticationValue"); the bank's verification failed, so tell the
   // traveller that rather than blaming the processor.
   const authFailed = code === '3D0' && (auth === 'N' || auth === 'U' || auth === 'R');
+  // A missing CVV also arrives as an Errors[] block, but it is the traveller's
+  // input, not our configuration: ask for the code instead of raising an alert.
+  if (isMissingCvvError(cb) && !authFailed) {
+    return { proceed: false, reason: 'card-data', message: missingCvvMessage() };
+  }
   if (cb.errors && cb.errors.length > 0 && !authFailed) {
     return { proceed: false, reason: 'error', message: friendlyMessage('', '', undefined) };
   }
